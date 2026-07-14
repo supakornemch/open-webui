@@ -796,6 +796,60 @@ POST {endpoint}/knowledgebases('{name}')/retrieve?api-version=2026-04-01
 
 ---
 
+## Architecture Decisions (ADR)
+
+| # | Decision | Context |
+|---|----------|---------|
+| 1 | **Ingress** — Application Routing Gateway API (Istio) | Azure-managed ingress with TLS termination |
+| 2 | **Database** — Shared Azure PostgreSQL Flexible Server | Single PG for all services (open_webui, docwise, litellm) |
+| 3 | **Object Storage** — Azure Blob Storage | Open WebUI files, document uploads |
+| 4 | **Node Pool** — System + Workload + GPU (on-demand) | AKS node pool strategy (reference for future) |
+| 5 | **LLM Backend** — Hybrid (Azure OpenAI + Ollama) | Cloud models for production, Ollama for local dev |
+| 6 | **Platform** — Container Apps over AKS | Managed K8s less overhead for small team $100/mo budget |
+
+> 📖 Full context: `docs/adr/0001`–`0006`
+
+## Provisioning Sessions
+
+| Session | Date | Scope |
+|---------|------|-------|
+| Resource Request | 2026-07-01 | Initial Azure resource request for 2-week demo |
+| Resource Plan Final | 2026-07-02 | Verified PoC plan with cost breakdown |
+| Provisioning — Session 2 | 2026-07-02 | First round of resource provisioning |
+| Session 4 — Clean Provision | 2026-07-03 | Re-provision EnterpriseChat + DocWise |
+| Session 5 — Agentic Retrieval + MI | 2026-07-03 | KB setup, Managed Identity configuration |
+| Session 6 — Index Fix | 2026-07-03 | `content` field facetable fix, endpoint debugging |
+
+> 📖 Full notes: `docs/azure/2026-07-01`–`2026-07-03`
+
+## Deployment Specs
+
+| Doc | Scope | Status |
+|-----|-------|--------|
+| `docs/aca-deployment-spec.md` | Azure Container Apps architecture + provisioning steps | Reference (actual infra used App Service) |
+| `docs/aks-deployment-spec.md` | AKS architecture (future migration path) | Reference |
+
+## E-Expense FAQ Search
+
+E-Expense FAQ ใช้ hybrid search (BM25 + vector 3072d + semantic ranker) บน index `eexpense-faq-idx`  
+42 documents จาก 27 root questions, 11 หมวดหมู่  
+Pipeline: flatten → embed → upload → chatbot engine (state machine)
+
+> 📖 Architecture detail: `docs/eexpense-search-architecture.md`  
+> 🔗 Scripts: `scripts/flatten-eexpense-qa.py`, `scripts/ingest-eexpense-faq.py`, `scripts/eexpense-chatbot.py`
+
+## Walkthrough Presentation
+
+| File | Description |
+|------|-------------|
+| `docs/walkthrough-presentation.html` | HTML walkthrough deck (used in 2026-07-09 session) |
+| `docs/walkthrough-agenda-2026-07-09.md` | User walkthrough agenda — agenda for the live session |
+| `docs/architecture-view.html` | Visual architecture diagram (open in browser) |
+| `docs/presentations/EnterpriseChat-Chatbot-UseCases.pptx` | Chatbot use cases slide deck |
+| `docs/presentations/EnterpriseChat-Walkthrough-2026-07-09.pptx` | Walkthrough presentation |
+
+---
+
 ## Recurring Issues (quick reference)
 
 | # | Problem | Fix |
@@ -877,6 +931,78 @@ EnterpriseChat/
 | 🖼️ Screenshot / ภาพถ่าย | `screenshots/` |
 | 🎨 SVG icon / asset | `icons/` |
 ```
+
+---
+
+## Microsoft Teams App — Genie
+
+### Overview
+
+แอป **Genie (GenieHaadthipChat)** ถูก register ใน Teams Developer Portal สำหรับให้พนักงานหาดทิพย์เปิดใช้งาน Genie AI Assistant ได้โดยตรงภายใน Microsoft Teams
+
+### Configuration
+
+| Field | Value |
+|-------|-------|
+| **App Name** | GenieHaadthipChat |
+| **App ID** | `06f1c5da-92d8-421d-9839-a528508550f6` |
+| **Version** | 1.0.0 |
+| **Developer** | บริษัท หาดทิพย์ จำกัด (มหาชน) |
+| **Website** | https://www.haadthip.com |
+| **Privacy Policy** | https://www.haadthip.com/privacy-policy |
+| **Terms of Use** | https://www.haadthip.com/terms-of-use |
+| **Entra ID Client ID** | `4881351e-d1a0-4228-a084-a0d6ef717740` |
+| **SSO App ID URI** | `api://genie.haadthip.com/4881351e-d1a0-4228-a084-a0d6ef717740` |
+| **Content URL (Personal Tab)** | https://genie.haadthip.com |
+| **Valid Domains** | `genie.haadthip.com` |
+
+### Developer Portal Links
+
+| Section | URL |
+|---------|-----|
+| Dashboard | https://dev.teams.microsoft.com/apps/06f1c5da-92d8-421d-9839-a528508550f6/dashboard |
+| Branding | https://dev.teams.microsoft.com/apps/06f1c5da-92d8-421d-9839-a528508550f6/branding |
+| App Features | https://dev.teams.microsoft.com/apps/06f1c5da-92d8-421d-9839-a528508550f6/app-features |
+| Domains | https://dev.teams.microsoft.com/apps/06f1c5da-92d8-421d-9839-a528508550f6/domains |
+| Basic Info | https://dev.teams.microsoft.com/apps/06f1c5da-92d8-421d-9839-a528508550f6/details |
+| Single Sign-On | https://dev.teams.microsoft.com/apps/06f1c5da-92d8-421d-9839-a528508550f6/single-sign-on |
+| App Validation | https://dev.teams.microsoft.com/apps/06f1c5da-92d8-421d-9839-a528508550f6/validation |
+| Publish to Org | https://dev.teams.microsoft.com/apps/06f1c5da-92d8-421d-9839-a528508550f6/publish-org |
+
+### Icons
+
+| Icon | File | Size |
+|------|------|------|
+| Color Icon | `icons/haadthip-color-icon-192.png` | 192×192 px |
+| Outline Icon | `icons/haadthip-outline-icon-32.png` | 32×32 px |
+| Logo Source | `icons/haadthip-logo.svg` | SVG from Wikimedia Commons |
+| **Design** | โลโก้หาดทิพย์ (ขาว) + "Enterprise Chat" (ขาว) บนพื้นกรมท่า `#002F6C` + เส้นแดง `#ED2024` ล่างสุด |
+
+**Brand Colors:**
+| Color | Hex | Usage |
+|-------|-----|-------|
+| Navy Blue | `#002F6C` | Accent color, icon background |
+| Red | `#ED2024` | Logo accent (Coca-Cola red) |
+| Green | `#007D47` | Logo accent |
+
+### SSO Setup Note
+
+การตั้งค่า SSO ใน Teams Developer Portal (`api://genie.haadthip.com/4881351e-d1a0-4228-a084-a0d6ef717740`) ต้องไปตั้งค่าฝั่ง **Entra ID App Registration** เพิ่มด้วย:
+1. เข้าไปที่ App Registration → `4881351e-d1a0-4228-a084-a0d6ef717740`
+2. **Expose an API** → ตั้ง `Application ID URI` = `api://genie.haadthip.com/4881351e-d1a0-4228-a084-a0d6ef717740`
+3. เพิ่ม **Scope** เช่น `access_as_user` สำหรับ Teams app
+4. **Authentication** → เพิ่ม Redirect URI:
+   - `https://token.botframework.com/.auth/web/redirect` (for Bot SSO)
+   - หรือ Single-page Application URI = `https://genie.haadthip.com`
+
+### Publish Steps
+
+1. ✅ **App Validation** — รันตรวจสอบ error/warning ก่อน publish
+2. **Publish to Org** — ส่งให้ IT Admin อนุมัติผ่าน [Teams Admin Center](https://admin.teams.microsoft.com/)
+3. Admin → Teams apps → Manage apps → ค้นหา "GenieHaadthipChat" → Set to **Allowed**
+4. ผู้ใช้ติดตั้งจาก "Built for your org" ใน Teams Apps
+
+> ⚠️ Privacy/Terms URLs ปัจจุบันใช้ placeholder (`https://www.haadthip.com/privacy-policy`, `https://www.haadthip.com/terms-of-use`) — ต้องสร้างหน้า real ก่อน publish จริง
 
 ---
 

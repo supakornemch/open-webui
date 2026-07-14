@@ -41,3 +41,4 @@ data/open_webui_poc.sql
 .vscode/
 .idea/
 *.code-workspace
+data/ingestion/
