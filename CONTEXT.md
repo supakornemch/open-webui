@@ -236,6 +236,39 @@ python3 scripts/eexpense-chatbot.py
 
 > ⚠️ Container Registry (`crentchatpocsea`) และ IR resources ไม่ได้ถูก re-provision ใน Sandbox
 
+### Naming Convention
+
+> ไว้ reference สำหรับสร้าง resource ใหม่ — ชื่อต้อง consistent
+
+| หมวด | Pattern | ตัวอย่าง |
+|------|---------|---------|
+| **Resource Group** | `{RG}-{PROJECT}-{ENV}-{REGION}` | `RG-ENTCHAT-POC-SAND-SEA` |
+| **Azure Resource** | `{prefix}-{project}-{purpose}-{env}` | `srch-entchat-poc-sand`, `app-entchat-owui-poc-sand`, `psql-entchat-poc-sand`, `aif-entchat-poc-sand` |
+| **Storage Account** | `sta{project}{purpose}` (max 24 chars, flat) | `staentchatdoc` |
+| **Container Registry** | `acr{project}{env}{region}` | `acrentchatpocsand` |
+| **Private Endpoint** | `PVE-{RESOURCE}-{PROJECT}-{ENV}` | `PVE-AIF-ENTCHAT-SAND`, `PVE-SRCH-ENTCHAT-SAND` |
+| **VNet / Subnet** | `{type}-{PROJECT}-{ENV}-{REGION}` | `VNET-HTC-SANBOX-SEA`, `SNET-HTC-SANDBOX-WEB-SEA` |
+| | | |
+| **Docker Image** | `{registry}/{name}:{tag}` | `acrentchatpocsand.azurecr.io/litellm-entchat:latest` |
+| **Docker Image name** | `{purpose}-entchat` | `litellm-entchat`, `owui-entchat` (unused) |
+| | | |
+| **PostgreSQL DB** | lowercase snake_case | `open_webui`, `docwise`, `litellm` |
+| **Blob Container** | lowercase kebab-case | `haadthip-investor-relations`, `open-webui-files`, `documents` |
+| **Search Index** | `{purpose}-idx` | `haadthip-investor-relations-idx`, `eexpense-faq-idx`, `sap-docs-idx` |
+| **Data Source** | `{purpose}-ds` | `haadthip-investor-relations-ds`, `sap-docs-ds` |
+| **Skillset** | `{purpose}-skillset` | `haadthip-investor-relations-skillset`, `haadthip-public-skillset` |
+| **Indexer** | `{purpose}-idxr` | `haadthip-investor-relations-idxr`, `mihcm-hr-indexer` |
+| **Knowledge Source** | `{purpose}-ks` | `sap-docs-ks`, `ir-docs-ks` |
+| **Knowledge Base** | `{purpose}-kb` | `haadthip-kb` |
+| | | |
+| **Open WebUI Pipe** | `pipe-{corpus}-knowledge` | `pipe-haadthip-knowledge`, `pipe-sap-knowledge`, `pipe-hr-knowledge`, `pipe-eexpense-knowledge` |
+| **Open WebUI Tool** | `tool-{project}-knowledge-search` | `tool-haadthip-knowledge-search` |
+
+> 💡 `purpose` = ย่อ Corpus/Function เช่น `owui`=Open WebUI, `ir`=Investor Relations  
+> 💡 `env` = `poc` (PoC), `sand` (Sandbox), `dev`, `prod`  
+> 💡 `region` = `-sea` (Southeast Asia) ต่อท้าย resource group / resource name  
+> 💡 Storage account \& ACR ชื่อสั้นกว่าเพราะ global uniqueness constraint
+
 ### PostgreSQL
 
 | Item | Value |
