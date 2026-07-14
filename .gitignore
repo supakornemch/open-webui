@@ -42,3 +42,4 @@ data/open_webui_poc.sql
 .idea/
 *.code-workspace
 data/ingestion/
+node_modules/
