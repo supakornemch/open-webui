@@ -1,0 +1,236 @@
+- generic [active]:
+  - complementary [ref=f7e1]:
+    - generic [ref=f7e2]:
+      - navigation [ref=f7e3]:
+        - list [ref=f7e4]:
+          - listitem [ref=f7e5] [cursor=pointer]: J
+          - listitem [ref=f7e6] [cursor=pointer]: d
+          - listitem [ref=f7e7] [cursor=pointer]: f
+          - listitem [ref=f7e8] [cursor=pointer]: D
+          - listitem [ref=f7e9] [cursor=pointer]: h
+          - listitem [ref=f7e10] [cursor=pointer]: H
+      - text:   > > > >  >   
+  - generic [ref=f7e12]:
+    - generic [ref=f7e13]:
+      - generic [ref=f7e15] [cursor=pointer]: 
+      - generic:
+        - link "Company Logo" [ref=f7e17] [cursor=pointer]:
+          - /url: /home/dashboard
+          - img "Company Logo" [ref=f7e18]
+        - link [ref=f7e19] [cursor=pointer]:
+          - /url: /home/dashboard
+          - generic [ref=f7e20]: 
+        - list [ref=f7e23]:
+          - listitem [ref=f7e24]:
+            - generic:
+              - generic [ref=f7e25]:
+                - generic [ref=f7e26]: 010368 - ศุภกร เอมชนานนท์ / SUPAKORN EMCHANNON
+                - link "Edit Profile" [ref=f7e27] [cursor=pointer]:
+                  - /url: /Ess/ProfileChangeRequest
+              - generic [ref=f7e30]: 
+          - listitem [ref=f7e31]:
+            - link "n" [ref=f7e32] [cursor=pointer]:
+              - /url: "#"
+          - listitem [ref=f7e33]:
+            - link "e" [ref=f7e34] [cursor=pointer]:
+              - /url: "#"
+    - generic [ref=f7e35]:
+      - list [ref=f7e39]:
+        - listitem [ref=f7e40]
+        - listitem [ref=f7e41]:
+          - generic [ref=f7e42]:
+            - generic [ref=f7e43]:
+              - generic [ref=f7e44]:
+                - generic [ref=f7e45]: 
+                - generic [ref=f7e46]: Things To do
+              - generic [ref=f7e48]:
+                - text: T
+                - generic [ref=f7e50]:
+                  - generic [ref=f7e51]: "EImportant : You have request(s) that are due for action soon. Take action immediately."
+                  - generic [ref=f7e52]: Employee Self Service
+                  - generic [ref=f7e55]:
+                    - generic [ref=f7e56]:
+                      - generic [ref=f7e57]: "03"
+                      - text: Attendance within last 30 days to be regularized
+                    - generic [ref=f7e58] [cursor=pointer]: "]"
+                    - generic [ref=f7e59] [cursor=pointer]: Regularize
+            - text: 
+        - listitem [ref=f7e60]:
+          - generic [ref=f7e62]:
+            - generic [ref=f7e63]:
+              - generic [ref=f7e64]: 
+              - generic [ref=f7e65]: My Performance
+              - generic [ref=f7e66] [cursor=pointer]: 
+            - text:  
+            - generic [ref=f7e69]: Performance plan not started.
+          - text: 
+        - listitem [ref=f7e70]:
+          - generic [ref=f7e71]:
+            - generic [ref=f7e72]:
+              - generic [ref=f7e73]:
+                - text: 
+                - generic [ref=f7e74]: My Leave Summary
+                - generic [ref=f7e75] [cursor=pointer]: 
+              - generic [ref=f7e76]:
+                - generic [ref=f7e77]:
+                  - generic [ref=f7e78]: 
+                  - generic [ref=f7e79]: Year
+                  - text: ":"
+                - textbox "Year :" [ref=f7e80]:
+                  - /placeholder: yyyy
+                  - text: "2026"
+            - generic [ref=f7e84]:
+              - img [ref=f7e86]:
+                - generic [ref=f7e107]:
+                  - generic [ref=f7e109]:
+                    - generic "Allocation 01.ลาย่อย(ไม่เกิน 1 ชม.)/Short 0"
+                    - generic "Allocation 02.ลากิจ/Personal 3" [ref=f7e110]
+                    - generic "Allocation 03.ลาป่วย/Medical 30" [ref=f7e112]
+                    - generic "Allocation 05.หยุดพักผ่อนประจำปี/Annual 0"
+                    - generic "Allocation 06.ลาไม่ได้รับค่าจ้าง/ without pay 0"
+                    - generic "Allocation 09.ปฏิบัติงานนอกสถานที่/Work offsite 0"
+                    - generic "Allocation 11.ลาป่วยอุบัติเหตุการทำงาน /Accident from work 30" [ref=f7e114]
+                    - generic "Allocation 13.ลาเพื่อฝึกอบรม/ for Seminar 0"
+                    - generic "Allocation 14.ลาเพื่อเกณฑ์ทหาร/ military enlisting 0"
+                    - generic "Allocation 15.ลาเพื่อรับราชการทหาร/Military service 60" [ref=f7e116]
+                    - generic "Allocation 17.ลาเพื่อทำหมัน/ for sterilization 0"
+                    - generic "Allocation 23.ลาเพื่อช่วยเหลือคู่สมรสคลอดบุตร/Paternity 15" [ref=f7e118]
+                    - generic "Allocation 25.ลาเพื่อผ่าตัดแปลงเพศ 30" [ref=f7e120]
+                  - generic:
+                    - generic:
+                      - generic "Approved Leave 01.ลาย่อย(ไม่เกิน 1 ชม.)/Short 0"
+                      - generic "Approved Leave 02.ลากิจ/Personal 0"
+                      - generic "Approved Leave 03.ลาป่วย/Medical 0"
+                      - generic "Approved Leave 05.หยุดพักผ่อนประจำปี/Annual 0"
+                      - generic "Approved Leave 06.ลาไม่ได้รับค่าจ้าง/ without pay 0"
+                      - generic "Approved Leave 09.ปฏิบัติงานนอกสถานที่/Work offsite 0"
+                      - generic "Approved Leave 11.ลาป่วยอุบัติเหตุการทำงาน /Accident from work 0"
+                      - generic "Approved Leave 13.ลาเพื่อฝึกอบรม/ for Seminar 0"
+                      - generic "Approved Leave 14.ลาเพื่อเกณฑ์ทหาร/ military enlisting 0"
+                      - generic "Approved Leave 15.ลาเพื่อรับราชการทหาร/Military service 0"
+                      - generic "Approved Leave 17.ลาเพื่อทำหมัน/ for sterilization 0"
+                      - generic "Approved Leave 23.ลาเพื่อช่วยเหลือคู่สมรสคลอดบุตร/Paternity 0"
+                      - generic "Approved Leave 25.ลาเพื่อผ่าตัดแปลงเพศ 0"
+                  - generic:
+                    - generic:
+                      - generic "Pending Approval 01.ลาย่อย(ไม่เกิน 1 ชม.)/Short 0"
+                      - generic "Pending Approval 02.ลากิจ/Personal 0"
+                      - generic "Pending Approval 03.ลาป่วย/Medical 0"
+                      - generic "Pending Approval 05.หยุดพักผ่อนประจำปี/Annual 0"
+                      - generic "Pending Approval 06.ลาไม่ได้รับค่าจ้าง/ without pay 0"
+                      - generic "Pending Approval 09.ปฏิบัติงานนอกสถานที่/Work offsite 0"
+                      - generic "Pending Approval 11.ลาป่วยอุบัติเหตุการทำงาน /Accident from work 0"
+                      - generic "Pending Approval 13.ลาเพื่อฝึกอบรม/ for Seminar 0"
+                      - generic "Pending Approval 14.ลาเพื่อเกณฑ์ทหาร/ military enlisting 0"
+                      - generic "Pending Approval 15.ลาเพื่อรับราชการทหาร/Military service 0"
+                      - generic "Pending Approval 17.ลาเพื่อทำหมัน/ for sterilization 0"
+                      - generic "Pending Approval 23.ลาเพื่อช่วยเหลือคู่สมรสคลอดบุตร/Paternity 0"
+                      - generic "Pending Approval 25.ลาเพื่อผ่าตัดแปลงเพศ 0"
+                  - generic [ref=f7e123]:
+                    - generic "Balance 01.ลาย่อย(ไม่เกิน 1 ชม.)/Short 0"
+                    - generic "Balance 02.ลากิจ/Personal 3" [ref=f7e124]
+                    - generic "Balance 03.ลาป่วย/Medical 30" [ref=f7e126]
+                    - generic "Balance 05.หยุดพักผ่อนประจำปี/Annual 0"
+                    - generic "Balance 06.ลาไม่ได้รับค่าจ้าง/ without pay 0"
+                    - generic "Balance 09.ปฏิบัติงานนอกสถานที่/Work offsite 0"
+                    - generic "Balance 11.ลาป่วยอุบัติเหตุการทำงาน /Accident from work 30" [ref=f7e128]
+                    - generic "Balance 13.ลาเพื่อฝึกอบรม/ for Seminar 0"
+                    - generic "Balance 14.ลาเพื่อเกณฑ์ทหาร/ military enlisting 0"
+                    - generic "Balance 15.ลาเพื่อรับราชการทหาร/Military service 60" [ref=f7e130]
+                    - generic "Balance 17.ลาเพื่อทำหมัน/ for sterilization 0"
+                    - generic "Balance 23.ลาเพื่อช่วยเหลือคู่สมรสคลอดบุตร/Paternity 15" [ref=f7e132]
+                    - generic "Balance 25.ลาเพื่อผ่าตัดแปลงเพศ 30" [ref=f7e134]
+                - generic [ref=f7e137]:
+                  - generic [ref=f7e138]:
+                    - menuitem "Zoom chart using cursor arrows" [ref=f7e166]
+                    - menuitem "Zoom chart using cursor arrows" [ref=f7e167]
+                    - menuitem "Zoom chart using cursor arrows" [ref=f7e170]
+                  - menuitem "Zoom chart using cursor arrows" [ref=f7e177]
+                - generic [ref=f7e179]:
+                  - generic: ( Please use scrollbar to view hidden items )
+                - generic [ref=f7e180]:
+                  - generic [ref=f7e181]:
+                    - generic [ref=f7e182]: 01.ลาย่อย(ไม่เกิน 1 ชม.)/Short
+                    - generic [ref=f7e183]: 02.ลากิจ/Personal
+                    - generic [ref=f7e184]: 03.ลาป่วย/Medical
+                    - generic [ref=f7e185]: 05.หยุดพักผ่อนประจำปี/Annual
+                    - generic [ref=f7e186]: 06.ลาไม่ได้รับค่าจ้าง/ without pay
+                    - generic [ref=f7e187]: 09.ปฏิบัติงานนอกสถานที่/Work offsite
+                    - generic [ref=f7e188]: 11.ลาป่วยอุบัติเหตุการทำงาน /Accident from work
+                    - generic [ref=f7e189]: 13.ลาเพื่อฝึกอบรม/ for Seminar
+                    - generic [ref=f7e190]: 14.ลาเพื่อเกณฑ์ทหาร/ military enlisting
+                    - generic [ref=f7e191]: 15.ลาเพื่อรับราชการทหาร/Military service
+                    - generic [ref=f7e192]: 17.ลาเพื่อทำหมัน/ for sterilization
+                    - generic [ref=f7e193]: 23.ลาเพื่อช่วยเหลือคู่สมรสคลอดบุตร/Paternity
+                    - generic [ref=f7e194]: 25.ลาเพื่อผ่าตัดแปลงเพศ
+                    - generic [ref=f7e195]: Leave Types
+                  - generic [ref=f7e196]:
+                    - generic [ref=f7e197]: "0"
+                    - generic [ref=f7e198]: "10"
+                    - generic [ref=f7e199]: "20"
+                    - generic [ref=f7e200]: "30"
+                    - generic [ref=f7e201]: "40"
+                    - generic [ref=f7e202]: "50"
+                    - generic [ref=f7e203]: "60"
+                    - generic [ref=f7e204]: "70"
+                    - generic [ref=f7e205]: Days
+              - img [ref=f7e207]:
+                - generic [ref=f7e210]:
+                  - generic "Allocation" [ref=f7e211] [cursor=pointer]:
+                    - generic [ref=f7e213]: Allocation
+                  - generic "Approved Leave" [ref=f7e215] [cursor=pointer]:
+                    - generic [ref=f7e217]: Approved Leave
+                  - generic "Pending Approval" [ref=f7e219] [cursor=pointer]:
+                    - generic [ref=f7e221]: Pending Approval
+                  - generic "Balance" [ref=f7e223] [cursor=pointer]:
+                    - generic [ref=f7e225]: Balance
+        - listitem [ref=f7e227]:
+          - generic [ref=f7e228]:
+            - generic [ref=f7e229]:
+              - generic [ref=f7e230]: 
+              - generic [ref=f7e231]: My Attendance
+              - generic [ref=f7e232] [cursor=pointer]: 
+            - generic [ref=f7e234]:
+              - img [ref=f7e238]:
+                - 'generic "Absent: 100.00% 4" [ref=f7e242]'
+              - generic [ref=f7e244]:
+                - generic [ref=f7e245]: Overtime (OT) Summary
+                - generic [ref=f7e246]:
+                  - table [ref=f7e247]:
+                    - rowgroup [ref=f7e248]:
+                      - row "Overtime Rate Approved Not-Approved" [ref=f7e249]:
+                        - columnheader "Overtime Rate" [ref=f7e250]
+                        - columnheader "Approved" [ref=f7e251]
+                        - columnheader "Not-Approved" [ref=f7e252]
+                    - rowgroup [ref=f7e253]:
+                      - row "Overtime 0.00 0.00" [ref=f7e254]:
+                        - cell "Overtime" [ref=f7e255]
+                        - cell "0.00" [ref=f7e256]
+                        - cell "0.00" [ref=f7e257]
+                      - row "Double OT 0.00 0.00" [ref=f7e258]:
+                        - cell "Double OT" [ref=f7e259]
+                        - cell "0.00" [ref=f7e260]
+                        - cell "0.00" [ref=f7e261]
+                      - row "Triple OT 0.00 0.00" [ref=f7e262]:
+                        - cell "Triple OT" [ref=f7e263]
+                        - cell "0.00" [ref=f7e264]
+                        - cell "0.00" [ref=f7e265]
+                  - text: 
+        - listitem [ref=f7e266]:
+          - generic [ref=f7e268]:
+            - generic [ref=f7e269]: 
+            - generic [ref=f7e270]: Activity Feed
+        - listitem [ref=f7e272]:
+          - generic [ref=f7e274]:
+            - generic [ref=f7e275]: 
+            - generic [ref=f7e276]: Calendar
+        - listitem [ref=f7e278]:
+          - generic [ref=f7e280]:
+            - generic [ref=f7e281]: 
+            - generic [ref=f7e282]: Notice Board
+        - listitem [ref=f7e284]:
+          - generic [ref=f7e286]:
+            - generic [ref=f7e287]: 
+            - generic [ref=f7e288]: MyTrainingSummary
+      - text:           
+  - text: 

@@ -1,0 +1,324 @@
+{
+  "info": {
+    "name": "Haadthip AI Search — Agentic Retrieval",
+    "description": "Collection for querying Azure AI Search Knowledge Base (agentic retrieval) & indexes\n\n## Variables\n- `search_endpoint`: `https://srch-entchat-poc-sand.search.windows.net`\n- `api_key`: admin key (get with `az search admin-key show ...`)\n- Resource Group: `RG-ENTCHAT-POC-SAND-SEA`\n- Subscription: `SUB-HTC-SANDBOX-DC` (`82f65db7-e209-4eb1-98fe-3e56bc45607a`)\n\n## หมายเหตุ\n- API `2026-04-01` (GA) → response เป็น JSON Array `[{ref_id, title, content}]` — client ต้อง format เอง\n- API `2026-05-01-preview` รองรับ `answerSynthesis` แต่ model endpoint ใช้ไม่ได้ใน SEA region",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "search_endpoint", "value": "https://srch-entchat-poc-sand.search.windows.net", "type": "string" },
+    { "key": "api_key", "value": "", "type": "string" },
+    { "key": "kb_name", "value": "haadthip-kb", "type": "string" },
+    { "key": "ks_name", "value": "haadthip-ks", "type": "string" },
+    { "key": "sap_ks_name", "value": "sap-docs-ks", "type": "string" },
+    { "key": "index_name", "value": "haadthip-public-idx-v2", "type": "string" },
+    { "key": "sap_index_name", "value": "sap-docs-idx", "type": "string" }
+  ],
+  "item": [
+    {
+      "name": "🔹 KB Retrieve — ค้นหาทั่วไป (อังกฤษ)",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" },
+          { "key": "api-key", "value": "{{api_key}}" }
+        ],
+        "url": {
+          "raw": "{{search_endpoint}}/knowledgebases('{{kb_name}}')/retrieve?api-version=2026-04-01",
+          "host": ["{{search_endpoint}}"],
+          "path": ["knowledgebases('{{kb_name}}')", "retrieve"],
+          "query": [{ "key": "api-version", "value": "2026-04-01" }]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"intents\": [{\"search\": \"What is Haadthip company?\", \"type\": \"semantic\"}],\n    \"knowledgeSourceParams\": [{\"knowledgeSourceName\": \"{{ks_name}}\", \"kind\": \"searchIndex\"}],\n    \"maxOutputSizeInTokens\": 5000\n}"
+        }
+      }
+    },
+    {
+      "name": "🔹 KB Retrieve — SAP วิธีดึงลูกหนี้",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" },
+          { "key": "api-key", "value": "{{api_key}}" }
+        ],
+        "url": {
+          "raw": "{{search_endpoint}}/knowledgebases('{{kb_name}}')/retrieve?api-version=2026-04-01",
+          "host": ["{{search_endpoint}}"],
+          "path": ["knowledgebases('{{kb_name}}')", "retrieve"],
+          "query": [{ "key": "api-version", "value": "2026-04-01" }]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"intents\": [{\"search\": \"วิธีดึงข้อมูลลูกหนี้จาก SAP\", \"type\": \"semantic\"}],\n    \"knowledgeSourceParams\": [\n        {\"knowledgeSourceName\": \"{{sap_ks_name}}\", \"kind\": \"searchIndex\"}\n    ],\n    \"maxOutputSizeInTokens\": 5000\n}"
+        }
+      }
+    },
+    {
+      "name": "🔹 KB Retrieve — ค้นหาทุก index (ภาษาไทย)",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" },
+          { "key": "api-key", "value": "{{api_key}}" }
+        ],
+        "url": {
+          "raw": "{{search_endpoint}}/knowledgebases('{{kb_name}}')/retrieve?api-version=2026-04-01",
+          "host": ["{{search_endpoint}}"],
+          "path": ["knowledgebases('{{kb_name}}')", "retrieve"],
+          "query": [{ "key": "api-version", "value": "2026-04-01" }]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"intents\": [{\"search\": \"หาดทิพย์คือบริษัทอะไร มีสินค้าอะไรบ้าง\", \"type\": \"semantic\"}],\n    \"knowledgeSourceParams\": [\n        {\"knowledgeSourceName\": \"{{ks_name}}\", \"kind\": \"searchIndex\"},\n        {\"knowledgeSourceName\": \"{{sap_ks_name}}\", \"kind\": \"searchIndex\"}\n    ],\n    \"maxOutputSizeInTokens\": 5000\n}"
+        }
+      }
+    },
+    {
+      "name": "🔹 KB Retrieve — SAP สอบถาม Tcode",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" },
+          { "key": "api-key", "value": "{{api_key}}" }
+        ],
+        "url": {
+          "raw": "{{search_endpoint}}/knowledgebases('{{kb_name}}')/retrieve?api-version=2026-04-01",
+          "host": ["{{search_endpoint}}"],
+          "path": ["knowledgebases('{{kb_name}}')", "retrieve"],
+          "query": [{ "key": "api-version", "value": "2026-04-01" }]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"intents\": [{\"search\": \"SAP Tcode mb52 stock report\", \"type\": \"semantic\"}],\n    \"knowledgeSourceParams\": [\n        {\"knowledgeSourceName\": \"{{sap_ks_name}}\", \"kind\": \"searchIndex\"}\n    ],\n    \"maxOutputSizeInTokens\": 5000\n}"
+        }
+      }
+    },
+    {
+      "name": "🔹 KB Retrieve — สอบถามวันหยุด/สิทธิ์พนักงาน",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" },
+          { "key": "api-key", "value": "{{api_key}}" }
+        ],
+        "url": {
+          "raw": "{{search_endpoint}}/knowledgebases('{{kb_name}}')/retrieve?api-version=2026-04-01",
+          "host": ["{{search_endpoint}}"],
+          "path": ["knowledgebases('{{kb_name}}')", "retrieve"],
+          "query": [{ "key": "api-version", "value": "2026-04-01" }]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"intents\": [{\"search\": \"ได้วันหยุดกี่วัน\", \"type\": \"semantic\"}],\n    \"knowledgeSourceParams\": [\n        {\"knowledgeSourceName\": \"{{ks_name}}\", \"kind\": \"searchIndex\"},\n        {\"knowledgeSourceName\": \"{{sap_ks_name}}\", \"kind\": \"searchIndex\"}\n    ],\n    \"maxOutputSizeInTokens\": 5000\n}"
+        }
+      }
+    },
+    {
+      "name": "📋 ตรวจสอบ KB Config",
+      "request": {
+        "method": "GET",
+        "header": [
+          { "key": "api-key", "value": "{{api_key}}" }
+        ],
+        "url": {
+          "raw": "{{search_endpoint}}/knowledgebases('{{kb_name}}')?api-version=2026-04-01",
+          "host": ["{{search_endpoint}}"],
+          "path": ["knowledgebases('{{kb_name}}')"],
+          "query": [{ "key": "api-version", "value": "2026-04-01" }]
+        }
+      }
+    },
+    {
+      "name": "📋 ตรวจสอบ Knowledge Source (haadthip-ks)",
+      "request": {
+        "method": "GET",
+        "header": [
+          { "key": "api-key", "value": "{{api_key}}" }
+        ],
+        "url": {
+          "raw": "{{search_endpoint}}/knowledgesources('{{ks_name}}')?api-version=2026-04-01",
+          "host": ["{{search_endpoint}}"],
+          "path": ["knowledgesources('{{ks_name}}')"],
+          "query": [{ "key": "api-version", "value": "2026-04-01" }]
+        }
+      }
+    },
+    {
+      "name": "📋 ตรวจสอบ Knowledge Source (sap-docs-ks)",
+      "request": {
+        "method": "GET",
+        "header": [
+          { "key": "api-key", "value": "{{api_key}}" }
+        ],
+        "url": {
+          "raw": "{{search_endpoint}}/knowledgesources('{{sap_ks_name}}')?api-version=2026-04-01",
+          "host": ["{{search_endpoint}}"],
+          "path": ["knowledgesources('{{sap_ks_name}}')"],
+          "query": [{ "key": "api-version", "value": "2026-04-01" }]
+        }
+      }
+    },
+    {
+      "name": "📋 รายการ Knowledge Sources ทั้งหมด",
+      "request": {
+        "method": "GET",
+        "header": [
+          { "key": "api-key", "value": "{{api_key}}" }
+        ],
+        "url": {
+          "raw": "{{search_endpoint}}/knowledgesources?$top=1000&$count=true&api-version=2026-04-01",
+          "host": ["{{search_endpoint}}"],
+          "path": ["knowledgesources"],
+          "query": [
+            { "key": "$top", "value": "1000" },
+            { "key": "$count", "value": "true" },
+            { "key": "api-version", "value": "2026-04-01" }
+          ]
+        }
+      }
+    },
+    {
+      "name": "🔎 ค้นหา Direct — เอกสารทั่วไป",
+      "request": {
+        "method": "GET",
+        "header": [
+          { "key": "api-key", "value": "{{api_key}}" }
+        ],
+        "url": {
+          "raw": "{{search_endpoint}}/indexes/{{index_name}}/docs?api-version=2024-07-01&search=Haadthip&$top=5&$select=metadata_storage_name&$count=true",
+          "host": ["{{search_endpoint}}"],
+          "path": ["indexes", "{{index_name}}", "docs"],
+          "query": [
+            { "key": "api-version", "value": "2024-07-01" },
+            { "key": "search", "value": "Haadthip" },
+            { "key": "$top", "value": "5" },
+            { "key": "$select", "value": "metadata_storage_name" },
+            { "key": "$count", "value": "true" }
+          ]
+        }
+      }
+    },
+    {
+      "name": "🔎 ค้นหา Direct — เอกสาร SAP",
+      "request": {
+        "method": "GET",
+        "header": [
+          { "key": "api-key", "value": "{{api_key}}" }
+        ],
+        "url": {
+          "raw": "{{search_endpoint}}/indexes/{{sap_index_name}}/docs?api-version=2024-07-01&search=SAP&$top=10&$select=metadata_storage_name&$count=true",
+          "host": ["{{search_endpoint}}"],
+          "path": ["indexes", "{{sap_index_name}}", "docs"],
+          "query": [
+            { "key": "api-version", "value": "2024-07-01" },
+            { "key": "search", "value": "SAP" },
+            { "key": "$top", "value": "10" },
+            { "key": "$select", "value": "metadata_storage_name" },
+            { "key": "$count", "value": "true" }
+          ]
+        }
+      }
+    },
+    {
+      "name": "📊 นับจำนวนเอกสาร — General",
+      "request": {
+        "method": "GET",
+        "header": [
+          { "key": "api-key", "value": "{{api_key}}" }
+        ],
+        "url": {
+          "raw": "{{search_endpoint}}/indexes/{{index_name}}/docs/$count?api-version=2024-07-01",
+          "host": ["{{search_endpoint}}"],
+          "path": ["indexes", "{{index_name}}", "docs", "$count"],
+          "query": [{ "key": "api-version", "value": "2024-07-01" }]
+        }
+      }
+    },
+    {
+      "name": "📊 นับจำนวนเอกสาร — SAP",
+      "request": {
+        "method": "GET",
+        "header": [
+          { "key": "api-key", "value": "{{api_key}}" }
+        ],
+        "url": {
+          "raw": "{{search_endpoint}}/indexes/{{sap_index_name}}/docs/$count?api-version=2024-07-01",
+          "host": ["{{search_endpoint}}"],
+          "path": ["indexes", "{{sap_index_name}}", "docs", "$count"],
+          "query": [{ "key": "api-version", "value": "2024-07-01" }]
+        }
+      }
+    },
+    {
+      "name": "📊 รายชื่อเอกสารทั้งหมด — General",
+      "request": {
+        "method": "GET",
+        "header": [
+          { "key": "api-key", "value": "{{api_key}}" }
+        ],
+        "url": {
+          "raw": "{{search_endpoint}}/indexes/{{index_name}}/docs?api-version=2024-07-01&search=*&$top=50&$select=metadata_storage_name",
+          "host": ["{{search_endpoint}}"],
+          "path": ["indexes", "{{index_name}}", "docs"],
+          "query": [
+            { "key": "api-version", "value": "2024-07-01" },
+            { "key": "search", "value": "*" },
+            { "key": "$top", "value": "50" },
+            { "key": "$select", "value": "metadata_storage_name" }
+          ]
+        }
+      }
+    },
+    {
+      "name": "📊 รายชื่อเอกสารทั้งหมด — SAP",
+      "request": {
+        "method": "GET",
+        "header": [
+          { "key": "api-key", "value": "{{api_key}}" }
+        ],
+        "url": {
+          "raw": "{{search_endpoint}}/indexes/{{sap_index_name}}/docs?api-version=2024-07-01&search=*&$top=50&$select=metadata_storage_name",
+          "host": ["{{search_endpoint}}"],
+          "path": ["indexes", "{{sap_index_name}}", "docs"],
+          "query": [
+            { "key": "api-version", "value": "2024-07-01" },
+            { "key": "search", "value": "*" },
+            { "key": "$top", "value": "50" },
+            { "key": "$select", "value": "metadata_storage_name" }
+          ]
+        }
+      }
+    },
+    {
+      "name": "⚠️ สถานะ Indexer — General",
+      "request": {
+        "method": "GET",
+        "header": [
+          { "key": "api-key", "value": "{{api_key}}" }
+        ],
+        "url": {
+          "raw": "{{search_endpoint}}/indexers/haadthip-public-idxr-v2/status?api-version=2024-07-01",
+          "host": ["{{search_endpoint}}"],
+          "path": ["indexers", "haadthip-public-idxr-v2", "status"],
+          "query": [{ "key": "api-version", "value": "2024-07-01" }]
+        }
+      }
+    },
+    {
+      "name": "⚠️ สถานะ Indexer — SAP",
+      "request": {
+        "method": "GET",
+        "header": [
+          { "key": "api-key", "value": "{{api_key}}" }
+        ],
+        "url": {
+          "raw": "{{search_endpoint}}/indexers/sap-docs-idxr/status?api-version=2024-07-01",
+          "host": ["{{search_endpoint}}"],
+          "path": ["indexers", "sap-docs-idxr", "status"],
+          "query": [{ "key": "api-version", "value": "2024-07-01" }]
+        }
+      }
+    }
+  ]
+}

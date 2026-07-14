@@ -1,0 +1,69 @@
+# EnterpriseChat — Full Local POC Stack
+# Open WebUI + LiteLLM (Azure Foundry proxy)
+#
+# Usage:
+#   export AZURE_API_KEY="your-azure-foundry-key"
+#   docker compose -f config/docker-compose.full.yml up -d
+#
+# Services:
+#   Open WebUI:  http://localhost:3000
+#   LiteLLM API: http://localhost:4000
+#   LiteLLM UI:  http://localhost:4000/ui
+
+services:
+  # ============================================================
+  # Open WebUI — Chat Interface
+  # ============================================================
+  open-webui:
+    image: ghcr.io/open-webui/open-webui:main
+    container_name: open-webui-local
+    ports:
+      - "3000:8080"
+    volumes:
+      # Bind mount to local filesystem (avoids Docker VM disk limit on macOS)
+      - ../data/open-webui:/app/backend/data
+    environment:
+      # Point to LiteLLM proxy (internal Docker network)
+      - OPENAI_API_BASE_URL=http://litellm:4000/v1
+      - OPENAI_API_KEY=${LITELLM_MASTER_KEY:-sk-litellm-poc-master-key}
+    depends_on:
+      litellm:
+        condition: service_started
+    restart: unless-stopped
+    networks:
+      - entchat-net
+
+  # ============================================================
+  # LiteLLM — LLM Proxy for Token Tracking & Cost Monitoring
+  # ============================================================
+  litellm:
+    build:
+      context: .
+      dockerfile: Dockerfile.litellm
+    image: litellm-entchat:latest
+    container_name: litellm-poc
+    ports:
+      - "4000:4000"
+    volumes:
+      - ./litellm_config.yaml:/app/config.yaml:ro
+    environment:
+      - AZURE_API_KEY=${AZURE_API_KEY}
+      - AZURE_API_BASE=${AZURE_API_BASE:-https://aif-entchat-poc-sand.cognitiveservices.azure.com}
+      - LITELLM_MASTER_KEY=${LITELLM_MASTER_KEY:-sk-litellm-poc-master-key}
+      # DB (Azure PG) — required for model persistence, token tracking, vector store
+      - DATABASE_URL=${DATABASE_URL}
+      # Azure AI Search — for vector store registry
+      - AZURE_SEARCH_API_KEY=${AZURE_SEARCH_API_KEY}
+      - AZURE_SEARCH_SERVICE_NAME=${AZURE_SEARCH_SERVICE_NAME:-srch-entchat-poc-sand}
+    command:
+      - "--config"
+      - "/app/config.yaml"
+      - "--port"
+      - "4000"
+    restart: unless-stopped
+    networks:
+      - entchat-net
+
+networks:
+  entchat-net:
+    driver: bridge

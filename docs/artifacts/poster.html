@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Structural Poetics</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,200;14..32,300;14..32,400&family=JetBrains+Mono:wght@200;300;400&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #1c1a19;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 2rem;
+  }
+
+  .poster {
+    width: 680px;
+    height: 960px;
+    background: linear-gradient(175deg, #f6f2eb 0%, #f0eae0 30%, #ede6db 100%);
+    position: relative;
+    overflow: hidden;
+    box-shadow:
+      0 24px 80px rgba(0,0,0,0.45),
+      0 0 0 1px rgba(0,0,0,0.06),
+      inset 0 0 200px rgba(180,160,140,0.04);
+  }
+
+  /* ── Paper grain texture ── */
+  .poster::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    opacity: 0.04;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.5'/%3E%3C/svg%3E");
+    background-size: 200px 200px;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  /* ── Grid foundation ── */
+  .grid-layer {
+    position: absolute;
+    inset: -24px;
+    opacity: 0.045;
+    background-image:
+      linear-gradient(#2c2822 1px, transparent 1px),
+      linear-gradient(90deg, #2c2822 1px, transparent 1px);
+    background-size: 28px 28px;
+    background-position: 14px 14px;
+    z-index: 0;
+  }
+
+  /* ── Secondary dot grid ── */
+  .dot-grid {
+    position: absolute;
+    inset: 0;
+    opacity: 0.025;
+    background-image: radial-gradient(circle, #2c2822 0.6px, transparent 0.6px);
+    background-size: 14px 14px;
+    z-index: 0;
+  }
+
+  /* ── Concentric rings — top left ── */
+  .rings {
+    position: absolute;
+    top: -160px;
+    left: -120px;
+    width: 560px;
+    height: 560px;
+    z-index: 2;
+  }
+  .ring {
+    position: absolute;
+    border-radius: 50%;
+    border: 0.4px solid rgba(44,40,34,0.13);
+    inset: 0;
+  }
+  .ring:nth-child(1) { transform: scale(1); }
+  .ring:nth-child(2) { transform: scale(0.81); border-color: rgba(44,40,34,0.10); }
+  .ring:nth-child(3) { transform: scale(0.64); }
+  .ring:nth-child(4) { transform: scale(0.49); border-color: rgba(44,40,34,0.10); }
+  .ring:nth-child(5) { transform: scale(0.35); }
+  .ring:nth-child(6) { transform: scale(0.22); border-color: rgba(44,40,34,0.08); }
+  .ring:nth-child(7) { transform: scale(0.10); }
+
+  /* ── Ray lines from rings ── */
+  .ray {
+    position: absolute;
+    top: 120px;
+    left: 160px;
+    width: 300px;
+    height: 1px;
+    background: rgba(44,40,34,0.06);
+    transform-origin: left center;
+    z-index: 1;
+  }
+
+  /* ── Accent block — burnt terracotta ── */
+  .accent-block {
+    position: absolute;
+    top: 370px;
+    right: 0;
+    width: 148px;
+    height: 190px;
+    background: linear-gradient(180deg, #c46a47 0%, #b55a38 100%);
+    opacity: 0.78;
+    z-index: 3;
+  }
+  .accent-stripe {
+    position: absolute;
+    top: 370px;
+    right: 148px;
+    width: 3px;
+    height: 190px;
+    background: #c46a47;
+    opacity: 0.35;
+    z-index: 3;
+  }
+  .accent-stripe-2 {
+    position: absolute;
+    top: 370px;
+    right: 158px;
+    width: 0.5px;
+    height: 190px;
+    background: #2c2822;
+    opacity: 0.2;
+    z-index: 3;
+  }
+
+  /* ── Vertical rhythm bars — left side ── */
+  .rhythm-bars {
+    position: absolute;
+    left: 48px;
+    top: 260px;
+    display: flex;
+    gap: 11px;
+    align-items: flex-end;
+    height: 220px;
+    z-index: 2;
+  }
+  .rhythm-bar {
+    width: 2.5px;
+    background: #3a3530;
+    border-radius: 1.25px;
+    opacity: 0.45;
+    transition: none;
+  }
+
+  /* ── Rule sets ── */
+  .rule-set {
+    position: absolute;
+    left: 48px;
+    right: 48px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    z-index: 3;
+  }
+  .rule-set.top-rules { top: 64px; }
+  .rule-set.bottom-rules { bottom: 48px; }
+  .rule-line {
+    height: 0.4px;
+    background: #3a3530;
+    opacity: 0.28;
+  }
+  .rule-line.accent {
+    opacity: 0.55;
+    height: 0.7px;
+  }
+
+  /* ── Thin vertical rule left ── */
+  .left-rule {
+    position: absolute;
+    top: 64px;
+    bottom: 48px;
+    left: 40px;
+    width: 0.4px;
+    background: #3a3530;
+    opacity: 0.15;
+    z-index: 1;
+  }
+
+  /* ── Typography ── */
+  .title-group {
+    position: absolute;
+    top: 100px;
+    left: 56px;
+    right: 170px;
+    z-index: 4;
+  }
+  .title-overline {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 7.5px;
+    font-weight: 300;
+    letter-spacing: 3.5px;
+    color: #9a8e80;
+    text-transform: uppercase;
+    margin-bottom: 18px;
+  }
+  .title-main {
+    font-family: 'Inter', sans-serif;
+    font-size: 56px;
+    font-weight: 200;
+    letter-spacing: -2px;
+    line-height: 1.02;
+    color: #2a2520;
+  }
+  .title-main em {
+    font-style: normal;
+    color: #c46a47;
+    font-weight: 300;
+    letter-spacing: -1.5px;
+  }
+
+  .body-text {
+    position: absolute;
+    top: 490px;
+    left: 56px;
+    right: 210px;
+    font-family: 'Inter', sans-serif;
+    font-size: 10px;
+    font-weight: 300;
+    line-height: 2;
+    color: #7a6f62;
+    letter-spacing: 0.15px;
+    z-index: 4;
+  }
+
+  /* ── Marginalia ── */
+  .marginalia {
+    position: absolute;
+    right: 28px;
+    top: 100px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 7px;
+    font-weight: 200;
+    letter-spacing: 2px;
+    color: #a3988c;
+    text-transform: uppercase;
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    opacity: 0.5;
+    height: 270px;
+    z-index: 2;
+  }
+
+  .coordinates {
+    position: absolute;
+    left: 56px;
+    bottom: 28px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 7px;
+    font-weight: 300;
+    letter-spacing: 2.5px;
+    color: #a3988c;
+    opacity: 0.4;
+    z-index: 4;
+  }
+  .coordinates::after {
+    content: '';
+    display: inline-block;
+    width: 48px;
+    height: 0.4px;
+    background: #a3988c;
+    margin-left: 10px;
+    vertical-align: middle;
+    opacity: 0.4;
+  }
+
+  .footer-label {
+    position: absolute;
+    right: 56px;
+    bottom: 28px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 7px;
+    font-weight: 300;
+    letter-spacing: 2.5px;
+    color: #a3988c;
+    opacity: 0.4;
+    text-align: right;
+    z-index: 4;
+  }
+
+  /* ── Geometric accents ── */
+  .geo-diamond {
+    position: absolute;
+    top: 318px;
+    left: 58%;
+    width: 16px;
+    height: 16px;
+    background: #c46a47;
+    transform: rotate(45deg);
+    opacity: 0.35;
+    z-index: 3;
+  }
+  .geo-diamond-sm {
+    position: absolute;
+    top: 332px;
+    left: 57%;
+    width: 8px;
+    height: 8px;
+    background: #c46a47;
+    transform: rotate(45deg);
+    opacity: 0.2;
+    z-index: 3;
+  }
+
+  .geo-circle-outer {
+    position: absolute;
+    bottom: 170px;
+    right: 54px;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 0.4px solid #3a3530;
+    opacity: 0.2;
+    z-index: 2;
+  }
+  .geo-circle-inner {
+    position: absolute;
+    bottom: 180px;
+    right: 64px;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: #3a3530;
+    opacity: 0.08;
+    z-index: 2;
+  }
+
+  /* ── Number column ── */
+  .num-col {
+    position: absolute;
+    right: 56px;
+    top: 410px;
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 6.5px;
+    font-weight: 200;
+    color: #a3988c;
+    opacity: 0.3;
+    text-align: right;
+    z-index: 3;
+  }
+
+  /* ── Corner mark ── */
+  .corner-mark {
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    z-index: 3;
+    opacity: 0.25;
+  }
+  .corner-mark.tl { top: 48px; left: 48px; border-top: 0.5px solid #3a3530; border-left: 0.5px solid #3a3530; }
+  .corner-mark.br { bottom: 36px; right: 48px; border-bottom: 0.5px solid #3a3530; border-right: 0.5px solid #3a3530; }
+
+  /* ── Dot field ── */
+  .dot-field {
+    position: absolute;
+    bottom: 72px;
+    left: 56px;
+    right: 170px;
+    height: 310px;
+    display: grid;
+    grid-template-columns: repeat(14, 1fr);
+    grid-template-rows: repeat(10, 1fr);
+    gap: 0;
+    z-index: 2;
+  }
+  .dot-field span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #5a5148;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 6px;
+    font-weight: 200;
+    letter-spacing: -0.2px;
+    transition: none;
+  }
+</style>
+</head>
+<body>
+
+<div class="poster">
+
+  <!-- Paper texture -->
+  <div style="position:absolute;inset:0;z-index:1;pointer-events:none;opacity:0.03;
+    background-image:url('data:image/svg+xml,%3Csvg viewBox=%270 0 256 256%27 xmlns=%27http://www.w3.org/2000/svg%27%3E%3Cfilter id=%27noise%27%3E%3CfeTurbulence type=%27fractalNoise%27 baseFrequency=%270.9%27 numOctaves=%274%27 stitchTiles=%27stitch%27/%3E%3C/filter%3E%3Crect width=%27100%25%27 height=%27100%25%27 filter=%27url(%28noise%29%27 opacity=%270.5%27/%3E%3C/svg%3E');
+    background-size:200px 200px;"></div>
+
+  <!-- Grid foundation -->
+  <div class="grid-layer"></div>
+  <div class="dot-grid"></div>
+
+  <!-- Corner marks -->
+  <div class="corner-mark tl"></div>
+  <div class="corner-mark br"></div>
+
+  <!-- Left thin rule -->
+  <div class="left-rule"></div>
+
+  <!-- Top rules -->
+  <div class="rule-set top-rules">
+    <div class="rule-line accent"></div>
+    <div class="rule-line"></div>
+    <div class="rule-line"></div>
+    <div class="rule-line"></div>
+  </div>
+
+  <!-- Bottom rules -->
+  <div class="rule-set bottom-rules">
+    <div class="rule-line"></div>
+    <div class="rule-line"></div>
+    <div class="rule-line"></div>
+    <div class="rule-line accent"></div>
+  </div>
+
+  <!-- Concentric rings -->
+  <div class="rings">
+    <div class="ring"></div>
+    <div class="ring"></div>
+    <div class="ring"></div>
+    <div class="ring"></div>
+    <div class="ring"></div>
+    <div class="ring"></div>
+    <div class="ring"></div>
+  </div>
+
+  <!-- Ray lines from ring center -->
+  <div class="ray" style="transform:rotate(-15deg)"></div>
+  <div class="ray" style="transform:rotate(-5deg);opacity:0.45"></div>
+  <div class="ray" style="transform:rotate(10deg);opacity:0.5"></div>
+
+  <!-- Rhythm bars -->
+  <div class="rhythm-bars">
+    <div class="rhythm-bar" style="height:150px"></div>
+    <div class="rhythm-bar" style="height:95px;opacity:0.3"></div>
+    <div class="rhythm-bar" style="height:195px"></div>
+    <div class="rhythm-bar" style="height:65px;opacity:0.25"></div>
+    <div class="rhythm-bar" style="height:170px"></div>
+    <div class="rhythm-bar" style="height:110px;opacity:0.35"></div>
+    <div class="rhythm-bar" style="height:80px"></div>
+    <div class="rhythm-bar" style="height:210px;opacity:0.5"></div>
+    <div class="rhythm-bar" style="height:140px;opacity:0.3"></div>
+  </div>
+
+  <!-- Accent block + stripes -->
+  <div class="accent-block"></div>
+  <div class="accent-stripe"></div>
+  <div class="accent-stripe-2"></div>
+
+  <!-- Title -->
+  <div class="title-group">
+    <div class="title-overline">Design Philosophy · 001</div>
+    <div class="title-main">Structural<br><em>Poetics</em></div>
+  </div>
+
+  <!-- Marginalia -->
+  <div class="marginalia">FORM · SPACE · RHYTHM · SILENCE · CRAFT</div>
+
+  <!-- Body text -->
+  <div class="body-text">
+    Where systematic precision meets quiet warmth — an aesthetic of grids that breathe, geometry that feels, order that invites contemplation. Every element earns its place through spatial negotiation, every mark the product of painstaking attention.
+  </div>
+
+  <!-- Dot field -->
+  <div class="dot-field" id="dotField"></div>
+
+  <!-- Geometric accents -->
+  <div class="geo-diamond"></div>
+  <div class="geo-diamond-sm"></div>
+  <div class="geo-circle-outer"></div>
+  <div class="geo-circle-inner"></div>
+
+  <!-- Number column -->
+  <div class="num-col">
+    <span>24° 07′ N</span>
+    <span>—</span>
+    <span>102° 51′ E</span>
+    <span>—</span>
+    <span>△ 184m</span>
+    <span>—</span>
+    <span>REF / K4</span>
+  </div>
+
+  <!-- Coordinates -->
+  <div class="coordinates">47.3769° N · 8.5417° E</div>
+
+  <!-- Footer -->
+  <div class="footer-label">Structural Poetics · MMXXVI</div>
+
+</div>
+
+<script>
+const dotField = document.getElementById('dotField');
+const rows = 10;
+const cols = 14;
+
+// Density map — organic center-weighted distribution
+const density = [
+  [0,0,0,1,1,2,2,2,2,1,1,0,0,0],
+  [0,0,1,2,3,4,4,4,4,3,2,1,0,0],
+  [0,1,2,3,5,6,7,7,6,5,3,2,1,0],
+  [0,1,3,5,7,8,9,9,8,7,5,3,1,0],
+  [0,2,4,6,8,10,11,11,10,8,6,4,2,0],
+  [0,2,4,7,9,11,12,12,11,9,7,4,2,0],
+  [0,2,4,6,8,10,11,11,10,8,6,4,2,0],
+  [0,1,3,5,7,8,9,9,8,7,5,3,1,0],
+  [0,1,2,3,5,6,7,7,6,5,3,2,1,0],
+  [0,0,1,2,3,4,4,4,4,3,2,1,0,0],
+];
+
+const glyphs = ['·','·','·','·','·','·','∘','∘','•','•','·','·','∘'];
+
+for (let r = 0; r < rows; r++) {
+  for (let c = 0; c < cols; c++) {
+    const span = document.createElement('span');
+    const d = density[r][c];
+    const threshold = d / 13;
+    if (d === 0 || Math.random() > threshold) {
+      span.style.opacity = '0';
+    } else {
+      span.textContent = glyphs[Math.floor(Math.random() * glyphs.length)];
+      const variance = 0.2 + (Math.random() * 0.3);
+      span.style.opacity = Math.min(0.55, threshold * 1.2 + variance);
+    }
+    dotField.appendChild(span);
+  }
+}
+</script>
+
+</body>
+</html>

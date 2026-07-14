@@ -1,0 +1,31 @@
+# Open WebUI — Local Docker Setup
+# Connects to LiteLLM proxy at localhost:4000 for Azure Foundry models
+#
+# Usage:
+#   docker compose -f config/docker-compose.openwebui.yml up -d
+#
+# Open WebUI:    http://localhost:3000
+# LiteLLM:       http://localhost:4000 (start separately)
+
+services:
+  open-webui:
+    image: ghcr.io/open-webui/open-webui:main
+    container_name: open-webui-local
+    ports:
+      - "3000:8080"
+    volumes:
+      # Bind mount to local filesystem (avoids Docker VM disk limit on macOS)
+      - ../data/open-webui:/app/backend/data
+    environment:
+      # ---- LiteLLM as the OpenAI provider ----
+      - OPENAI_API_BASE_URL=http://host.docker.internal:4000/v1
+      - OPENAI_API_KEY=sk-litellm-poc-master-key
+      # ---- Or connect directly to Azure Foundry ----
+      # - OPENAI_API_BASE_URL=https://aif-entchat-poc-sand.cognitiveservices.azure.com/openai/v1
+      # - OPENAI_API_KEY=${AZURE_API_KEY}
+      # ---- Optional: Use dev branch for API outlet filter support ----
+      # (uncomment to switch image)
+    restart: unless-stopped
+
+volumes:
+  open-webui-data:

@@ -1,0 +1,43 @@
+# ── Python ──
+__pycache__/
+*.py[cod]
+*.egg-info/
+*.egg
+
+# ── Environment ──
+.env
+.env.*
+!.env.example
+venv/
+.venv/
+
+# ── OS ──
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+
+# ── Local config / agent runtime ──
+.zcode/
+.agents/
+.zcode-*
+
+# ── Test artifacts ──
+.playwright-mcp/
+
+# ── Open WebUI local data ──
+data/open-webui/cache/
+data/open-webui/uploads/
+data/open-webui/vector_db/
+data/open-webui/webui.db*
+data/open-webui/webui.db-shm
+data/open-webui/webui.db-wal
+
+# ── POC exports (regenerable) ──
+data/open_webui_poc.dump
+data/open_webui_poc.sql
+
+# ── IDE ──
+.vscode/
+.idea/
+*.code-workspace
