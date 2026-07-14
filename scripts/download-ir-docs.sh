@@ -9,7 +9,7 @@
 
 set -e
 
-BASE_DIR="/Users/supakorn.emch/Workspace/Haadthip/EnterpriseChat/documents/haadthip-ir"
+BASE_DIR="/Users/supakorn.emch/Workspace/Haadthip/EnterpriseChat/documents/haadthip-investor-relations"
 ANNUAL_DIR="$BASE_DIR/01-annual-reports"
 FINANCIAL_DIR="$BASE_DIR/02-financial-data"
 DISCLOSURE_DIR="$BASE_DIR/03-company-disclosures"
@@ -33,8 +33,8 @@ curl -sL -o "$ANNUAL_DIR/htc-one-report2025-en.pdf" \
 curl -sL -o "$ANNUAL_DIR/htc-e-one-report2025-en.pdf" \
   "https://www.haadthip.com/storage/document/annual-reports/2025/htc-e-one-report2025-en.pdf" &
 
-# 2024 - Skip if already exists in haadthip-public
-if [ ! -f "$BASE_DIR/../haadthip-public/05-public-disclosure/htc-one-report-2024-en.pdf" ]; then
+# 2024 - Skip if already exists in haadthip-corporate
+if [ ! -f "$BASE_DIR/../haadthip-corporate/05-public-disclosure/htc-one-report-2024-en.pdf" ]; then
   echo "→ 2024: htc-one-report2024-en.pdf"
   curl -sL -o "$ANNUAL_DIR/htc-one-report2024-en.pdf" \
     "https://hub.optiwise.io/storage/21/annual-report/2024/htc-one-report2024-en.pdf" &

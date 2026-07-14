@@ -46,7 +46,7 @@ class Pipe:
 
     def __init__(self):
         self.type = "pipe"
-        self.id = "haadthip-ir-knowledge"
+        self.id = "haadthip-investor-relations-knowledge"
         self.name = "Haadthip IR Knowledge (Pipe)"
         self.valves = self.Valves()
 
@@ -175,4 +175,4 @@ class Pipe:
             await emitter({"type": event_type, "data": data})
 
     async def get_models(self) -> list[dict]:
-        return [{"id": "haadthip-ir-knowledge", "name": "Haadthip IR Knowledge (Pipe)"}]
+        return [{"id": "haadthip-investor-relations-knowledge", "name": "Haadthip IR Knowledge (Pipe)"}]

@@ -42,9 +42,9 @@
 
 | Knowledge Source | เนื้อหา | จำนวนไฟล์ |
 |---|---|---|
-| **haadthip-public** | นโยบาย IT (DLP), Security/MFA/VPN, Email, ห้องประชุม | 23 files |
+| **haadthip-corporate** | นโยบาย IT (DLP), Security/MFA/VPN, Email, ห้องประชุม | 23 files |
 | **sap-docs** | คู่มือ SAP HIP (Tcodes: mb52, /n/hip/fiar06, etc.) | 32 files |
-| **haadthip-ir** (planned) | นักลงทุนสัมพันธ์: รายงานประจำปี, ข้อมูลการเงิน | 31 files |
+| **haadthip-investor-relations** (planned) | นักลงทุนสัมพันธ์: รายงานประจำปี, ข้อมูลการเงิน | 31 files |
 
 ### 2. E-Expense FAQ Search (Tool)
 ค้นหาคำถามที่พบบ่อยเกี่ยวกับระบบ E-Expense:

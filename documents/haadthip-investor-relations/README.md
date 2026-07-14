@@ -9,7 +9,7 @@
 ## Directory Structure
 
 ```
-haadthip-ir/
+haadthip-investor-relations/
 ├── README.md
 ├── 01-annual-reports/        Annual Reports / Form 56-1 One Report (24 ไฟล์)
 ├── 02-financial-data/        Financial Statements, Fact Sheets (2 ไฟล์)
@@ -38,7 +38,7 @@ haadthip-ir/
 | 2013 | `htc-ar2013-en.pdf` | `htc-form561-2013.pdf` | 5.5 MB |
 | 2012 | `htc-ar2012-en.pdf` | `htc-form561-2012.pdf` | 5.3 MB |
 
-> **หมายเหตุ:** One Report 2024 (หลัก) มีอยู่แล้วใน `documents/haadthip-public/05-public-disclosure/` (file: `htc-one-report-2024-en.pdf`)
+> **หมายเหตุ:** One Report 2024 (หลัก) มีอยู่แล้วใน `documents/haadthip-corporate/05-public-disclosure/` (file: `htc-one-report-2024-en.pdf`)
 
 ### Content ที่มีใน One Report
 - ข้อมูลบริษัทและธุรกิจ
@@ -83,12 +83,12 @@ haadthip-ir/
 ## การนำเข้า AI Search
 
 แนะนำให้สร้าง:
-1. **Blob Container:** `haadthip-ir` (หรือใช้ container เดิม)
-2. **Data Source:** `haadthip-ir-ds`
-3. **Index:** `haadthip-ir-idx`
-4. **Skillset:** `haadthip-ir-skillset` (Document Extraction)
-5. **Indexer:** `haadthip-ir-idxr`
-6. **Knowledge Source:** `haadthip-ir-ks`
+1. **Blob Container:** `haadthip-investor-relations` (หรือใช้ container เดิม)
+2. **Data Source:** `haadthip-investor-relations-ds`
+3. **Index:** `haadthip-investor-relations-idx`
+4. **Skillset:** `haadthip-investor-relations-skillset` (Document Extraction)
+5. **Indexer:** `haadthip-investor-relations-idxr`
+6. **Knowledge Source:** `haadthip-investor-relations-ks`
 7. **Knowledge Base:** เพิ่มเข้า `haadthip-kb` (พร้อมกับ existing KS)
 
 ## Download Script

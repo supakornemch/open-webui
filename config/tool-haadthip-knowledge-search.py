@@ -110,7 +110,7 @@ class Tools:
 
         :param query: Search query in Thai or English
         """
-        return await self._retrieve_kb(query, "mihcm-hr-ks")
+        return await self._retrieve_kb(query, "haadthip-hr-policies-ks")
 
     async def search_eexpense(self, query: str) -> str:
         """

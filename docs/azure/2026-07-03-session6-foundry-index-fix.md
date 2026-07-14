@@ -16,15 +16,15 @@
 
 ### 3. Index Recreation (v2)
 - **Problem**: 2 docs failed — `content` field had `facetable: true` → entire content = single term > 32766 bytes
-- **Fix**: Created `haadthip-public-idx-v2` with `facetable: false` on content field
+- **Fix**: Created `haadthip-corporate-idx-v2` with `facetable: false` on content field
 - Also added semantic config: `haadthip-semantic` with prioritized fields
 
 ### 4. Indexer v2
-- Created `haadthip-public-idxr-v2` pointing to new index
+- Created `haadthip-corporate-idxr-v2` pointing to new index
 - **Result: 18/18 documents indexed, 0 failures** 🎉
 
 ### 5. Knowledge Source Update
-- Updated `haadthip-ks` → `searchIndexName: haadthip-public-idx-v2`
+- Updated `haadthip-ks` → `searchIndexName: haadthip-corporate-idx-v2`
 
 ### 6. Agentic Retrieval Test
 ```json
@@ -107,11 +107,11 @@ curl -s -X POST "https://srch-entchat-poc-sea-01.search.windows.net/knowledgebas
 ### Direct Search — Check Index Content
 ```bash
 # Count docs
-curl -s "https://srch-entchat-poc-sea-01.search.windows.net/indexes/haadthip-public-idx-v2/docs/\$count?api-version=2024-07-01" \
+curl -s "https://srch-entchat-poc-sea-01.search.windows.net/indexes/haadthip-corporate-idx-v2/docs/\$count?api-version=2024-07-01" \
   -H "api-key: $(az search admin-key show --service-name srch-entchat-poc-sea-01 --resource-group rg-entchat-poc-sea --query primaryKey -o tsv)"
 
 # List all document names
-curl -s "https://srch-entchat-poc-sea-01.search.windows.net/indexes/haadthip-public-idx-v2/docs?api-version=2024-07-01&search=*&\$top=20&\$select=metadata_storage_name" \
+curl -s "https://srch-entchat-poc-sea-01.search.windows.net/indexes/haadthip-corporate-idx-v2/docs?api-version=2024-07-01&search=*&\$top=20&\$select=metadata_storage_name" \
   -H "api-key: $(az search admin-key show --service-name srch-entchat-poc-sea-01 --resource-group rg-entchat-poc-sea --query primaryKey -o tsv)" \
   | python3 -c "import json,sys; [print(d['metadata_storage_name']) for d in json.load(sys.stdin).get('value',[])]"
 ```

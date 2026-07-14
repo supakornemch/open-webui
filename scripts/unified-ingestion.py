@@ -5,10 +5,10 @@ unified-ingestion.py — Ingest ALL Haadthip documents into AI Search
 One script to rule them all. Handles every file type and every corpus.
 
 Corpuses:
-  - haadthip-ir/        (PDF annual reports, financial data)
-  - haadthip-public/    (PDF corporate docs: security, email, meeting, IT policy)
-  - sap-hip/            (PDF/DOCX/PPTX SAP manuals)
-  - mihcm-hr/           (DOC/XLS/JPG/PNG/XLSX HR documents)
+  - haadthip-investor-relations/        (PDF annual reports, financial data)
+  - haadthip-corporate/    (PDF corporate docs: security, email, meeting, IT policy)
+  - sap-hip-manuals/            (PDF/DOCX/PPTX SAP manuals)
+  - haadthip-hr-policies/           (DOC/XLS/JPG/PNG/XLSX HR documents)
 
 File types:
   - .pdf   → pypdf (native text)  OR Document Intelligence layout model
@@ -35,7 +35,7 @@ Usage:
   python3 scripts/unified-ingestion.py
   
   # Specific corpus only
-  python3 scripts/unified-ingestion.py --corpus mihcm-hr
+  python3 scripts/unified-ingestion.py --corpus haadthip-hr-policies
   
   # Dry run
   python3 scripts/unified-ingestion.py --dry-run
@@ -116,10 +116,10 @@ class Config:
     
     # Target indexes
     indexes = {
-        "haadthip-ir":  "haadthip-ir-idx",
-        "haadthip-public": "haadthip-public-idx-v2",
-        "sap-hip":      "sap-docs-idx",
-        "mihcm-hr":     "mihcm-hr-idx",
+        "haadthip-investor-relations":  "haadthip-investor-relations-idx",
+        "haadthip-corporate": "haadthip-corporate-idx-v2",
+        "sap-hip-manuals":      "sap-docs-idx",
+        "haadthip-hr-policies":     "haadthip-hr-policies-idx",
     }
 
 
@@ -466,7 +466,7 @@ class IngestionEngine:
             }
             
             # Add corpus-specific fields
-            if corpus == "haadthip-ir":
+            if corpus == "haadthip-investor-relations":
                 doc["subject_area"] = classify_subject(chunk_text_val)
                 # Try to extract year from filename
                 year_match = re.search(r'(?:20|19)(\d{2})', filename)
@@ -556,7 +556,7 @@ class IngestionEngine:
 
 def main():
     parser = argparse.ArgumentParser(description="Unified Haadthip Document Ingestion")
-    parser.add_argument("--corpus", choices=["all", "haadthip-ir", "haadthip-public", "sap-hip", "mihcm-hr"],
+    parser.add_argument("--corpus", choices=["all", "haadthip-investor-relations", "haadthip-corporate", "sap-hip-manuals", "haadthip-hr-policies"],
                         default="all", help="Which corpus to process")
     parser.add_argument("--dry-run", action="store_true", help="Preview without indexing")
     parser.add_argument("--no-doc-intel", action="store_true", help="Skip Document Intelligence, use native parsers")
@@ -587,7 +587,7 @@ def main():
     engine = IngestionEngine(config)
     
     if args.corpus == "all":
-        for corpus in ["haadthip-ir", "haadthip-public", "sap-hip", "mihcm-hr"]:
+        for corpus in ["haadthip-investor-relations", "haadthip-corporate", "sap-hip-manuals", "haadthip-hr-policies"]:
             engine.run_corpus(corpus, args.dry_run)
     else:
         engine.run_corpus(args.corpus, args.dry_run)

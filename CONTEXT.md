@@ -1,5 +1,27 @@
 # EnterpriseChat — Domain Context
 
+> ## 📝 Recent Changes (2026-07-14)
+>
+> ### Cleanup — Pipeline & Blob Containers
+> ได้ cleanup Azure resources ที่ไม่ใช้แล้ว:
+> - **Blob containers**: `haadthip-investor-relations`, `haadthip-corporate`, `haadthip-hr-policies` — ลบไฟล์ทั้งหมด
+> - **Indexes**: `haadthip-ir-idx`, `mihcm-hr-idx`, `haadthip-public-idx-v2` ❌
+> - **Indexers**: `haadthip-ir-idxr`, `mihcm-hr-indexer` ❌ (ลบไปก่อนหน้านี้แล้ว)
+> - **Skillsets**: `haadthip-ir-skillset`, `mihcm-hr-skillset`, `haadthip-public-skillset` ❌
+> - **Data sources**: `haadthip-ir-ds`, `mihcm-hr-ds`, `haadthip-public-ds` ❌
+> - **Knowledge sources**: `ir-docs-ks`, `mihcm-hr-ks`, `haadthip-ks` ❌
+> - **Knowledge base**: `haadthip-kb` ❌
+>
+> **เหลือเฉพาะ indexes ที่ใช้งานอยู่:** `documents-index`, `docwise-docs-v2`, `eexpense-faq-idx`, `sap-docs-idx`
+>
+> > 🔜 **Next:** Custom Python ingestion (แทน index projection / skillset approach)
+>
+> ### Repository Structure
+> - ย้าย PNGs ทั้งหมด → `screenshots/`
+> - ย้าย PPTXs → `docs/presentations/`
+> - ย้าย HTML → `docs/`
+> - เพิ่ม `.gitignore` + `git init` (351 files, commit `3202ff4`)
+
 ## Glossary
 
 | Term | Definition |
@@ -37,73 +59,18 @@
 
 Source documents อยู่ใน `documents/` 3 กลุ่ม:
 
-### 1. `documents/haadthip-public/` — General Corporate Docs (23 ไฟล์)
+| Corpus | Path | Files | Detail |
+|--------|------|:----:|--------|
+| Public Docs | `documents/haadthip-corporate/` | 19 | Security, Email, Meeting Room, IT Policy, Public Disclosure. 5 subdirs. |
+| IR Docs | `documents/haadthip-investor-relations/` | 31 | Annual Reports, Financial Data, Company Disclosures. 3 subdirs. |
+| HR Docs | `documents/haadthip-hr-policies/` | 125+ | HR policies, forms, manuals, regulations (.pdf/.doc/.xlsx/.jpg) |
+| SAP HIP | `documents/sap-hip-manuals/` | 32 | SAP Hana Implementation Project manuals |
 
-| Category | Path | Description | Docs | Visibility |
-|----------|------|-------------|------|------------|
-| Security | `01-security/` | MFA, VPN, session management | 6 | 🔒 Internal |
-| Email | `02-email/` | Exchange / O365 setup & management | 8 | 🔒 Internal |
-| Meeting Room | `03-meeting-room/` | Board meeting room booking & usage | 4 | 🔒 Internal |
-| IT Policy | `04-it-policy/` | DLP endpoint policy | 2 | 🔒 Internal |
-| Public Disclosure | `05-public-disclosure/` | SET/SEC regulatory filings | 4 | ✅ Public |
-
-> 📌 18 docs ถูก index ใน `haadthip-public-idx-v2` (via blob container `haadthip-public`)
-
-### 2. `documents/sap-hip/` — SAP HIP Manuals (32 ไฟล์)
-
-SAP Hana Implementation Project (HIP) manuals — คำแนะนำการใช้งาน SAP สำหรับสาขา:
-
-| Detail | Value |
-|--------|-------|
-| Source | `documents/sap-hip/` |
-| Container | `sap-docs` (blob) |
-| Total files | 32 (19 หลัก + 13 ใน `file-pdf/`) |
-| Total size | ~12.69 MB |
-| Content | Thai text instructions + SAP UI screenshots (minimal extractable text) |
-| TCodes | `mb52`, `/n/hip/fiar06`, `/n/hip/fiaa02`, `/n/hip/fiar15`, etc. |
-| Pipeline | DS: `sap-docs-ds` → Skillset: `sap-docs-skillset` → Index: `sap-docs-idx` → Indexer: `sap-docs-idxr` |
-| KS | `sap-docs-ks` (`searchIndex → sap-docs-idx`, semantic: `sap-docs-semantic`) |
-
-> ⚠️ **Known limitation**: Most content is embedded in screenshots — DocumentExtractionSkill ได้เฉพาะ text + Tcode (ไม่รวม OCR text รูปภาพ)
-
-### Key Characteristics
-
-- **Languages**: English + Thai mix. Public disclosures are EN only. IR docs are mostly EN.
-- **Formats**: PDF, DOCX, PPTX.
-- **Visibility**: haadthip-public 01–04 internal, 05 public. SAP docs internal. IR docs ✅ Public (from company website).
-
-### 3. `documents/haadthip-ir/` — Investor Relations Documents (31 ไฟล์, ~274 MB)
-
-**Source:** https://www.haadthip.com/en/investor-relations/document/annual-reports  
-**Downloaded:** 2026-07-06  
-**Language:** EN (หลัก), TH (Form 56-1 ปี 2012-2020)  
-**Format:** PDF
-
-| Subdirectory | Description | Files | Size |
-|-------------|-------------|:----:|:----:|
-| `01-annual-reports/` | One Report (Form 56-1) + Annual Reports 2012–2025 | 24 | 233 MB |
-| `02-financial-data/` | Earning Results + Fact Sheet Q1/2026 | 2 | 40 MB |
-| `03-company-disclosures/` | MD&A, F45, AGM Minutes, Director Change | 5 | 776 KB |
-
-**Key files for ingestion:**
-- `htc-one-report2025-en.pdf` (29 MB) — **ข้อมูลธุรกิจล่าสุด** ครอบคลุมทุกด้าน
-- `htc-earning-results-q1-2026.pdf` (3.1 MB) — การเงินไตรมาสล่าสุด
-- `htc-mda-q1-2026.pdf` (308 KB) — MD&A คำอธิบายผลประกอบการ
-
-> 📖 ดูรายละเอียดเพิ่มเติมที่ `documents/haadthip-ir/README.md`
-
-### PoC Ingestion Priority
-
-For the **chat from AI search** PoC, recommended order:
-
-1. `haadthip-ir/01-annual-reports/htc-one-report2025-en.pdf` — latest & broadest (replaces 2024)
-2. `haadthip-ir/02-financial-data/htc-earning-results-q1-2026.pdf` — latest financials
-3. `haadthip-ir/02-financial-data/htc-factsheet-3m2026.pdf` — key metrics snapshot
-4. `05-public-disclosure/htc-one-report-2024-en.pdf` — 2024 reference (258 pages)
-5. `05-public-disclosure/htc-sustainability-report-2024-en.pdf` — ESG + rich graphics (145 pages)
-6. `haadthip-ir/03-company-disclosures/htc-mda-q1-2026.pdf` — management analysis
-
-See `documents/haadthip-public/README.md` and `documents/haadthip-ir/README.md` for full details.
+> 📖 ดูรายละเอียดไฟล์ได้ที่ `documents/*/README.md`
+>
+> **Note:** Pipelines สำหรับ haadthip-ir, haadthip-public, mihcm-hr ถูกลบจาก Azure Search แล้ว — จะใช้ custom Python ingestion แทน
+>
+> SAP index (`sap-docs-idx`) ยังอยู่ ✅ — index ไว้ด้วย old pipeline (DocumentExtractionSkill) ได้เฉพาะ text + Tcode, screenshots ไม่ได้ OCR
 
 ---
 
@@ -524,24 +491,15 @@ Flow:
 | **LiteLLM UI** | https://app-litellm-poc-sand.azurewebsites.net/ui | `admin` / master-key (or Entra SSO) |
 | **AI Foundry** | https://aif-entchat-poc-sand.cognitiveservices.azure.com | `api-key` |
 
-### LiteLLM Models
+### LiteLLM Models (mapped via LiteLLM config)
 
-| Model Name | Azure Deployment | Use Case |
-|-----------|-----------------|----------|
+| Model Name | Azure Deployment | Use |
+|-----------|-----------------|-----|
 | `gpt-5.4-nano` | `deploy-gpt-5.4-nano` | KB query planning (cheapest) |
-| `gpt-5.4-mini` | `deploy-gpt-5.4-mini` | General-purpose chat |
+| `gpt-5.4-mini` | `deploy-gpt-5.4-mini` | General chat |
 | `gpt-5.4` | `deploy-gpt-5.4` | Pipe final answer (best quality) |
-| `gpt-5.2` | `deploy-gpt-5.2` | Fallback/legacy |
-| `text-embedding-3-large` | `deploy-embedding-3-large` | Vector embeddings (3072d) |
-
-> **Open WebUI → LiteLLM model mapping:** Open WebUI ใช้ OpenAI API connection ต่อไปที่ LiteLLM `/v1` — model ทั้ง 5 ตัวจะโผล่ใน dropdown ให้เลือกใช้ได้
-
-**Deployment Options:**
-- **Docker:** `docker run -p 4000:4000 ghcr.io/berriai/litellm:main-latest`
-- **Azure Container Apps:** Deploy เป็น container app ใน environment เดียวกับ Open WebUI
-- **Kubernetes:** ใช้ Helm chart สำหรับ production
-
-> 💡 **Recommendation:** ควรเพิ่ม LiteLLM เข้ามาในโปรเจคก่อนขึ้น production — เพื่อให้มี visibility ด้าน token usage/cost และสามารถควบคุม budget ได้
+| `gpt-5.2` | `deploy-gpt-5.2` | Fallback |
+| `text-embedding-3-large` | `deploy-embedding-3-large` | Vector embeddings 3072d |
 
 #### Local POC Setup (Docker)
 
@@ -603,12 +561,11 @@ export LITELLM_MASTER_KEY="sk-your-master-key"
 |-------|---------|-------------|
 | `search_endpoint` | `https://srch-entchat-poc-sand.search.windows.net` | AI Search endpoint |
 | `search_api_key` | from `AZURE_SEARCH_ADMIN_KEY` env | Search admin key |
-| `kb_name` | `haadthip-kb` | Knowledge Base name |
-| `ks_names` | `haadthip-ks,sap-docs-ks,ir-docs-ks` | Knowledge Sources |
+| `kb_name` | `haadthip-kb` (ถูกลบแล้ว) | Knowledge Base name |
+| `ks_names` | `sap-docs-ks` | Knowledge Sources |
 | `azure_endpoint` | `https://aif-entchat-poc-sand.cognitiveservices.azure.com` | Azure OpenAI endpoint |
 | `azure_api_key` | from `OPENAI_API_KEY` env | OpenAI key |
-| `deployment_name` | `deploy-gpt-5.4` | LLM for final answer (use gpt-5.4, not nano) |
-| `api_version` | `2024-12-01-preview` | Azure OpenAI API version |
+| `deployment_name` | `deploy-gpt-5.4` | LLM for final answer |
 
 **Critical: Pipe Model Configuration Rules**
 1. **`params` ต้องไม่มี `tools`** — tools array เก่า (จาก tool-based approach) ทำให้เกิด error `Missing required parameter: 'tools[0].type'`
@@ -673,8 +630,8 @@ class Tools:
             default="https://srch-entchat-poc-sand.search.windows.net")
         search_api_key: str = Field(
             default=os.environ.get("AZURE_SEARCH_ADMIN_KEY", ""))
-        kb_name: str = Field(default="haadthip-kb")
-        ks_names: str = Field(default="haadthip-ks,sap-docs-ks,ir-docs-ks")
+	        kb_name: str = Field(default="haadthip-kb")
+	        ks_names: str = Field(default="sap-docs-ks")
 
     def __init__(self):
         self.valves = self.Valves()
@@ -755,71 +712,18 @@ User ถามใน Open WebUI
 |-----------|---------|
 | `documents` | DocWise file storage (empty / not yet used) |
 | `uploads` | Public blob access |
-| `haadthip-ir` | ❌ ยังไม่ได้สร้าง — สำหรับ IR documents ingestion |
+| `haadthip-investor-relations` | ✅ **Cleaned up** (ไฟล์ถูกลบ 2026-07-14) — เคยมี 31 IR PDFs |
+| `haadthip-corporate` | ✅ **Cleaned up** (ไฟล์ถูกลบ 2026-07-14) — เคยมี 19 docs |
+| `haadthip-hr-policies` | ✅ **Cleaned up** (ไฟล์ถูกลบ 2026-07-14) — เคยมี 125 files |
 | `open-webui-files` | ❌ ยังไม่ได้สร้าง — ต้องสร้างก่อนใช้ MI |
 
-> ⚠️ AI Search pipelines (index, datasource, skillset, indexer) และ Knowledge Bases ยังไม่ได้สร้างใน Sandbox นี้
+> ⚠️ Pipelines ที่เกี่ยวข้อง (haadthip-ir, haadthip-public, mihcm-hr) ถูกลบออกจาก Search service แล้ว — Custom Python ingestion แทน
 
-### AI Search Pipeline
+### Agentic Retrieval Knowledge Base (format reference)
 
-> ⚠️ **Pipelines ด้านล่างนี้เป็นของ old setup (`rg-entchat-poc-sea`) — ยังไม่ได้ re-create ใน Sandbox**
-> ต้องตั้งค่าใหม่: AI Search datasource → index → skillset → indexer → knowledge source → knowledge base
-
-| Component | Name | Description |
-|-----------|------|-------------|
-| Data Source | `haadthip-public-ds` | Points to `haadthip-public` blob container |
-| Skillset | `haadthip-public-skillset` | Document Extraction (PDF text extraction) |
-| Index (v2) | `haadthip-public-idx-v2` | `facetable: false` on content field — fixes term-too-large error |
-| Indexer (v2) | `haadthip-public-idxr-v2` | Runs the pipeline — **18/18 docs indexed, 0 failures** ✅ |
-| **SAP Data Source** | `sap-docs-ds` | Points to `sap-docs` blob container |
-| **SAP Skillset** | `sap-docs-skillset` | Document Extraction (text + Tcode extraction) |
-| **SAP Index** | `sap-docs-idx` | Same schema, semantic: `sap-docs-semantic` |
-| **SAP Indexer** | `sap-docs-idxr` | **32/32 docs indexed** ✅ |
-| Knowledge Source | `haadthip-ks` | `kind: searchIndex` → `haadthip-public-idx-v2` |
-| **SAP Knowledge Source** | `sap-docs-ks` | `kind: searchIndex` → `sap-docs-idx` |
-| **IR Knowledge Source** | `ir-docs-ks` | (planned) `kind: searchIndex` → `haadthip-ir-idx` |
-| Knowledge Base | `haadthip-kb` | Multi-KS: `[haadthip-ks, sap-docs-ks, ir-docs-ks]` + LLM query planning |
-
-> ⚠️ **Basic tier limits:** Content extracted max 524,288 chars per doc, file max 16 MB.  
-> `htc-sustainability-report-2024-en.pdf` (25 MB) — indexed metadata only, not content.
-
-### Azure AI Foundry — Hub/Project Architecture
-
-```
-┌──────────────────────────────────────────────────┐
-│ Azure AI Foundry (Management & Governance)        │
-│  Hub: aif-entchat-poc-sand                         │
-│   ├── Connection: haadthip-ai-services (shared)   │
-│   │    Type: azure_ai_services, auth: aad (MI)    │
-│   └── Project: proj-entchat-poc-sand (associated)  │
-└──────────────────────┬───────────────────────────┘
-                       │ Hub connection
-                       ▼
-┌──────────────────────────────────────────────────┐
-│ Azure AI Services (Model Inference)               │
-│  aif-entchat-poc-sand (AIServices, S0)            │
-│   ├── deploy-gpt-54-nano  (gpt-5.4-nano)          │
-│   ├── deploy-gpt-54-mini  (gpt-5.4-mini) ◄── KB  │
-│   └── deploy-gpt-54       (gpt-5.4)               │
-│  Endpoint: aif-entchat-poc-sand.cognitiveservices.azure.com            │
-└──────────────────────┬───────────────────────────┘
-                       │ model inference
-                       ▼
-┌──────────────────────────────────────────────────┐
-│ Azure AI Search — Agentic Retrieval               │
-│  KB: haadthip-kb                                  │
-│   ├── resourceUri: cognitiveservices.azure.com    │
-│   ├── auth: SystemAssigned MI (apiKey: null)      │
-│   └── knowledgeSources: [haadthip-ks]             │
-└──────────────────────────────────────────────────┘
-```
-
-> 🔑 **Why `cognitiveservices.azure.com` not `services.ai.azure.com`?**  
-> `services.ai.azure.com` เป็น Foundry **management API** (ใช้สำหรับ `/api/projects/...`)  
-> ไม่รองรับ OpenAI inference path `/openai/deployments/.../chat/completions`  
-> KB ต้องใช้ `cognitiveservices.azure.com` สำหรับ model inference จริง
-
-### Agentic Retrieval — Knowledge Base
+> KB `haadthip-kb` + KS `haadthip-ks`, `ir-docs-ks`, `mihcm-hr-ks` ถูกลบแล้ว  
+> `sap-docs-ks` ยังอยู่ ✅  
+> ข้อมูลด้านล่างเป็น format reference สำหรับ custom ingestion ต่อไป
 
 **URL Pattern (OData-style):**
 ```
@@ -828,160 +732,23 @@ PUT  {endpoint}/knowledgebases('{name}')?api-version=2026-04-01
 POST {endpoint}/knowledgebases('{name}')/retrieve?api-version=2026-04-01
 ```
 
-**Knowledge Source (`haadthip-ks`):**
-```json
-{
-  "name": "haadthip-ks",
-  "kind": "searchIndex",
-  "searchIndexParameters": {
-    "searchIndexName": "haadthip-public-idx-v2",
-    "semanticConfigurationName": "haadthip-semantic",
-    "sourceDataFields": [
-      {"name": "metadata_storage_name"},
-      {"name": "content"},
-      {"name": "category"}
-    ],
-    "searchFields": [
-      {"name": "metadata_storage_name"},
-      {"name": "content"}
-    ]
-  }
-}
-```
+| Endpoint | Method | Purpose |
+|----------|--------|---------|
+| `knowledgesources` | PUT/POST | Create knowledge source wrapper around a search index |
+| `knowledgebases` | PUT/POST | Create KB with multiple KS + model config |
+| `knowledgebases/{name}/retrieve` | POST | Agentic retrieval query |
 
-**Knowledge Base (`haadthip-kb`):**
-```json
-{
-  "name": "haadthip-kb",
-  "knowledgeSources": [
-    {"name": "haadthip-ks"},    // Haadthip public docs (18 docs)
-    {"name": "sap-docs-ks"}     // SAP HIP manuals (32 docs)
-  ],
-  "models": [{
-    "kind": "azureOpenAI",
-    "azureOpenAIParameters": {
-      "resourceUri": "https://aif-entchat-poc-sand.cognitiveservices.azure.com",
-      "deploymentId": "deploy-gpt-54-nano",
-      "modelName": "gpt-5.4-nano"
-    }
-  }]
-}
-```
+> ⚠️ `api-version=2026-04-01` (GA, stable) — `2026-05-01-preview` มี bug "Could not reach model endpoint" ใน SEA region
 
-> ⚠️ **API Version**: ใช้ `2026-04-01` **(GA stable)** — `2026-05-01-preview` มี bug "Could not reach model endpoint" เวลา model ถูกเรียกใช้งาน return results แล้ว (search ทำงานได้, แต่ model inference พัง) ไม่อยู่ใน Southeast Asia region
+### Managed Identity & Endpoint
 
-**Retrieve:**
-```json
-POST {endpoint}/knowledgebases('haadthip-kb')/retrieve?api-version=2026-04-01
-{
-  "intents": [{"search": "What is Haadthip?", "type": "semantic"}],
-  "knowledgeSourceParams": [
-    {"knowledgeSourceName": "haadthip-ks", "kind": "searchIndex"}
-  ],
-  "maxOutputSizeInTokens": 5000         // ≥ 5000 required (2026-04-01)
-  // NOTE: 2026-05-01-preview ไม่มี maxOutputSizeInTokens
-}
-```
+| Resource MI | Role to Assign | Target |
+|-------------|---------------|--------|
+| Search Service (`0080ceef`) | `Cognitive Services OpenAI User` | `aif-entchat-poc-sand` (AI Services) |
+| Open WebUI Web App (pending) | `Storage Blob Data Contributor` | `staentchatdoc` (Storage) |
 
-**Auth:** System Managed Identity — `apiKey: null, authIdentity: null` → auto-uses Search Service MI
-
-### cURL Quick Reference
-
-```bash
-# 🔹 Retrieve (English)
-curl -s -X POST "https://srch-entchat-poc-sand.search.windows.net/knowledgebases('haadthip-kb')/retrieve?api-version=2026-04-01" \
-  -H "Content-Type: application/json" \
-  -H "api-key: YOUR_ADMIN_KEY" \
-  -d '{
-    "intents": [{"search": "What is Haadthip company?", "type": "semantic"}],
-    "knowledgeSourceParams": [{"knowledgeSourceName": "haadthip-ks", "kind": "searchIndex"}],
-    "maxOutputSizeInTokens": 5000
-  }'
-
-# 🔹 Retrieve with inline az key
-curl -s -X POST "https://srch-entchat-poc-sand.search.windows.net/knowledgebases('haadthip-kb')/retrieve?api-version=2026-04-01" \
-  -H "Content-Type: application/json" \
-  -H "api-key: $(az search admin-key show --service-name srch-entchat-poc-sand --resource-group RG-ENTCHAT-POC-SAND-SEA --query primaryKey -o tsv)" \
-  -d '{
-    "intents": [{"search": "What is Haadthip company?", "type": "semantic"}],
-    "knowledgeSourceParams": [{"knowledgeSourceName": "haadthip-ks", "kind": "searchIndex"}],
-    "maxOutputSizeInTokens": 5000
-  }'
-
-# 🔹 Retrieve with SAP focus (multi-KS explicit)
-curl -s -X POST "https://srch-entchat-poc-sand.search.windows.net/knowledgebases('haadthip-kb')/retrieve?api-version=2026-04-01" \
-  -H "Content-Type: application/json" \
-  -H "api-key: YOUR_ADMIN_KEY" \
-  -d '{
-    "intents": [{"search": "\u0e27\u0e34\u0e18\u0e35\u0e14\u0e36\u0e07\u0e02\u0e49\u0e2d\u0e21\u0e39\u0e25\u0e25\u0e39\u0e01\u0e2b\u0e19\u0e35\u0e49\u0e08\u0e32\u0e01 SAP", "type": "semantic"}],
-    "knowledgeSourceParams": [
-      {"knowledgeSourceName": "haadthip-ks", "kind": "searchIndex"},
-      {"knowledgeSourceName": "sap-docs-ks", "kind": "searchIndex"}
-    ],
-    "maxOutputSizeInTokens": 5000
-  }'
-
-# 🔹 SAP Tcode query
-curl -s -X POST "https://srch-entchat-poc-sand.search.windows.net/knowledgebases('haadthip-kb')/retrieve?api-version=2026-04-01" \
-  -H "Content-Type: application/json" \
-  -H "api-key: YOUR_ADMIN_KEY" \
-  -d '{
-    "intents": [{"search": "SAP Tcode mb52 stock report", "type": "semantic"}],
-    "knowledgeSourceParams": [
-      {"knowledgeSourceName": "haadthip-ks", "kind": "searchIndex"},
-      {"knowledgeSourceName": "sap-docs-ks", "kind": "searchIndex"}
-    ],
-    "maxOutputSizeInTokens": 5000
-  }'
-
-# 🔹 Direct search in SAP index
-curl -s "https://srch-entchat-poc-sand.search.windows.net/indexes/haadthip-public-idx-v2/docs?api-version=2024-07-01&search=*&\$top=20&\$select=metadata_storage_name" \
-  -H "api-key: $(az search admin-key show --service-name srch-entchat-poc-sand --resource-group RG-ENTCHAT-POC-SAND-SEA --query primaryKey -o tsv)"
-
-# 🔹 Check KB config
-curl -s "https://srch-entchat-poc-sand.search.windows.net/knowledgebases('haadthip-kb')?api-version=2026-04-01" \
-  -H "api-key: YOUR_ADMIN_KEY" | python3 -m json.tool
-
-# 🔹 Check Knowledge Source config
-curl -s "https://srch-entchat-poc-sand.search.windows.net/knowledgesources('haadthip-ks')?api-version=2026-04-01" \
-  -H "api-key: YOUR_ADMIN_KEY" | python3 -m json.tool
-
-# 🔹 List all Knowledge Sources
-curl -s "https://srch-entchat-poc-sand.search.windows.net/knowledgesources?\$top=1000&\$count=true&api-version=2026-04-01" \
-  -H "api-key: YOUR_ADMIN_KEY" | python3 -m json.tool
-```
-
-### Managed Identity — Search Service → AI Services
-
-| Item | Value |
-|------|-------|
-| Search Service MI | ❌ **Not configured** — needs SystemAssigned |
-| RBAC Role | `Cognitive Services OpenAI User` (to assign) |
-| Scope | `aif-entchat-poc-sand` |
-| KB auth | Currently uses API key (no MI yet) |
-
-### Managed Identity — Open WebUI → Storage Account
-
-| Item | Value |
-|------|-------|
-| Web App MI | ❌ **Not configured** — needs SystemAssigned |
-| RBAC Role | `Storage Blob Data Contributor` (to assign) |
-| Scope | `staentchatdoc` (to configure) |
-
-Chain: `Search Service (MI)` → `Cognitive Services OpenAI User` → `AIServices (aif-entchat-poc-sand)`
-
-### AI Services — Endpoint Format Note
-
-AIServices resource มี 2 endpoint formats:
-- `https://{region}.api.cognitive.microsoft.com/` (legacy — API key only)
-- `https://{name}.cognitiveservices.azure.com/` (สำหรับ Managed Identity auth)
-
-Agentic retrieval Knowledge Base ต้องใช้ `cognitiveservices.azure.com` suffix เท่านั้น:
-```
-✅ https://aif-entchat-poc-sand.cognitiveservices.azure.com/
-❌ https://southeastasia.api.cognitive.microsoft.com/
-```
-Allowed suffixes: `openai.azure.com`, `cognitiveservices.azure.com`, `services.ai.azure.com`, `models.ai.azure.com`
+> **Endpoint format:** KB/Pipeline ต้องใช้ `cognitiveservices.azure.com` (ไม่ใช่ `api.cognitive.microsoft.com`)  
+> Allowed suffixes: `openai.azure.com`, `cognitiveservices.azure.com`, `services.ai.azure.com`, `models.ai.azure.com`
 
 ### Entra ID — App Registration
 
@@ -996,246 +763,86 @@ Allowed suffixes: `openai.azure.com`, `cognitiveservices.azure.com`, `services.a
 
 ---
 
-## Recurring Issues (from provisioning sessions)
+## Recurring Issues (quick reference)
 
-### 1. Password URL encoding in connection strings
-`@` → `%40`, `!` → `%21` ใน PostgreSQL DATABASE_URL
-
-### 2. Container startup timeout
-Default 230s ไม่พอสำหรับ Open WebUI (downloads embedding models) → ตั้ง `WEBSITES_CONTAINER_START_TIME_LIMIT=1800`
-
-### 3. PostgreSQL database ไม่ auto-create
-Alembic migrations **ไม่สร้าง database** ต้อง `CREATE DATABASE open_webui` และ `CREATE DATABASE docwise` ก่อน deploy
-
-### 4. Entra ID: SP ไม่ auto-create
-App Registration ใหม่ → ต้อง `az ad sp create --id <client-id>` ไม่งั้น OIDC login จะ 401 loop
-
-### 5. Entra ID: Email claim จำเป็น
-ต้องเพิ่ม `email` optional claim ใน ID token — ไม่เช่นนั้น Open WebUI reject login
-
-### 6. AI Search: Free → Basic upgrade ไม่ได้โดยตรง
-ต้องลบแล้วสร้างใหม่ — delete ใช้เวลา 5-15 นาที background operation
-Workaround: สร้างชื่อใหม่ เช่น `srch-*-poc-sea-01` ถ้ารอไม่ได้
-
-### 7. Agentic Retrieval REST API — OData-style URL
-Endpoint ใช้ **OData-style** path ไม่ใช่ RESTful:
-```
-✅ {endpoint}/knowledgesources('{name}')?api-version=2026-04-01
-❌ {endpoint}/knowledge-sources/{name}?api-version=2026-04-01
-```
-เช่นเดียวกันสำหรับ `knowledgebases('{name}')` และ `knowledgebases('{name}')/retrieve`
-
-### 7b. API Version — ใช้ GA (2026-04-01) ไม่ใช่ Preview
-**Problem:** `2026-05-01-preview` → error "Could not reach the model endpoint" เมื่อ model ถูกเรียก (search ทำงานได้ แต่ model inference พัง)
-**Symptom:** query ที่มี search result → model call fail; query ที่ไม่มี search result (0 hits) → ไม่ error เพราะไม่ต้องเรียก model
-**Fix:** ใช้ `api-version=2026-04-01` (GA, stable)
-**Note:** `2026-05-01-preview` เปลี่ยน parameter name — ไม่มี `maxOutputSizeInTokens`, ใช้ `retrievalReasoningEffort` (object format `{"kind": "medium"}`) แต่ model endpoint เชื่อมต่อไม่ได้ใน SEA region
-
-### 8. AI Services soft-delete
-ลบแล้วสร้างชื่อเดิม → error `FlagMustBeSetForRestore` → ต้อง purge ก่อน:
-```bash
-az cognitiveservices account purge --name <name> --location southeastasia --resource-group <rg>
-```
-
-### 9. AI Services endpoint suffix
-Knowledge Base ต้องใช้ `cognitiveservices.azure.com` suffix (ไม่ใช่ `api.cognitive.microsoft.com`):
-```
-✅ https://{name}.cognitiveservices.azure.com/
-❌ https://{region}.api.cognitive.microsoft.com/
-```
-Allowed suffixes: `openai.azure.com`, `cognitiveservices.azure.com`, `services.ai.azure.com`, `models.ai.azure.com`
-
-### 10. Managed Identity — SP ต้องสร้างก่อน assign role
-Enable MI บน Search Service แล้ว → ต้องรอสักครู่ หรือสร้าง SP ก่อน:
-```bash
-az ad sp create --id <principal-id>  # ถ้า role assignment error "Cannot find user"
-```
-แล้วค่อย `az role assignment create --assignee <principal-id> --role "Cognitive Services OpenAI User" --scope <ai-resource-id>`
-
-### 11. Index: `content` field ห้ามมี facetable/sortable/filterable
-**Problem:** ไฟล์ใหญ่ (AGM minutes, One Report) index ไม่สำเร็จ — error "Field 'content' contains a term that is too large to process. The max length for UTF-8 encoded terms is 32766 bytes."
-**Root cause:** `facetable: true` บน `content` field → entire field ถูก index เป็น single term
-**Fix:** สร้าง index ใหม่ — ตั้ง `facetable: false` บน `content` field
-```json
-{"name": "content", "type": "Edm.String", "searchable": true, "facetable": false, ...}
-```
-**Note:** Azure AI Search **ไม่อนุญาตให้แก้ไข field definition** ของ index ที่มีอยู่ — ต้องลบหรือสร้าง index ใหม่
-**Discovered:** 2026-07-03 (Session 6)
-
-### 12. services.ai.azure.com ≠ model inference endpoint
-**Problem:** KB ใช้ `https://aif-entchat-poc-sand.services.ai.azure.com` → error "Could not reach the model endpoint"
-**Root cause:** `services.ai.azure.com` เป็น **Foundry management API** (ใช้ path `/api/projects/{project}`) ไม่รองรับ OpenAI inference path `/openai/deployments/.../chat/completions`
-**Fix:** ใช้ `cognitiveservices.azure.com` สำหรับ KB model inference:
-```
-✅ https://aif-entchat-poc-sand.cognitiveservices.azure.com  (inference — ใช้งานได้)
-❌ https://aif-entchat-poc-sand.services.ai.azure.com        (management API — KB ใช้ไม่ได้)
-```
-**Note:** Foundry Hub connection (`azure_ai_services` type) → AI Services ก็เพียงพอสำหรับ governance — KB inference ต้องวิ่งผ่าน `cognitiveservices.azure.com` อยู่ดี
-**Discovered:** 2026-07-03 (Session 6)
-
-### 13. maxOutputSizeInTokens ต้อง ≥ 5000
-**Problem:** retrieve request error "Configuration max output size must be greater than 5000"
-**Fix:** ตั้ง `maxOutputSizeInTokens` อย่างน้อย 5000
-
-### 14. Knowledge Base Managed Identity: ละ apiKey + authIdentity
-**Problem:** API error "Cannot create an abstract class" เมื่อใส่ `authIdentity: { identityType: "SystemAssigned" }`
-**Correct pattern:** ละทั้ง `apiKey` และ `authIdentity` — ระบบใช้ SystemAssigned MI อัตโนมัติ:
-```json
-{
-  "azureOpenAIParameters": {
-    "resourceUri": "https://{name}.cognitiveservices.azure.com",
-    "deploymentId": "deploy-gpt-54-mini",
-    "modelName": "gpt-5.4-mini"
-    // no apiKey, no authIdentity → auto SystemAssigned MI
-  }
-}
-```
-
-### 15. Open WebUI: DATABASE_URL password mismatch → infinite pagination loop
-**Problem:** `+layout.svelte` fetch `chats/?page=84 → 85 → 86 → ...` ไม่หยุด
-**Root cause:** App Service `DATABASE_URL` มี password ผิด (`EntChatP0c05ef252e` แทนที่จะเป็น `DocWiseP@ssw0rd2026!`) → chat messages เขียน DB ไม่ได้ → `psycopg.OperationalError: password authentication failed` → frontend retry วน infinite loop
-**Fix:** แก้ DATABASE_URL ใน App Service app settings:
-```bash
-az webapp config appsettings set \
-  --name app-entchat-owui-poc-sand \
-  --resource-group RG-ENTCHAT-POC-SAND-SEA \
-  --settings "DATABASE_URL=postgresql://entchatadm:DocWiseP%40ssw0rd2026%21@psql-entchat-poc-sand.postgres.database.azure.com:5432/open_webui?sslmode=require"
-```
-**Note:** DNS resolve `psql-entchat-poc-sand.postgres.database.azure.com` → private endpoint IP `172.28.69.4` ภายใน VNet — ต้องใช้ password ที่ตรงกับ PostgreSQL server จริง
-**Verified:** 2026-07-07
-
-### 16. Open WebUI: Model params tools[0].type error
-**Problem:** Chat API return `{"detail": "Missing required parameter: 'tools[0].type'."}`
-**Root cause:** Model record (`model` table) มี `params.tools` array เก่าที่ไม่มี `type` field — Open WebUI validation เจอ tools array ที่มีแค่ `id` + `name` แต่ขาด `type` (เช่น `"type": "function"`)
-```json
-// ❌ Broken (old tool-based config)
-"params": {"tools": [{"id": "b62851a8-...", "name": "Haadthip Docs"}]}
-
-// ✅ Fixed — remove tools entirely for Pipe models
-"params": {"system": "...", "temperature": 0.7}
-```
-**Fix:** ลบ `tools` ออกจาก `params` column ใน `model` table:
-```sql
-UPDATE model SET params = (params::jsonb - 'tools')::text WHERE id = 'haadthip-enterprise-assistant';
-```
-**Note:** Pipe models handle knowledge retrieval internally — ไม่ต้องพึ่ง Open WebUI function calling tools
-**Discovered:** 2026-07-07
-
-### 17. Open WebUI: Pipe model capabilities ต้องไม่เปิด builtin_tools
-**Problem:** Pipe model ทำงานไม่ถูกต้องเพราะ Open WebUI พยายาม inject tools
-**Root cause:** `meta.capabilities.builtin_tools: true` ทำให้ Open WebUI validation layer คาดหวัง tools parameter
-**Fix:**
-```sql
-UPDATE model SET meta = jsonb_set(meta::jsonb, '{capabilities,builtin_tools}', 'false')::text WHERE id = 'haadthip-enterprise-assistant';
-```
-**Correct capabilities for Pipe models:**
-```json
-{"citations": true, "status_updates": true}
-```
-- ❌ `builtin_tools: true` — Pipe handles tools internally
-- ❌ `code_interpreter: true` — not needed
-- ❌ `image_generation: true` — not needed
-- ✅ `citations: true` — for showing source documents
-- ✅ `status_updates: true` — for showing "กำลังค้นหา..." progress
-**Discovered:** 2026-07-07
-
-### 18. Open WebUI: Analytics token usage เป็น 0 สำหรับ API clients (Azure Foundry)
-**Problem:** Analytics Dashboard แสดง token usage = 0 สำหรับโมเดลที่ใช้ผ่าน API (Azure Foundry) — ขึ้นเฉพาะ chats ที่ใช้ผ่าน Web UI
-**Root cause:** Analytics pipeline ต้องใช้ `chat_id`, `session_id`, `message_id` — API clients ไม่ส่ง → `event_emitter` เป็น None → ไม่ track usage, ไม่เขียน DB
-**Status:** Issue [#21675](https://github.com/open-webui/open-webui/issues/21675) ยัง OPEN — PR [#25650](https://github.com/open-webui/open-webui/pull/25650) merge เข้า `dev` branch (29 มิ.ย. 2569) แต่ยังไม่ released และแก้แค่ outlet filters ไม่ใช่ analytics โดยตรง
-**Recommendation:** ใช้ **LiteLLM** เป็น proxy คั่นระหว่าง Open WebUI และ Azure Foundry — LiteLLM มี token tracking, cost monitoring, budget limits ในตัว (ดูรายละเอียดที่หัวข้อ [Open WebUI — Token Tracking Limitation](#open-webui--token-tracking-limitation-️))
-**Discovered:** 2026-07-08
+| # | Problem | Fix |
+|---|---------|-----|
+| 1 | `@` `!` in DATABASE_URL breaks connection | URL-encode: `@`→`%40`, `!`→`%21` |
+| 2 | Container startup timeout (230s) | Set `WEBSITES_CONTAINER_START_TIME_LIMIT=1800` |
+| 3 | PostgreSQL DB not auto-created | `CREATE DATABASE open_webui / docwise / litellm` before deploy |
+| 4 | Entra ID SP not auto-created | `az ad sp create --id <client-id>` |
+| 5 | Entra ID email claim missing | Add `email` optional claim in ID token |
+| 6 | Search Free→Basic upgrade | Delete & recreate (5-15 min), or create with new name |
+| 7 | KB REST uses OData-style path | `knowledgesources('{name}')` not `/knowledge-sources/{name}` |
+| 8 | `2026-05-01-preview` KB bug in SEA | Use `api-version=2026-04-01` (GA) |
+| 9 | AI Services soft-delete block | `az cognitiveservices account purge` before re-create |
+| 10 | Endpoint suffix matters | KB/Pipe ใช้ `cognitiveservices.azure.com` ไม่ใช่ `api.cognitive.microsoft.com` |
+| 11 | MI role assignment fails | `az ad sp create --id <principal-id>` first, then assign role |
+| 12 | Index `content` field too large | Set `facetable: false, sortable: false, filterable: false` on content field |
+| 13 | KB retrieve `maxOutputSizeInTokens` | Must be ≥ 5000 |
+| 14 | KB MI auth error | Omit both `apiKey` and `authIdentity` → auto SystemAssigned MI |
+| 15 | OWUI infinite page loop | Check DATABASE_URL password matches PostgreSQL |
+| 16 | OWUI `tools[0].type` error | Remove `tools` from model `params` JSON |
+| 17 | OWUI Pipe model tool injection | Set `capabilities.builtin_tools: false` in model `meta` |
+| 18 | OWUI analytics 0 for API calls | Use LiteLLM proxy for token tracking |
 
 ---
 
-## Directory Structure
+## 📁 Folder Guide — อะไรไว้ไหน
 
 ```
 EnterpriseChat/
-├── CONTEXT.md                         ← This file (domain glossary + infra + architecture)
-├── architecture-view.html             ← Visual architecture diagram (open in browser)
-├── EnterpriseChat-Walkthrough-*.pptx  ← User walkthrough presentation
+├── CONTEXT.md              ← ไฟล์นี้ — Domain glossary, infra, architecture, folder guide
+├── .gitignore              ← Git ignore rules
 │
-├── config/
-│   ├── hub-ai-services-connection.yaml  ← Foundry Hub → AI Services connection
-│   ├── pipe-haadthip-knowledge.py       ← Open WebUI Pipe v2.0 (Agentic Retrieval + LLM)
-│   ├── pipe-corporate-knowledge.py      ← Corporate IT/Policy KB pipe
-│   ├── pipe-sap-knowledge.py            ← SAP HIP manuals KB pipe
-│   ├── pipe-ir-knowledge.py             ← Investor Relations KB pipe
-│   ├── pipe-hr-knowledge.py             ← HR knowledge KB pipe
-│   ├── pipe-eexpense-knowledge.py       ← E-Expense FAQ KB pipe
-│   ├── tool-haadthip-knowledge-search.py← Open WebUI KB search tool (Native Mode)
-│   ├── eexpense-faq-tool.py             ← E-Expense hybrid search tool
-│   ├── filter-token-tracker.py          ← Open WebUI Filter: token usage tracker
-│   ├── litellm_config.yaml              ← LiteLLM proxy config (5 Azure Foundry models)
-│   ├── Dockerfile.litellm               ← LiteLLM custom image (embeds config.yaml)
-│   ├── docker-compose.litellm.yml       ← LiteLLM + PostgreSQL (local POC)
-│   ├── docker-compose.openwebui.yml     ← Open WebUI standalone (local)
-│   └── docker-compose.full.yml          ← Full stack: Open WebUI + LiteLLM
+├── config/                 ← 🛠️ Configuration & Code
+│                               Open WebUI Functions (pipe/tool/filter),
+│                               Docker configs, LiteLLM config, Compose files
+│                               → ไว้เพิ่ม config ใหม่ของ services, functions, compose
 │
-├── scripts/
-│   ├── deploy-litellm-azure.sh          ← Deploy LiteLLM to Azure Web App
-│   ├── litellm-poc.sh                   ← LiteLLM local POC: start/stop/status/test
-│   ├── create-walkthrough-pptx.js       ← Generate walkthrough presentation
-│   ├── provision-poc-resources.sh       ← Full provisioning script
-│   ├── setup-auto-ingest.sh             ← Auto-ingest pipeline (general docs)
-│   ├── setup-haadthip-ir-pipeline.sh    ← IR docs: data source + index + skillset + indexer + KS
-│   ├── ingest-blob-to-search-v2.py      ← Blob → AI Search ingestion (general)
-│   ├── ingest-haadthip-ir-v2.py         ← IR docs: chunk + classify subject + embed + index
-│   ├── unified-ingestion.py             ← Unified ingestion: all corpuses + all file types
-│   ├── download-ir-docs.sh              ← Download IR PDFs from Haadthip website
-│   ├── flatten-eexpense-qa.py           ← E-Expense: Excel Decision Tree → FAQ JSONL
-│   ├── create-eexpense-index.py         ← E-Expense: Create AI Search index
-│   ├── ingest-eexpense-faq.py           ← E-Expense: Embed + upload documents
-│   ├── eexpense-chatbot.py              ← E-Expense: Chatbot engine (search + state machine)
-│   └── setup-eexpense-search.sh         ← E-Expense: All-in-one pipeline
+├── scripts/                ⚡ Scripts (deploy, ingest, setup)
+│                               Python, Shell, JS — deploy, ingest, setup, utility scripts
+│                               → ไว้เพิ่ม ingestion scripts, deployment scripts
 │
-├── docs/
-│   ├── walkthrough-agenda-2026-07-09.md ← User walkthrough agenda
-│   ├── aca-deployment-spec.md           ← ACA deployment architecture
-│   ├── aks-deployment-spec.md           ← AKS deployment architecture
-│   ├── ai-search-context.md             ← AI Search setup notes
-│   ├── ai-search-ingestion-guide.md
-│   ├── eexpense-search-architecture.md  ← E-Expense FAQ Search architecture
-│   ├── librechat-vs-openwebui-note.md
-│   ├── neuronhub-page-by-page-review.md
-│   ├── neuronhub-vendor-review.md
-│   ├── หาดทิพย์ NeuronHub_Presentation.pdf
-│   ├── artifacts/                       ← Design artifacts (philosophy, renders)
-│   ├── adr/                             ← Architecture Decision Records
-│   └── azure/                           ← Provisioning session notes
-│       ├── 2026-07-01-azure-resource-request.md
-│       ├── 2026-07-02-azure-resource-plan-final.md
-│       ├── 2026-07-02-provisioning-session.md
-│       ├── 2026-07-03-session4-provision.md
-│       └── 2026-07-03-session5-agentic-retrieval.md
+├── docs/                   📖 Documentation
+│   ├── adr/                → Architecture Decision Records
+│   ├── azure/              → Provisioning session notes
+│   ├── artifacts/          → Design renders, poster, philosophy
+│   └── presentations/      → .pptx slide decks
+│                               → ไว้เพิ่ม note, spec, decision doc, presentation
 │
-├── documents/                           ← Source documents (4 subdirectories)
-│   ├── haadthip-public/                 ← Corporate IT docs (23 files)
-│   ├── sap-hip/                         ← SAP HIP manuals (32 files)
-│   ├── haadthip-ir/                     ← Investor Relations (31 files)
-│   └── mihcm-hr/                        ← HR documents
+├── documents/              📄 Source Documents (local copies)
+│   ├── haadthip-ir/        → Investor Relations (PDFs from company website)
+│   ├── haadthip-public/    → Corporate IT / Policy / Public disclosure
+│   ├── mihcm-hr/           → HR policies, forms, manuals (from MiHCM)
+│   └── sap-hip/            → SAP HIP manuals
+│                               → ไว้เพิ่มไฟล์ต้นฉบับที่ต้องการ ingest เข้า Search
 │
-├── data/                                ← Data files (dumps, JSONL, Postman)
-│   ├── open_webui_poc.dump / .sql       ← PostgreSQL backups
-│   ├── eexpense-faq.jsonl               ← E-Expense: 42 FAQ documents
-│   └── postman-*                        ← API testing collections
+├── data/                   📦 Data files (exports, collections, DB dumps)
+│                               JSONL, Postman collections, SQL dumps
+│                               → ไว้เพิ่ม exported data, test fixtures
 │
-├── screenshots/                         ← Screenshots (organized)
-│   ├── architecture.png                 ← Architecture diagram capture
-│   ├── openwebui.png                    ← Open WebUI interface
-│   ├── litellm-dashboard.png            ← LiteLLM dashboard (logged in)
-│   ├── litellm-ui.png                   ← LiteLLM login page
-│   ├── sessions/                        ← Session screenshots (25 files)
-│   └── mihcm/                           ← MiHCM screen captures
+├── screenshots/            🖼️ Screenshots & walkthrough captures
+│   ├── sessions/           → Session screenshots
+│   └── mihcm/              → MiHCM screen captures
+│                               → ไว้เพิ่ม screenshot ที่ถ่ายตอน dev/test
 │
-└── icons/                               ← Azure architecture SVG icons (11 files)
+└── icons/                  🎨 Azure architecture SVG icons
+                                ใช้ใน architecture diagram / docs
+                                → ไว้เพิ่ม icon ถ้าต้องการ service ใหม่
 ```
 
-│       └── 03-company-disclosures/← MD&A, F45, AGM Minutes, Press Releases
-├── arch-diagram.html
-├── n8n-openwebui-architecture.docx
-└── ...
+### หลักการ
+
+| งานประเภท | วางที่ |
+|-----------|--------|
+| 🔧 Configuration / Function code | `config/` |
+| ⚡ Script รันครั้งเดียว / deploy / ingest | `scripts/` |
+| 📝 Documentation / note / ADR | `docs/` |
+| 📄 ไฟล์ต้นทางที่ต้องการให้ AI Search รู้จัก | `documents/` |
+| 📊 Dataset / export / collection | `data/` |
+| 🖼️ Screenshot / ภาพถ่าย | `screenshots/` |
+| 🎨 SVG icon / asset | `icons/` |
 ```
 
 ---

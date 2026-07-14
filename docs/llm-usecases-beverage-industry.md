@@ -412,7 +412,7 @@
 | Resource | รายละเอียด |
 |----------|-----------|
 | **Azure OpenAI** | gpt-5.4-nano, gpt-5.4-mini, gpt-5.4, gpt-5.2, text-embedding-3-large |
-| **AI Search** | Standard tier, semantic + vector search, 2 indexes (haadthip-public-idx-v2, sap-docs-idx) |
+| **AI Search** | Standard tier, semantic + vector search, 2 indexes (haadthip-corporate-idx-v2, sap-docs-idx) |
 | **Knowledge Base** | haadthip-kb + 2 knowledge sources (haadthip-ks, sap-docs-ks) |
 | **Agentic Retrieval** | ทำงานแล้ว — query ภาษาไทย/อังกฤษ, ค้นหาข้าม index, ตอบจากเอกสารภายใน |
 | **Open WebUI** | Deployed บน App Service, Entra ID SSO |

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-ingest-haadthip-ir-v2.py — IR Documents Ingestion with Document Intelligence
+ingest-haadthip-investor-relations-v2.py — IR Documents Ingestion with Document Intelligence
 ===========================================================================
 Pipeline:
   1. Azure AI Document Intelligence (prebuilt-layout) → Markdown
@@ -13,7 +13,7 @@ Pipeline:
   3. Subject Classification (keyword heuristic)
      - Multi-label: one chunk can be [financial, business]
   4. Vector Embedding (Azure OpenAI text-embedding-3-large)
-  5. Azure AI Search Index (haadthip-ir-idx)
+  5. Azure AI Search Index (haadthip-investor-relations-idx)
 
 Subject Areas (6):
   financial | governance | business | esg | risk | company-profile
@@ -23,7 +23,7 @@ Usage:
   export DOCUMENTINTELLIGENCE_ENDPOINT="https://aif-entchat-poc-sand.cognitiveservices.azure.com"
   export DOCUMENTINTELLIGENCE_API_KEY="..."
   export AZURE_OPENAI_API_KEY="..."
-  python3 scripts/ingest-haadthip-ir-v2.py
+  python3 scripts/ingest-haadthip-investor-relations-v2.py
 
 Requirements:
   pip install azure-ai-documentintelligence azure-search-documents
@@ -64,7 +64,7 @@ class Config:
     search_endpoint: str = os.getenv("AZURE_SEARCH_ENDPOINT",
         "https://srch-entchat-poc-sand.search.windows.net")
     search_key: str = os.getenv("AZURE_SEARCH_KEY") or os.getenv("AZURE_SEARCH_ADMIN_KEY", "")
-    index_name: str = "haadthip-ir-idx"
+    index_name: str = "haadthip-investor-relations-idx"
     
     # === Document Intelligence ===
     docintel_endpoint: str = os.getenv("DOCUMENTINTELLIGENCE_ENDPOINT",
@@ -81,7 +81,7 @@ class Config:
     embedding_dimensions: int = 3072
     
     # === Ingestion ===
-    docs_dir: Path = Path("documents/haadthip-ir")
+    docs_dir: Path = Path("documents/haadthip-investor-relations")
     max_chunk_size: int = 2000
     chunk_overlap: int = 100
     batch_size: int = 50

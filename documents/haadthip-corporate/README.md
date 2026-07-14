@@ -5,7 +5,7 @@ Document corpus for the DocWise **Pipeline** — sourced from Haad Thip Public C
 ## Directory Structure
 
 ```
-haadthip-public/
+haadthip-corporate/
 ├── 01-security/          MFA, VPN, session management        (5 docs)
 ├── 02-email/             Exchange / O365 setup & management   (7 docs)
 ├── 03-meeting-room/      Board meeting room booking & usage   (2 docs)

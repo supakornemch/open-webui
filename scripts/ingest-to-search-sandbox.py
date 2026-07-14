@@ -13,10 +13,10 @@ import requests
 # === CONFIG ===
 SEARCH_ENDPOINT = "https://srch-entchat-poc-sand.search.windows.net"
 SEARCH_KEY = "VeJOFJHJtmGvRp15ZQrk9mXCmI1JHpfyXTBNyuAiEUAzSeCmkPxY"
-INDEX_NAME = "haadthip-public-idx-v2"
+INDEX_NAME = "haadthip-corporate-idx-v2"
 API_VERSION = "2024-07-01"
 
-DOCS_DIR = Path(__file__).parent.parent / "documents" / "haadthip-public"
+DOCS_DIR = Path(__file__).parent.parent / "documents" / "haadthip-corporate"
 
 CATEGORY_MAP = {
     "01-security": "security",
@@ -161,7 +161,7 @@ def main():
                 file_size = stat.st_size
                 
                 # Use file path within container as a pseudo-path
-                relative_path = f"haadthip-public/{category_dir}/{filepath.name}"
+                relative_path = f"haadthip-corporate/{category_dir}/{filepath.name}"
                 
                 # Create parent document
                 parent_id = sanitize_id(f"parent_{filepath.stem}")

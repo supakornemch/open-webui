@@ -14,10 +14,10 @@
 - Delete operation ใช้เวลา > 2 นาที background — ต้องใช้ชื่อ `-01` เพราะชื่อเดิมยังติด
 
 ### 2. Document Ingestion Pipeline
-- สร้าง Data Source `haadthip-public-ds` (Blob → `haadthip-public` container)
-- สร้าง Skillset `haadthip-public-skillset` (Document Extraction skill)
-- สร้าง Index `haadthip-public-idx` (semantic config: `haadthip-semantic`)
-- สร้าง Indexer `haadthip-public-idxr` → รันแล้ว 18 docs indexed
+- สร้าง Data Source `haadthip-corporate-ds` (Blob → `haadthip-corporate` container)
+- สร้าง Skillset `haadthip-corporate-skillset` (Document Extraction skill)
+- สร้าง Index `haadthip-corporate-idx` (semantic config: `haadthip-semantic`)
+- สร้าง Indexer `haadthip-corporate-idxr` → รันแล้ว 18 docs indexed
 - ⚠️ `htc-sustainability-report-2024-en.pdf` (25MB) เกิน Basic tier limit (16MB)
 - ⚠️ `htc-one-report-2024-en.pdf` ถูก truncate content ที่ 524,288 chars
 
@@ -30,7 +30,7 @@
 
 **Knowledge Source** `haadthip-ks`:
 - `kind: searchIndex`
-- `searchIndexName: haadthip-public-idx`
+- `searchIndexName: haadthip-corporate-idx`
 - `sourceDataFields: metadata_storage_name, content, category`
 - `searchFields: metadata_storage_name, content`
 

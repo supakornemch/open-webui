@@ -199,7 +199,7 @@ from azure.search.documents import SearchIndexingBufferedSender
 
 # 1. Load PDFs
 documents = []
-for pdf_path in Path("documents/haadthip-public").rglob("*.pdf"):
+for pdf_path in Path("documents/haadthip-corporate").rglob("*.pdf"):
     loader = PyPDFLoader(str(pdf_path))
     pages = loader.load()
     # Add metadata...
@@ -877,7 +877,7 @@ from azure.search.documents import SearchIndexingBufferedSender
 # === CONFIG ===
 ENDPOINT = os.getenv("AZURE_SEARCH_ENDPOINT", "https://enterprisechat-search.search.windows.net")
 INDEX_NAME = "haadthip-docs"
-DOCUMENTS_DIR = Path("../documents/haadthip-public")
+DOCUMENTS_DIR = Path("../documents/haadthip-corporate")
 
 CATEGORY_MAP = {
     "01-security":           "security",

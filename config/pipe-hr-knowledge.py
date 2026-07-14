@@ -9,7 +9,7 @@ required_open_webui_version: 0.1.0
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 Knowledge Sources:
-  • mihcm-hr-ks — HR: Policies, Forms, Manuals, Regulations, Announcements
+  • haadthip-hr-policies-ks — HR: Policies, Forms, Manuals, Regulations, Announcements
 
 Install in Open WebUI:
   Admin Settings → Functions → + → paste this file → Save
@@ -106,7 +106,7 @@ class Pipe:
             resp = await client.post(url, json={
                 "intents": [{"search": query, "type": "semantic"}],
                 "knowledgeSourceParams": [
-                    {"knowledgeSourceName": "mihcm-hr-ks", "kind": "searchIndex"}
+                    {"knowledgeSourceName": "haadthip-hr-policies-ks", "kind": "searchIndex"}
                 ],
                 "maxOutputSizeInTokens": max(self.valves.max_output_tokens, 5000),
             }, headers={"Content-Type": "application/json", "api-key": search_key})
