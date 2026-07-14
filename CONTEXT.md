@@ -2,25 +2,35 @@
 
 > ## 📝 Recent Changes (2026-07-14)
 >
-> ### Cleanup — Pipeline & Blob Containers
-> ได้ cleanup Azure resources ที่ไม่ใช้แล้ว:
-> - **Blob containers**: `haadthip-investor-relations`, `haadthip-corporate`, `haadthip-hr-policies` — ลบไฟล์ทั้งหมด
-> - **Indexes**: `haadthip-ir-idx`, `mihcm-hr-idx`, `haadthip-public-idx-v2` ❌
-> - **Indexers**: `haadthip-ir-idxr`, `mihcm-hr-indexer` ❌ (ลบไปก่อนหน้านี้แล้ว)
-> - **Skillsets**: `haadthip-ir-skillset`, `mihcm-hr-skillset`, `haadthip-public-skillset` ❌
-> - **Data sources**: `haadthip-ir-ds`, `mihcm-hr-ds`, `haadthip-public-ds` ❌
-> - **Knowledge sources**: `ir-docs-ks`, `mihcm-hr-ks`, `haadthip-ks` ❌
-> - **Knowledge base**: `haadthip-kb` ❌
+> ### ✅ Enterprise Document Ingestion Pipeline (NEW)
+> Custom Python ingestion แทน skillset approach:
+> - **`scripts/preprocess-docs.py`** — Extract (prebuilt-read) → Chunk → GPT classify → GPT-5.4-nano summarize → Embed → JSONL
+> - **`scripts/upload-to-search.py`** — JSONL → Azure AI Search (incremental + orphan delete)
+> - **`scripts/test-search-regression.py`** — 182 regression tests (all passing)
+> - **Index**: `enterprise-docs-idx` — 774 chunks (120 corporate + 654 HR), vector HNSW + semantic
+> - **Fields**: `meta` (JSON), `summary` (GPT), `related_doc_ids`, `content_vector` (3072d)
+> - **Auto-classify**: 22 categories via GPT across 2 corpuses
+> - **Extractor**: `prebuilt-read` (default, fast, Thai), `prebuilt-layout` (markdown), `pypdf` (native)
 >
-> **เหลือเฉพาะ indexes ที่ใช้งานอยู่:** `documents-index`, `docwise-docs-v2`, `eexpense-faq-idx`, `sap-docs-idx`
+> ### Cleanup — Blob Containers
+> ลบ containers จาก pipeline เก่าที่ไม่ได้ใช้แล้ว:
+> - `haadthip-ir`, `haadthip-public`, `mihcm-hr`, `sap-docs` ❌
+> - **เหลือ:** `open-webui-files`, `cost-reports`, `documents`, `uploads`, `vhds`
 >
-> > 🔜 **Next:** Custom Python ingestion (แทน index projection / skillset approach)
+> ### Cleanup — Document Corpus
+> - ลบ `documents/haadthip-investor-relations/` ทั้งหมด (external investor docs)
+> - ลบ large corporate files: `htc-one-report-2024-en.pdf` (258p), `htc-sustainability-report-2024-en.pdf` (145p)
+> - ลบ SAP index (`sap-docs-idx`) — ไม่ได้ใช้แล้ว
+> - **เหลือ:** 17 corporate + 125 HR = 142 internal documents
 >
-> ### Repository Structure
-> - ย้าย PNGs ทั้งหมด → `screenshots/`
-> - ย้าย PPTXs → `docs/presentations/`
-> - ย้าย HTML → `docs/`
-> - เพิ่ม `.gitignore` + `git init` (351 files, commit `3202ff4`)
+> ### Indexes ที่ใช้งานอยู่:
+> - `enterprise-docs-idx` — **main** (774 chunks, 2 corpuses)
+> - `eexpense-faq-idx` — E-Expense FAQ chatbot (42 docs)
+> - `documents-index`, `docwise-docs-v2` — legacy (keep for now)
+>
+> ### Previous Cleanup (2026-07-11)
+> - ลบ skillsets, indexers, datasources, knowledge sources ทั้งหมด
+> - Git repo initialized, `.gitignore` เพิ่ม, directory restructured
 
 ## Glossary
 
@@ -38,10 +48,15 @@
 | **Document Type (doc_type)** | ชนิดของ IR document ตามวัตถุประสงค์ทางกฎหมาย/การเผยแพร่: `annual-report`, `form-56-1`, `financial-data`, `company-disclosure`, `press-release` |
 | **Subject Area (category)** | หัวข้อ/เนื้อหาเชิงธุรกิจที่ document หรือ chunk กล่าวถึง: `financial`, `governance`, `business`, `sustainability`, `risk`, `company-profile` |
 | **Report Year (report_year)** | ปีงบการเงินที่รายงานครอบคลุม (สำหรับ annual reports, financial data) |
-| **Index Projection** | Azure AI Search mechanism ที่ 1 blob → N search documents (one per chunk) — ใช้ใน skillset ที่มี split skill |
-| **Azure AI Document Intelligence** | Managed AI service for PDF/Office/image text extraction — prebuilt layout model outputs markdown with table structure, headings, figures preserved |
-| **Layout Model** | Prebuilt model ใน Document Intelligence — extracts text + tables as markdown `| col | col |`, headings as `##`, figures as `<figure><figcaption>` |
-| **Unified Ingestion** | `scripts/unified-ingestion.py` — single Python script for ALL corpuses + ALL file types (.pdf/.doc/.docx/.xls/.xlsx/.jpg/.png/.pptx) → AI Search |
+| **Index Projection** | Azure AI Search mechanism ที่ 1 blob → N search documents — ❌ Deprecated, replaced by custom Python pipeline |
+| **Preprocessing (preprocess-docs.py)** | Step 1 ของ ingestion: extract → chunk → GPT classify → GPT summarize → embed → save JSONL files in `data/ingestion/` |
+| **Upload (upload-to-search.py)** | Step 2 ของ ingestion: อ่าน JSONL → batch upload AI Search (incremental: skip unchanged, delete orphans) |
+| **JSONL Ingestion** | Two-step pipeline — preprocess caches locally, upload pushes to AI Search; supports resume, delta, re-upload |
+| **enterprise-docs-idx** | Main search index — 774 chunks, 2 corpuses (corporate + hr-policies), vector HNSW + semantic |
+| **prebuilt-read** | Default Doc Intel model — OCR text extraction, fast (2-4s/file), full Thai support, plain text output |
+| **prebuilt-layout** | Slower Doc Intel model — OCR + layout analysis + markdown tables + figures, 5-10s/file |
+| **Azure AI Document Intelligence** | Managed AI service for PDF/Office/image text extraction — prebuilt-read (text) and prebuilt-layout (markdown) models |
+| **Enterprise Document Ingestion** | `scripts/preprocess-docs.py` + `scripts/upload-to-search.py` — custom Python pipeline แทน skillset-based ingestion |
 | **E-Expense** | Haadthip internal expense management system — การขอแผนการเดินทาง, เบิกทดรองจ่าย, เคลียร์ค่าใช้จ่าย, ค่ารักษาพยาบาล |
 | **E-Expense FAQ Index** | Azure AI Search index (`eexpense-faq-idx`) — 42 flattened FAQ documents from E-Expense chatbot Q&A decision tree, hybrid search (BM25 + vector 3072d + semantic) |
 | **E-Expense Chatbot** | FAQ chatbot engine (`scripts/eexpense-chatbot.py`) — hybrid search + state machine for multi-turn clarification |
@@ -57,20 +72,16 @@
 
 ## Document Corpus
 
-Source documents อยู่ใน `documents/` 3 กลุ่ม:
+Source documents อยู่ใน `documents/` 2 กลุ่ม (internal communication only):
 
 | Corpus | Path | Files | Detail |
 |--------|------|:----:|--------|
-| Public Docs | `documents/haadthip-corporate/` | 19 | Security, Email, Meeting Room, IT Policy, Public Disclosure. 5 subdirs. |
-| IR Docs | `documents/haadthip-investor-relations/` | 31 | Annual Reports, Financial Data, Company Disclosures. 3 subdirs. |
-| HR Docs | `documents/haadthip-hr-policies/` | 125+ | HR policies, forms, manuals, regulations (.pdf/.doc/.xlsx/.jpg) |
-| SAP HIP | `documents/sap-hip-manuals/` | 32 | SAP Hana Implementation Project manuals |
+| Corporate | `documents/haadthip-corporate/` | 17 | Security, Email, Meeting Room, IT Policy, AGM Minutes. 5 subdirs |
+| HR Policies | `documents/haadthip-hr-policies/` | 125 | Policies, announcements, forms, benefits, newsletters (.pdf/.doc/.xls/.jpg) |
 
-> 📖 ดูรายละเอียดไฟล์ได้ที่ `documents/*/README.md`
->
-> **Note:** Pipelines สำหรับ haadthip-ir, haadthip-public, mihcm-hr ถูกลบจาก Azure Search แล้ว — จะใช้ custom Python ingestion แทน
->
-> SAP index (`sap-docs-idx`) ยังอยู่ ✅ — index ไว้ด้วย old pipeline (DocumentExtractionSkill) ได้เฉพาะ text + Tcode, screenshots ไม่ได้ OCR
+> **Removed:** `haadthip-investor-relations/` (external investor docs — ไม่ใช่ internal communication)
+> **Removed:** `htc-one-report-2024-en.pdf` (258p), `htc-sustainability-report-2024-en.pdf` (145p) — ใหญ่เกินไป
+> **Total:** 142 files → 774 searchable chunks in `enterprise-docs-idx`
 
 ---
 
@@ -288,12 +299,34 @@ python3 scripts/eexpense-chatbot.py
 | `deploy-gpt-5.4-mini` | gpt-5.4-mini | 2026-03-17 | General-purpose chat (Open WebUI direct) |
 | `deploy-gpt-5.4` | gpt-5.4 | 2026-03-05 | **Pipe LLM generation** (better quality for Thai + citations) |
 | `deploy-gpt-5.2` | gpt-5.2 | 2025-12-11 | Fallback/legacy |
-| `deploy-embedding-3-large` | text-embedding-3-large | 1 | Vector embeddings |
+| `deploy-embedding-3-large` | text-embedding-3-large | 1 | Vector embeddings (3072d) |
 
 > 💡 **KB ใช้ `deploy-gpt-5.4-nano`** สำหรับ query planning (agentic reasoning) — ถูกสุด, ~29K reasoning tokens/query  
 > 💡 **Pipe ใช้ `deploy-gpt-5.4`** สำหรับ final answer generation — คุณภาพดีกว่า nano สำหรับภาษาไทย + การอ้างอิงเอกสาร
+> 💡 **Ingestion ใช้ `deploy-gpt-5.4-nano`** สำหรับ classify + summarize → `deploy-embedding-3-large` สำหรับ vectors
 
-> ⚠️ DeepSeek models **NOT** available on AIServices kind — GPT series only.
+### AI Search — Indexes
+
+| Index | Docs | Type | Status |
+|-------|------|------|--------|
+| `enterprise-docs-idx` | 774 chunks (139 docs) | Vector HNSW + Semantic | ✅ **Main production** |
+| `eexpense-faq-idx` | 42 docs | Vector HNSW + Semantic | ✅ E-Expense chatbot |
+| `documents-index` | — | Simple | ⚠️ Legacy |
+| `docwise-docs-v2` | — | Simple | ⚠️ Legacy |
+
+### Blob Storage (`staentchatdoc`)
+
+| Container | Status |
+|-----------|--------|
+| `open-webui-files` | ✅ Open WebUI file uploads |
+| `cost-reports` | ✅ In use |
+| `documents` | ✅ In use |
+| `uploads` | ✅ In use |
+| `vhds` | ✅ VM disks |
+| ~~`haadthip-ir`~~ | ❌ Deleted (old pipeline) |
+| ~~`haadthip-public`~~ | ❌ Deleted (old pipeline) |
+| ~~`mihcm-hr`~~ | ❌ Deleted (old pipeline) |
+| ~~`sap-docs`~~ | ❌ Deleted (old pipeline) |
 
 ### Container Registry
 
@@ -744,19 +777,17 @@ User ถามใน Open WebUI
 | Container | Purpose |
 |-----------|---------|
 | `documents` | DocWise file storage (empty / not yet used) |
-| `uploads` | Public blob access |
-| `haadthip-investor-relations` | ✅ **Cleaned up** (ไฟล์ถูกลบ 2026-07-14) — เคยมี 31 IR PDFs |
-| `haadthip-corporate` | ✅ **Cleaned up** (ไฟล์ถูกลบ 2026-07-14) — เคยมี 19 docs |
-| `haadthip-hr-policies` | ✅ **Cleaned up** (ไฟล์ถูกลบ 2026-07-14) — เคยมี 125 files |
-| `open-webui-files` | ❌ ยังไม่ได้สร้าง — ต้องสร้างก่อนใช้ MI |
-
-> ⚠️ Pipelines ที่เกี่ยวข้อง (haadthip-ir, haadthip-public, mihcm-hr) ถูกลบออกจาก Search service แล้ว — Custom Python ingestion แทน
+| `uploads` | ✅ In use (general purpose) |
+| `vhds` | ✅ VM disks |
+| ~~`haadthip-ir`~~ | ❌ Deleted 2026-07-14 — old IR pipeline |
+| ~~`haadthip-public`~~ | ❌ Deleted 2026-07-14 — old public pipeline |
+| ~~`mihcm-hr`~~ | ❌ Deleted 2026-07-14 — old MiHCM pipeline |
+| ~~`sap-docs`~~ | ❌ Deleted 2026-07-14 — SAP index deleted |
 
 ### Agentic Retrieval Knowledge Base (format reference)
 
-> KB `haadthip-kb` + KS `haadthip-ks`, `ir-docs-ks`, `mihcm-hr-ks` ถูกลบแล้ว  
-> `sap-docs-ks` ยังอยู่ ✅  
-> ข้อมูลด้านล่างเป็น format reference สำหรับ custom ingestion ต่อไป
+> KB `haadthip-kb` + all knowledge sources ถูกลบแล้วเมื่อ 2026-07-14  
+> ด้านล่างเป็น format reference สำหรับอนาคต
 
 **URL Pattern (OData-style):**
 ```
@@ -850,6 +881,78 @@ Pipeline: flatten → embed → upload → chatbot engine (state machine)
 
 ---
 
+## Enterprise Document Ingestion Pipeline 🆕
+
+### Architecture
+
+```
+documents/  →  preprocess-docs.py  →  data/ingestion/   →  upload-to-search.py  →  enterprise-docs-idx
+ 142 files      extract (read)          {corpus}/*.jsonl    incremental +           774 chunks
+                 chunk (2000/200)         774 chunks          orphan delete
+                 GPT classify
+                 GPT-5.4-nano summarize
+                 embed (3072d)
+```
+
+### Index Schema (`enterprise-docs-idx`)
+
+| Field | Type | Purpose |
+|-------|------|---------|
+| `id` | `Edm.String` (Key) | `{doc_id}_{chunk_seq:05d}` |
+| `doc_id` | `Edm.String` (filterable) | Groups all chunks of same document |
+| `chunk_seq` | `Edm.Int32` (sortable) | Sequential chunk number |
+| `file_name` | `Edm.String` (searchable) | Original filename |
+| `file_path` | `Edm.String` (filterable) | Relative path from documents/ |
+| `corpus` | `Edm.String` (filterable, facetable) | `corporate` or `hr-policies` |
+| `category` | `Edm.String` (filterable, facetable) | GPT auto-classified (22 categories) |
+| `content` | `Edm.String` (searchable) | Chunk text |
+| `summary` | `Edm.String` (searchable) | GPT-5.4-nano 1-2 sentence summary |
+| `meta` | `Edm.String` (retrievable) | JSON: file_hash, language, pages, file_size, category |
+| `related_doc_ids` | `Collection(Edm.String)` | doc_ids of same-category documents |
+| `content_vector` | `Collection(Edm.Single)`, 3072d | text-embedding-3-large |
+
+**Vector:** HNSW cosine, m=4, efConstruction=400, efSearch=500  
+**Semantic:** title→file_name, content→content, keywords→summary
+
+### Commands
+
+```bash
+# Preprocess (extract→chunk→classify→summarize→embed→JSONL)
+python3 scripts/preprocess-docs.py --corpus corporate
+python3 scripts/preprocess-docs.py --corpus hr-policies --extractor prebuilt-layout
+
+# Upload (JSONL→AI Search, incremental)
+export AZURE_SEARCH_KEY="..."
+python3 scripts/upload-to-search.py --corpus corporate
+
+# Full pipeline
+python3 scripts/preprocess-docs.py && python3 scripts/upload-to-search.py
+
+# Verify
+python3 scripts/upload-to-search.py --verify
+
+# Regression tests
+python3 scripts/test-search-regression.py
+```
+
+### Categories (22 auto-classified)
+
+| Corpus | Categories |
+|--------|-----------|
+| Corporate | Security Manual, Email Manual, IT Policy, Meeting Room Guide, Corporate Governance |
+| HR Policies | Policy, Announcement / Order, Form / Template, Benefits & Welfare, Training & Development, Recruitment & Appointment, Privacy / PDPA, Social Security, Safety & Environment, Company Regulation, Holiday / Leave, Manual / Guide, Newsletter |
+
+### Extraction Modes
+
+| Mode | Speed | Quality | Use Case |
+|------|-------|---------|----------|
+| `prebuilt-read` (default) | Fast (2-4s) | Plain text, Thai ✅ | Most documents |
+| `prebuilt-layout` | Slow (5-10s) | Markdown + tables + figures | Complex layouts |
+| `pypdf` | Instant | Text only, Thai may be garbled | Quick testing |
+
+---
+
+
 ## Recurring Issues (quick reference)
 
 | # | Problem | Fix |
@@ -872,6 +975,10 @@ Pipeline: flatten → embed → upload → chatbot engine (state machine)
 | 16 | OWUI `tools[0].type` error | Remove `tools` from model `params` JSON |
 | 17 | OWUI Pipe model tool injection | Set `capabilities.builtin_tools: false` in model `meta` |
 | 18 | OWUI analytics 0 for API calls | Use LiteLLM proxy for token tracking |
+| 19 | Embedding rate limit (429) | Add exponential backoff (10s→120s), batch≤50 |
+| 20 | Chunk >8192 tokens → embedding fails | Truncate chunks before embed (max 4000 chars) |
+| 21 | `.doc`/`.xls` legacy format → Doc Intel fails | Use native pypdf/docx/openpyxl as fallback |
+| 22 | GPG signed commits fail from VSCode | Use `zsh` or `code -w` — set `GPGSIGN=false` in .zshrc |
 
 ---
 
@@ -888,8 +995,13 @@ EnterpriseChat/
 │                               → ไว้เพิ่ม config ใหม่ของ services, functions, compose
 │
 ├── scripts/                ⚡ Scripts (deploy, ingest, setup)
-│                               Python, Shell, JS — deploy, ingest, setup, utility scripts
-│                               → ไว้เพิ่ม ingestion scripts, deployment scripts
+│   ├── preprocess-docs.py  → 🆕 Extract→chunk→classify→summarize→embed→JSONL
+│   ├── upload-to-search.py → 🆕 JSONL→AI Search (incremental+orphan)
+│   ├── test-search-regression.py → 🆕 182 regression tests for search
+│   ├── unified-ingestion.py → ⚠️ Legacy (replaced by preprocess+upload)
+│   ├── flatten-eexpense-qa.py → E-Expense Excel→JSONL
+│   ├── ingest-eexpense-faq.py → E-Expense embed+upload
+│   └── eexpense-chatbot.py  → E-Expense chatbot engine
 │
 ├── docs/                   📖 Documentation
 │   ├── adr/                → Architecture Decision Records
@@ -898,16 +1010,14 @@ EnterpriseChat/
 │   └── presentations/      → .pptx slide decks
 │                               → ไว้เพิ่ม note, spec, decision doc, presentation
 │
-├── documents/              📄 Source Documents (local copies)
-│   ├── haadthip-ir/        → Investor Relations (PDFs from company website)
-│   ├── haadthip-public/    → Corporate IT / Policy / Public disclosure
-│   ├── mihcm-hr/           → HR policies, forms, manuals (from MiHCM)
-│   └── sap-hip/            → SAP HIP manuals
-│                               → ไว้เพิ่มไฟล์ต้นฉบับที่ต้องการ ingest เข้า Search
+├── documents/              📄 Source Documents (internal only)
+│   ├── haadthip-corporate/ → Corporate IT docs (security, email, meeting, policy)
+│   └── haadthip-hr-policies/ → HR policies, forms, announcements (125 files)
+│                               → ~~investor-relations~~ ❌ removed (external docs)
 │
-├── data/                   📦 Data files (exports, collections, DB dumps)
-│                               JSONL, Postman collections, SQL dumps
-│                               → ไว้เพิ่ม exported data, test fixtures
+├── data/                   📦 Data files
+│   ├── ingestion/           → 🆕 Preprocessed JSONL chunks (gitignored, regenerable)
+│   └── eexpense-faq.jsonl  → E-Expense FAQ data
 │
 ├── screenshots/            🖼️ Screenshots & walkthrough captures
 │   ├── sessions/           → Session screenshots
