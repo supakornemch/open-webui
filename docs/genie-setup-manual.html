@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Genie Enterprise Agent — Setup Guide</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #f5f5f7; color: #1d1d1f; }
+
+/* ── tabs ── */
+.tabs { display: flex; gap: 0; background: #fff; border-bottom: 1px solid #d2d2d7; position: sticky; top: 0; z-index: 10; overflow-x: auto; }
+.tab-btn { padding: 14px 20px; border: none; background: none; font-size: 13px; font-weight: 500; color: #6e6e73; cursor: pointer; white-space: nowrap; border-bottom: 2px solid transparent; transition: all .15s; }
+.tab-btn:hover { color: #1d1d1f; background: #f5f5f7; }
+.tab-btn.active { color: #0071e3; border-bottom-color: #0071e3; }
+
+/* ── panels ── */
+.panel { display: none; max-width: 960px; margin: 0 auto; padding: 32px 20px; }
+.panel.active { display: block; }
+.panel h2 { font-size: 22px; font-weight: 600; margin-bottom: 6px; }
+.panel .desc { color: #6e6e73; font-size: 14px; margin-bottom: 24px; }
+
+/* ── step card ── */
+.step { background: #fff; border-radius: 12px; padding: 20px; margin-bottom: 16px; box-shadow: 0 1px 3px rgba(0,0,0,.08); }
+.step h3 { font-size: 15px; font-weight: 600; margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
+.step h3 .badge { background: #0071e3; color: #fff; font-size: 11px; padding: 2px 8px; border-radius: 10px; font-weight: 500; }
+.step p, .step li { font-size: 14px; line-height: 1.6; color: #333; }
+.step ul { padding-left: 20px; margin-top: 6px; }
+.step ul li { margin-bottom: 4px; }
+.step code { background: #f0f0f0; padding: 2px 6px; border-radius: 4px; font-size: 13px; }
+.step img { max-width: 100%; border-radius: 8px; border: 1px solid #e8e8ed; margin-top: 10px; display: block; }
+.step pre { background: #1d1d1f; color: #e8e8ed; border-radius: 8px; padding: 16px; font-size: 12px; line-height: 1.5; overflow-x: auto; margin-top: 10px; max-height: 400px; }
+
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+@media (max-width: 640px) { .grid-2, .grid-3 { grid-template-columns: 1fr; } }
+
+.header-bar { background: #1d1d1f; color: #fff; padding: 20px; text-align: center; }
+.header-bar h1 { font-size: 20px; font-weight: 600; }
+.header-bar p { font-size: 13px; color: #a1a1a6; margin-top: 4px; }
+
+.info-table { width: 100%; border-collapse: collapse; font-size: 13px; margin-top: 12px; }
+.info-table th, .info-table td { padding: 8px 12px; text-align: left; border-bottom: 1px solid #e8e8ed; }
+.info-table th { background: #f5f5f7; font-weight: 600; }
+
+/* ── showcase cards ── */
+.showcase { background: #fff; border-radius: 16px; overflow: hidden; box-shadow: 0 2px 12px rgba(0,0,0,.08); margin-bottom: 24px; }
+.showcase-body { padding: 20px; }
+.showcase-body h3 { font-size: 16px; font-weight: 600; margin-bottom: 6px; }
+.showcase-body p { font-size: 13px; color: #6e6e73; line-height: 1.5; }
+.showcase-body img { max-width: 100%; border-radius: 6px; margin-top: 10px; border: 1px solid #e8e8ed; }
+
+/* ── code toggle ── */
+.code-toggle { background: none; border: none; color: #0071e3; font-size: 13px; cursor: pointer; padding: 4px 0; margin-top: 8px; display: inline-block; }
+.code-toggle:hover { text-decoration: underline; }
+.code-wrap { display: none; margin-top: 0; }
+.code-wrap.open { display: block; }
+
+/* ── terminal style (for code samples) ── */
+.terminal { background: #1d1d1f; border-radius: 10px; padding: 16px; font-family: 'SF Mono', 'Menlo', monospace; font-size: 13px; line-height: 1.6; color: #e8e8ed; margin-top: 10px; }
+.terminal .prompt { color: #34d399; }
+.terminal .comment { color: #6e6e73; }
+
+/* ── lightbox ── */
+.step img, .showcase-body img { cursor: zoom-in; }
+.lightbox { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,.85); z-index: 999; justify-content: center; align-items: center; cursor: zoom-out; }
+.lightbox.open { display: flex; }
+.lightbox img { max-width: 95vw; max-height: 95vh; border-radius: 4px; box-shadow: 0 8px 40px rgba(0,0,0,.5); }
+</style>
+</head>
+<body>
+
+<div class="header-bar">
+  <h1>🪄 Genie — Enterprise Chat User Manual</h1>
+  <p>คู่มือการใช้งาน Enterprise AI Agent สำหรับพนักงานหาดทิพย์</p>
+</div>
+
+<div class="tabs" id="tabs">
+  <button class="tab-btn active" data-tab="guide">📖 วิธีใช้ (Wiki)</button>
+  <button class="tab-btn" data-tab="knowledge">📚 Knowledge</button>
+  <button class="tab-btn" data-tab="prompts">💬 Prompts</button>
+  <button class="tab-btn" data-tab="agent">🤖 Agent</button>
+  <button class="tab-btn" data-tab="skills">🧠 Skills</button>
+  <button class="tab-btn" data-tab="tool">🔧 Tool (Advance)</button>
+</div>
+
+<!-- ═══════════════════ Tab: Guide ═══════════════════ -->
+<div class="panel active" id="panel-guide">
+  <h2>📖 วิธีใช้ Genie — Open WebUI Wiki</h2>
+  <p class="desc">คู่มือการใช้งาน Genie AI Assistant สำหรับพนักงานหาดทิพย์</p>
+
+  <div class="step">
+    <h3>💬 แชทกับ Genie</h3>
+    <ul>
+      <li>เปิด <strong>New Chat</strong> — เลือกโมเดลจาก dropdown ด้านบน</li>
+      <li>พิมพ์คำถามเป็นภาษาไทยหรืออังกฤษก็ได้</li>
+      <li>Genie ค้นหาจากฐานข้อมูลเอกสารภายในก่อนตอบ</li>
+      <li>คำตอบจะอ้างอิงชื่อเอกสารต้นทาง</li>
+    </ul>
+  </div>
+
+  <div class="step">
+    <h3>📎 แนบไฟล์ถาม</h3>
+    <ul>
+      <li>ลากไฟล์ PDF, Excel, Word, CSV มาวางในแชท</li>
+      <li>Genie อ่านเอกสารให้ แล้วถามรายละเอียดได้เลย</li>
+      <li>ลอง: "สรุปเอกสารนี้ให้หน่อย" หรือ "หาข้อมูลเกี่ยวกับ X ในไฟล์นี้"</li>
+    </ul>
+  </div>
+
+  <div class="step">
+    <h3>📎 แนบไฟล์ถาม — ตัวอย่าง Use Case</h3>
+    <p>อัปโหลดไฟล์ CSV ยอดขาย แล้วให้ Genie สร้าง HTML Preview แบบ Bar Chart ให้ดูทันที:</p>
+    <ol>
+      <li>ลากไฟล์ <code>sales.csv</code> มาวางในแชท</li>
+      <li>พิมพ์คำสั่ง: <em>"สร้าง HTML preview แสดงยอดขายแยกสาขาแบบ bar chart จากไฟล์นี้ให้หน่อย"</em></li>
+      <li>Genie อ่านไฟล์ → เขียนโค้ด Chart.js → แสดงผลในแชท</li>
+    </ol>
+    <img src="../screenshots/chat-use-case-csv.png" alt="Chat with CSV upload and HTML bar chart result">
+  </div>
+
+  <div class="step">
+    <h3>📊 ตัวอย่าง: CSV → HTML Preview</h3>
+    <p>อัปโหลดไฟล์ CSV ยอดขาย แล้วให้ Genie สร้าง HTML preview แบบ Bar Chart ให้ดูทันที — ไม่ต้องเขียนโค้ดเอง!</p>
+    <img src="../screenshots/34-chat-with-csv.png" alt="Chat with CSV uploaded" style="cursor:zoom-in">
+    <p style="margin-top:8px"><strong>ผลลัพธ์</strong> — Genie สร้าง Bar Chart ด้วย Chart.js ให้ดูในแชท:</p>
+    <img src="../screenshots/35-csv-html-preview.png" alt="Genie HTML preview response" style="cursor:zoom-in">
+  </div>
+
+  <div class="step">
+    <h3>👍👎 ให้ Feedback กับ Genie</h3>
+    <p>ทุกคำตอบของ Genie จะมีปุ่ม feedback อยู่ด้านล่าง — ช่วยให้ระบบปรับปรุงคุณภาพได้:</p>
+    <ul>
+      <li><strong>👍 Good Response</strong> — กดเมื่อคำตอบตรงประเด็น ถูกต้อง</li>
+      <li><strong>👎 Bad Response</strong> — กดเมื่อคำตอบไม่ถูกต้อง หรือไม่ตรงคำถาม</li>
+      <li>feedback ของคุณจะถูกบันทึกในระบบ (Admin → Analytics → Feedback Logs)</li>
+    </ul>
+    <img src="../screenshots/chat-feedback-buttons.png" alt="Feedback buttons on Genie response">
+  </div>
+
+  <div class="step">
+    <h3>🔍 ฟีเจอร์พื้นฐาน</h3>
+    <div class="grid-2">
+      <div>
+        <p><strong>🎯 เลือกโมเดล</strong></p>
+        <ul>
+          <li>คลิกชื่อโมเดล → เลือกได้ตามต้องการ</li>
+          <li>"Genie — Enterprise Knowledge" = AI องค์กร</li>
+          <li>"MyAssistant" = GPT ทั่วไป</li>
+        </ul>
+      </div>
+      <div>
+        <p><strong>📋 ประวัติแชท</strong></p>
+        <ul>
+          <li>ดูประวัติแชทที่ sidebar ด้านซ้าย</li>
+          <li>กด Search เพื่อค้นหาแชทเก่า</li>
+          <li>ตั้งชื่อแชทเพื่อจัดการง่ายขึ้น</li>
+        </ul>
+      </div>
+      <div>
+        <p><strong>⚙️ ตั้งค่า</strong></p>
+        <ul>
+          <li>ปุ่ม Controls — ปรับอุณหภูมิ, System Prompt</li>
+          <li>Available Tools — ดู Tools ที่เปิดใช้</li>
+          <li>Voice Input — พิมพ์ด้วยเสียง</li>
+        </ul>
+      </div>
+      <div>
+        <p><strong>🔗 แชร์แชท</strong></p>
+        <ul>
+          <li>แชร์ประวัติแชทให้เพื่อนร่วมทีม</li>
+          <li>Export แชทเป็นไฟล์</li>
+          <li>Import แชทจากไฟล์</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="step">
+    <h3>🧠 Tips & Tricks</h3>
+    <div class="grid-2">
+      <div>
+        <p><strong>✅ ควรถาม</strong></p>
+        <ul>
+          <li>"ตั้ง MFA ในมือถือยังไง"</li>
+          <li>"สิทธิ์ลากี่วัน"</li>
+          <li>"นโยบาย PDPA"</li>
+          <li>"ต่อ VPN ไม่ได้ทำไง"</li>
+          <li>"OT ได้เท่าไหร่"</li>
+        </ul>
+      </div>
+      <div>
+        <p><strong>❌ ไม่ควรถาม</strong></p>
+        <ul>
+          <li>ข้อมูลลับ/ความลับทางการค้า</li>
+          <li>รหัสผ่าน หรือข้อมูลส่วนตัว</li>
+          <li>ข้อมูลที่ไม่เกี่ยวกับองค์กร</li>
+          <li>คำถามที่ไม่เป็นความจริง/เข้าใจผิด</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="step">
+    <h3>🏢 Use Cases ตามแผนก (Enterprise AI)</h3>
+    <p>ตัวอย่างการประยุกต์ใช้ Genie สำหรับธุรกิจหาดทิพย์ — จาก AI Use Cases โดย Gemini:</p>
+    <div class="grid-2">
+      <div>
+        <p><strong>🛒 ฝ่ายขาย</strong></p>
+        <ul>
+          <li><strong>Sales Brief</strong> — สรุปข้อมูลร้านค้าก่อนลงพื้นที่</li>
+          <li><strong>Promotion Analyzer</strong> — วิเคราะห์โปรโมชันที่ใช่</li>
+        </ul>
+      </div>
+      <div>
+        <p><strong>📢 การตลาด</strong></p>
+        <ul>
+          <li><strong>Local Content</strong> — คอนเทนต์ภาษาใต้</li>
+          <li><strong>Southern Campaign</strong> — กิจกรรมออนกราวด์</li>
+        </ul>
+      </div>
+      <div>
+        <p><strong>🏭 ฝ่ายผลิต</strong></p>
+        <ul>
+          <li><strong>Demand Planner</strong> — วางแผนผลิตตามดีมานด์</li>
+          <li><strong>Maintenance Co-pilot</strong> — ซ่อมบำรุงเครื่องจักร</li>
+        </ul>
+      </div>
+      <div>
+        <p><strong>🚚 ฝ่ายขนส่ง</strong></p>
+        <ul>
+          <li><strong>Route Optimizer</strong> — เส้นทางประหยัดน้ำมัน</li>
+          <li><strong>POD Agent</strong> — ตรวจสอบใบส่งสินค้า</li>
+        </ul>
+      </div>
+      <div>
+        <p><strong>👥 ฝ่าย HR</strong></p>
+        <ul>
+          <li><strong>HR Benefits Bot</strong> — สวัสดิการ 24 ชม.</li>
+          <li><strong>Recruitment Agent</strong> — กรองเรซูเม่</li>
+        </ul>
+      </div>
+      <div>
+        <p><strong>💻 ฝ่าย IT</strong></p>
+        <ul>
+          <li><strong>IT Helpdesk</strong> — แก้ปัญหาไอทีเบื้องต้น</li>
+          <li><strong>Cybersecurity Monitor</strong> — ตรวจจับความผิดปกติ</li>
+        </ul>
+      </div>
+      <div>
+        <p><strong>💰 ฝ่ายการเงิน</strong></p>
+        <ul>
+          <li><strong>Expense Auditor</strong> — ตรวจสอบใบเสร็จ</li>
+          <li><strong>Credit Monitor</strong> — ติดตามหนี้สินเชื่อ</li>
+        </ul>
+      </div>
+      <div>
+        <p><strong>🤝 ลูกค้าสัมพันธ์</strong></p>
+        <ul>
+          <li><strong>B2B Ordering Bot</strong> — สั่งซื้อผ่าน Line</li>
+          <li><strong>Cooler Service Agent</strong> — แจ้งซ่อมตู้แช่</li>
+        </ul>
+      </div>
+    </div>
+    <p style="margin-top:8px;font-size:13px;color:#6e6e73">💡 ใช้ Prompts (<code>/command</code>) สำหรับงานที่ต้องการคำสั่งเฉพาะ — Skills จะทำงานอัตโนมัติเมื่อเจอคำถามที่ตรง</p>
+  </div>
+
+  <div class="step">
+    <h3>🛠️ วิธีใช้ Tools และ Prompts</h3>
+    <ul>
+      <li><strong>Tools</strong> — เปิด/ปิด Tool ได้ที่ Controls → Available Tools (เช่น Enterprise Search)</li>
+      <li><strong>Prompts</strong> — พิมพ์ <code>/</code> ในแชท → เลือก Prompt ที่เซฟไว้ → ใช้ซ้ำได้ทันที</li>
+      <li><strong>Knowledge</strong> — ถ้าต้องการให้ Genie ใช้ Knowledge Base ให้เปิดใน Controls</li>
+      <li><strong>Code Interpreter</strong> — เปิดให้ Genie เขียนและรันโค้ด Python วิเคราะห์ข้อมูล</li>
+      <li><strong>Web Search</strong> — เปิดให้ Genie ค้นหาข้อมูลจาก internet</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ═══════════════════ Tab: Knowledge ═══════════════════ -->
+<div class="panel" id="panel-knowledge">
+  <h2>📚 Knowledge Base</h2>
+  <p class="desc">จัดการฐานความรู้ (Knowledge Base) สำหรับให้ Agent ใช้อ้างอิง</p>
+
+  <div class="step">
+    <h3>📖 Knowledge Base คืออะไร?</h3>
+    <p>Knowledge Base (KB) คือคลังเอกสารที่ Agent สามารถดึงมาอ่านเพื่อตอบคำถามได้ — เหมือนมีแฟ้มเอกสารไว้ให้ AI ค้นหา</p>
+    <ul>
+      <li>รองรับไฟล์: <strong>PDF, DOCX, TXT, CSV, MD</strong></li>
+      <li>สามารถอัปโหลดทีละไฟล์ หรือทั้งโฟลเดอร์</li>
+      <li>เนื้อหาจะถูก chunk และ embed เป็น vector อัตโนมัติ</li>
+      <li>เวลาถาม Agent จะค้นหาที่ KB ก่อน แล้วค่อยตอบ</li>
+    </ul>
+  </div>
+
+  <div class="step">
+    <h3><span class="badge">1</span> ไปที่ Workspace → Knowledge</h3>
+    <p>คลิก <strong>Workspace</strong> → <strong>Knowledge</strong> — จะเห็นรายการ Knowledge Bases ที่สร้างไว้</p>
+    <img src="../screenshots/knowledge-list.png" alt="Knowledge list">
+  </div>
+
+  <div class="step">
+    <h3><span class="badge">2</span> สร้าง Knowledge Base ใหม่</h3>
+    <ul>
+      <li>กด <strong>New Knowledge</strong> → ตั้งชื่อ เช่น <code>MFA Setup Guide</code></li>
+      <li>เลือก <strong>Public</strong> เพื่อให้ทุกคนใช้งานได้</li>
+      <li>กด <strong>Create Knowledge</strong> → จากนั้นอัปโหลดไฟล์ PDF/DOCX</li>
+    </ul>
+    <img src="../screenshots/knowledge-detail-mfa.png" alt="Knowledge detail with MFA PDF">
+  </div>
+
+  <div class="step">
+    <h3><span class="badge">3</span> ใช้ Knowledge ในแชท</h3>
+    <p>เมื่อมี Knowledge Base แล้ว สามารถแนบมาใช้ในแชทได้ดังนี้:</p>
+    <ul>
+      <li>กดปุ่ม <strong>More</strong> (⋯) ในช่องพิมพ์ข้อความ</li>
+      <li>เลือก <strong>Attach Knowledge</strong></li>
+      <li>เลือก Knowledge Base ที่ต้องการ (เช่น <em>MFA Setup Guide</em>)</li>
+      <li>Knowledge จะถูกแนบในแชท — พิมพ์คำถามได้เลย</li>
+    </ul>
+    <div class="grid-2">
+      <img src="../screenshots/chat-more-menu.png" alt="More menu with Attach Knowledge">
+      <img src="../screenshots/knowledge-picker.png" alt="Knowledge picker dialog">
+    </div>
+    <img src="../screenshots/knowledge-attached.png" alt="Knowledge attached to chat">
+  </div>
+
+  <div class="step">
+    <h3><span class="badge">4</span> ตัวอย่าง: ถามเกี่ยวกับ MFA</h3>
+    <p>เมื่อแนบ Knowledge "MFA Setup Guide" แล้ว พิมพ์คำถามเช่น <em>"ตั้งค่า MFA ในมือถือยังไง"</em> → Genie จะค้นหาจากเอกสารและตอบพร้อมอ้างอิง</p>
+    <img src="../screenshots/knowledge-chat-result.png" alt="Chat result with knowledge reference">
+  </div>
+
+  <div class="step">
+    <h3>💡 แนะนำ</h3>
+    <div class="grid-2">
+      <div>
+        <p><strong>✅ ใช้กับ Agent Enterprise</strong></p>
+        <ul>
+          <li>ประกาศ HR, ระเบียบ, คำสั่ง</li>
+          <li>คู่มือ IT, นโยบายความปลอดภัย</li>
+          <li>เอกสาร Open WebUI</li>
+        </ul>
+      </div>
+      <div>
+        <p><strong>⚠️ ข้อควรรู้</strong></p>
+        <ul>
+          <li>ขนาดไฟล์ไม่ควรเกิน 50MB</li>
+          <li>ชื่อไฟล์ควรสื่อความหมาย (อังกฤษ)</li>
+          <li>KB ที่อัปเดตแล้วต้องรอ re-index</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="step">
+    <h3>📎 แนบไฟล์แล้วถาม — ตัวอย่าง</h3>
+    <p>นอกจากการใช้ Knowledge Base แล้ว คุณสามารถอัปโหลดไฟล์ตรงในแชทได้ทันที:</p>
+    <ul>
+      <li>ลากไฟล์มาวาง หรือกดปุ่ม <strong>+</strong> (Attach) ในช่องพิมพ์</li>
+      <li>รองรับ: <strong>PDF, Excel, Word, CSV, รูปภาพ</strong></li>
+      <li>พิมพ์คำถามเกี่ยวกับไฟล์ เช่น <em>"สรุปเอกสารนี้ให้หน่อย"</em></li>
+      <li>Genie จะอ่านเนื้อหาและตอบพร้อม <strong>Reference</strong> ไปยังส่วนที่เกี่ยวข้อง</li>
+    </ul>
+    <img src="../screenshots/chat-with-file-and-result.png" alt="Chat with file upload and result with references">
+  </div>
+</div>
+
+<!-- ═══════════════════ Tab: Prompts ═══════════════════ -->
+<div class="panel" id="panel-prompts">
+  <h2>💬 Prompts</h2>
+  <p class="desc">จัดการ Prompt Templates สำหรับเรียกใช้ซ้ำได้</p>
+
+  <div class="step">
+    <h3>📝 Prompts คืออะไร?</h3>
+    <p>Prompts คือ <strong>เทมเพลตคำสั่ง</strong> ที่เซฟไว้ใช้กับ Agent ได้ทันที โดยไม่ต้องพิมพ์ซ้ำ — คล้ายๆ กับ shortcut คำสั่ง</p>
+    <div class="terminal">
+      <span class="comment"># ตัวอย่าง Prompt Template</span><br>
+      <span style="color:#f59e0b">ชื่อ:</span> สรุปเอกสาร<br>
+      <span style="color:#f59e0b">Prompt:</span> ช่วยสรุปเอกสารต่อไปนี้เป็นภาษาไทย<br>
+      &nbsp;&nbsp;แบบ bullet points แยกเป็นหัวข้อ:<br>
+      &nbsp;&nbsp;1. ใจความสำคัญ<br>
+      &nbsp;&nbsp;2. รายละเอียด<br>
+      &nbsp;&nbsp;3. ข้อควรปฏิบัติ<br>
+      &nbsp;&nbsp;{content}
+    </div>
+  </div>
+
+  <div class="step">
+    <h3><span class="badge">1</span> ไปที่ Workspace → Prompts</h3>
+    <p>คลิก <strong>Workspace</strong> → <strong>Prompts</strong> — จะเห็นรายการ Prompt Templates ที่สร้างไว้</p>
+    <img src="../screenshots/prompts-list.png" alt="Prompts list">
+  </div>
+
+  <div class="step">
+    <h3><span class="badge">2</span> สร้าง Prompt</h3>
+    <ul>
+      <li><strong>Prompt Name:</strong> ตั้งชื่อที่จำง่าย (เช่น <code>สรุปเอกสาร</code>, <code>ค้นหาเอกสาร</code>)</li>
+      <li><strong>Command:</strong> พิมพ์ <code>/summarize</code> หรือ <code>/search</code> เพื่อใช้ในแชท</li>
+      <li><strong>Prompt Content:</strong> ข้อความคำสั่ง ใช้ <code>{{variable}}</code> เป็นตัวแปร</li>
+    </ul>
+  </div>
+
+  <div class="step">
+    <h3><span class="badge">3</span> ใช้งาน Prompt ในแชท</h3>
+    <ul>
+      <li>ในช่องแชท พิมพ์ <code>/</code> (Slash) → จะเห็นรายการ Prompts ทั้งหมด</li>
+      <li>คลิกเลือก Prompt ที่ต้องการ — ข้อความคำสั่งจะถูกแทรกให้อัตโนมัติ</li>
+      <li>กรอกตัวแปร (ถ้ามี) แล้วกด Enter</li>
+      <li>ตัวอย่าง: พิมพ์ <code>/summarize</code> → Genie จะถามว่าให้สรุปอะไร → แนบไฟล์หรือวางเนื้อหา → ได้สรุปทันที</li>
+    </ul>
+    <img src="../screenshots/chat-main-interface.png" alt="Chat interface showing model selection">
+  </div>
+
+  <div class="step">
+    <h3>💬 ตัวอย่าง Prompt ที่สร้างไว้ — ทั้งหมด 16 รายการ (Public)</h3>
+    <table class="info-table">
+      <tr><th>ชื่อ</th><th>คำสั่ง</th><th>คำอธิบาย</th><th>แผนก</th></tr>
+      <tr><td>Sales Brief</td><td><code>/sales-brief</code></td><td>สรุปข้อมูลร้านค้าก่อนลงพื้นที่ขาย</td><td>🛒 ขาย</td></tr>
+      <tr><td>Promotion Analyzer</td><td><code>/promo-analyze</code></td><td>วิเคราะห์โปรโมชันเครื่องดื่มที่เหมาะสม</td><td>📢 การตลาด</td></tr>
+      <tr><td>Local Content Creator</td><td><code>/local-content</code></td><td>สร้างสื่อการตลาดภาษาไทยผสมภาษาใต้</td><td>📢 การตลาด</td></tr>
+      <tr><td>Production Demand Planner</td><td><code>/production-plan</code></td><td>วางแผนการผลิตตามดีมานด์และสภาพอากาศ</td><td>🏭 ผลิต</td></tr>
+      <tr><td>Machine Maintenance Guide</td><td><code>/maintenance-guide</code></td><td>ค้นหาวิธีซ่อมบำรุงเครื่องจักร</td><td>🏭 ผลิต</td></tr>
+      <tr><td>Route Optimizer</td><td><code>/route-optimize</code></td><td>วางเส้นทางจัดส่งประหยัดน้ำมัน</td><td>🚚 ขนส่ง</td></tr>
+      <tr><td>HR Benefits Assistant</td><td><code>/hr-benefits</code></td><td>ตอบคำถามสวัสดิการพนักงาน 24 ชม.</td><td>👥 HR</td></tr>
+      <tr><td>IT Helpdesk</td><td><code>/it-helpdesk</code></td><td>แก้ไขปัญหาไอทีเบื้องต้น</td><td>💻 IT</td></tr>
+      <tr><td>Expense Auditor</td><td><code>/expense-check</code></td><td>ตรวจสอบใบเสร็จค่าใช้จ่ายตามนโยบาย</td><td>💰 การเงิน</td></tr>
+      <tr><td>Credit & Collection</td><td><code>/credit-collect</code></td><td>วิเคราะห์วงเงินสินเชื่อและติดตามหนี้</td><td>💰 การเงิน</td></tr>
+      <tr><td>ค้นหาเอกสาร</td><td><code>/search</code></td><td>ค้นหาเอกสารภายในองค์กร</td><td>💻 IT</td></tr>
+      <tr><td>แปลภาษาอังกฤษ</td><td><code>/translate</code></td><td>แปลข้อความจากภาษาอังกฤษเป็นไทย</td><td>ทั่วไป</td></tr>
+      <tr><td>สรุปเอกสาร</td><td><code>/summarize</code></td><td>สรุปเอกสาร/ข้อความแบบ bullet points</td><td>ทั่วไป</td></tr>
+    </table>
+    <p style="margin-top:8px;font-size:13px;color:#6e6e73">💡 พิมพ์ <code>/</code> ในแชทแล้วเลือก Prompt ที่ต้องการใช้ — รองรับตัวแปร <code>{{variable}}</code></p>
+  </div>
+</div>
+
+<!-- ═══════════════════ Tab: Agent ═══════════════════ -->
+<div class="panel" id="panel-agent">
+  <h2>🤖 ขั้นตอนสร้าง Agent</h2>
+  <p class="desc">สร้าง Model ที่มี Tool ติดตัว — พร้อมใช้งาน</p>
+
+  <div class="step">
+    <h3><span class="badge">1</span> Workspace → Models → เลือก Model</h3>
+    <p>คลิก <strong>Workspace</strong> → <strong>Models</strong> → เลือก model ที่ต้องการ (เช่น <code>deploy-gpt-5.4-mini</code>) หรือสร้างใหม่</p>
+    <img src="../screenshots/12-create-model.png" alt="Create model">
+  </div>
+
+  <div class="step">
+    <h3><span class="badge">2</span> เปิด Tools</h3>
+    <p>เลื่อนลงมาที่ส่วน <strong>Tools</strong> → ค้นหา → เลือก <strong>"Enterprise Search"</strong></p>
+    <p>จากนั้นเลือก <strong>Native Mode (Agentic Mode)</strong> — model จะเรียก Tool อัตโนมัติเวลาต้องการค้นหาเอกสาร</p>
+  </div>
+
+  <div class="step">
+    <h3><span class="badge">3</span> Save</h3>
+    <p>กด <strong>Save</strong> → กลับมาดู Models list จะเห็น Model พร้อมใช้งาน</p>
+    <img src="../screenshots/13-models-list.png" alt="Models list">
+  </div>
+</div>
+
+<!-- ═══════════════════ Tab: Skills ═══════════════════ -->
+<div class="panel" id="panel-skills">
+  <h2>🧠 Skills</h2>
+  <p class="desc">จัดการ Skill set ให้ Agent — ความสามารถพิเศษนอกเหนือจาก Built-in</p>
+
+  <div class="step">
+    <h3>🧩 Skills คืออะไร?</h3>
+    <p>Skills คือ <strong>ความสามารถเฉพาะทาง</strong> ที่เพิ่มให้ Agent ได้ เช่น การคำนวณขั้นสูง, การดึงข้อมูลจาก API ภายนอก, การทำงานกับระบบเฉพาะ</p>
+    <ul>
+      <li>ต่างจาก Tools — Skills จะถูกเรียกใช้ <strong>อัตโนมัติ</strong> โดย Agent (ไม่ต้องเลือกเอง)</li>
+      <li>เป็นเหมือน "พรสวรรค์" ที่ Agent มีติดตัว</li>
+      <li>สร้างด้วยภาษา Python เช่นเดียวกับ Tools</li>
+    </ul>
+  </div>
+
+  <div class="step">
+    <h3><span class="badge">1</span> ไปที่ Workspace → Skills</h3>
+    <p>คลิก <strong>Workspace</strong> → <strong>Skills</strong> — จะเห็น Skills ที่สร้างไว้</p>
+    <img src="../screenshots/31-skills-with-examples.png" alt="Skills list with examples">
+  </div>
+
+  <div class="step">
+    <h3><span class="badge">2</span> สร้าง Skill</h3>
+    <ul>
+      <li><strong>Skill Name:</strong> ชื่อ Skill (เช่น <code>Thai Date Converter</code>)</li>
+      <li><strong>Skill ID:</strong> <code>thai-date-converter</code></li>
+      <li><strong>Description:</strong> อธิบายว่า Skill นี้ทำอะไร</li>
+      <li><strong>Instructions:</strong> เขียนคำแนะนำในรูปแบบ Markdown — บอกวิธีการทำงานให้ Agent ทำตาม</li>
+    </ul>
+  </div>
+
+  <div class="step">
+    <h3>🧪 ตัวอย่าง Skills ที่สร้างไว้ — ทั้งหมด 13 รายการ (Public)</h3>
+    <table class="info-table">
+      <tr><th>Skill</th><th>คำอธิบาย</th><th>แผนก</th></tr>
+      <tr><td><strong>Sales Pre-visit Agent</strong></td><td>สรุปข้อมูลร้านค้าก่อนลงพื้นที่ + Next-Best-Action</td><td>🛒 ขาย</td></tr>
+      <tr><td><strong>Promotion Optimizer</strong></td><td>วิเคราะห์โปรโมชันและแนะนำรูปแบบที่เหมาะสม</td><td>📢 การตลาด</td></tr>
+      <tr><td><strong>Southern Content Creator</strong></td><td>สร้างสื่อการตลาดภาษาใต้สำหรับเครื่องดื่ม</td><td>📢 การตลาด</td></tr>
+      <tr><td><strong>Production Demand Planner</strong></td><td>คาดการณ์ปริมาณการผลิตตามดีมานด์</td><td>🏭 ผลิต</td></tr>
+      <tr><td><strong>Maintenance Co-pilot</strong></td><td>ค้นหาคู่มือซ่อมบำรุงเครื่องจักร</td><td>🏭 ผลิต</td></tr>
+      <tr><td><strong>Route Optimizer</strong></td><td>วางเส้นทางจัดส่งอัจฉริยะ</td><td>🚚 ขนส่ง</td></tr>
+      <tr><td><strong>HR Benefits Bot</strong></td><td>ตอบคำถามสวัสดิการและสิทธิพนักงาน</td><td>👥 HR</td></tr>
+      <tr><td><strong>IT Helpdesk Assistant</strong></td><td>ช่วยแก้ไขปัญหาไอทีเบื้องต้น</td><td>💻 IT</td></tr>
+      <tr><td><strong>Expense Auditor</strong></td><td>ตรวจสอบใบเสร็จค่าใช้จ่ายตามนโยบาย</td><td>💰 การเงิน</td></tr>
+      <tr><td><strong>Credit Monitor</strong></td><td>วิเคราะห์วงเงินสินเชื่อและติดตามหนี้</td><td>💰 การเงิน</td></tr>
+    </table>
+    <p style="margin-top:8px">Skills จะถูกเรียกใช้โดย Agent อัตโนมัติเมื่อเจอคำถามที่ตรงกับความสามารถ — ไม่ต้องพิมพ์คำสั่งใด ๆ</p>
+  </div>
+
+  <div class="step">
+    <h3><span class="badge">3</span> เพิ่ม Skill ให้ Agent</h3>
+    <p>เวลา <strong>สร้าง/แก้ไข Model</strong> (Workspace → Models):</p>
+    <ul>
+      <li>เลื่อนลงมาที่ส่วน <strong>Skills</strong></li>
+      <li>ค้นหาและเลือก Skill ที่ต้องการ</li>
+      <li>Agent จะใช้ Skill โดยอัตโนมัติเมื่อเจอคำถามที่ตรง</li>
+    </ul>
+  </div>
+
+  <div class="step">
+    <h3>📊 เปรียบเทียบ Tools vs Skills</h3>
+    <table class="info-table">
+      <tr><th>คุณสมบัติ</th><th>🔧 Tools</th><th>🧠 Skills</th></tr>
+      <tr><td>การเรียกใช้</td><td>ต้องเลือกตอนถาม หรือให้ Agent เลือก</td><td>เรียกอัตโนมัติ</td></tr>
+      <tr><td>Class name</td><td><code>class Tools:</code></td><td><code>class Skills:</code></td></tr>
+      <tr><td>เหมาะกับ</td><td>ค้นหา, คำนวณ, API calls</td><td>แปลงข้อมูล, จัดรูปแบบ, validate</td></tr>
+      <tr><td>เปิด/ปิด</td><td>เลือกเปิดเฉพาะ Model</td><td>เพิ่มใน Model แล้วทำงานอัตโนมัติ</td></tr>
+    </table>
+  </div>
+
+  <div class="step">
+    <h3>💡 Use Case ตามแผนก</h3>
+    <p>Skills ข้างต้นครอบคลุมทุกแผนกของหาดทิพย์ — จาก Gemini AI Use Cases:</p>
+    <ul>
+      <li><strong>🛒 ฝ่ายขาย:</strong> รู้จักร้านค้าก่อนไปพบ, วิเคราะห์โปรโมชัน</li>
+      <li><strong>🏭 ฝ่ายผลิต:</strong> วางแผนการผลิต, ซ่อมบำรุงเครื่องจักร</li>
+      <li><strong>🚚 ฝ่ายขนส่ง:</strong> วางเส้นทาง, เพิ่มประสิทธิภาพน้ำมัน</li>
+      <li><strong>👥 ฝ่าย HR:</strong> สวัสดิการ, สิทธิพนักงาน ตลอด 24 ชม.</li>
+      <li><strong>💻 ฝ่าย IT:</strong> Helpdesk อัตโนมัติ, Cybersecurity</li>
+      <li><strong>💰 ฝ่ายการเงิน:</strong> ตรวจสอบค่าใช้จ่าย, ติดตามหนี้</li>
+      <li><strong>📢 ฝ่ายการตลาด:</strong> คอนเทนต์ภาษาใต้, โปรโมชันเฉพาะพื้นที่</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ═══════════════════ Tab: Tool ═══════════════════ -->
+<div class="panel" id="panel-tool">
+  <h2>🔧 ขั้นตอนเพิ่ม Tool (Advance)</h2>
+  <p class="desc">สร้าง Tools เองด้วย Python — ตัวอย่าง: Calculator Tool</p>
+
+  <div class="step">
+    <h3>🧰 Tools คืออะไร?</h3>
+    <p>Tools คือ <strong>ฟังก์ชัน Python</strong> ที่ Agent สามารถเรียกใช้ได้ — เหมือนให้ Agent มีเครื่องมือติดตัว</p>
+    <ul>
+      <li>เขียนด้วยภาษา Python ล้วน ๆ (คืนค่าเป็น string)</li>
+      <li>Agent จะเรียก Tool อัตโนมัติเมื่อเจอคำถามที่ตรงกับ description</li>
+      <li>แปะโค้ดลงใน Editor แล้ว Save — พร้อมใช้งานทันที</li>
+    </ul>
+  </div>
+
+  <div class="step">
+    <h3><span class="badge">1</span> ไปที่ Workspace → Tools</h3>
+    <p>คลิก <strong>Workspace</strong> → <strong>Tools</strong> → กด <strong>New Tool</strong></p>
+    <img src="../screenshots/tools-list.png" alt="Tools list page">
+  </div>
+
+  <div class="step">
+    <h3><span class="badge">2</span> กรอกข้อมูล + วางโค้ด</h3>
+    <ul>
+      <li><strong>Tool Name:</strong> <code>Calculator</code></li>
+      <li><strong>Tool ID:</strong> <code>calculator</code></li>
+      <li><strong>Description:</strong> <code>คำนวณผลลัพธ์ของนิพจน์ทางคณิตศาสตร์</code></li>
+      <li>วางโค้ดด้านล่างใน Code Editor → Save → Confirm</li>
+    </ul>
+    <img src="../screenshots/tool-calculator-code.png" alt="Calculator tool code in editor">
+  </div>
+
+  <div class="step">
+    <h3><span class="badge">3</span> โค้ด Calculator Tool</h3>
+    <p>คัดลอกโค้ดด้านล่าง — รองรับ +, -, *, /, sqrt, pow, abs, floor, ceil</p>
+    <button class="code-toggle" onclick="toggleCode('calc-code')">📄 ดูโค้ด Calculator Tool</button>
+    <div class="code-wrap" id="calc-code">
+    <pre>"""
+title: Calculator
+author: Haadthip DIO
+version: 1.0
+"""
+
+import math
+from pydantic import BaseModel, Field
+
+class Tools:
+    class Valves(BaseModel):
+        pass
+
+    def __init__(self):
+        self.valves = self.Valves()
+
+    def calculator(
+        self,
+        expression: str = Field(
+            ...,
+            description="Mathematical expression เช่น 2+2, sqrt(16), 3*4+2"
+        ),
+    ) -> str:
+        """
+        คำนวณผลลัพธ์ของนิพจน์ทางคณิตศาสตร์
+        """
+        allowed = set("0123456789+-*/.() sqrtpowabsfloorceil")
+        if not all(c in allowed for c in expression):
+            return "⚠️ อนุญาตเฉพาะตัวเลขและ operator พื้นฐาน"
+
+        try:
+            result = eval(expression, {"__builtins__": {}}, {
+                "sqrt": math.sqrt, "pow": math.pow,
+                "abs": abs, "floor": math.floor, "ceil": math.ceil
+            })
+            return f"{expression} = {result}"
+        except Exception as e:
+            return f"⚠️ error: {e}"</pre>
+    </div>
+  </div>
+
+  <div class="step">
+    <h3><span class="badge">4</span> Tools List — หลังสร้างเสร็จ</h3>
+    <p>จะเห็น Calculator และ Enterprise Search ในรายการ Tools</p>
+    <img src="../screenshots/tools-list-with-calculator.png" alt="Tools list with Calculator">
+  </div>
+
+  <div class="step">
+    <h3><span class="badge">5</span> เปิด Calculator ให้ Model ใช้</h3>
+    <ul>
+      <li>ไปที่ <strong>Workspace → Models</strong> → เลือก Model ที่ต้องการ (เช่น <code>gpt-5.4-mini</code>)</li>
+      <li>เลื่อนลงมา <strong>Tools</strong> → ค้นหา <code>Calculator</code> → เลือก</li>
+      <li>ตั้ง <strong>Function Calling</strong> เป็น <strong>Native Mode</strong> (Agentic Mode)</li>
+      <li>กด <strong>Save</strong></li>
+    </ul>
+    <p>จากนั้นเวลาแชทถามเกี่ยวกับการคำนวณ Agent จะเรียก Calculator ให้อัตโนมัติ!</p>
+  </div>
+</div>
+
+<div class="lightbox" id="lightbox" onclick="this.classList.remove('open')"><img id="lightbox-img"></div>
+
+<script>
+function toggleCode(id) {
+  const el = document.getElementById(id);
+  el.classList.toggle('open');
+}
+// Tab switching
+const tabs = document.querySelectorAll('.tab-btn');
+tabs.forEach(btn => {
+  btn.addEventListener('click', () => {
+    tabs.forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('panel-' + btn.dataset.tab).classList.add('active');
+    window.scrollTo(0, 0);
+  });
+});
+
+// Lightbox — click any img to view full size
+document.querySelectorAll('.step img, .showcase-body img').forEach(img => {
+  img.addEventListener('click', () => {
+    document.getElementById('lightbox-img').src = img.src;
+    document.getElementById('lightbox').classList.add('open');
+  });
+});
+</script>
+
+</body>
+</html>

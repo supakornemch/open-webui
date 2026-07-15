@@ -52,6 +52,7 @@ class Config:
         "corporate":   "corporate",
         "hr-policies": "hr-policies",
         "openwebui-docs": "openwebui-docs",
+        "haadthip-public-web": "haadthip-public-web",
     }
 
 
@@ -326,7 +327,7 @@ class Uploader:
 
 def main():
     p = argparse.ArgumentParser(description="Upload preprocessed JSONL to AI Search")
-    p.add_argument("--corpus", choices=["all","corporate","hr-policies","openwebui-docs"], default="all")
+    p.add_argument("--corpus", choices=["all","corporate","hr-policies","openwebui-docs","haadthip-public-web"], default="all")
     p.add_argument("--create-index", action="store_true")
     p.add_argument("--delete-existing", action="store_true")
     p.add_argument("--force", action="store_true", help="Force re-upload all docs")
@@ -366,7 +367,7 @@ def main():
         return
 
     uploader = Uploader(cfg)
-    selected = ["corporate","hr-policies","openwebui-docs"] if args.corpus == "all" else [args.corpus]
+    selected = ["corporate","hr-policies","openwebui-docs","haadthip-public-web"] if args.corpus == "all" else [args.corpus]
     for c in selected:
         uploader.upload_corpus(c, args.force)
     uploader.print_summary()

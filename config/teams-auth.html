@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Genie — Haadthip Enterprise Chat</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background: linear-gradient(135deg, #002F6C 0%, #004a99 100%);
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  text-align: center;
+}
+.container { padding: 2.5rem; max-width: 420px; width: 100%; }
+.logo { font-size: 3rem; font-weight: 700; margin-bottom: 0.25rem; letter-spacing: -0.5px; }
+.subtitle { font-size: 0.95rem; opacity: 0.75; margin-bottom: 2.5rem; }
+.btn {
+  display: inline-flex; align-items: center; gap: 10px;
+  background: #fff; color: #002F6C;
+  padding: 14px 36px; border-radius: 8px;
+  font-size: 16px; font-weight: 600;
+  cursor: pointer; border: none; text-decoration: none;
+  transition: all 0.2s; box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+.btn:hover { transform: translateY(-1px); box-shadow: 0 6px 16px rgba(0,0,0,0.2); }
+.btn:active { transform: translateY(0); }
+.btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+.hidden { display: none; }
+.status { margin-top: 1.5rem; font-size: 0.85rem; opacity: 0.6; }
+.footer { margin-top: 3rem; font-size: 0.75rem; opacity: 0.4; }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="logo">✨ Genie</div>
+  <div class="subtitle">Enterprise Chat — Haadthip</div>
+
+  <button class="btn" id="signinBtn" onclick="openInBrowser()">
+    <span>🔑</span> Sign in with Microsoft
+  </button>
+  <button class="btn hidden" id="loadingBtn" disabled>
+    <span>⏳</span> กำลังตรวจสอบ...
+  </button>
+
+  <div style="margin-top: 16px;">
+    <button class="btn" style="background: transparent; color: #fff; border: 1px solid rgba(255,255,255,0.3); font-size: 14px; padding: 8px 20px;" onclick="window.open('/docs/genie-setup-manual.html', '_blank')">
+      <span>📖</span> คู่มือการใช้งาน
+    </button>
+  </div>
+
+  <p class="status" id="status">กำลังเชื่อมต่อ...</p>
+  <p class="footer" id="footer">Haadthip Public Company Limited</p>
+</div>
+
+<script>
+let pollInterval = null;
+
+async function checkAuth() {
+  document.getElementById('signinBtn').classList.add('hidden');
+  document.getElementById('loadingBtn').classList.remove('hidden');
+  document.getElementById('status').textContent = 'กำลังตรวจสอบสถานะ...';
+
+  try {
+    const resp = await fetch('/api/v1/auths/', { credentials: 'include' });
+    if (resp.ok) {
+      document.getElementById('status').textContent = '✅ มี session แล้ว กำลังเข้าแอป...';
+      await new Promise(r => setTimeout(r, 500));
+      window.location.href = '/';
+      return;
+    }
+  } catch (_) { /* not authenticated */ }
+
+  document.getElementById('loadingBtn').classList.add('hidden');
+  document.getElementById('signinBtn').classList.remove('hidden');
+  document.getElementById('status').textContent = 'กดปุ่มด้านบนเพื่อ Sign in ด้วย Microsoft';
+}
+
+function openInBrowser() {
+  window.open('https://genie.haadthip.com', '_blank');
+  document.getElementById('status').textContent =
+    '✅ Browser เปิดแล้ว — ลงชื่อเข้าใช้ แล้วกลับมาที่นี่ (Refresh อัตโนมัติ)';
+
+  if (pollInterval) clearInterval(pollInterval);
+  pollInterval = setInterval(async () => {
+    try {
+      const resp = await fetch('/api/v1/auths/', { credentials: 'include' });
+      if (resp.ok) {
+        clearInterval(pollInterval);
+        document.getElementById('status').textContent = '✅ พบ session แล้ว กำลังเข้าแอป...';
+        await new Promise(r => setTimeout(r, 500));
+        window.location.href = '/';
+      }
+    } catch (_) {}
+  }, 3000);
+}
+
+checkAuth();
+</script>
+</body>
+</html>

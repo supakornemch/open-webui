@@ -23,7 +23,7 @@ Setup:
 
 import json
 import os
-from typing import Any
+from typing import Any, Optional
 
 import httpx
 from pydantic import BaseModel, Field
@@ -57,7 +57,12 @@ class Tools:
     # Search Tools
     # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-    async def search_internal_docs(self, query: str) -> str:
+    async def search_internal_docs(
+        self,
+        query: str,
+        corpus: str = "",
+        category: str = "",
+    ) -> str:
         """
         Search Haadthip internal documents: IT policies (MFA, VPN, Email),
         meeting room guides, corporate security, DLP, and HR policies.
@@ -69,10 +74,16 @@ class Tools:
         - Any internal work procedure or policy
 
         :param query: Search query in Thai or English
+        :param corpus: Filter by corpus — "corporate" or "hr-policies" (leave empty for all)
+        :param category: Filter by document category เช่น "IT Policy","Security Manual","HR Policy" (leave empty for all)
         """
-        return await self._search(query, "corporate,hr-policies")
+        return await self._search(query, corpus or "corporate,hr-policies", category)
 
-    async def search_hr_policies(self, query: str) -> str:
+    async def search_hr_policies(
+        self,
+        query: str,
+        category: str = "",
+    ) -> str:
         """
         Search HR-only documents: policies, announcements, forms,
         benefits, training, PDPA, social security, regulations.
@@ -85,10 +96,15 @@ class Tools:
         - Employee regulations, code of conduct
 
         :param query: Search query in Thai
+        :param category: Filter by document category เช่น "Policy","Benefits & Welfare","Training & Development" (leave empty for all)
         """
-        return await self._search(query, "hr-policies")
+        return await self._search(query, "hr-policies", category)
 
-    async def search_openwebui_help(self, query: str) -> str:
+    async def search_openwebui_help(
+        self,
+        query: str,
+        category: str = "",
+    ) -> str:
         """
         Search Open WebUI documentation: features, API endpoints,
         setup guides, extensibility, Pipelines, Tools, MCP.
@@ -100,15 +116,18 @@ class Tools:
         - How to create Pipes, Tools, Functions, Filters
 
         :param query: Search query in English or Thai
+        :param category: Filter by category (leave empty for all)
         """
-        return await self._search(query, "openwebui-docs")
+        return await self._search(query, "openwebui-docs", category)
 
     # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
     # Shared search implementation
     # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-    async def _search(self, query: str, corpus_filter: str) -> str:
-        """Direct index search with corpus filter + semantic ranking."""
+    async def _search(
+        self, query: str, corpus_filter: str, category_filter: str = ""
+    ) -> str:
+        """Direct index search with corpus + category filter + semantic ranking."""
         key = self.valves.search_api_key or os.environ.get(
             "AZURE_SEARCH_ADMIN_KEY", ""
         )
@@ -120,13 +139,24 @@ class Tools:
             f"/docs/search?api-version=2024-07-01"
         )
 
-        # Build filter
-        corpuses = [c.strip() for c in corpus_filter.split(",")]
+        # Build filter: corpus + optional category
+        filters = []
+        corpuses = [c.strip() for c in corpus_filter.split(",") if c.strip()]
         if len(corpuses) == 1:
-            filter_str = f"corpus eq '{corpuses[0]}'"
-        else:
+            filters.append(f"corpus eq '{corpuses[0]}'")
+        elif len(corpuses) > 1:
             parts = " or ".join(f"corpus eq '{c}'" for c in corpuses)
-            filter_str = f"({parts})"
+            filters.append(f"({parts})")
+
+        if category_filter:
+            cats = [c.strip() for c in category_filter.split(",") if c.strip()]
+            if len(cats) == 1:
+                filters.append(f"category eq '{cats[0]}'")
+            elif len(cats) > 1:
+                parts = " or ".join(f"category eq '{c}'" for c in cats)
+                filters.append(f"({parts})")
+
+        filter_str = " and ".join(filters) if filters else ""
 
         body = {
             "search": query,

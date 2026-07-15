@@ -22,6 +22,10 @@ litellm_settings:
   set_verbose: true
   drop_params: true
   request_timeout: 120
+  cache: True
+  cache_params:
+    type: local
+    ttl: 3600
   # ponytail: semantic filter off — defaults to text-embedding-3-small (not deployed).
   # semantic_router lib ignores our embedding_model config. Enable when we deploy
   # text-embedding-3-small, or LiteLLM fixes the config passthrough.
