@@ -37,6 +37,17 @@ data/open-webui/webui.db-wal
 data/open_webui_poc.dump
 data/open_webui_poc.sql
 
+# ── Screenshots (UI captures, regenerable) ──
+screenshots/
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.webp
+*.bmp
+*.ico
+*.svg
+
 # ── IDE ──
 .vscode/
 .idea/
