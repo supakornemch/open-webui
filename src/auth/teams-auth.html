@@ -242,59 +242,12 @@ body::after {
     }, 3000);
   }
 
-  // ── Popup auth within Teams (no external browser) ────────────────
-  function tryTeamsPopupAuth() {
-    return new Promise(resolve => {
-      microsoftTeams.authentication.authenticate({
-        url:    CONFIG.authUrl + '/teams-auth.html?mode=popup',
-        width:  600,
-        height: 535,
-        successCallback: (code) => {
-          // Popup got the auth code — redirect tab to OWUI callback
-          if (code) {
-            setStatus('✅ ได้รหัสยืนยันตัวตนแล้ว กำลังเข้าแอป...');
-            window.location.href = CONFIG.authUrl + '/oauth/microsoft/callback?code=' + encodeURIComponent(code);
-          } else {
-            // No code but success — maybe session already set, try polling
-            startPolling('⏳ กำลังตรวจสอบ session...');
-          }
-        },
-        failureCallback: (reason) => {
-          console.log('Teams popup auth failed:', reason);
-          resolve(false);
-        },
-      });
-    });
-  }
-
-  // ── Fallback: external browser ────────────────────────────────────
-  function openInBrowser() {
-    window.open(CONFIG.authUrl, '_blank');
-    startPolling('✅ Browser เปิดแล้ว — ลงชื่อเข้าใช้ แล้วกลับมาที่นี่');
-  }
-
-  // ── Sign-in entry point (called from button onclick) ─────────────
-  async function handleSignIn() {
-    const inTeams = await initTeams();
-
-    if (inTeams) {
-      setStatus('กำลังเปิดหน้าต่างยืนยันตัวตนใน Teams...');
-      // Teams authenticate handles the flow internally
-      await tryTeamsPopupAuth();
-      return;
-    }
-
-    openInBrowser();
-  }
-
-  // ── Popup mode — popup redirects to Entra, gets code, passes back to tab ──
-  async function handlePopupMode() {
-    await initTeams();
-
-    // redirect_uri = exact match with SPA URI registered in Entra
-    const redirectUri = encodeURIComponent(CONFIG.authUrl + '/teams-auth.html');
-    const authorizeUrl =
-      'https://login.microsoftonline.com/' + CONFIG.tenantId +
+  // ── Build Entra authorize URL ────────────────────────────────────
+  function buildAuthorizeUrl() {
+    // redirect_uri must match OWUI's MICROSOFT_REDIRECT_URI exactly —
+    // otherwise Microsoft rejects the token exchange in OWUI's callback.
+    const redirectUri = encodeURIComponent(CONFIG.authUrl + '/oauth/microsoft/callback');
+    return 'https://login.microsoftonline.com/' + CONFIG.tenantId +
       '/oauth2/v2.0/authorize' +
       '?client_id=' + encodeURIComponent(CONFIG.clientId) +
       '&response_type=code' +
@@ -302,57 +255,59 @@ body::after {
       '&response_mode=query' +
       '&scope=' + encodeURIComponent('openid email profile') +
       '&state=' + encodeURIComponent('teams-popup');
-
-    window.location.href = authorizeUrl;
   }
 
-  // ── Callback — Entra redirected back to popup with code ───────────
+  // ── Sign-in entry point ───────────────────────────────────────────
+  async function handleSignIn() {
+    // Let OWUI's /oauth/microsoft/login generate the full authorize URL
+    // with proper state, nonce, PKCE, and scope (including offline_access).
+    // This is the exact same flow as clicking "Sign in with Microsoft"
+    // from the OWUI login page — which is proven to work.
+    window.open(CONFIG.authUrl + '/oauth/microsoft/login', '_blank');
+    startPolling('✅ เปิดหน้าต่างยืนยันตัวตนแล้ว — ลงชื่อเข้าใช้ แล้วกลับมาที่นี่');
+  }
+
+  // ── Callback — Entra redirected back with code ────────────────────
+  // Legacy path: if code still lands here (e.g. old bookmark), forward to OWUI.
   async function handleCallback() {
     const params = new URLSearchParams(window.location.search);
     const code  = params.get('code');
     const error = params.get('error');
 
-    // Initialise Teams SDK (required to call notifySuccess/notifyFailure)
-    try { await initTeams(); } catch (_) {}
-
     if (error) {
       console.error('OAuth error:', error);
-      if (typeof microsoftTeams !== 'undefined') {
-        microsoftTeams.authentication.notifyFailure('OAuth failed: ' + error);
-      }
+      document.body.innerHTML = '<p style="font-family:sans-serif;padding:2rem;text-align:center">❌ การยืนยันตัวตนล้มเหลว กรุณาลองใหม่</p>';
       return;
     }
 
     if (code) {
-      // Pass the auth code back to the tab via notifySuccess
-      // Tab will redirect to OWUI's callback to complete the flow
-      if (typeof microsoftTeams !== 'undefined') {
-        microsoftTeams.authentication.notifySuccess(code);
-      }
+      // Forward code to OWUI's OAuth callback to complete the flow
+      try {
+        await fetch(CONFIG.authUrl + '/oauth/microsoft/callback', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ code: code, state: params.get('state') || '' }),
+          credentials: 'include',
+          redirect: 'manual',
+        });
+      } catch (_) { /* redirect-based flow — ignore */ }
+
+      // Also redirect to the callback URL directly (GET flow)
+      window.location.href = CONFIG.authUrl + '/oauth/microsoft/callback?code=' + encodeURIComponent(code);
       return;
     }
 
-    // No code, no error — unexpected
-    if (typeof microsoftTeams !== 'undefined') {
-      microsoftTeams.authentication.notifyFailure('No auth code received');
-    }
+    document.body.innerHTML = '<p style="font-family:sans-serif;padding:2rem;text-align:center">⚠️ ไม่ได้รับรหัสยืนยันตัวตน</p>';
   }
 
   // ── Bootstrap ─────────────────────────────────────────────────────
   async function init() {
     const params = new URLSearchParams(window.location.search);
-    const mode = params.get('mode');
-
-    // Popup mode (triggered by Teams authenticate popup)
-    if (mode === 'popup') {
-      await handlePopupMode();
-      return;
-    }
 
     // Callback — Entra redirected back with code
     if (params.has('code') || params.has('error')) {
-      await handleCallback();
-      return; // popup closes after notifySuccess/notifyFailure
+      handleCallback();
+      return;
     }
 
     // ── Normal tab mode ──

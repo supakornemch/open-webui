@@ -31,14 +31,17 @@ services:
       - ./docker.env
     environment:
       - OPENAI_API_BASE_URL=http://litellm:4000/v1
-      # ---- Microsoft Entra ID SSO ----
+      # ---- Microsoft Entra ID SSO (OWUI v0.10.2) ----
       - WEBUI_URL=http://localhost:3000
-      - ENABLE_OAUTH=true
-      - OAUTH_PROVIDER_NAME=microsoft
+      - WEBUI_SECRET_KEY=local-dev-secret-key-change-in-production
+      - ENABLE_OAUTH_SIGNUP=true
+      - OAUTH_MERGE_ACCOUNTS_BY_EMAIL=true
       - MICROSOFT_CLIENT_ID=4881351e-d1a0-4228-a084-a0d6ef717740
+      - MICROSOFT_CLIENT_SECRET=u498Q~ve1ae4W0ERSwoeD5LIWywq6kD2GRPqVase
       - MICROSOFT_CLIENT_TENANT_ID=5045d9c3-3b0b-4315-8594-64118bbd7495
-      - OAUTH_SCOPES=openid email profile
-      - OAUTH_MERGE_ACCOUNTS_BY_EMAIL=True
+      - MICROSOFT_REDIRECT_URI=http://localhost:3000/oauth/microsoft/callback
+      - MICROSOFT_OAUTH_SCOPE=openid email profile offline_access
+      - OPENID_PROVIDER_URL=https://login.microsoftonline.com/5045d9c3-3b0b-4315-8594-64118bbd7495/v2.0/.well-known/openid-configuration
     depends_on:
       litellm:
         condition: service_started
