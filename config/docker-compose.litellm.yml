@@ -1,10 +1,9 @@
-# LiteLLM — Docker Compose for EnterpriseChat POC
+# LiteLLM — Standalone (Azure PG)
+# For full stack with custom OWUI + SQLite: docker compose -f docker-compose.local.yml up -d
 #
 # Usage:
 #   export AZURE_API_KEY="your-azure-foundry-key"
-#   export AZURE_API_BASE="https://aif-entchat-poc-sand.cognitiveservices.azure.com"
-#   export DATABASE_URL="postgresql://entchatadm:DocWiseP%40ssw0rd2026%21@psql-entchat-poc-sand.postgres.database.azure.com:5432/litellm?sslmode=require"
-#   export AZURE_SEARCH_API_KEY="your-search-key"
+#   export DATABASE_URL="postgresql://..."
 #   docker compose -f config/docker-compose.litellm.yml up -d
 #
 # Then point Open WebUI to: http://localhost:4000/v1
@@ -23,14 +22,12 @@ services:
       - "4000:4000"
     volumes:
       - ./litellm_config.yaml:/app/config.yaml:ro
+    env_file:
+      - ./docker.env
     environment:
-      - AZURE_API_KEY=${AZURE_API_KEY}
       - AZURE_API_BASE=${AZURE_API_BASE:-https://aif-entchat-poc-sand.cognitiveservices.azure.com}
-      - LITELLM_MASTER_KEY=${LITELLM_MASTER_KEY:-sk-litellm-poc-master-key}
-      # DB (Azure PG) — required for model persistence, token tracking, vector store
+      # DB (Azure PG) — required for model persistence, set in docker.env or skip for in-memory
       - DATABASE_URL=${DATABASE_URL}
-      # Azure AI Search — for vector store registry
-      - AZURE_SEARCH_API_KEY=${AZURE_SEARCH_API_KEY}
       - AZURE_SEARCH_SERVICE_NAME=${AZURE_SEARCH_SERVICE_NAME:-srch-entchat-poc-sand}
     command:
       - "--config"

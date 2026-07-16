@@ -1,0 +1,6 @@
+# ponytail: hardcode --platform because Azure App Service is Linux/AMD64.
+# Local ARM Mac builds via docker buildx --platform linux/amd64 (Docker Desktop emulates).
+FROM --platform=linux/amd64 ghcr.io/open-webui/open-webui:v0.10.2
+COPY src/auth/teams-auth.html /app/build/teams-auth.html
+COPY docs/genie-setup-manual.html /app/build/docs/genie-setup-manual.html
+COPY assets/screenshots/ /app/build/screenshots/

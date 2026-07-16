@@ -54,3 +54,23 @@ screenshots/
 *.code-workspace
 data/ingestion/
 node_modules/
+config/docker.env
+
+# Secrets
+deploy/docker/docker.env
+.env
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# OS
+.DS_Store
+
+# Docker
+data/open-webui/
+
+# Generated
+*.pptx
+*.pdf

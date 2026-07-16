@@ -87,7 +87,7 @@
 | Auth | Microsoft Entra ID SSO (OIDC) — auto signup enabled |
 | DB | `postgresql://entchatadm:***@psql-...:5432/open_webui?sslmode=require` |
 | LiteLLM | OpenAI API: `https://app-litellm-poc-sand.azurewebsites.net` |
-| Teams Auth | `/teams-auth.html` — iframe popup → external browser login |
+| Teams Auth | `/teams-auth.html` — Teams SDK v2 + popup (ใน Teams) → fallback external browser |
 
 ### App Settings (key)
 `WEBSITES_PORT=8080`, `WEBSITES_ENABLE_APP_SERVICE_STORAGE=true`, `WEBSITES_CONTAINER_START_TIME_LIMIT=1800`
@@ -137,8 +137,9 @@
 | Tenant ID | `5045d9c3-3b0b-4315-8594-64118bbd7495` |
 | App ID URI | `api://genie.haadthip.com/4881351e-...` |
 | Scope | `access_as_user` |
-| Pre-authorized clients | ❌ ยังไม่เพิ่ม (ต้องเพิ่ม `1fec8e78-...` + `5e3ce6c0-...` สำหรับ Teams SDK popup) |
-| Redirect URIs | 6 URLs (OWUI + LiteLLM + DocWise callbacks) |
+| Pre-authorized clients | ✅ `1fec8e78-bce4-4aaf-ab1b-5451cc387264` (Teams) + `5e3ce6c0-2b1f-4285-8d4b-75ee78787346` (Teams) |
+| Redirect URIs (Web) | 6 URLs (OWUI + LiteLLM + DocWise callbacks) |
+| Redirect URIs (SPA) | `https://genie.haadthip.com/teams-auth.html` ✅ |
 
 ## Teams App — GenieHaadthipChat
 
@@ -149,15 +150,17 @@
 | Content URL | `https://genie.haadthip.com/teams-auth.html` |
 | Valid Domains | `genie.haadthip.com` |
 
-### SSO Flow (A — current, no Teams SDK)
+### SSO Flow (B — Teams SDK v2 enabled)
 ```
-Teams iframe → teams-auth.html → detect iframe → window.open() → browser popup
-                                                          ↓
-                                  login.microsoftonline.com (login ไม่โดน block)
-                                                          ↓
-                                  redirect → genie.haadthip.com → set session
-                                                          ↓
-                                  iframe poll 3s → found → redirect /
+Teams iframe → teams-auth.html → Teams SDK init
+
+  ├─ Silent SSO: getAuthToken() → token ได้ → redirect OWUI OAuth → session
+  │
+  ├─ User click → handleSignIn()
+  │   ├─ Teams popup (authenticate) → Entra OAuth → callback → session
+  │   └─ fallback → window.open() → external browser
+  │
+  └─ Poll 3s จนเจอ session → redirect /
 ```
 
 ## Recurring Issues
@@ -174,18 +177,64 @@ Teams iframe → teams-auth.html → detect iframe → window.open() → browser
 | 8 | LiteLLM model cost no cache discount | Add `cache_read_input_token_cost=input*0.1` (90% off) ต่อ model |
 | 9 | MSI auth for ACR | SystemAssigned MI + `AcrPull` role + `acrUseManagedIdentityCreds: true` |
 
+## Docker Compose Files
+
+| File | What | When to use |
+|------|------|-------------|
+| **`docker-compose.local.yml`** | ✅ **Custom OWUI** (teams-auth) + LiteLLM (SQLite) | **Local dev — default** |
+| `docker-compose.litellm.yml` | LiteLLM standalone (Azure PG) | Run LiteLLM separately |
+| `docker-compose.openwebui.yml` | OWUI stock standalone | LiteLLM already running elsewhere |
+| `docker-compose.full.yml` | ⚠️ Deprecated → ใช้ local.yml แทน | ❌ |
+
+**Secrets:** ทั้งหมดใช้ `docker.env` (ยกเว้นที่ override ด้วย env vars)
+```bash
+# 🚀 Local dev (recommended)
+docker compose -f config/docker-compose.local.yml up -d --build
+
+# LiteLLM แยก (ถ้าต้องการ)
+docker compose -f config/docker-compose.litellm.yml up -d
+```
+
 ## Folder Guide
 
 ```
 EnterpriseChat/
 ├── CONTEXT.md              ← ไฟล์นี้
-├── config/                 ← Configs, Dockerfiles, Functions (pipe/tool/filter)
-├── scripts/                ← Ingestion, deploy, setup scripts
-├── docs/                   ← Documentation, ADRs, presentations, manual
-├── documents/              ← Source documents (corporate + hr-policies)
-├── data/                   ← JSONL, exports, dumps
-├── screenshots/            ← UI screenshots (105+ files)
-└── icons/                  ← Azure SVG icons, Teams app icons
+├── README.md               ← Project overview
+├── .gitignore
+│
+├── deploy/                 ← Docker, Compose, Deploy scripts
+│   ├── docker/
+│   │   ├── Dockerfile.teams
+│   │   ├── Dockerfile.litellm
+│   │   ├── docker-compose.local.yml
+│   │   ├── docker-compose.litellm.yml
+│   │   └── docker.env          ← Secrets (gitignored)
+│   ├── litellm/
+│   │   └── litellm_config*.yaml
+│   └── scripts/
+│       └── deploy-litellm-azure.sh
+│
+├── src/                   ← Open WebUI Functions
+│   ├── pipes/             ← Knowledge base query pipes
+│   ├── tools/             ← Enterprise Search, Calculator tools
+│   ├── filters/           ← Token tracking filter
+│   └── auth/              ← teams-auth.html (Teams SSO)
+│
+├── docs/                  ← Documentation, presentations
+│   ├── genie-setup-manual.html/pdf
+│   ├── genie-user-guide.pdf
+│   ├── walkthrough-presentation.html
+│   └── presentations/
+│
+├── scripts/               ← Ingestion & utility scripts
+├── knowledge/             ← Source documents
+│   ├── corporate/
+│   └── hr-policies/
+├── data/                  ← JSONL, exports, OWUI local data
+└── assets/
+    ├── screenshots/       ← UI screenshots (105+ files)
+    └── icons/             ← Azure SVG icons
 ```
 
 ## Architecture Flow

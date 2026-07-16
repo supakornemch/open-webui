@@ -1,11 +1,12 @@
-# Open WebUI — Local Docker Setup
-# Connects to LiteLLM proxy at localhost:4000 for Azure Foundry models
+# Open WebUI — Local (standalone, no LiteLLM network)
+# Requires LiteLLM running separately on localhost:4000
+#
+# For full stack with LiteLLM, use: docker compose -f docker-compose.local.yml up -d --build
 #
 # Usage:
 #   docker compose -f config/docker-compose.openwebui.yml up -d
 #
 # Open WebUI:    http://localhost:3000
-# LiteLLM:       http://localhost:4000 (start separately)
 
 services:
   open-webui:
@@ -14,17 +15,19 @@ services:
     ports:
       - "3000:8080"
     volumes:
-      # Bind mount to local filesystem (avoids Docker VM disk limit on macOS)
       - ../data/open-webui:/app/backend/data
+    env_file:
+      - ./docker.env
     environment:
-      # ---- LiteLLM as the OpenAI provider ----
+      # Uses host.docker.internal to reach LiteLLM running on host
       - OPENAI_API_BASE_URL=http://host.docker.internal:4000/v1
-      - OPENAI_API_KEY=sk-litellm-poc-master-key
-      # ---- Or connect directly to Azure Foundry ----
-      # - OPENAI_API_BASE_URL=https://aif-entchat-poc-sand.cognitiveservices.azure.com/openai/v1
-      # - OPENAI_API_KEY=${AZURE_API_KEY}
-      # ---- Optional: Use dev branch for API outlet filter support ----
-      # (uncomment to switch image)
+      - WEBUI_URL=http://localhost:3000
+      - ENABLE_OAUTH=true
+      - OAUTH_PROVIDER_NAME=microsoft
+      - MICROSOFT_CLIENT_ID=4881351e-d1a0-4228-a084-a0d6ef717740
+      - MICROSOFT_CLIENT_TENANT_ID=5045d9c3-3b0b-4315-8594-64118bbd7495
+      - OAUTH_SCOPES=openid email profile
+      - OAUTH_MERGE_ACCOUNTS_BY_EMAIL=True
     restart: unless-stopped
 
 volumes:
