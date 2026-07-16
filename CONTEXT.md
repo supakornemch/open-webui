@@ -1,6 +1,14 @@
 # EnterpriseChat — Domain Context
 
-> ## 📝 Recent Changes (2026-07-14)
+> ## 📝 Recent Changes (2026-07-16)
+>
+> ### ✅ Teams Auth v4 — SDK popup + session polling
+> - **Auth flow**: เปลี่ยนจาก `window.open()` (Teams block) → `microsoftTeams.authentication.authenticate()` (Teams SDK จัดการ popup ให้)
+> - **Polling**: poll `/api/v1/auths/` ทุก 2 วิ + เช็ค `token` cookie โดยตรง (httponly=false)
+> - **Session check**: ตรวจ `data.token` ใน response body (แม่นยำกว่าแค่ `resp.ok`)
+> - **Fallback**: ถ้า Teams SDK ไม่ available → `window.open()` ปกติ
+> - **Timeout**: หยุด poll หลัง 3 นาที
+> - **nginx**: CSP `frame-ancestors` + proxy OWUI :8081 ผ่าน :8080
 >
 > ### ✅ LiteLLM: Cache + Pricing + API Fix
 > - **Proxy cache**: `cache: True` (local, TTL 3600) → `cache_hit=True` ✅
@@ -9,7 +17,7 @@
 > - **DOCKER_CUSTOM_IMAGE_NAME**: ลบ override → ใช้ digest จริง
 >
 > ### ✅ Teams SSO + User Manual
-> - **Auth**: ใช้ `window.open()` → external browser (popup ใน Teams SDK ต้องเพิ่ม Pre-authorized clients ใน Entra)
+> - **Auth**: ใช้ Teams SDK v2 + popup + polling (v4)
 > - **Manual**: เพิ่ม Knowledge attachment flow (More → Attach Knowledge), Calculator Tool, Feedback, CSV use case
 >
 > ### ✅ Public Web + Enterprise Doc Ingestion
@@ -150,17 +158,23 @@
 | Content URL | `https://genie.haadthip.com/teams-auth.html` |
 | Valid Domains | `genie.haadthip.com` |
 
-### SSO Flow (B — Teams SDK v2 enabled)
+### SSO Flow (v4 — Teams SDK popup + polling)
 ```
 Teams iframe → teams-auth.html → Teams SDK init
 
-  ├─ Silent SSO: getAuthToken() → token ได้ → redirect OWUI OAuth → session
+  ├─ checkSession() → 200 + {token} → redirect /
   │
-  ├─ User click → handleSignIn()
-  │   ├─ Teams popup (authenticate) → Entra OAuth → callback → session
-  │   └─ fallback → window.open() → external browser
-  │
-  └─ Poll 3s จนเจอ session → redirect /
+  └─ User click → handleSignIn()
+      ├─ microsoftTeams.authentication.authenticate(url: /oauth/microsoft/login)
+      │   Teams SDK จัดการ popup (ไม่โดน Teams iframe block)
+      │
+      ├─ Popup: Microsoft login → OWUI set `token` cookie (httponly=false)
+      │   → OWUI redirect popup → /auth
+      │
+      └─ Parent: poll /api/v1/auths/ ทุก 2 วิ (+ check document.cookie)
+          → เจอ session → redirect /
+
+  Fallback (non-Teams browser): window.open() + polling เหมือนเดิม
 ```
 
 ## Recurring Issues

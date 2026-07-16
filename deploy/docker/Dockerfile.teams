@@ -1,6 +1,15 @@
 # ponytail: hardcode --platform because Azure App Service is Linux/AMD64.
 # Local ARM Mac builds via docker buildx --platform linux/amd64 (Docker Desktop emulates).
 FROM --platform=linux/amd64 ghcr.io/open-webui/open-webui:v0.10.2
+
+# ── Install nginx for CSP headers (frame-ancestors for Teams/SharePoint) ──
+RUN apt-get update && apt-get install -y nginx && rm -rf /var/lib/apt/lists/*
+
 COPY src/auth/teams-auth.html /app/build/teams-auth.html
+COPY src/auth/teams-auth-bridge.html /app/build/teams-auth-bridge.html
 COPY docs/genie-setup-manual.html /app/build/docs/genie-setup-manual.html
 COPY assets/screenshots/ /app/build/screenshots/
+COPY deploy/docker/nginx.proxy.conf /etc/nginx/sites-enabled/default
+
+# ── Start nginx + Open WebUI (nginx on 8080 proxies to OWUI on 8081) ──
+CMD bash -c "nginx && PORT=8081 bash /app/backend/start.sh"

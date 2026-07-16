@@ -4,8 +4,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Genie — Haadthip Enterprise Chat</title>
-<!-- Microsoft Teams SDK v2 -->
-<script src="https://res.cdn.office.net/teams-js/2.0.0/js/MicrosoftTeams.min.js"></script>
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
 :root {
@@ -13,7 +11,6 @@
   --ht-green-dark: #006600;
   --ht-red:        #F5000D;
   --ht-teal:       #00695C;
-  --ht-green-light:#e6f5e6;
 }
 body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
@@ -22,39 +19,18 @@ body {
   position: relative;
   overflow: hidden;
 }
-
-/* ── Diagonal split background ──
-   Inspired by TEMPLATE_B header accent bar (diagonal split — left=green, right=red).
-   Three-layer diagonal gradient for depth.                         */
 body::before {
   content: '';
   position: fixed; inset: 0;
-  background:
-    linear-gradient(
-      160deg,
-      var(--ht-green)      0%,
-      var(--ht-green-dark) 40%,
-      #004d40              70%,
-      var(--ht-teal)      100%
-    );
+  background: linear-gradient(160deg, var(--ht-green) 0%, var(--ht-green-dark) 40%, #004d40 70%, var(--ht-teal) 100%);
   z-index: -2;
 }
-
-/* Diagonal accent stripe — green → red transition like the PPT header split */
 body::after {
   content: '';
   position: fixed; inset: 0;
-  background: linear-gradient(
-    160deg,
-    transparent 25%,
-    rgba(0,153,0,0.08)  40%,
-    rgba(245,0,13,0.06) 55%,
-    transparent 70%
-  );
+  background: linear-gradient(160deg, transparent 25%, rgba(0,153,0,0.08) 40%, rgba(245,0,13,0.06) 55%, transparent 70%);
   z-index: -1;
 }
-
-/* Subtle grid pattern overlay — inspired by the presentation's grid alignment rules */
 .grid-bg {
   position: fixed; inset: 0;
   background-image:
@@ -64,29 +40,24 @@ body::after {
   z-index: -1;
   pointer-events: none;
 }
-
-/* Accent bar at top — diagonal split green/red (TEMPLATE_B reference) */
 .accent-bar {
   position: fixed; top: 0; left: 0; right: 0; height: 5px;
   background: linear-gradient(90deg, var(--ht-green) 0%, var(--ht-green) 50%, var(--ht-red) 50%, var(--ht-red) 100%);
   z-index: 10;
 }
-
 .display-flex {
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
 }
-
 .container {
   padding: 2.5rem;
   max-width: 420px;
   width: 100%;
   position: relative;
+  color: #fff;
 }
-
-/* Card-like container with subtle depth */
 .container::before {
   content: '';
   position: absolute; inset: 0;
@@ -97,7 +68,6 @@ body::after {
   border: 1px solid rgba(255,255,255,0.1);
   z-index: -1;
 }
-
 .logo { font-size: 3rem; font-weight: 700; margin-bottom: 0.25rem; letter-spacing: -0.5px; }
 .subtitle { font-size: 0.95rem; opacity: 0.75; margin-bottom: 2.5rem; }
 .btn {
@@ -112,16 +82,30 @@ body::after {
 .btn:active { transform: translateY(0); }
 .btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
 .btn-secondary {
+  display: inline-flex; align-items: center; gap: 8px;
   background: rgba(255,255,255,0.12); color: #fff;
   border: 1px solid rgba(255,255,255,0.25);
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
-  font-size: 14px; padding: 10px 20px;
+  border-radius: 8px; padding: 10px 20px;
+  font-size: 14px; font-weight: 500; cursor: pointer;
+  text-decoration: none; transition: all 0.2s;
+  backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px);
 }
 .btn-secondary:hover { background: rgba(255,255,255,0.2); }
 .hidden { display: none; }
-.status { margin-top: 1.5rem; font-size: 0.85rem; opacity: 0.65; }
+.status { margin-top: 1.5rem; font-size: 0.85rem; opacity: 0.65; min-height: 2rem; }
 .footer { margin-top: 3rem; font-size: 0.75rem; opacity: 0.4; }
+/* Spinner */
+.spinner {
+  display: inline-block;
+  width: 16px; height: 16px;
+  border: 2px solid rgba(255,255,255,0.3);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+  vertical-align: middle;
+  margin-right: 6px;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
 </style>
 </head>
 <body>
@@ -132,214 +116,208 @@ body::after {
   <div class="logo">✨ Genie</div>
   <div class="subtitle">Enterprise Chat — Haadthip</div>
 
-  <button class="btn" id="signinBtn" onclick="handleSignIn()">
+  <!-- Sign-in button (shown when no session) -->
+  <button class="btn hidden" id="signinBtn" onclick="handleSignIn()">
     <span>🔑</span> Sign in with Microsoft
   </button>
-  <button class="btn hidden" id="loadingBtn" disabled>
-    <span>⏳</span> กำลังตรวจสอบ...
-  </button>
 
-  <div style="margin-top: 16px;">
-    <button class="btn btn-secondary" onclick="window.open('/docs/genie-setup-manual.html', '_blank')">
+  <!-- Manual guide link -->
+  <div style="margin-top: 20px;">
+    <a class="btn-secondary" href="/docs/genie-setup-manual.html" target="_blank">
       <span>📖</span> คู่มือการใช้งาน
-    </button>
+    </a>
   </div>
 
-  <p class="status" id="status">กำลังเชื่อมต่อ...</p>
-  <p class="footer" id="footer">Haadthip Public Company Limited</p>
-  <p class="hidden" id="debug"></p>
+  <p class="status" id="status">
+    <span class="spinner"></span>กำลังตรวจสอบสถานะ...
+  </p>
+  <p class="footer">Haadthip Public Company Limited</p>
 </div>
 </div>
 
+<!--
+  Microsoft Teams JS SDK v2 (CDN — ไม่ต้อง build step)
+  ใช้เฉพาะ microsoftTeams.authentication.authenticate() เพื่อเปิด popup
+  แทน window.open() ซึ่งถูก Teams block ใน iframe
+-->
+<script src="https://res.cdn.office.net/teams-js/2.22.0/js/MicrosoftTeams.min.js"></script>
 <script>
-(function() {
+(function () {
   'use strict';
 
-  // ── Config from CONTEXT.md ──────────────────────────────────────
-  const CONFIG = {
-    tenantId:    '5045d9c3-3b0b-4315-8594-64118bbd7495',
-    clientId:    '4881351e-d1a0-4228-a084-a0d6ef717740',
-    appIdUri:    'api://genie.haadthip.com/4881351e-d1a0-4228-a084-a0d6ef717740',
-    scope:       'access_as_user',
-    authUrl:     'https://genie.haadthip.com',
-    owuiApi:     '/api/v1/auths/',
-    oauthLogin:  '/oauth/microsoft/login',
-  };
+  // ═══════════════════════════════════════════════════════════════════
+  //  Teams Auth Gateway  (v4 — Teams SDK popup + session polling)
+  //  ───────────────────────────────────────────────────────────────
+  //
+  //  Flow:
+  //    1. เปิดหน้า → initTeamsSDK → checkSession
+  //    2. มี session → redirect /
+  //    3. ไม่มี → แสดงปุ่ม Sign in
+  //    4. กดปุ่ม → microsoftTeams.authentication.authenticate(url: /oauth/microsoft/login)
+  //       Teams เปิด popup (ไม่โดน Teams iframe block ต่างจาก window.open)
+  //    5. Popup: Microsoft login → OWUI set cookie → redirect popup ไปที่ /auth
+  //    6. Parent: poll /api/v1/auths/ ทุก 2 วิ จนเจอ session
+  //    7. เจอ session → redirect /
+  //
+  //  Note:
+  //    - Teams SDK authenticate() ไม่รอ notifySuccess() — เราใช้แค่ popup open
+  //    - polling จาก parent เช็ค token cookie ที่ OWUI set ไว้ (httponly=false)
+  //    - Fallback: ถ้า Teams SDK ไม่ available → ใช้ window.open() ปกติ
+  // ═══════════════════════════════════════════════════════════════════
 
-  const STATUS   = document.getElementById('status');
-  const SIGNIN   = document.getElementById('signinBtn');
-  const LOADING  = document.getElementById('loadingBtn');
-  const DEBUG    = document.getElementById('debug');
-  let pollTimer  = null;
-  let teamsCtx   = null;
+  const LOGIN_URL  = '/oauth/microsoft/login';
+  const AUTH_CHECK = '/api/v1/auths/';
+  const POLL_MS    = 2000;   // poll ทุก 2 วิ
+  const POLL_MAX   = 90;     // หยุด poll หลัง 3 นาที (90 ครั้ง)
+
+  const STATUS     = document.getElementById('status');
+  const SIGNIN_BTN = document.getElementById('signinBtn');
+
+  let pollTimer   = null;
+  let pollCount   = 0;
+  let teamsInited = false;
 
   // ── Helpers ──────────────────────────────────────────────────────
-  const setStatus   = msg => { STATUS.textContent = msg; };
-  const debug       = msg => { DEBUG.classList.remove('hidden'); DEBUG.textContent = '⚙ ' + msg; };
-  const showLoading = show => {
-    SIGNIN.classList.toggle('hidden', show);
-    LOADING.classList.toggle('hidden', !show);
-  };
-  const showSignin  = show => {
-    LOADING.classList.toggle('hidden', show);
-    SIGNIN.classList.toggle('hidden', !show);
-  };
-
-  // ── Teams SDK init ───────────────────────────────────────────────
-  async function initTeams() {
-    try {
-      if (typeof microsoftTeams === 'undefined') {
-        debug('❌ Teams SDK not loaded');
-        return false;
-      }
-      await microsoftTeams.app.initialize();
-      teamsCtx = await microsoftTeams.app.getContext();
-      debug('✅ Teams context detected — hostApp=' + (teamsCtx?.app?.host?.name || 'unknown'));
-      return true;
-    } catch (e) {
-      debug('❌ Not in Teams — ' + e.message);
-      console.log('Teams init failed:', e.message);
-      return false;
-    }
+  function setStatus(html, showSpinner) {
+    STATUS.innerHTML = showSpinner
+      ? '<span class="spinner"></span>' + html
+      : html;
   }
 
-  // ── Silent SSO via Teams getAuthToken ────────────────────────────
-  async function tryTeamsSilentAuth() {
-    try {
-      const token = await microsoftTeams.authentication.getAuthToken({
-        resources: [CONFIG.appIdUri],
-      });
-      console.log('Teams silent auth: token obtained');
-      return token;
-    } catch (e) {
-      console.log('Teams silent auth failed:', e.message);
-      return null;
-    }
+  function delay(ms) { return new Promise(r => setTimeout(r, ms)); }
+
+  // ── Check OWUI session via cookie (httponly=false) ───────────────
+  // OWUI OAuth callback sets `token` cookie with httponly=false
+  // so we can also check document.cookie as a faster signal
+  function hasTokenCookie() {
+    return document.cookie.split(';').some(c => c.trim().startsWith('token='));
   }
 
-  // ── Check OWUI session cookie ────────────────────────────────────
-  async function checkOwuiSession() {
+  // Full API check — returns true when authenticated
+  async function checkSession() {
     try {
-      const resp = await fetch(CONFIG.owuiApi, { credentials: 'include' });
-      return resp.ok;
+      const resp = await fetch(AUTH_CHECK, { credentials: 'include' });
+      if (!resp.ok) return false;
+      const data = await resp.json().catch(() => null);
+      return !!(data && data.token);
     } catch (_) {
       return false;
     }
   }
 
-  // ── Poll for session after external / popup login ────────────────
-  function startPolling(msg) {
-    if (pollTimer) clearInterval(pollTimer);
-    if (msg) setStatus(msg);
+  // ── Poll session after popup opens ───────────────────────────────
+  function startPolling() {
+    pollCount = 0;
     pollTimer = setInterval(async () => {
-      const ok = await checkOwuiSession();
-      if (ok) {
+      pollCount++;
+
+      // Quick check via cookie first (no network)
+      const cookieFound = hasTokenCookie();
+      const apiOk = cookieFound || await checkSession();
+
+      if (apiOk) {
         clearInterval(pollTimer);
-        setStatus('✅ พบ session แล้ว กำลังเข้าแอป...');
-        await new Promise(r => setTimeout(r, 500));
-        window.location.href = '/';
+        setStatus('✅ ยืนยันตัวตนสำเร็จ กำลังเข้าแอป...');
+        await delay(800);
+        window.location.replace('/');
+        return;
       }
-    }, 3000);
+
+      // Timeout
+      if (pollCount >= POLL_MAX) {
+        clearInterval(pollTimer);
+        SIGNIN_BTN.disabled = false;
+        setStatus('⏱️ หมดเวลา กรุณาลอง Sign in ใหม่');
+      }
+    }, POLL_MS);
   }
 
-  // ── Build Entra authorize URL ────────────────────────────────────
-  function buildAuthorizeUrl() {
-    // redirect_uri must match OWUI's MICROSOFT_REDIRECT_URI exactly —
-    // otherwise Microsoft rejects the token exchange in OWUI's callback.
-    const redirectUri = encodeURIComponent(CONFIG.authUrl + '/oauth/microsoft/callback');
-    return 'https://login.microsoftonline.com/' + CONFIG.tenantId +
-      '/oauth2/v2.0/authorize' +
-      '?client_id=' + encodeURIComponent(CONFIG.clientId) +
-      '&response_type=code' +
-      '&redirect_uri=' + redirectUri +
-      '&response_mode=query' +
-      '&scope=' + encodeURIComponent('openid email profile') +
-      '&state=' + encodeURIComponent('teams-popup');
+  // ── Teams SDK init ────────────────────────────────────────────────
+  async function initTeamsSDK() {
+    try {
+      await microsoftTeams.app.initialize();
+      teamsInited = true;
+    } catch (_) {
+      teamsInited = false;
+    }
   }
 
-  // ── Sign-in entry point ───────────────────────────────────────────
+  // ── Sign in ───────────────────────────────────────────────────────
   async function handleSignIn() {
-    // Let OWUI's /oauth/microsoft/login generate the full authorize URL
-    // with proper state, nonce, PKCE, and scope (including offline_access).
-    // This is the exact same flow as clicking "Sign in with Microsoft"
-    // from the OWUI login page — which is proven to work.
-    window.open(CONFIG.authUrl + '/oauth/microsoft/login', '_blank');
-    startPolling('✅ เปิดหน้าต่างยืนยันตัวตนแล้ว — ลงชื่อเข้าใช้ แล้วกลับมาที่นี่');
-  }
+    SIGNIN_BTN.disabled = true;
+    setStatus('กำลังเปิดหน้าต่าง Sign in...', true);
 
-  // ── Callback — Entra redirected back with code ────────────────────
-  // Legacy path: if code still lands here (e.g. old bookmark), forward to OWUI.
-  async function handleCallback() {
-    const params = new URLSearchParams(window.location.search);
-    const code  = params.get('code');
-    const error = params.get('error');
+    const loginUrl = window.location.origin + LOGIN_URL;
 
-    if (error) {
-      console.error('OAuth error:', error);
-      document.body.innerHTML = '<p style="font-family:sans-serif;padding:2rem;text-align:center">❌ การยืนยันตัวตนล้มเหลว กรุณาลองใหม่</p>';
-      return;
-    }
-
-    if (code) {
-      // Forward code to OWUI's OAuth callback to complete the flow
+    if (teamsInited) {
+      // ── Teams context: use SDK authenticate() to open popup ──
       try {
-        await fetch(CONFIG.authUrl + '/oauth/microsoft/callback', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ code: code, state: params.get('state') || '' }),
-          credentials: 'include',
-          redirect: 'manual',
+        microsoftTeams.authentication.authenticate({
+          url: loginUrl,
+          width: 600,
+          height: 700,
+          successCallback: async (token) => {
+            if (token) {
+              // Write the token to the parent tab cookie
+              document.cookie = `token=${token}; path=/; secure; samesite=none; max-age=86400`;
+              setStatus('✅ ยืนยันตัวตนสำเร็จ กำลังเข้าแอป...', true);
+              await delay(800);
+              window.location.replace('/');
+            } else {
+              // fallback to polling if no token returned
+              startPolling();
+            }
+          },
+          failureCallback: (reason) => {
+            console.error('[TeamsAuth] authenticate failure:', reason);
+            SIGNIN_BTN.disabled = false;
+            setStatus('❌ Sign in ไม่สำเร็จ: ' + reason + '<br><small>กรุณาลองใหม่อีกครั้ง</small>');
+          },
         });
-      } catch (_) { /* redirect-based flow — ignore */ }
-
-      // Also redirect to the callback URL directly (GET flow)
-      window.location.href = CONFIG.authUrl + '/oauth/microsoft/callback?code=' + encodeURIComponent(code);
-      return;
-    }
-
-    document.body.innerHTML = '<p style="font-family:sans-serif;padding:2rem;text-align:center">⚠️ ไม่ได้รับรหัสยืนยันตัวตน</p>';
-  }
-
-  // ── Bootstrap ─────────────────────────────────────────────────────
-  async function init() {
-    const params = new URLSearchParams(window.location.search);
-
-    // Callback — Entra redirected back with code
-    if (params.has('code') || params.has('error')) {
-      handleCallback();
-      return;
-    }
-
-    // ── Normal tab mode ──
-    showLoading(true);
-    setStatus('กำลังตรวจสอบสถานะ...');
-
-    const inTeams = await initTeams();
-    debug('inTeams=' + inTeams);
-
-    const hasSession = await checkOwuiSession();
-
-    if (hasSession) {
-      setStatus('✅ มี session แล้ว กำลังเข้าแอป...');
-      await new Promise(r => setTimeout(r, 500));
-      window.location.href = '/';
-      return;
-    }
-
-    if (inTeams) {
-      // Has Teams context but no OWUI session → trigger Teams popup auth
-      showSignin(true);
-      setStatus('กดปุ่ม Sign in เพื่อยืนยันตัวตน (Teams popup)');
+      } catch (e) {
+        console.warn('[TeamsAuth] Teams authenticate threw, falling back:', e);
+        window.open(loginUrl, 'genie-login', 'width=600,height=700,location=yes');
+        startPolling();
+      }
     } else {
-      showSignin(true);
-      setStatus('กดปุ่มด้านบนเพื่อ Sign in ด้วย Microsoft');
+      // ── Non-Teams browser: open popup normally ──
+      window.open(loginUrl, 'genie-login', 'width=600,height=700,location=yes,resizable=yes');
+      startPolling();
     }
-  }
 
-  // Expose for inline onclick
+    setStatus('✅ เปิดหน้าต่างแล้ว — กรุณา Sign in ด้วย Microsoft account', false);
+  }
   window.handleSignIn = handleSignIn;
 
-  init();
+  // ── Bootstrap ─────────────────────────────────────────────────────
+  (async function init() {
+    // Initialize Teams SDK (safe to call outside Teams)
+    await initTeamsSDK();
+
+    // Check existing session
+    const hasSession = await checkSession();
+    if (hasSession) {
+      setStatus('✅ มี session แล้ว กำลังเข้าแอป...');
+      await delay(800);
+      window.location.replace('/');
+      return;
+    }
+
+    // No session — show sign-in button
+    SIGNIN_BTN.classList.remove('hidden');
+    setStatus('กรุณากดปุ่มด้านบนเพื่อ Sign in ด้วย Microsoft');
+
+    // Listen for postMessage from popup (fallback for standard browser popups)
+    window.addEventListener('message', async (evt) => {
+      if (evt.origin !== window.location.origin) return;
+      if (evt.data && evt.data.type === 'TEAMS_AUTH_SUCCESS' && evt.data.token) {
+        document.cookie = `token=${evt.data.token}; path=/; secure; samesite=none; max-age=86400`;
+        setStatus('✅ ยืนยันตัวตนสำเร็จ กำลังเข้าแอป...', true);
+        await delay(800);
+        window.location.replace('/');
+      }
+    });
+  })();
 })();
 </script>
 </body>
