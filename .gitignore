@@ -25,20 +25,28 @@ Thumbs.db
 # ── Test artifacts ──
 .playwright-mcp/
 
+# ── Secrets (per-directory) ──
+docker/.env
+
 # ── Open WebUI local data ──
-data/open-webui/cache/
-data/open-webui/uploads/
-data/open-webui/vector_db/
-data/open-webui/webui.db*
-data/open-webui/webui.db-shm
-data/open-webui/webui.db-wal
+data/open-webui/
 
 # ── POC exports (regenerable) ──
 data/open_webui_poc.dump
 data/open_webui_poc.sql
 
-# ── Screenshots (UI captures, regenerable) ──
-screenshots/
+# ── IDE ──
+.vscode/
+.idea/
+*.code-workspace
+data/ingestion/
+node_modules/
+
+# ── Generated files ──
+*.pptx
+*.pdf
+
+# ── Image files (except screenshots) ──
 *.png
 *.jpg
 *.jpeg
@@ -47,30 +55,6 @@ screenshots/
 *.bmp
 *.ico
 *.svg
-
-# ── IDE ──
-.vscode/
-.idea/
-*.code-workspace
-data/ingestion/
-node_modules/
-config/docker.env
-
-# Secrets
-deploy/docker/docker.env
-.env
-
-# Python
-__pycache__/
-*.pyc
-*.pyo
-
-# OS
-.DS_Store
-
-# Docker
-data/open-webui/
-
-# Generated
-*.pptx
-*.pdf
+# Allow screenshots (needed by Docker build)
+!screenshots/
+!screenshots/*

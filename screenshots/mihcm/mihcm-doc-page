@@ -1,0 +1,1742 @@
+- generic:
+  - complementary [ref=f7e1]:
+    - generic [ref=f7e2]:
+      - navigation [ref=f7e3]:
+        - list [ref=f7e4]:
+          - listitem [ref=f7e5] [cursor=pointer]: J
+          - listitem [ref=f7e6] [cursor=pointer]: d
+          - listitem [ref=f7e7] [cursor=pointer]: f
+          - listitem [ref=f7e8] [cursor=pointer]: D
+          - listitem [ref=f7e9] [cursor=pointer]: h
+          - listitem [ref=f7e10] [cursor=pointer]: H
+        - generic [ref=f7e1669]: Dynamics
+      - generic [ref=f7e1671]:
+        - generic [ref=f7e1672]:
+          - text: 
+          - textbox "Type here to search" [active] [ref=f7e1673]
+        - list [ref=f7e1674]:
+          - list [ref=f7e1675]:
+            - generic [ref=f7e1676]: Dynamics
+          - list [ref=f7e1677]:
+            - generic [ref=f7e1678]: Staff Dynamics Changes
+          - listitem [ref=f7e1679]:
+            - list [ref=f7e1680]:
+              - listitem [ref=f7e1681] [cursor=pointer]:
+                - link "Resignation Withdrawal" [ref=f7e1682]:
+                  - /url: https://haadthip.mihcm.com/Dynamics/ResignationWithdrawalRequest
+                  - generic [ref=f7e1683]: s
+                  - generic [ref=f7e1684]: Resignation Withdrawal
+  - generic [ref=f7e12]:
+    - generic [ref=f7e13]:
+      - generic [ref=f7e15] [cursor=pointer]: 
+      - generic:
+        - link "Company Logo" [ref=f7e17] [cursor=pointer]:
+          - /url: /home/dashboard
+          - img "Company Logo" [ref=f7e18]
+        - link [ref=f7e19] [cursor=pointer]:
+          - /url: /home/dashboard
+          - generic [ref=f7e20]: 
+        - list [ref=f7e23]:
+          - listitem [ref=f7e24]:
+            - generic:
+              - generic [ref=f7e25]:
+                - generic [ref=f7e26]: 010368 - ศุภกร เอมชนานนท์ / SUPAKORN EMCHANNON
+                - link "Edit Profile" [ref=f7e27] [cursor=pointer]:
+                  - /url: /Ess/ProfileChangeRequest
+              - generic [ref=f7e30]: 
+          - listitem [ref=f7e31]:
+            - link "n" [ref=f7e32] [cursor=pointer]:
+              - /url: "#"
+          - listitem [ref=f7e33]:
+            - link "e" [ref=f7e34] [cursor=pointer]:
+              - /url: "#"
+    - generic [ref=f7e35]:
+      - list [ref=f7e39]:
+        - listitem [ref=f7e40]
+        - listitem [ref=f7e41]:
+          - generic [ref=f7e42]:
+            - generic [ref=f7e43]:
+              - generic [ref=f7e44]:
+                - generic [ref=f7e45]: 
+                - generic [ref=f7e46]: Things To do
+              - generic [ref=f7e48]:
+                - text: T
+                - generic [ref=f7e50]:
+                  - generic [ref=f7e51]: "EImportant : You have request(s) that are due for action soon. Take action immediately."
+                  - generic [ref=f7e52]: Employee Self Service
+                  - generic [ref=f7e55]:
+                    - generic [ref=f7e56]:
+                      - generic [ref=f7e57]: "03"
+                      - text: Attendance within last 30 days to be regularized
+                    - generic [ref=f7e58] [cursor=pointer]: "]"
+                    - generic [ref=f7e59] [cursor=pointer]: Regularize
+            - text: 
+        - listitem [ref=f7e60]:
+          - generic [ref=f7e62]:
+            - generic [ref=f7e63]:
+              - generic [ref=f7e64]: 
+              - generic [ref=f7e65]: My Performance
+              - generic [ref=f7e66] [cursor=pointer]: 
+            - text:  
+            - generic [ref=f7e69]: Performance plan not started.
+          - text: 
+        - listitem [ref=f7e70]:
+          - generic [ref=f7e71]:
+            - generic [ref=f7e72]:
+              - generic [ref=f7e73]:
+                - text: 
+                - generic [ref=f7e74]: My Leave Summary
+                - generic [ref=f7e75] [cursor=pointer]: 
+              - generic [ref=f7e76]:
+                - generic [ref=f7e77]:
+                  - generic [ref=f7e78]: 
+                  - generic [ref=f7e79]: Year
+                  - text: ":"
+                - textbox "Year :" [ref=f7e80]:
+                  - /placeholder: yyyy
+                  - text: "2026"
+            - generic [ref=f7e84]:
+              - img [ref=f7e86]:
+                - generic [ref=f7e107]:
+                  - generic [ref=f7e109]:
+                    - generic "Allocation 01.ลาย่อย(ไม่เกิน 1 ชม.)/Short 0"
+                    - generic "Allocation 02.ลากิจ/Personal 3" [ref=f7e110]
+                    - generic "Allocation 03.ลาป่วย/Medical 30" [ref=f7e112]
+                    - generic "Allocation 05.หยุดพักผ่อนประจำปี/Annual 0"
+                    - generic "Allocation 06.ลาไม่ได้รับค่าจ้าง/ without pay 0"
+                    - generic "Allocation 09.ปฏิบัติงานนอกสถานที่/Work offsite 0"
+                    - generic "Allocation 11.ลาป่วยอุบัติเหตุการทำงาน /Accident from work 30" [ref=f7e114]
+                    - generic "Allocation 13.ลาเพื่อฝึกอบรม/ for Seminar 0"
+                    - generic "Allocation 14.ลาเพื่อเกณฑ์ทหาร/ military enlisting 0"
+                    - generic "Allocation 15.ลาเพื่อรับราชการทหาร/Military service 60" [ref=f7e116]
+                    - generic "Allocation 17.ลาเพื่อทำหมัน/ for sterilization 0"
+                    - generic "Allocation 23.ลาเพื่อช่วยเหลือคู่สมรสคลอดบุตร/Paternity 15" [ref=f7e118]
+                    - generic "Allocation 25.ลาเพื่อผ่าตัดแปลงเพศ 30" [ref=f7e120]
+                  - generic:
+                    - generic:
+                      - generic "Approved Leave 01.ลาย่อย(ไม่เกิน 1 ชม.)/Short 0"
+                      - generic "Approved Leave 02.ลากิจ/Personal 0"
+                      - generic "Approved Leave 03.ลาป่วย/Medical 0"
+                      - generic "Approved Leave 05.หยุดพักผ่อนประจำปี/Annual 0"
+                      - generic "Approved Leave 06.ลาไม่ได้รับค่าจ้าง/ without pay 0"
+                      - generic "Approved Leave 09.ปฏิบัติงานนอกสถานที่/Work offsite 0"
+                      - generic "Approved Leave 11.ลาป่วยอุบัติเหตุการทำงาน /Accident from work 0"
+                      - generic "Approved Leave 13.ลาเพื่อฝึกอบรม/ for Seminar 0"
+                      - generic "Approved Leave 14.ลาเพื่อเกณฑ์ทหาร/ military enlisting 0"
+                      - generic "Approved Leave 15.ลาเพื่อรับราชการทหาร/Military service 0"
+                      - generic "Approved Leave 17.ลาเพื่อทำหมัน/ for sterilization 0"
+                      - generic "Approved Leave 23.ลาเพื่อช่วยเหลือคู่สมรสคลอดบุตร/Paternity 0"
+                      - generic "Approved Leave 25.ลาเพื่อผ่าตัดแปลงเพศ 0"
+                  - generic:
+                    - generic:
+                      - generic "Pending Approval 01.ลาย่อย(ไม่เกิน 1 ชม.)/Short 0"
+                      - generic "Pending Approval 02.ลากิจ/Personal 0"
+                      - generic "Pending Approval 03.ลาป่วย/Medical 0"
+                      - generic "Pending Approval 05.หยุดพักผ่อนประจำปี/Annual 0"
+                      - generic "Pending Approval 06.ลาไม่ได้รับค่าจ้าง/ without pay 0"
+                      - generic "Pending Approval 09.ปฏิบัติงานนอกสถานที่/Work offsite 0"
+                      - generic "Pending Approval 11.ลาป่วยอุบัติเหตุการทำงาน /Accident from work 0"
+                      - generic "Pending Approval 13.ลาเพื่อฝึกอบรม/ for Seminar 0"
+                      - generic "Pending Approval 14.ลาเพื่อเกณฑ์ทหาร/ military enlisting 0"
+                      - generic "Pending Approval 15.ลาเพื่อรับราชการทหาร/Military service 0"
+                      - generic "Pending Approval 17.ลาเพื่อทำหมัน/ for sterilization 0"
+                      - generic "Pending Approval 23.ลาเพื่อช่วยเหลือคู่สมรสคลอดบุตร/Paternity 0"
+                      - generic "Pending Approval 25.ลาเพื่อผ่าตัดแปลงเพศ 0"
+                  - generic [ref=f7e123]:
+                    - generic "Balance 01.ลาย่อย(ไม่เกิน 1 ชม.)/Short 0"
+                    - generic "Balance 02.ลากิจ/Personal 3" [ref=f7e124]
+                    - generic "Balance 03.ลาป่วย/Medical 30" [ref=f7e126]
+                    - generic "Balance 05.หยุดพักผ่อนประจำปี/Annual 0"
+                    - generic "Balance 06.ลาไม่ได้รับค่าจ้าง/ without pay 0"
+                    - generic "Balance 09.ปฏิบัติงานนอกสถานที่/Work offsite 0"
+                    - generic "Balance 11.ลาป่วยอุบัติเหตุการทำงาน /Accident from work 30" [ref=f7e128]
+                    - generic "Balance 13.ลาเพื่อฝึกอบรม/ for Seminar 0"
+                    - generic "Balance 14.ลาเพื่อเกณฑ์ทหาร/ military enlisting 0"
+                    - generic "Balance 15.ลาเพื่อรับราชการทหาร/Military service 60" [ref=f7e130]
+                    - generic "Balance 17.ลาเพื่อทำหมัน/ for sterilization 0"
+                    - generic "Balance 23.ลาเพื่อช่วยเหลือคู่สมรสคลอดบุตร/Paternity 15" [ref=f7e132]
+                    - generic "Balance 25.ลาเพื่อผ่าตัดแปลงเพศ 30" [ref=f7e134]
+                - generic [ref=f7e137]:
+                  - generic [ref=f7e138]:
+                    - menuitem "Zoom chart using cursor arrows" [ref=f7e166]
+                    - menuitem "Zoom chart using cursor arrows" [ref=f7e167]
+                    - menuitem "Zoom chart using cursor arrows" [ref=f7e170]
+                  - menuitem "Zoom chart using cursor arrows" [ref=f7e177]
+                - generic [ref=f7e179]:
+                  - generic: ( Please use scrollbar to view hidden items )
+                - generic [ref=f7e180]:
+                  - generic [ref=f7e181]:
+                    - generic [ref=f7e182]: 01.ลาย่อย(ไม่เกิน 1 ชม.)/Short
+                    - generic [ref=f7e183]: 02.ลากิจ/Personal
+                    - generic [ref=f7e184]: 03.ลาป่วย/Medical
+                    - generic [ref=f7e185]: 05.หยุดพักผ่อนประจำปี/Annual
+                    - generic [ref=f7e186]: 06.ลาไม่ได้รับค่าจ้าง/ without pay
+                    - generic [ref=f7e187]: 09.ปฏิบัติงานนอกสถานที่/Work offsite
+                    - generic [ref=f7e188]: 11.ลาป่วยอุบัติเหตุการทำงาน /Accident from work
+                    - generic [ref=f7e189]: 13.ลาเพื่อฝึกอบรม/ for Seminar
+                    - generic [ref=f7e190]: 14.ลาเพื่อเกณฑ์ทหาร/ military enlisting
+                    - generic [ref=f7e191]: 15.ลาเพื่อรับราชการทหาร/Military service
+                    - generic [ref=f7e192]: 17.ลาเพื่อทำหมัน/ for sterilization
+                    - generic [ref=f7e193]: 23.ลาเพื่อช่วยเหลือคู่สมรสคลอดบุตร/Paternity
+                    - generic [ref=f7e194]: 25.ลาเพื่อผ่าตัดแปลงเพศ
+                    - generic [ref=f7e195]: Leave Types
+                  - generic [ref=f7e196]:
+                    - generic [ref=f7e197]: "0"
+                    - generic [ref=f7e198]: "10"
+                    - generic [ref=f7e199]: "20"
+                    - generic [ref=f7e200]: "30"
+                    - generic [ref=f7e201]: "40"
+                    - generic [ref=f7e202]: "50"
+                    - generic [ref=f7e203]: "60"
+                    - generic [ref=f7e204]: "70"
+                    - generic [ref=f7e205]: Days
+              - img [ref=f7e207]:
+                - generic [ref=f7e210]:
+                  - generic "Allocation" [ref=f7e211] [cursor=pointer]:
+                    - generic [ref=f7e213]: Allocation
+                  - generic "Approved Leave" [ref=f7e215] [cursor=pointer]:
+                    - generic [ref=f7e217]: Approved Leave
+                  - generic "Pending Approval" [ref=f7e219] [cursor=pointer]:
+                    - generic [ref=f7e221]: Pending Approval
+                  - generic "Balance" [ref=f7e223] [cursor=pointer]:
+                    - generic [ref=f7e225]: Balance
+        - listitem [ref=f7e227]:
+          - generic [ref=f7e228]:
+            - generic [ref=f7e229]:
+              - generic [ref=f7e230]: 
+              - generic [ref=f7e231]: My Attendance
+              - generic [ref=f7e232] [cursor=pointer]: 
+            - generic [ref=f7e234]:
+              - img [ref=f7e238]:
+                - 'generic "Absent: 100.00% 4" [ref=f7e242]'
+              - generic [ref=f7e244]:
+                - generic [ref=f7e245]: Overtime (OT) Summary
+                - generic [ref=f7e246]:
+                  - table [ref=f7e247]:
+                    - rowgroup [ref=f7e248]:
+                      - row "Overtime Rate Approved Not-Approved" [ref=f7e249]:
+                        - columnheader "Overtime Rate" [ref=f7e250]
+                        - columnheader "Approved" [ref=f7e251]
+                        - columnheader "Not-Approved" [ref=f7e252]
+                    - rowgroup [ref=f7e253]:
+                      - row "Overtime 0.00 0.00" [ref=f7e254]:
+                        - cell "Overtime" [ref=f7e255]
+                        - cell "0.00" [ref=f7e256]
+                        - cell "0.00" [ref=f7e257]
+                      - row "Double OT 0.00 0.00" [ref=f7e258]:
+                        - cell "Double OT" [ref=f7e259]
+                        - cell "0.00" [ref=f7e260]
+                        - cell "0.00" [ref=f7e261]
+                      - row "Triple OT 0.00 0.00" [ref=f7e262]:
+                        - cell "Triple OT" [ref=f7e263]
+                        - cell "0.00" [ref=f7e264]
+                        - cell "0.00" [ref=f7e265]
+                  - text: 
+        - listitem [ref=f7e266]:
+          - generic [ref=f7e938]:
+            - generic [ref=f7e939]:
+              - generic [ref=f7e940]: 
+              - generic [ref=f7e941]: Activity Feed
+              - generic [ref=f7e942] [cursor=pointer]: 
+              - generic [ref=f7e943] [cursor=pointer]:
+                - text: 
+                - generic:
+                  - generic [ref=f7e944]: Filter
+                  - generic [ref=f7e945]: All
+            - generic [ref=f7e950]:
+              - generic [ref=f7e951]:
+                - generic [ref=f7e952]:
+                  - img "999999 - HaadThip Academy / HaadThip Academy" [ref=f7e954]
+                  - generic [ref=f7e955]:
+                    - generic [ref=f7e956]: 999999 - HaadThip Academy / HaadThip Academy
+                    - generic [ref=f7e957]:
+                      - time [ref=f7e958]: 10 months ago
+                      - text: ·
+                      - generic [ref=f7e959]: 
+                  - generic [ref=f7e960]: 🎓 HaadThip Academy ขอแนะนำ สื่อความรู้ออนไลน์ Storytelling ไม่ใช่แค่การเล่าเรื่อง แต่คือทักษะที่จะทำให้การสื่อสารชัดเจน น่าสนใจเพราะการเล่าเรื่องที่ดีช่วยให้ ✅ สื่อสารเข้าใจง่าย ✅ ดึงดูดความสนใจ ✅ ใช้โน้มน้าวและสร้างผลลัพธ์ในการทำงาน มาเปลี่ยนการเล่าเรื่องธรรมดา ให้กลายเป็นพลังในการทำงาน 📌 เมื่อเรียนออนไลน์จบแล้ว อย่าลืมส่งหลักฐานการเรียนให้ทีม Talent & Learning เพื่อรับสิทธิ์ลุ้นของรางวัลสุดพิเศษ! 🎁🎉 🧠 CREATING LIFE LONG LEARNING MINDSETเพราะการเรียนรู้...มีมากกว่าแค่ในห้องเรียน 🚀🌍
+                  - list [ref=f7e962]:
+                    - listitem [ref=f7e963]:
+                      - link [ref=f7e964] [cursor=pointer]:
+                        - /url: ""
+                  - generic [ref=f7e966]: No comments
+                  - list [ref=f7e968]:
+                    - listitem [ref=f7e969]:
+                      - link " Like" [ref=f7e970] [cursor=pointer]:
+                        - /url: ""
+                    - listitem [ref=f7e971]:
+                      - link " Comment" [ref=f7e972] [cursor=pointer]:
+                        - /url: "#"
+                    - listitem [ref=f7e973]:
+                      - generic [ref=f7e975] [cursor=pointer]:
+                        - generic [ref=f7e976]: "02"
+                        - text: people like this
+                  - generic [ref=f7e978]:
+                    - img "999999 - HaadThip Academy / HaadThip Academy" [ref=f7e980]
+                    - generic [ref=f7e981]:
+                      - textbox "Comment here" [ref=f7e982]
+                      - button "Press  to comment" [ref=f7e983] [cursor=pointer]:
+                        - text: Press
+                        - generic [ref=f7e984]: 
+                        - text: to comment
+                - text: 
+              - generic [ref=f7e985]:
+                - generic [ref=f7e986]:
+                  - img "999999 - HaadThip Academy / HaadThip Academy" [ref=f7e988]
+                  - generic [ref=f7e989]:
+                    - generic [ref=f7e990]: 999999 - HaadThip Academy / HaadThip Academy
+                    - generic [ref=f7e991]:
+                      - time [ref=f7e992]: about a year ago
+                      - text: ·
+                      - generic [ref=f7e993]: 
+                  - generic [ref=f7e994]: 🎓 HaadThip Academy ขอแนะนำ สื่อความรู้ออนไลน์ "เทคนิคการโค้ช" 🤝 ซึ่งสามารถนำมาใช้เพื่อเพิ่มศักยภาพให้กับตนเองและผู้อื่น ไม่ว่าจะเป็น 🎧 การฟังอย่างลึกซึ้ง (Deep Listening) ❓ การตั้งคำถามที่ทรงพลัง (Powerful Questions) 🔁 การสะท้อนกลับ (Reflection) ✨ หมั่นฝึกฝนทักษะเหล่านี้ เพื่อก้าวสู่การเป็นผู้นำที่สามารถสร้างผลลัพธ์ผ่านการพัฒนาคนได้อย่างแท้จริง 📌 เมื่อเรียนออนไลน์จบแล้ว อย่าลืมส่งหลักฐานการเรียนให้ทีม Talent & Learning เพื่อรับสิทธิ์ลุ้นของรางวัลสุดพิเศษ! 🎁🎉 CREATING LIFE LONG LEARNING MINDSETเพราะการเรียนรู้...มีมากกว่าแค่ในห้องเรียน 🚀🌍
+                  - list [ref=f7e996]:
+                    - listitem [ref=f7e997]:
+                      - link [ref=f7e998] [cursor=pointer]:
+                        - /url: ""
+                  - generic [ref=f7e1000]: No comments
+                  - list [ref=f7e1002]:
+                    - listitem [ref=f7e1003]:
+                      - link " Like" [ref=f7e1004] [cursor=pointer]:
+                        - /url: ""
+                    - listitem [ref=f7e1005]:
+                      - link " Comment" [ref=f7e1006] [cursor=pointer]:
+                        - /url: "#"
+                    - listitem [ref=f7e1007]:
+                      - generic [ref=f7e1009] [cursor=pointer]:
+                        - generic [ref=f7e1010]: "01"
+                        - text: person likes this
+                  - generic [ref=f7e1012]:
+                    - img "999999 - HaadThip Academy / HaadThip Academy" [ref=f7e1014]
+                    - generic [ref=f7e1015]:
+                      - textbox "Comment here" [ref=f7e1016]
+                      - button "Press  to comment" [ref=f7e1017] [cursor=pointer]:
+                        - text: Press
+                        - generic [ref=f7e1018]: 
+                        - text: to comment
+                - text: 
+              - generic [ref=f7e1019]:
+                - generic [ref=f7e1020]:
+                  - img "999999 - HaadThip Academy / HaadThip Academy" [ref=f7e1022]
+                  - generic [ref=f7e1023]:
+                    - generic [ref=f7e1024]: 999999 - HaadThip Academy / HaadThip Academy
+                    - generic [ref=f7e1025]:
+                      - time [ref=f7e1026]: about a year ago
+                      - text: ·
+                      - generic [ref=f7e1027]: 
+                  - generic [ref=f7e1028]: 💡 เพราะการโค้ชที่ดี คือการปลดล็อกศักยภาพของทีม เพื่อให้สามารถสร้างผลลัพธ์ได้ด้วยตนเอง HaadThip Academy ขอแนะนำ 🎓 สื่อความรู้ออนไลน์ที่คัดสรรมาอย่างเหมาะสม เพื่อปูพื้นฐานด้านการโค้ช เสริมสร้างภาวะผู้นำ พัฒนาทีมให้แข็งแกร่ง และเติบโตอย่างยั่งยืน 📌 เมื่อเรียนออนไลน์จบแล้ว อย่าลืมส่งหลักฐานการเรียนให้ทีม Talent & Learning เพื่อรับสิทธิ์ลุ้นของรางวัลสุดพิเศษ! 🎁🎉 CREATING LIFE LONG LEARNING MINDSETเพราะการเรียนรู้...มีมากกว่าแค่ในห้องเรียน 🚀🌍
+                  - list [ref=f7e1030]:
+                    - listitem [ref=f7e1031]:
+                      - link [ref=f7e1032] [cursor=pointer]:
+                        - /url: ""
+                  - generic [ref=f7e1034]: Comments
+                  - list [ref=f7e1036]:
+                    - listitem [ref=f7e1037]:
+                      - link " Like" [ref=f7e1038] [cursor=pointer]:
+                        - /url: ""
+                    - listitem [ref=f7e1039]:
+                      - link " Comment" [ref=f7e1040] [cursor=pointer]:
+                        - /url: "#"
+                    - listitem [ref=f7e1041]:
+                      - generic [ref=f7e1043] [cursor=pointer]:
+                        - generic [ref=f7e1044]: "03"
+                        - text: people like this
+                  - generic [ref=f7e1045]:
+                    - generic [ref=f7e1046]:
+                      - img "001382 - ทิวา ทองนาค / THIWA TONGNARK" [ref=f7e1048]
+                      - generic [ref=f7e1049]:
+                        - generic [ref=f7e1050]: 001382 - ทิวา ทองนาค / THIWA TONGNARK ฟอร์ม
+                        - time [ref=f7e1052]: 19 days ago
+                        - list [ref=f7e1054]:
+                          - listitem [ref=f7e1055]:
+                            - link " Like" [ref=f7e1056] [cursor=pointer]:
+                              - /url: ""
+                          - listitem [ref=f7e1057]:
+                            - generic [ref=f7e1058] [cursor=pointer]: Be the first person to like this
+                      - text: 
+                    - generic [ref=f7e1059]:
+                      - img "999999 - HaadThip Academy / HaadThip Academy" [ref=f7e1061]
+                      - generic [ref=f7e1062]:
+                        - textbox "Comment here" [ref=f7e1063]
+                        - button "Press  to comment" [ref=f7e1064] [cursor=pointer]:
+                          - text: Press
+                          - generic [ref=f7e1065]: 
+                          - text: to comment
+                - text: 
+              - generic [ref=f7e1066]:
+                - generic [ref=f7e1067]:
+                  - img "999999 - HaadThip Academy / HaadThip Academy" [ref=f7e1069]
+                  - generic [ref=f7e1070]:
+                    - generic [ref=f7e1071]: 999999 - HaadThip Academy / HaadThip Academy
+                    - generic [ref=f7e1072]:
+                      - time [ref=f7e1073]: about a year ago
+                      - text: ·
+                      - generic [ref=f7e1074]: 
+                  - generic [ref=f7e1075]:
+                    - text: 🌱✨ ท่านประธานเจ้าหน้าที่บริหาร ( พลตรี พัชร รัตตกุล) เน้นย้ำเรื่องการพัฒนาตนเองผ่านสาส์นว่า “ขอให้ทุกท่านพึงตระหนักในการพัฒนาตนเอง ไม่ว่าจะเป็นการทำงานให้มีประสิทธิภาพดียิ่งขึ้น และการพัฒนาศักยภาพตลอดเวลาและอย่างต่อเนื่อง” ซึ่งเป็นแรงบันดาลใจสำคัญที่ผลักดันให้เราทุกคนลุกขึ้นมาเรียนรู้และเติบโตไปด้วยกัน 🎓 HaadThip Academy จึงขอนำเสนอ ความรู้ด้านการพัฒนาตนเองผ่านสื่อออนไลน์ ที่ไม่ใช่แค่การเรียนรู้ทักษะใหม่ๆ แต่คือการปลุกศักยภาพที่เรามีอยู่แล้วให้ดียิ่งๆขึ้นไป การสร้างนิสัยในการเรียนรู้และปรับมุมมอง เพื่อสร้างการเติบโตในทุกมิติของชีวิต 🌟🧠 📌 เมื่อเรียนออนไลน์จบแล้ว อย่าลืมส่งหลักฐานการเรียนให้ทีม Talent & Learning เพื่อรับสิทธิ์ลุ้นของรางวัลสุดพิเศษ! 🎁🎉 CREATING LIFE LONG LEARNING MINDSET เพราะการเรียนรู้...มีมากกว่าแค่ในห้องเรียน 🚀🌍 ติดตามสาระความรู้จาก Yammer HaadThip Academy Link (index pointing right)
+                    - link "https://engage.cloud.microsoft/main/org/haadthip.com/groups/eyJfdHlwZSI6Ikdyb3VwIiwiaWQiOiI5ODE1NDMyMzk2OCJ9" [ref=f7e1076] [cursor=pointer]:
+                      - /url: https://engage.cloud.microsoft/main/org/haadthip.com/groups/eyJfdHlwZSI6Ikdyb3VwIiwiaWQiOiI5ODE1NDMyMzk2OCJ9
+                  - list [ref=f7e1078]:
+                    - listitem [ref=f7e1079]:
+                      - link [ref=f7e1080] [cursor=pointer]:
+                        - /url: ""
+                  - generic [ref=f7e1082]: No comments
+                  - list [ref=f7e1084]:
+                    - listitem [ref=f7e1085]:
+                      - link " Like" [ref=f7e1086] [cursor=pointer]:
+                        - /url: ""
+                    - listitem [ref=f7e1087]:
+                      - link " Comment" [ref=f7e1088] [cursor=pointer]:
+                        - /url: "#"
+                    - listitem [ref=f7e1089]:
+                      - generic [ref=f7e1091] [cursor=pointer]:
+                        - generic [ref=f7e1092]: "02"
+                        - text: people like this
+                  - generic [ref=f7e1094]:
+                    - img "999999 - HaadThip Academy / HaadThip Academy" [ref=f7e1096]
+                    - generic [ref=f7e1097]:
+                      - textbox "Comment here" [ref=f7e1098]
+                      - button "Press  to comment" [ref=f7e1099] [cursor=pointer]:
+                        - text: Press
+                        - generic [ref=f7e1100]: 
+                        - text: to comment
+                - text: 
+              - generic [ref=f7e1101]:
+                - generic [ref=f7e1102]:
+                  - img "999999 - HaadThip Academy / HaadThip Academy" [ref=f7e1104]
+                  - generic [ref=f7e1105]:
+                    - generic [ref=f7e1106]: 999999 - HaadThip Academy / HaadThip Academy
+                    - generic [ref=f7e1107]:
+                      - time [ref=f7e1108]: 2 years ago
+                      - text: ·
+                      - generic [ref=f7e1109]: 
+                  - generic [ref=f7e1110]: 😄📊มาเปลี่ยนวิธีทำงานให้มีประสิทธิภาพมากขึ้น! การทำงานอย่างมีระบบช่วยลดความสับสนและความผิดพลาดได้อย่างมาก ร่วมเรียนรู้กับ HaadThip Academy ผ่านหลักสูตรออนไลน์ที่จะพัฒนาทักษะในการจัดกระบวนการทำงานกันเถอะ! 🎯📈🏆 เรียนจบแล้ว อย่าลืมส่งหลักฐานการเรียนให้ทีม Talent & Learning บันทึก เพื่อลุ้นรับรางวัลนะครับ🎉 “CREATING LIFE LONG LEARNING MINDSET เพราะการเรียนรู้มีมากกว่าในห้องเรียน”
+                  - list [ref=f7e1112]:
+                    - listitem [ref=f7e1113]:
+                      - link [ref=f7e1114] [cursor=pointer]:
+                        - /url: ""
+                  - generic [ref=f7e1116]: No comments
+                  - list [ref=f7e1118]:
+                    - listitem [ref=f7e1119]:
+                      - link " Like" [ref=f7e1120] [cursor=pointer]:
+                        - /url: ""
+                    - listitem [ref=f7e1121]:
+                      - link " Comment" [ref=f7e1122] [cursor=pointer]:
+                        - /url: "#"
+                    - listitem [ref=f7e1123]:
+                      - generic [ref=f7e1125] [cursor=pointer]:
+                        - generic [ref=f7e1126]: "05"
+                        - text: people like this
+                  - generic [ref=f7e1128]:
+                    - img "999999 - HaadThip Academy / HaadThip Academy" [ref=f7e1130]
+                    - generic [ref=f7e1131]:
+                      - textbox "Comment here" [ref=f7e1132]
+                      - button "Press  to comment" [ref=f7e1133] [cursor=pointer]:
+                        - text: Press
+                        - generic [ref=f7e1134]: 
+                        - text: to comment
+                - text: 
+              - generic [ref=f7e1135]:
+                - generic [ref=f7e1136]:
+                  - img "999999 - HaadThip Academy / HaadThip Academy" [ref=f7e1138]
+                  - generic [ref=f7e1139]:
+                    - generic [ref=f7e1140]: 999999 - HaadThip Academy / HaadThip Academy
+                    - generic [ref=f7e1141]:
+                      - time [ref=f7e1142]: 2 years ago
+                      - text: ·
+                      - generic [ref=f7e1143]: 
+                  - generic [ref=f7e1144]: 📊✨️เชิญชวนพี่น้องชาวหาดทิพย์มาร่วมกิจกรรมลุ้นรับรางวัล “บทบาทของแผนกเราสู่ความสำเร็จของหาดทิพย์” 🎁 ระดมความคิด "บทบาทของแผนกเรา มีส่วนช่วยให้หาดทิพย์เติบโตได้อย่างไร?" 💬 ✨ 3 คำตอบที่โดนใจกรรมการที่สุด รับรางวัลแผนกละ 5 ชิ้น 🎉 ร่วมสนุกกันเยอะๆ นะครับ ! 🤩🎉 ** หมดเขต 28 ตุลาคม 2567 ** **การพิจารณาตัดสินของกรรมการถือเป็นที่สิ้นสุด**
+                  - list [ref=f7e1146]:
+                    - listitem [ref=f7e1147]:
+                      - link [ref=f7e1148] [cursor=pointer]:
+                        - /url: ""
+                  - generic [ref=f7e1150]: No comments
+                  - list [ref=f7e1152]:
+                    - listitem [ref=f7e1153]:
+                      - link " Like" [ref=f7e1154] [cursor=pointer]:
+                        - /url: ""
+                    - listitem [ref=f7e1155]:
+                      - link " Comment" [ref=f7e1156] [cursor=pointer]:
+                        - /url: "#"
+                    - listitem [ref=f7e1157]:
+                      - generic [ref=f7e1159] [cursor=pointer]:
+                        - generic [ref=f7e1160]: "03"
+                        - text: people like this
+                  - generic [ref=f7e1162]:
+                    - img "999999 - HaadThip Academy / HaadThip Academy" [ref=f7e1164]
+                    - generic [ref=f7e1165]:
+                      - textbox "Comment here" [ref=f7e1166]
+                      - button "Press  to comment" [ref=f7e1167] [cursor=pointer]:
+                        - text: Press
+                        - generic [ref=f7e1168]: 
+                        - text: to comment
+                - text: 
+              - generic [ref=f7e1169]:
+                - generic [ref=f7e1170]:
+                  - img "999999 - HaadThip Academy / HaadThip Academy" [ref=f7e1172]
+                  - generic [ref=f7e1173]:
+                    - generic [ref=f7e1174]: 999999 - HaadThip Academy / HaadThip Academy
+                    - generic [ref=f7e1175]:
+                      - time [ref=f7e1176]: 2 years ago
+                      - text: ·
+                      - generic [ref=f7e1177]: 
+                  - generic [ref=f7e1178]: 🎯🔥 SWOT Analysis เป็นเครื่องมือที่ช่วยให้องค์กรมองเห็นทั้งจุดแข็ง จุดอ่อน โอกาส และความเสี่ยงอย่างครบวงจร เพื่อให้การวางแผนกลยุทธ์และการตัดสินใจธุรกิจเป็นไปอย่างมีประสิทธิภาพ 🚀📊
+                  - list [ref=f7e1180]:
+                    - listitem [ref=f7e1181]:
+                      - link [ref=f7e1182] [cursor=pointer]:
+                        - /url: ""
+                  - generic [ref=f7e1184]: No comments
+                  - list [ref=f7e1186]:
+                    - listitem [ref=f7e1187]:
+                      - link " Like" [ref=f7e1188] [cursor=pointer]:
+                        - /url: ""
+                    - listitem [ref=f7e1189]:
+                      - link " Comment" [ref=f7e1190] [cursor=pointer]:
+                        - /url: "#"
+                    - listitem [ref=f7e1191]:
+                      - generic [ref=f7e1193] [cursor=pointer]:
+                        - generic [ref=f7e1194]: "04"
+                        - text: people like this
+                  - generic [ref=f7e1196]:
+                    - img "999999 - HaadThip Academy / HaadThip Academy" [ref=f7e1198]
+                    - generic [ref=f7e1199]:
+                      - textbox "Comment here" [ref=f7e1200]
+                      - button "Press  to comment" [ref=f7e1201] [cursor=pointer]:
+                        - text: Press
+                        - generic [ref=f7e1202]: 
+                        - text: to comment
+                - text: 
+              - generic [ref=f7e1203]:
+                - generic [ref=f7e1204]:
+                  - img "999999 - HaadThip Academy / HaadThip Academy" [ref=f7e1206]
+                  - generic [ref=f7e1207]:
+                    - generic [ref=f7e1208]: 999999 - HaadThip Academy / HaadThip Academy
+                    - generic [ref=f7e1209]:
+                      - time [ref=f7e1210]: 2 years ago
+                      - text: ·
+                      - generic [ref=f7e1211]: 
+                  - generic [ref=f7e1212]: 📊💡 การเติมความรอบรู้ด้านธุรกิจให้ทันกับเทรนด์และเหตุการณ์สำคัญที่มีผลกับธุรกิจ คือ กุญแจสำคัญที่จะช่วยให้องค์กรเติบโตได้อย่างยั่งยืน 🌱💼 เรียนจบแล้ว อย่าลืมส่งหลักฐานการเรียนให้ทีม Talent & Learning บันทึก เพื่อลุ้นรับรางวัลนะครับ🎉 “CREATING LIFE LONG LEARNING MINDSET เพราะการเรียนรู้มีมากกว่าในห้องเรียน”
+                  - list [ref=f7e1214]:
+                    - listitem [ref=f7e1215]:
+                      - link [ref=f7e1216] [cursor=pointer]:
+                        - /url: ""
+                  - generic [ref=f7e1218]: No comments
+                  - list [ref=f7e1220]:
+                    - listitem [ref=f7e1221]:
+                      - link " Like" [ref=f7e1222] [cursor=pointer]:
+                        - /url: ""
+                    - listitem [ref=f7e1223]:
+                      - link " Comment" [ref=f7e1224] [cursor=pointer]:
+                        - /url: "#"
+                    - listitem [ref=f7e1225]:
+                      - generic [ref=f7e1227] [cursor=pointer]:
+                        - generic [ref=f7e1228]: "04"
+                        - text: people like this
+                  - generic [ref=f7e1230]:
+                    - img "999999 - HaadThip Academy / HaadThip Academy" [ref=f7e1232]
+                    - generic [ref=f7e1233]:
+                      - textbox "Comment here" [ref=f7e1234]
+                      - button "Press  to comment" [ref=f7e1235] [cursor=pointer]:
+                        - text: Press
+                        - generic [ref=f7e1236]: 
+                        - text: to comment
+                - text: 
+              - generic [ref=f7e1237]:
+                - generic [ref=f7e1238]:
+                  - img "999999 - HaadThip Academy / HaadThip Academy" [ref=f7e1240]
+                  - generic [ref=f7e1241]:
+                    - generic [ref=f7e1242]: 999999 - HaadThip Academy / HaadThip Academy
+                    - generic [ref=f7e1243]:
+                      - time [ref=f7e1244]: 2 years ago
+                      - text: ·
+                      - generic [ref=f7e1245]: 
+                  - generic [ref=f7e1246]: ✨🔍 ความรอบรู้ด้านธุรกิจ (Business Acumen) คือความสามารถในการเข้าใจและวิเคราะห์สถานการณ์ธุรกิจ 🌱 รวมถึงการตัดสินใจที่มีประสิทธิภาพเพื่อส่งเสริมความสำเร็จขององค์กร และกระบวนการธุรกิจภายในองค์กร 🚀✨
+                  - list [ref=f7e1248]:
+                    - listitem [ref=f7e1249]:
+                      - link [ref=f7e1250] [cursor=pointer]:
+                        - /url: ""
+                  - generic [ref=f7e1252]: No comments
+                  - list [ref=f7e1254]:
+                    - listitem [ref=f7e1255]:
+                      - link " Like" [ref=f7e1256] [cursor=pointer]:
+                        - /url: ""
+                    - listitem [ref=f7e1257]:
+                      - link " Comment" [ref=f7e1258] [cursor=pointer]:
+                        - /url: "#"
+                    - listitem [ref=f7e1259]:
+                      - generic [ref=f7e1261] [cursor=pointer]:
+                        - generic [ref=f7e1262]: "04"
+                        - text: people like this
+                  - generic [ref=f7e1264]:
+                    - img "999999 - HaadThip Academy / HaadThip Academy" [ref=f7e1266]
+                    - generic [ref=f7e1267]:
+                      - textbox "Comment here" [ref=f7e1268]
+                      - button "Press  to comment" [ref=f7e1269] [cursor=pointer]:
+                        - text: Press
+                        - generic [ref=f7e1270]: 
+                        - text: to comment
+                - text: 
+              - generic [ref=f7e1271]:
+                - generic [ref=f7e1272]:
+                  - img "999999 - HaadThip Academy / HaadThip Academy" [ref=f7e1274]
+                  - generic [ref=f7e1275]:
+                    - generic [ref=f7e1276]: 999999 - HaadThip Academy / HaadThip Academy
+                    - generic [ref=f7e1277]:
+                      - time [ref=f7e1278]: 2 years ago
+                      - text: ·
+                      - generic [ref=f7e1279]: 
+                  - generic [ref=f7e1280]:
+                    - generic [ref=f7e1281]:
+                      - text: ⚽️ 🏆 "กลับมาอีกแล้ว! กับกิจกรรมหาดทิพย์แฟนตาซีพรีเมียร์ลีก ฤดูกาล 2024/25 ต่อเนื่องเป็นครั้งที่ 3" 🎉 ✨ 🌟📢 "ขอเชิญชวนสมาชิกครอบครัวหาดทิพย์ที่รักทุกคนเข้าร่วมกิจกรรมฝึกภาษาอังกฤษและร่วมสนุกไปด้วยกัน ลุ้นรับรางวัลมากกว่า 30 รางวัล มูลค่า 50,000 บาท" 🎁🎉🏅 วีธีการเข้าร่วมลงทะเบียนสำหรับผู้เล่นใหม่ 1.ลงทะเบียนและร่วมเล่นผ่านทางเว็ปไซต์
+                      - link "https://fantasy.premierleague.com/" [ref=f7e1282] [cursor=pointer]:
+                        - /url: https://fantasy.premierleague.com/
+                      - text: หรือแอพลิเคชั่น “Premier League - Official App” IOS -
+                      - link "https://apps.apple.com/th/app/premier-league-official-app/id..." [ref=f7e1283] [cursor=pointer]:
+                        - /url: https://apps.apple.com/th/app/premier-league-official-app/id...
+                      - text: Android -
+                      - link "https://play.google.com/store/apps/details?id=com.pl.premier..." [ref=f7e1284] [cursor=pointer]:
+                        - /url: https://play.google.com/store/apps/details?id=com.pl.premier...
+                      - text: 2.เข้าร่วมกลุ่มไลน์เพื่อพูดคุย/แลกเปลี่ยนข้อมูล วิธีการลงทะเบียน วิธีการเล่น ทักษะ และเคล็ดลับการทำคะแนนได้ที่
+                      - link "https://line.me/ti/g/BoxZNZk5XA" [ref=f7e1285] [cursor=pointer]:
+                        - /url: https://line.me/ti/g/BoxZNZk5XA
+                      - text: ภายในวันที่ 12 สิงหาคม 2024
+                    - generic [ref=f7e1286]:
+                      - generic [ref=f7e1287]: Fantasy Premier League, Official Fantasy Football Game of the Premier League
+                      - generic [ref=f7e1288]: Official Fantasy Premier League 2025/26. Free to play fantasy football game, set up your fantasy football team at the Official Premier League site.
+                  - list [ref=f7e1290]:
+                    - listitem [ref=f7e1291]:
+                      - link [ref=f7e1292] [cursor=pointer]:
+                        - /url: ""
+                  - generic [ref=f7e1294]: No comments
+                  - list [ref=f7e1296]:
+                    - listitem [ref=f7e1297]:
+                      - link " Like" [ref=f7e1298] [cursor=pointer]:
+                        - /url: ""
+                    - listitem [ref=f7e1299]:
+                      - link " Comment" [ref=f7e1300] [cursor=pointer]:
+                        - /url: "#"
+                    - listitem [ref=f7e1301]:
+                      - generic [ref=f7e1302] [cursor=pointer]: Be the first person to like this
+                  - generic [ref=f7e1304]:
+                    - img "999999 - HaadThip Academy / HaadThip Academy" [ref=f7e1306]
+                    - generic [ref=f7e1307]:
+                      - textbox "Comment here" [ref=f7e1308]
+                      - button "Press  to comment" [ref=f7e1309] [cursor=pointer]:
+                        - text: Press
+                        - generic [ref=f7e1310]: 
+                        - text: to comment
+                - text: 
+              - generic [ref=f7e1311]:
+                - generic [ref=f7e1312]:
+                  - img "999999 - HaadThip Academy / HaadThip Academy" [ref=f7e1314]
+                  - generic [ref=f7e1315]:
+                    - generic [ref=f7e1316]: 999999 - HaadThip Academy / HaadThip Academy
+                    - generic [ref=f7e1317]:
+                      - time [ref=f7e1318]: 2 years ago
+                      - text: ·
+                      - generic [ref=f7e1319]: 
+                  - generic [ref=f7e1320]: 🎯🛠️ เพราะปัญหาเป็นเรื่องปกติที่เราเจอในชีวิตประจำวันทั้งการทำงานและชีวิตส่วนตัว ความสามารถในการระบุสาเหตุและวิเคราะห์แนวทางสู่การแก้ปัญหาอย่างเป็นขั้นเป็นตอน จะช่วยป้องกันไม่ให้ปัญหานั้นเกิดซ้ำ และลดปัญหาที่จะเกิดขึ้นอีกในอนาคต🌟📚
+                  - list [ref=f7e1322]:
+                    - listitem [ref=f7e1323]:
+                      - link [ref=f7e1324] [cursor=pointer]:
+                        - /url: ""
+                  - generic [ref=f7e1326]: No comments
+                  - list [ref=f7e1328]:
+                    - listitem [ref=f7e1329]:
+                      - link " Like" [ref=f7e1330] [cursor=pointer]:
+                        - /url: ""
+                    - listitem [ref=f7e1331]:
+                      - link " Comment" [ref=f7e1332] [cursor=pointer]:
+                        - /url: "#"
+                    - listitem [ref=f7e1333]:
+                      - generic [ref=f7e1335] [cursor=pointer]:
+                        - generic [ref=f7e1336]: "05"
+                        - text: people like this
+                  - generic [ref=f7e1338]:
+                    - img "999999 - HaadThip Academy / HaadThip Academy" [ref=f7e1340]
+                    - generic [ref=f7e1341]:
+                      - textbox "Comment here" [ref=f7e1342]
+                      - button "Press  to comment" [ref=f7e1343] [cursor=pointer]:
+                        - text: Press
+                        - generic [ref=f7e1344]: 
+                        - text: to comment
+                - text: 
+              - generic [ref=f7e1345]:
+                - generic [ref=f7e1346]:
+                  - img "999999 - HaadThip Academy / HaadThip Academy" [ref=f7e1348]
+                  - generic [ref=f7e1349]:
+                    - generic [ref=f7e1350]: 999999 - HaadThip Academy / HaadThip Academy
+                    - generic [ref=f7e1351]:
+                      - time [ref=f7e1352]: 2 years ago
+                      - text: ·
+                      - generic [ref=f7e1353]: 
+                  - generic [ref=f7e1354]: 🧭🌟กลยุทธ์ที่ดีเปรียบเสมือนเข็มทิศนำทางองค์กรไปสู่เป้าหมาย การมีวิสัยทัศน์ที่ชัดเจน บวกกับกลยุทธ์ที่ชาญฉลาด จะช่วยให้องค์กรบรรลุความสำเร็จในโลกที่ไม่หยุดนิ่ง🌐💼
+                  - list [ref=f7e1356]:
+                    - listitem [ref=f7e1357]:
+                      - link [ref=f7e1358] [cursor=pointer]:
+                        - /url: ""
+                  - generic [ref=f7e1360]: No comments
+                  - list [ref=f7e1362]:
+                    - listitem [ref=f7e1363]:
+                      - link " Like" [ref=f7e1364] [cursor=pointer]:
+                        - /url: ""
+                    - listitem [ref=f7e1365]:
+                      - link " Comment" [ref=f7e1366] [cursor=pointer]:
+                        - /url: "#"
+                    - listitem [ref=f7e1367]:
+                      - generic [ref=f7e1369] [cursor=pointer]:
+                        - generic [ref=f7e1370]: "03"
+                        - text: people like this
+                  - generic [ref=f7e1372]:
+                    - img "999999 - HaadThip Academy / HaadThip Academy" [ref=f7e1374]
+                    - generic [ref=f7e1375]:
+                      - textbox "Comment here" [ref=f7e1376]
+                      - button "Press  to comment" [ref=f7e1377] [cursor=pointer]:
+                        - text: Press
+                        - generic [ref=f7e1378]: 
+                        - text: to comment
+                - text: 
+              - generic [ref=f7e1379]:
+                - generic [ref=f7e1380]:
+                  - img "999999 - HaadThip Academy / HaadThip Academy" [ref=f7e1382]
+                  - generic [ref=f7e1383]:
+                    - generic [ref=f7e1384]: 999999 - HaadThip Academy / HaadThip Academy
+                    - generic [ref=f7e1385]:
+                      - time [ref=f7e1386]: 2 years ago
+                      - text: ·
+                      - generic [ref=f7e1387]: 
+                  - generic [ref=f7e1388]: 🌟🔍เตรียมพัฒนาตัวเองเพื่อก้าวสู่โลกยุคใหม่ รู้จัก 10 ทักษะสำคัญที่คนทำงานต้องมีในปี 2023-2027🔄🚀 อันดับ 1 การคิดอย่างมีวิจารณญาณ (Critical thinking) อันดับ 2 ทักษะการใช้เทคโนโลยีดิจิทัล (Digital literacy) อันดับ 3 ทักษะการติดต่อสื่อสารระหว่างบุคคล (Interpersonal skills) อันดับ 4 ความฉลาดทางอารมณ์ (Emotional intelligence) อันดับ 5 การคิดสร้างสรรค์ (Creative thinking) อันดับ 6 ทักษะการเป็นผู้นำ (Leadership skills) อันดับ 7 การแก้ไขปัญหา (Problem solving) อันดับ 8 ความสามารถในการปรับตัว (Adaptability) อันดับ 9 การทำงานเป็นทีม (Teamwork) อันดับ 10 ความยืดหยุ่น (Resilience) ติดตามข่าวสารความรู้เกี่ยวกับทักษะต่างได้กับ HaadThip Academy เพราะการเรียนรู้มีมากกว่าในห้องเรียน
+                  - list [ref=f7e1390]:
+                    - listitem [ref=f7e1391]:
+                      - link [ref=f7e1392] [cursor=pointer]:
+                        - /url: ""
+                  - generic [ref=f7e1394]: No comments
+                  - list [ref=f7e1396]:
+                    - listitem [ref=f7e1397]:
+                      - link " Like" [ref=f7e1398] [cursor=pointer]:
+                        - /url: ""
+                    - listitem [ref=f7e1399]:
+                      - link " Comment" [ref=f7e1400] [cursor=pointer]:
+                        - /url: "#"
+                    - listitem [ref=f7e1401]:
+                      - generic [ref=f7e1403] [cursor=pointer]:
+                        - generic [ref=f7e1404]: "03"
+                        - text: people like this
+                  - generic [ref=f7e1406]:
+                    - img "999999 - HaadThip Academy / HaadThip Academy" [ref=f7e1408]
+                    - generic [ref=f7e1409]:
+                      - textbox "Comment here" [ref=f7e1410]
+                      - button "Press  to comment" [ref=f7e1411] [cursor=pointer]:
+                        - text: Press
+                        - generic [ref=f7e1412]: 
+                        - text: to comment
+                - text: 
+              - generic [ref=f7e1413]:
+                - generic [ref=f7e1414]:
+                  - img "999999 - HaadThip Academy / HaadThip Academy" [ref=f7e1416]
+                  - generic [ref=f7e1417]:
+                    - generic [ref=f7e1418]: 999999 - HaadThip Academy / HaadThip Academy
+                    - generic [ref=f7e1419]:
+                      - time [ref=f7e1420]: 2 years ago
+                      - text: ·
+                      - generic [ref=f7e1421]: 
+                  - generic [ref=f7e1422]:
+                    - generic [ref=f7e1423]:
+                      - text: 🐸🕰️ทฤษฎี "กินกบ" เป็นเทคนิคความสำเร็จด้วยการลงมือทำสิ่งที่ไม่อยากทำที่สุด ถูกคิดค้นโดย “ไบรอัน เทรซี่” ผู้เชี่ยวชาญด้านการบริหารเวลาและพัฒนาศักยภาพ ⏱️💡 มาฝึกกินกบและลงมือทำให้สำเร็จกันนะครับ รู้จักทฤษฏีกินกบตัวนั้นซะให้มากขึ้น >>>
+                      - link "https://www.youtube.com/watch?v=Q7DYydWuL-E" [ref=f7e1424] [cursor=pointer]:
+                        - /url: https://www.youtube.com/watch?v=Q7DYydWuL-E
+                    - generic [ref=f7e1426]:
+                      - link "สรุปแนวคิดกินกบตัวนั้นซะ! จัดการชีวิตใน 3 ขั้นตอนง่ายๆ ที่ทำได้ทุกคน | อาหารสมองกับ The BookTeller" [ref=f7e1428] [cursor=pointer]:
+                        - /url: https://www.youtube.com/watch?v=Q7DYydWuL-E
+                      - generic [ref=f7e1429]: กินกบตัวนั้นซะ Eat That Frog!แนวคิดง่ายๆ ที่จะบอกเราว่า ในหนึ่งวัน มีสิ่งที่เราต้องทำในแต่ละวันมากมาย แต่เราต้องเลือกสิ่งที่มีความสำคัญมากที่สุด และยังไม่พอม...
+                  - list [ref=f7e1431]:
+                    - listitem [ref=f7e1432]:
+                      - link [ref=f7e1433] [cursor=pointer]:
+                        - /url: ""
+                  - generic [ref=f7e1435]: No comments
+                  - list [ref=f7e1437]:
+                    - listitem [ref=f7e1438]:
+                      - link " Like" [ref=f7e1439] [cursor=pointer]:
+                        - /url: ""
+                    - listitem [ref=f7e1440]:
+                      - link " Comment" [ref=f7e1441] [cursor=pointer]:
+                        - /url: "#"
+                    - listitem [ref=f7e1442]:
+                      - generic [ref=f7e1444] [cursor=pointer]:
+                        - generic [ref=f7e1445]: "01"
+                        - text: person likes this
+                  - generic [ref=f7e1447]:
+                    - img "999999 - HaadThip Academy / HaadThip Academy" [ref=f7e1449]
+                    - generic [ref=f7e1450]:
+                      - textbox "Comment here" [ref=f7e1451]
+                      - button "Press  to comment" [ref=f7e1452] [cursor=pointer]:
+                        - text: Press
+                        - generic [ref=f7e1453]: 
+                        - text: to comment
+                - text: 
+              - generic [ref=f7e1454]:
+                - generic [ref=f7e1455]:
+                  - img "999999 - HaadThip Academy / HaadThip Academy" [ref=f7e1457]
+                  - generic [ref=f7e1458]:
+                    - generic [ref=f7e1459]: 999999 - HaadThip Academy / HaadThip Academy
+                    - generic [ref=f7e1460]:
+                      - time [ref=f7e1461]: 2 years ago
+                      - text: ·
+                      - generic [ref=f7e1462]: 
+                  - generic [ref=f7e1463]: ทำไม "การลงมือทำ" จึงสำคัญกว่าการรอให้พร้อม ? 💦🌞ต้อนรับเทศกาลสงกรานต์ด้วยสื่อความรู้ออนไลน์ พัฒนาความรู้ เพิ่มความกล้าในการลงมือปฏิบัติ!💼💡 เรียนจบแล้ว อย่าลืมส่งหลักฐานการเรียนให้ทีม Talent & Learning บันทึก เพื่อลุ้นรับรางวัลนะครับ🎉 “CREATING LIFE LONG LEARNING MINDSET เพราะการเรียนรู้มีมากกว่าในห้องเรียน”
+                  - list [ref=f7e1465]:
+                    - listitem [ref=f7e1466]:
+                      - link [ref=f7e1467] [cursor=pointer]:
+                        - /url: ""
+                  - generic [ref=f7e1469]: No comments
+                  - list [ref=f7e1471]:
+                    - listitem [ref=f7e1472]:
+                      - link " Like" [ref=f7e1473] [cursor=pointer]:
+                        - /url: ""
+                    - listitem [ref=f7e1474]:
+                      - link " Comment" [ref=f7e1475] [cursor=pointer]:
+                        - /url: "#"
+                    - listitem [ref=f7e1476]:
+                      - generic [ref=f7e1478] [cursor=pointer]:
+                        - generic [ref=f7e1479]: "02"
+                        - text: people like this
+                  - generic [ref=f7e1481]:
+                    - img "999999 - HaadThip Academy / HaadThip Academy" [ref=f7e1483]
+                    - generic [ref=f7e1484]:
+                      - textbox "Comment here" [ref=f7e1485]
+                      - button "Press  to comment" [ref=f7e1486] [cursor=pointer]:
+                        - text: Press
+                        - generic [ref=f7e1487]: 
+                        - text: to comment
+                - text: 
+              - generic [ref=f7e1488]:
+                - generic [ref=f7e1489]:
+                  - img "999999 - HaadThip Academy / HaadThip Academy" [ref=f7e1491]
+                  - generic [ref=f7e1492]:
+                    - generic [ref=f7e1493]: 999999 - HaadThip Academy / HaadThip Academy
+                    - generic [ref=f7e1494]:
+                      - time [ref=f7e1495]: 2 years ago
+                      - text: ·
+                      - generic [ref=f7e1496]: 
+                  - generic [ref=f7e1497]: 🛠️👊การลงมือปฏิบัติ คือความพร้อมที่จะเผชิญหน้า แก้ไขปัญหาอย่างมีประสิทธิภาพและทันท่วงที โดยไม่ผัดวันประกันพรุ่งหรือมัวแต่รอเวลาที่เหมาะสมทุกครั้งไป ซึ่งหากมีมากไปหรือน้อยไปก็อาจเกิดผลเสียได้ HaadThip Academy ขอแนะนำวิธีที่ช่วยให้เพื่อนพนักงานรักษาสมดุลในการลงมือปฏิบัติไม่ให้มากหรือน้อยเกินไป 🔨🚀
+                  - list [ref=f7e1499]:
+                    - listitem [ref=f7e1500]:
+                      - link [ref=f7e1501] [cursor=pointer]:
+                        - /url: ""
+                  - generic [ref=f7e1503]: No comments
+                  - list [ref=f7e1505]:
+                    - listitem [ref=f7e1506]:
+                      - link " Like" [ref=f7e1507] [cursor=pointer]:
+                        - /url: ""
+                    - listitem [ref=f7e1508]:
+                      - link " Comment" [ref=f7e1509] [cursor=pointer]:
+                        - /url: "#"
+                    - listitem [ref=f7e1510]:
+                      - generic [ref=f7e1512] [cursor=pointer]:
+                        - generic [ref=f7e1513]: "03"
+                        - text: people like this
+                  - generic [ref=f7e1515]:
+                    - img "999999 - HaadThip Academy / HaadThip Academy" [ref=f7e1517]
+                    - generic [ref=f7e1518]:
+                      - textbox "Comment here" [ref=f7e1519]
+                      - button "Press  to comment" [ref=f7e1520] [cursor=pointer]:
+                        - text: Press
+                        - generic [ref=f7e1521]: 
+                        - text: to comment
+                - text: 
+              - generic [ref=f7e1522]:
+                - generic [ref=f7e1523]:
+                  - img "999999 - HaadThip Academy / HaadThip Academy" [ref=f7e1525]
+                  - generic [ref=f7e1526]:
+                    - generic [ref=f7e1527]: 999999 - HaadThip Academy / HaadThip Academy
+                    - generic [ref=f7e1528]:
+                      - time [ref=f7e1529]: 2 years ago
+                      - text: ·
+                      - generic [ref=f7e1530]: 
+                  - generic [ref=f7e1531]:
+                    - generic [ref=f7e1532]:
+                      - text: 📢HaadThip Academy ขอประชาสัมพันธ์และเชิญชวนสมัครเข้าร่วม โครงการค่ายภาษาอังกฤษสำหรับบุตรพนักงาน“HaadThip Academy English Play & Learn Camp - Season 2” กลับมาอีกครั้งกับกิจกรรมพัฒนาทักษะภาษาสุดสนุกร่วมกับเพื่อน ๆ บุตรพนักงาน! เน้นการเรียนรู้ผ่านการเล่น ควบคู่กับการฝึกทักษะการใช้ภาษาอังกฤษในชีวิตประจำวันกับคุณครูต่างชาติ 🎈🌍 📅 สมัครได้แล้วตั้งแต่วันนี้ จนถึงวันที่ 14 เมษายน 2567 คลิ๊กเพื่อสมัคร >>>>
+                      - link "https://forms.office.com/r/7LjHXWN2Pg?origin=QRCode&qrcodeorigin=presentation" [ref=f7e1533] [cursor=pointer]:
+                        - /url: https://forms.office.com/r/7LjHXWN2Pg?origin=QRCode&qrcodeorigin=presentation
+                    - link "Please fill out this form" [ref=f7e1537] [cursor=pointer]:
+                      - /url: https://forms.office.com/r/7LjHXWN2Pg?origin=QRCode&qrcodeorigin=presentation
+                  - list [ref=f7e1539]:
+                    - listitem [ref=f7e1540]:
+                      - link [ref=f7e1541] [cursor=pointer]:
+                        - /url: ""
+                  - generic [ref=f7e1543]: No comments
+                  - list [ref=f7e1545]:
+                    - listitem [ref=f7e1546]:
+                      - link " Like" [ref=f7e1547] [cursor=pointer]:
+                        - /url: ""
+                    - listitem [ref=f7e1548]:
+                      - link " Comment" [ref=f7e1549] [cursor=pointer]:
+                        - /url: "#"
+                    - listitem [ref=f7e1550]:
+                      - generic [ref=f7e1552] [cursor=pointer]:
+                        - generic [ref=f7e1553]: "02"
+                        - text: people like this
+                  - generic [ref=f7e1555]:
+                    - img "999999 - HaadThip Academy / HaadThip Academy" [ref=f7e1557]
+                    - generic [ref=f7e1558]:
+                      - textbox "Comment here" [ref=f7e1559]
+                      - button "Press  to comment" [ref=f7e1560] [cursor=pointer]:
+                        - text: Press
+                        - generic [ref=f7e1561]: 
+                        - text: to comment
+                - text: 
+              - generic [ref=f7e1562]:
+                - generic [ref=f7e1563]:
+                  - img "999999 - HaadThip Academy / HaadThip Academy" [ref=f7e1565]
+                  - generic [ref=f7e1566]:
+                    - generic [ref=f7e1567]: 999999 - HaadThip Academy / HaadThip Academy
+                    - generic [ref=f7e1568]:
+                      - time [ref=f7e1569]: 2 years ago
+                      - text: ·
+                      - generic [ref=f7e1570]: 
+                  - generic [ref=f7e1571]:
+                    - text: 📚🧠HaadThip Academy นำเสนอข้อคิดจากหนังสือ “101 กลวิธีทําอย่างไร ไม่ให้เสียเปรียบคน” เปรียบเสมือนคู่มือช่วยให้ผู้อ่านยืนหยัดในสถานการณ์ต่างๆ โดยไม่ต้องเอาชนะหรือเอาเปรียบผู้อื่น🌟🌱 สามารถอ่านเพิ่มเติมได้ที่
+                    - link "https://anyflip.com/gwxrt/nmau" [ref=f7e1572] [cursor=pointer]:
+                      - /url: https://anyflip.com/gwxrt/nmau
+                  - list [ref=f7e1574]:
+                    - listitem [ref=f7e1575]:
+                      - link [ref=f7e1576] [cursor=pointer]:
+                        - /url: ""
+                  - generic [ref=f7e1578]: No comments
+                  - list [ref=f7e1580]:
+                    - listitem [ref=f7e1581]:
+                      - link " Like" [ref=f7e1582] [cursor=pointer]:
+                        - /url: ""
+                    - listitem [ref=f7e1583]:
+                      - link " Comment" [ref=f7e1584] [cursor=pointer]:
+                        - /url: "#"
+                    - listitem [ref=f7e1585]:
+                      - generic [ref=f7e1587] [cursor=pointer]:
+                        - generic [ref=f7e1588]: "02"
+                        - text: people like this
+                  - generic [ref=f7e1590]:
+                    - img "999999 - HaadThip Academy / HaadThip Academy" [ref=f7e1592]
+                    - generic [ref=f7e1593]:
+                      - textbox "Comment here" [ref=f7e1594]
+                      - button "Press  to comment" [ref=f7e1595] [cursor=pointer]:
+                        - text: Press
+                        - generic [ref=f7e1596]: 
+                        - text: to comment
+                - text: 
+              - generic [ref=f7e1597]:
+                - generic [ref=f7e1598]:
+                  - img "999999 - HaadThip Academy / HaadThip Academy" [ref=f7e1600]
+                  - generic [ref=f7e1601]:
+                    - generic [ref=f7e1602]: 999999 - HaadThip Academy / HaadThip Academy
+                    - generic [ref=f7e1603]:
+                      - time [ref=f7e1604]: 2 years ago
+                      - text: ·
+                      - generic [ref=f7e1605]: 
+                  - generic [ref=f7e1606]: 🤝🎯เทคนิคการเจรจาต่อรองที่ดีจะช่วยให้คุณบรรลุเป้าหมาย และสร้างผลลัพธ์ที่ win-win💼👨‍💼 HaadThip Academy ขอนำเสนอ 5 ข้อที่สามารถช่วยให้เป็นผู้นำการเจรจาที่เชี่ยวชาญ📚 🌟
+                  - list [ref=f7e1608]:
+                    - listitem [ref=f7e1609]:
+                      - link [ref=f7e1610] [cursor=pointer]:
+                        - /url: ""
+                  - generic [ref=f7e1612]: No comments
+                  - list [ref=f7e1614]:
+                    - listitem [ref=f7e1615]:
+                      - link " Like" [ref=f7e1616] [cursor=pointer]:
+                        - /url: ""
+                    - listitem [ref=f7e1617]:
+                      - link " Comment" [ref=f7e1618] [cursor=pointer]:
+                        - /url: "#"
+                    - listitem [ref=f7e1619]:
+                      - generic [ref=f7e1621] [cursor=pointer]:
+                        - generic [ref=f7e1622]: "03"
+                        - text: people like this
+                  - generic [ref=f7e1624]:
+                    - img "999999 - HaadThip Academy / HaadThip Academy" [ref=f7e1626]
+                    - generic [ref=f7e1627]:
+                      - textbox "Comment here" [ref=f7e1628]
+                      - button "Press  to comment" [ref=f7e1629] [cursor=pointer]:
+                        - text: Press
+                        - generic [ref=f7e1630]: 
+                        - text: to comment
+                - text: 
+              - generic [ref=f7e1631]:
+                - generic [ref=f7e1632]:
+                  - img "999999 - HaadThip Academy / HaadThip Academy" [ref=f7e1634]
+                  - generic [ref=f7e1635]:
+                    - generic [ref=f7e1636]: 999999 - HaadThip Academy / HaadThip Academy
+                    - generic [ref=f7e1637]:
+                      - time [ref=f7e1638]: 2 years ago
+                      - text: ·
+                      - generic [ref=f7e1639]: 
+                  - generic [ref=f7e1640]: 📈💼เดือนมีนาคมนี้ HaadThip Academy ขอนำเสนอสื่อการเรียนรู้ออนไลน์เพื่อช่วยเพื่อนพนักงานทุกคนพัฒนาทักษะการเจรจาต่อรอง พร้อมรับสถานการณ์ต่างๆ เพิ่มโอกาสประสบความสำเร็จทั้งในชีวิตส่วนตัวและการทำงาน 📚🔍 เรียนจบแล้ว อย่าลืมส่งหลักฐานการเรียนให้ทีม Talent & Learning บันทึกเพื่อลุ้นรับรางวัลนะครับ🎉 “CREATING LIFE LONG LEARNING MINDSET เพราะการเรียนรู้มีมากกว่าในห้องเรียน”
+                  - list [ref=f7e1642]:
+                    - listitem [ref=f7e1643]:
+                      - link [ref=f7e1644] [cursor=pointer]:
+                        - /url: ""
+                  - generic [ref=f7e1646]: No comments
+                  - list [ref=f7e1648]:
+                    - listitem [ref=f7e1649]:
+                      - link " Like" [ref=f7e1650] [cursor=pointer]:
+                        - /url: ""
+                    - listitem [ref=f7e1651]:
+                      - link " Comment" [ref=f7e1652] [cursor=pointer]:
+                        - /url: "#"
+                    - listitem [ref=f7e1653]:
+                      - generic [ref=f7e1655] [cursor=pointer]:
+                        - generic [ref=f7e1656]: "02"
+                        - text: people like this
+                  - generic [ref=f7e1658]:
+                    - img "999999 - HaadThip Academy / HaadThip Academy" [ref=f7e1660]
+                    - generic [ref=f7e1661]:
+                      - textbox "Comment here" [ref=f7e1662]
+                      - button "Press  to comment" [ref=f7e1663] [cursor=pointer]:
+                        - text: Press
+                        - generic [ref=f7e1664]: 
+                        - text: to comment
+                - text: 
+        - listitem [ref=f7e272]:
+          - generic [ref=f7e307]:
+            - generic [ref=f7e308]:
+              - generic [ref=f7e309]: 
+              - generic [ref=f7e310]: Calendar
+              - generic [ref=f7e311] [cursor=pointer]: 
+              - generic [ref=f7e312]:
+                - generic [ref=f7e313]:
+                  - generic [ref=f7e314]:  My Calendar
+                  - generic [ref=f7e315]:  Team Calendar
+                - button "Change Org Level" [ref=f7e316] [cursor=pointer]: Change Org Level      
+            - generic [ref=f7e323]:
+              - generic [ref=f7e324]: Today 6th of Jul 2026
+              - generic [ref=f7e325]:
+                - generic [ref=f7e326]:
+                  - generic [ref=f7e327]: "00"
+                  - generic [ref=f7e328]: On Leave Today
+                - generic [ref=f7e329]:
+                  - generic [ref=f7e330]: "00"
+                  - generic [ref=f7e331]: On Leave Tomorrow
+                - generic [ref=f7e332]:
+                  - generic [ref=f7e333]: "00"
+                  - generic [ref=f7e334]: No one is on Leave this July
+                - list [ref=f7e335]:
+                  - listitem [ref=f7e336] [cursor=pointer]: 
+                  - listitem [ref=f7e337] [cursor=pointer]: 
+                  - listitem [ref=f7e338] [cursor=pointer]: 
+              - generic [ref=f7e339]:
+                - generic [ref=f7e340]: 4.Public Holiday
+                - generic [ref=f7e342]: 4.Public Holiday
+              - generic [ref=f7e344]:
+                - generic [ref=f7e345]:
+                  - generic [ref=f7e346]: "2026"
+                  - generic [ref=f7e347]: July
+                - generic [ref=f7e348]:
+                  - generic [ref=f7e349]:
+                    - generic [ref=f7e350]: Sun
+                    - generic [ref=f7e351]: Mon
+                    - generic [ref=f7e352]: Tue
+                    - generic [ref=f7e353]: Wed
+                    - generic [ref=f7e354]: Thu
+                    - generic [ref=f7e355]: Fri
+                    - generic [ref=f7e356]: Sat
+                  - generic [ref=f7e357]:
+                    - list [ref=f7e359]
+                    - list [ref=f7e361]
+                    - list [ref=f7e363]
+                    - generic [ref=f7e364]:
+                      - generic [ref=f7e365]: "1"
+                      - list [ref=f7e366]
+                    - generic [ref=f7e367]:
+                      - generic [ref=f7e368]: "2"
+                      - list [ref=f7e369]
+                    - generic [ref=f7e370]:
+                      - generic [ref=f7e371]: "3"
+                      - list [ref=f7e372]
+                    - generic [ref=f7e373]:
+                      - generic [ref=f7e374]: "4"
+                      - list [ref=f7e375]
+                    - generic [ref=f7e376]:
+                      - generic [ref=f7e377]: "5"
+                      - list [ref=f7e378]
+                    - generic [ref=f7e379]:
+                      - generic [ref=f7e380]: "6"
+                      - list [ref=f7e381]
+                    - generic [ref=f7e382]:
+                      - generic [ref=f7e383]: "7"
+                      - list [ref=f7e384]
+                    - generic [ref=f7e385]:
+                      - generic [ref=f7e386]: "8"
+                      - list [ref=f7e387]
+                    - generic [ref=f7e388]:
+                      - generic [ref=f7e389]: "9"
+                      - list [ref=f7e390]
+                    - generic [ref=f7e391]:
+                      - generic [ref=f7e392]: "10"
+                      - list [ref=f7e393]
+                    - generic [ref=f7e394]:
+                      - generic [ref=f7e395]: "11"
+                      - list [ref=f7e396]
+                    - generic [ref=f7e397]:
+                      - generic [ref=f7e398]: "12"
+                      - list [ref=f7e399]
+                    - generic [ref=f7e400]:
+                      - generic [ref=f7e401]: "13"
+                      - list [ref=f7e402]
+                    - generic [ref=f7e403]:
+                      - generic [ref=f7e404]: "14"
+                      - list [ref=f7e405]
+                    - generic [ref=f7e406]:
+                      - generic [ref=f7e407]: "15"
+                      - list [ref=f7e408]
+                    - generic [ref=f7e409]:
+                      - generic [ref=f7e410]: "16"
+                      - list [ref=f7e411]
+                    - generic [ref=f7e412]:
+                      - generic [ref=f7e413]: "17"
+                      - list [ref=f7e414]
+                    - generic [ref=f7e415]:
+                      - generic [ref=f7e416]: "18"
+                      - list [ref=f7e417]
+                    - generic [ref=f7e418]:
+                      - generic [ref=f7e419]: "19"
+                      - list [ref=f7e420]
+                    - generic [ref=f7e421]:
+                      - generic [ref=f7e422]: "20"
+                      - list [ref=f7e423]
+                    - generic [ref=f7e424]:
+                      - generic [ref=f7e425]: "21"
+                      - list [ref=f7e426]
+                    - generic [ref=f7e427]:
+                      - generic [ref=f7e428]: "22"
+                      - list [ref=f7e429]
+                    - generic [ref=f7e430]:
+                      - generic [ref=f7e431]: "23"
+                      - list [ref=f7e432]
+                    - generic [ref=f7e433]:
+                      - generic [ref=f7e434]: "24"
+                      - list [ref=f7e435]
+                    - generic [ref=f7e436]:
+                      - generic [ref=f7e437]: "25"
+                      - list [ref=f7e438]
+                    - generic [ref=f7e439]:
+                      - generic [ref=f7e440]: "26"
+                      - list [ref=f7e441]
+                    - generic [ref=f7e442]:
+                      - generic [ref=f7e443]: "27"
+                      - list [ref=f7e444]
+                    - generic [ref=f7e445]:
+                      - generic [ref=f7e446]: "28"
+                      - list [ref=f7e447]
+                    - generic [ref=f7e448]:
+                      - generic [ref=f7e449]: "29"
+                      - list [ref=f7e450]
+                    - generic [ref=f7e451]:
+                      - generic [ref=f7e452]: "30"
+                      - list [ref=f7e453]
+                    - generic [ref=f7e454]:
+                      - generic [ref=f7e455]: "31"
+                      - list [ref=f7e456]
+                    - list [ref=f7e458]
+                    - list [ref=f7e460]
+                    - list [ref=f7e462]
+                    - list [ref=f7e464]
+                    - list [ref=f7e466]
+                    - list [ref=f7e468]
+                    - list [ref=f7e470]
+                    - list [ref=f7e472]
+        - listitem [ref=f7e278]:
+          - generic [ref=f7e473]:
+            - generic [ref=f7e474]:
+              - generic [ref=f7e475]:
+                - generic [ref=f7e476]: 
+                - generic [ref=f7e477]: Notice Board
+                - generic [ref=f7e478] [cursor=pointer]: 
+                - generic [ref=f7e479]:
+                  - generic [ref=f7e480]: "Filter :"
+                  - combobox [ref=f7e481]:
+                    - option "All" [selected]
+                    - option "Haadthip Learnings"
+                    - option "แบบฟอร์ม/Form"
+                    - option "ข้อบังคับบริษัทฯ/ Company's Regulations"
+                    - option "ข่าวสารทั่วไป"
+                    - option "คำสั่ง แต่งตั้งคณะกรรมการ /คณะทำงาน"
+                    - option "คำสั่ง ประกาศ/Announcement"
+                    - option "คู่มือการใช้งานระบบในบริษัทฯ/Manual"
+                    - option "จรรยาบรรณธุรกิจ"
+                    - option "นโยบายบริษัทฯ /Company's Policies"
+                    - option "พระราชบัญญัติคุ้มครองข้อมูลส่วนบุคคล /PDPA"
+                    - option "ระเบียบบริษัทฯ /Company's Rule"
+                    - option "อำนาจอนุมัติฯ/ Designated Approval Authority"
+              - generic [ref=f7e484]:
+                - generic [ref=f7e485]:
+                  - generic [ref=f7e486]:
+                    - generic [ref=f7e487]:  Haadthip Learnings
+                    - list [ref=f7e489]:
+                      - listitem [ref=f7e490]:
+                        - generic [ref=f7e491]:
+                          - text: 
+                          - generic [ref=f7e492]: Haadthip E-Health Book
+                      - listitem [ref=f7e493]:
+                        - generic [ref=f7e494]:
+                          - text: 
+                          - generic [ref=f7e495]: SMART KPIs คืออะไร.... กำหนด KPI อย่างไรให้สนับสนุนกลยุทธ์องค์กร
+                      - listitem [ref=f7e496]:
+                        - generic [ref=f7e497]:
+                          - text: 
+                          - generic [ref=f7e498]: Haadthip Competency Guidebook
+                      - listitem [ref=f7e499]:
+                        - generic [ref=f7e500]:
+                          - text: 
+                          - generic [ref=f7e501]: คู่มือแนะนำสมรรถนะในการปฏิบัติงาน
+                  - generic [ref=f7e502]:
+                    - generic [ref=f7e503]:  แบบฟอร์ม/Form
+                    - list [ref=f7e505]:
+                      - listitem [ref=f7e506]:
+                        - generic [ref=f7e507]:
+                          - text: 
+                          - generic [ref=f7e508]: เอกสารการโอนย้ายภายใน Internal Transfer
+                      - listitem [ref=f7e509]:
+                        - generic [ref=f7e510]:
+                          - text: 
+                          - generic [ref=f7e511]: Manpower Requisition Form l แบบฟอร์มการขออัตรากำลังพล
+                      - listitem [ref=f7e512]:
+                        - link " ใบกำหนดหน้าที่งาน Job Description" [ref=f7e513] [cursor=pointer]:
+                          - /url: https://haadthip.mihcm.com/Common/ViewNoticeDocument?documentCode=400
+                          - text: 
+                          - generic [ref=f7e514]: ใบกำหนดหน้าที่งาน Job Description
+                      - listitem [ref=f7e515]:
+                        - generic [ref=f7e516]:
+                          - text: 
+                          - generic [ref=f7e517]: แบบฟอร์มใบลาออกและ Exit Interview
+                      - listitem [ref=f7e518]:
+                        - link " แบบฟอร์มการลดหย่อนภาษี" [ref=f7e519] [cursor=pointer]:
+                          - /url: https://haadthip.mihcm.com/Common/ViewNoticeDocument?documentCode=240
+                          - text: 
+                          - generic [ref=f7e520]: แบบฟอร์มการลดหย่อนภาษี
+                      - listitem [ref=f7e521]:
+                        - generic [ref=f7e522]:
+                          - text: 
+                          - generic [ref=f7e523]: หนังสือให้ความยินยอมตรวจประวัติอาชญากรรม
+                      - listitem [ref=f7e524]:
+                        - generic [ref=f7e525]:
+                          - text: 
+                          - generic [ref=f7e526]: แบบฟอร์มใบลงค่าล่วงเวลา
+                      - listitem [ref=f7e527]:
+                        - generic [ref=f7e528]:
+                          - text: 
+                          - generic [ref=f7e529]: 4.แบบคำขอเปลี่ยนแปลงผู้รับผลประโยชน์กองทุนสำรองเลี้ยงชีพ
+                      - listitem [ref=f7e530]:
+                        - link " แบบฟอร์มลงโทษทางวินัย" [ref=f7e531] [cursor=pointer]:
+                          - /url: https://haadthip.mihcm.com/Common/ViewNoticeDocument?documentCode=58
+                          - text: 
+                          - generic [ref=f7e532]: แบบฟอร์มลงโทษทางวินัย
+                      - listitem [ref=f7e533]:
+                        - link " แบบฟอร์มเขียนข้อเสนอแนะ" [ref=f7e534] [cursor=pointer]:
+                          - /url: https://haadthip.mihcm.com/Common/ViewNoticeDocument?documentCode=59
+                          - text: 
+                          - generic [ref=f7e535]: แบบฟอร์มเขียนข้อเสนอแนะ
+                      - listitem [ref=f7e536]:
+                        - generic [ref=f7e537]:
+                          - text: 
+                          - generic [ref=f7e538]: 3.แบบประเมินความเสี่ยงกองทุนสำรองเลี้ยงชีพ-HTC
+                      - listitem [ref=f7e539]:
+                        - generic [ref=f7e540]:
+                          - text: 
+                          - generic [ref=f7e541]: 2.รายละเอียดเกี่ยวกับกองทุนสำรองเลี้ยงชีพ
+                      - listitem [ref=f7e542]:
+                        - generic [ref=f7e543]:
+                          - text: 
+                          - generic [ref=f7e544]: 1.แบบคำขอสมัครเข้าเป็นสมาชิกกองทุนสำรองเลี้ยงชีพ-HTC
+                  - generic [ref=f7e545]:
+                    - generic [ref=f7e546]:  ข้อบังคับบริษัทฯ/ Company's Regulations
+                    - list [ref=f7e548]:
+                      - listitem [ref=f7e549]:
+                        - generic [ref=f7e550]:
+                          - text: 
+                          - generic [ref=f7e551]: ข้อบังคับบริษัท หาดทิพย์ จำกัด (มหาชน) ว่าด้วยระเบียบพนักงาน พ.ศ. 2564
+                  - generic [ref=f7e552]:
+                    - generic [ref=f7e553]:  ข่าวสารทั่วไป
+                    - list [ref=f7e555]:
+                      - listitem [ref=f7e556]:
+                        - generic [ref=f7e557]:
+                          - text: 
+                          - generic [ref=f7e558]: วารสารประกันสังคม ฉบับไตรมาสที่ 1 ปี 2569
+                      - listitem [ref=f7e559]:
+                        - generic [ref=f7e560]:
+                          - text: 
+                          - generic [ref=f7e561]: วารสารประกันสังคม ฉบับไตรมาสที่ 4 ปี 2568 เดือนตุลาคม-ธันวาคม 2568
+                      - listitem [ref=f7e562]:
+                        - generic [ref=f7e563]:
+                          - text: 
+                          - generic [ref=f7e564]: "ประชาสัมพันธ์จากสำนักงานประกันสังคม : วารสารประกันสังคม ฉบับไตรมาสที่ 3 ปี 2568"
+                      - listitem [ref=f7e565]:
+                        - generic [ref=f7e566]:
+                          - text: 
+                          - generic [ref=f7e567]: วารสารประกันสังคม เดือนเมษายน - มิถุนายน 2568
+                      - listitem [ref=f7e568]:
+                        - generic [ref=f7e569]:
+                          - text: 
+                          - generic [ref=f7e570]: วารสารประกันสังคม เดือนมกราคม - มีนาคม 2568
+                      - listitem [ref=f7e571]:
+                        - generic [ref=f7e572]:
+                          - text: 
+                          - generic [ref=f7e573]: วิธีการปฏิบัติเมื่อกยศ.แจ้งหักเงินเพิ่มเตือนละ 3,000 บาท
+                      - listitem [ref=f7e574]:
+                        - generic [ref=f7e575]:
+                          - text: 
+                          - generic [ref=f7e576]: บทลงโทษของการไม่ยื่นแบบ ภ.ง.ด.90-91 และชำระภาษี
+                      - listitem [ref=f7e577]:
+                        - generic [ref=f7e578]:
+                          - text: 
+                          - generic [ref=f7e579]: ถึงเวลายื่นแบบ ภ.ง.ด 90-91 ประจำปี 2567
+                  - generic [ref=f7e580]:
+                    - generic [ref=f7e581]:  คำสั่ง แต่งตั้งคณะกรรมการ /คณะทำงาน
+                    - list [ref=f7e583]:
+                      - listitem [ref=f7e584]:
+                        - generic [ref=f7e585]:
+                          - text: 
+                          - generic [ref=f7e586]: คำสั่ง 154/2569 แต่งตั้งคณะทำงาน ISO 9001 ของ STR
+                      - listitem [ref=f7e587]:
+                        - generic [ref=f7e588]:
+                          - text: 
+                          - generic [ref=f7e589]: คำสั่งที่ 134/2569 แต่งตั้งคณะทำงานด้านสิ่งแวดล้อม ประจำโรงงานพุนพิน
+                      - listitem [ref=f7e590]:
+                        - generic [ref=f7e591]:
+                          - text: 
+                          - generic [ref=f7e592]: คำสั่ง 127/2569 แต่งตั้งคณะทำงานฯ จากฝ่าย QSE Audit
+                      - listitem [ref=f7e593]:
+                        - generic [ref=f7e594]:
+                          - text: 
+                          - generic [ref=f7e595]: คำสั่ง 086/2569 เรื่อง แต่งตั้งคณะกรรมการสอบข้อเท็จจริงและคณะกรรมการดำเนินการทางวินัย
+                      - listitem [ref=f7e596]:
+                        - generic [ref=f7e597]:
+                          - text: 
+                          - generic [ref=f7e598]: คำสั่ง 068/2569 แต่งตั้งรายชื่อคณะกรรมการจัดการการใช้รถยนต์ของบริษัท
+                      - listitem [ref=f7e599]:
+                        - generic [ref=f7e600]:
+                          - text: 
+                          - generic [ref=f7e601]: คำสั่ง 459 แต่งตั้งคณะทำงานบริหารความเสี่ยงองค์กร
+                      - listitem [ref=f7e602]:
+                        - generic [ref=f7e603]:
+                          - text: 
+                          - generic [ref=f7e604]: คำสั่ง 433 แต่งตั้งคณะกรรมการเพื่อคุ้มครองข้อมูลส่วนบุคคลของบริษัทฯ
+                  - generic [ref=f7e605]:
+                    - generic [ref=f7e606]:  คำสั่ง ประกาศ/Announcement
+                    - list [ref=f7e608]:
+                      - listitem [ref=f7e609]:
+                        - generic [ref=f7e610]:
+                          - text: 
+                          - generic [ref=f7e611]: คำสั่ง 237/2569 รับพนักงานเข้าปฏิบัติงาน ของคุณปฏิพล สุมานัส
+                      - listitem [ref=f7e612]:
+                        - generic [ref=f7e613]:
+                          - text: 
+                          - generic [ref=f7e614]: คำสั่ง 236/2569 รับพนักงานเข้าปฏิบัติงาน ของคุณศุภกร เอมชนานนท์
+                      - listitem [ref=f7e615]:
+                        - generic [ref=f7e616]:
+                          - text: 
+                          - generic [ref=f7e617]: คำสั่ง 210/2569 แต่งตั้งและมอบหมายให้ปฏิบัติงาน ของคุณมัญชรี นิลกาญจน์
+                      - listitem [ref=f7e618]:
+                        - generic [ref=f7e619]:
+                          - text: 
+                          - generic [ref=f7e620]: CEO ลงนามประกาศเรื่องสิทธิและหน้าที่ของนายจ้างและลูกจ้าง
+                      - listitem [ref=f7e621]:
+                        - generic [ref=f7e622]:
+                          - text: 
+                          - generic [ref=f7e623]: ประกาศปรับโครงสร้างฝ่ายขาย 1 มิถุนายน 2569_update 8 June 2026
+                      - listitem [ref=f7e624]:
+                        - generic [ref=f7e625]:
+                          - text: 
+                          - generic [ref=f7e626]: คำสั่ง 139/2569 เรื่อง แต่งตั้ง และมอบหมายให้ปฏิบัติงาน สังกัด DIO
+                      - listitem [ref=f7e627]:
+                        - generic [ref=f7e628]:
+                          - text: 
+                          - generic [ref=f7e629]: คำสั่ง 138/2569 เรื่อง แต่งตั้ง และมอบหมายให้ปฏิบัติงาน สังกัด DIO
+                      - listitem [ref=f7e630]:
+                        - generic [ref=f7e631]:
+                          - text: 
+                          - generic [ref=f7e632]: คำสั่ง 130/2569 โอนย้ายและมอบหมายให้ปฏิบัติงาน สังกัด CDE ของคุณชนิภา วีระกุล
+                      - listitem [ref=f7e633]:
+                        - generic [ref=f7e634]:
+                          - text: 
+                          - generic [ref=f7e635]: ประกาศ 176/2569 เรื่องคำมั่นสัญญาด้านความปลอดภัย
+                      - listitem [ref=f7e636]:
+                        - generic [ref=f7e637]:
+                          - text: 
+                          - generic [ref=f7e638]: ประกาศปรับโครงสร้างองค์กร
+                      - listitem [ref=f7e639]:
+                        - generic [ref=f7e640]:
+                          - text: 
+                          - generic [ref=f7e641]: คำสั่ง 113/2569 แต่งตั้งและมอบหมายฯ งาน Finance & Accounting คุณอัญญาณีฯ
+                      - listitem [ref=f7e642]:
+                        - generic [ref=f7e643]:
+                          - text: 
+                          - generic [ref=f7e644]: คำสั่ง 112/2569 รับพนักงานเข้าปฏิบัติงาน สังกัด Sales(K.Mauricio)
+                      - listitem [ref=f7e645]:
+                        - generic [ref=f7e646]:
+                          - text: 
+                          - generic [ref=f7e647]: มาตรการควบคุมค่าใช้จ่ายและการบริหารจัดการทรัพยากรขององค์กร
+                      - listitem [ref=f7e648]:
+                        - generic [ref=f7e649]:
+                          - text: 
+                          - generic [ref=f7e650]: คำสั่ง 092/2569 แต่งตั้งและมอบหมาย คุณหฤษฎ์ จีระพันธุ์ สังกัด sales
+                      - listitem [ref=f7e651]:
+                        - generic [ref=f7e652]:
+                          - text: 
+                          - generic [ref=f7e653]: คำสั่ง 110/2569 แต่งตั้งและมอบหมาย ให้ปฏิบัติงาน Supply Chain (คุณเสกสรรค์ เพชรสุทธิ์)
+                      - listitem [ref=f7e654]:
+                        - generic [ref=f7e655]:
+                          - text: 
+                          - generic [ref=f7e656]: คำสั่ง 095/2569 ปรับตำแหน่ง AVP Supply Chain คุณจรีรัตน์ ชีพพิมลชัย สังกัด Supply Chain
+                      - listitem [ref=f7e657]:
+                        - generic [ref=f7e658]:
+                          - text: 
+                          - generic [ref=f7e659]: คำสั่ง 087/2569 แต่งตั้งและมอบหมายงาน นายนัฐธี ไทยทองนุ่ม สังกัด Traditional Trade
+                      - listitem [ref=f7e660]:
+                        - generic [ref=f7e661]:
+                          - text: 
+                          - generic [ref=f7e662]: คำสั่ง 088/2569 แต่งตั้งและมอบหมายงานสังกัด Modern Trade
+                      - listitem [ref=f7e663]:
+                        - generic [ref=f7e664]:
+                          - text: 
+                          - generic [ref=f7e665]: คำสั่ง 089/2569 แต่งตั้งและมอบหมายงาน สังกัด Finance & Accounting
+                      - listitem [ref=f7e666]:
+                        - generic [ref=f7e667]:
+                          - text: 
+                          - generic [ref=f7e668]: คำสั่ง 090/2569 แต่งตั้งและมอบหมายงาน นส.สงวนวงศ์ หนูประสิทธิ์ สังกัด Indirect Sale Channel
+                      - listitem [ref=f7e669]:
+                        - generic [ref=f7e670]:
+                          - text: 
+                          - generic [ref=f7e671]: คำสั่ง 091/2569 แต่งตั้งและมอบหมายงาน นส. ธนิตาฯ สังกัด Finance & Accounting
+                      - listitem [ref=f7e672]:
+                        - generic [ref=f7e673]:
+                          - text: 
+                          - generic [ref=f7e674]: คำสั่ง 009/2569 แต่งตั้งคณะทำงานพัฒนาเพื่อความยั่งยืน
+                      - listitem [ref=f7e675]:
+                        - generic [ref=f7e676]:
+                          - text: 
+                          - generic [ref=f7e677]: ประกาศ การรายงานอุบัติเหตุภายในองค์กร
+                      - listitem [ref=f7e678]:
+                        - generic [ref=f7e679]:
+                          - text: 
+                          - generic [ref=f7e680]: คำสั่งที่ 438/2568 เรื่อง "การปรับปรุงสิทธิการลาคลอดบุตรของพนักงานหญิง และการลาเพื่อช่วยเหลือคู่สมรสซึ่งคลอดบุตร ตามพรบ. คุ้มครองแรงงานฉบับใหม่ (ฉบับที่ 9) พ.ศ. 2568"
+                      - listitem [ref=f7e681]:
+                        - generic [ref=f7e682]:
+                          - text: 
+                          - generic [ref=f7e683]: ประกาศ วันหยุดประเพณีประจำปี 2569 (Traditional Holiday 2026)
+                      - listitem [ref=f7e684]:
+                        - generic [ref=f7e685]:
+                          - text: 
+                          - generic [ref=f7e686]: คำสั่ง 246/2568 รับพนักงานเข้าปฏิบัติงาน ของคุณเอกพันธ์ อุปถัม
+                      - listitem [ref=f7e687]:
+                        - generic [ref=f7e688]:
+                          - text: 
+                          - generic [ref=f7e689]: คำสั่ง 308/2568 การทะเลาะวิวาทและประทุษร้ายต่อเพื่อนร่วมงาน ผู้บังคับบัญชา หรือบุคคลอื่นใด ถือเป็นการกระทำผิดวินัยร้ายแรงตามข้อบังคับบริษัทฯ
+                      - listitem [ref=f7e690]:
+                        - generic [ref=f7e691]:
+                          - text: 
+                          - generic [ref=f7e692]: สารจากประธานเจ้าหน้าที่บริหาร (พลตรี พัชร รัตตกุล) ฉบับลงวันที่ 17 เมษายน 2568
+                      - listitem [ref=f7e693]:
+                        - generic [ref=f7e694]:
+                          - text: 
+                          - generic [ref=f7e695]: ประกาศ กระบวนการอนุมัติการฝึกอบรมพนักงาน (3-3)
+                      - listitem [ref=f7e696]:
+                        - generic [ref=f7e697]:
+                          - text: 
+                          - generic [ref=f7e698]: ประกาศ กระบวนการอนุมัติการฝึกอบรมพนักงาน (2-3)
+                      - listitem [ref=f7e699]:
+                        - generic [ref=f7e700]:
+                          - text: 
+                          - generic [ref=f7e701]: ประกาศ กระบวนการอนุมัติการฝึกอบรมพนักงาน (1-3)
+                      - listitem [ref=f7e702]:
+                        - generic [ref=f7e703]:
+                          - text: 
+                          - generic [ref=f7e704]: ประกาศ แต่งตั้งและมอบหมาย "เจ้าหน้าที่คุ้มครองข้อมูลส่วนบุคคล"
+                      - listitem [ref=f7e705]:
+                        - generic [ref=f7e706]:
+                          - text: 
+                          - generic [ref=f7e707]: ประกาศ วันหยุดประเพณีประจำปี 2568 (Traditional Holiday 2025)
+                      - listitem [ref=f7e708]:
+                        - generic [ref=f7e709]:
+                          - text: 
+                          - generic [ref=f7e710]: โครงการ “สวัสดิการเดินทางไปปฎิบัติศาสนกิจ” เพื่อส่งเสริมเทิดทูนสถาบันชาติ ศาสนา พระมหากษัตริย์
+                      - listitem [ref=f7e711]:
+                        - generic [ref=f7e712]:
+                          - text: 
+                          - generic [ref=f7e713]: ประกาศการสวมหมวกกันน็อกเมื่อขับขี่รถจักรยานยนต์
+                      - listitem [ref=f7e714]:
+                        - generic [ref=f7e715]:
+                          - text: 
+                          - generic [ref=f7e716]: ประกาศเจตนารมณ์การส่งเสริมความเสมอภาคฯ
+                      - listitem [ref=f7e717]:
+                        - generic [ref=f7e718]:
+                          - text: 
+                          - generic [ref=f7e719]: ประกาศ สวัสดิการกองทุนสำรองเลี้ยงชีพ Provident Fund Benifits
+                  - generic [ref=f7e720]:
+                    - generic [ref=f7e721]:  คู่มือการใช้งานระบบในบริษัทฯ/Manual
+                    - list [ref=f7e723]:
+                      - listitem [ref=f7e724]:
+                        - generic [ref=f7e725]:
+                          - text: 
+                          - generic [ref=f7e726]: HTC Carpool คู่มือการจองรถส่วนกลาง
+                      - listitem [ref=f7e727]:
+                        - link " คู่มือการเลือกอัตราเงินสะสมกองทุนสำรองเลี้ยงชีพในระบบ MyHR" [ref=f7e728] [cursor=pointer]:
+                          - /url: https://haadthip.mihcm.com/Common/ViewNoticeDocument?documentCode=91
+                          - text: 
+                          - generic [ref=f7e729]: คู่มือการเลือกอัตราเงินสะสมกองทุนสำรองเลี้ยงชีพในระบบ MyHR
+                      - listitem [ref=f7e730]:
+                        - generic [ref=f7e731]:
+                          - text: 
+                          - generic [ref=f7e732]: คู่มือการใช้งานระบบการแจ้งงานกิจกรรมพิเศษ
+                      - listitem [ref=f7e733]:
+                        - link " คู่มือNotice Board ในระบบ MyHR" [ref=f7e734] [cursor=pointer]:
+                          - /url: https://haadthip.mihcm.com/Common/ViewNoticeDocument?documentCode=90
+                          - text: 
+                          - generic [ref=f7e735]: คู่มือNotice Board ในระบบ MyHR
+                      - listitem [ref=f7e736]:
+                        - generic [ref=f7e737]:
+                          - text: 
+                          - generic [ref=f7e738]: Popup Message
+                      - listitem [ref=f7e739]:
+                        - link " Download New version of MyHR/ดาวน์โหลดแอปพลิเคชัน MyHR ใหม่" [ref=f7e740] [cursor=pointer]:
+                          - /url: https://haadthip.mihcm.com/Common/ViewNoticeDocument?documentCode=17
+                          - text: 
+                          - generic [ref=f7e741]: Download New version of MyHR/ดาวน์โหลดแอปพลิเคชัน MyHR ใหม่
+                      - listitem [ref=f7e742]:
+                        - link " *ใหม่*Videos คู่มือการใช้แอพมือถือ" [ref=f7e743] [cursor=pointer]:
+                          - /url: https://haadthip.mihcm.com/Common/ViewNoticeDocument?documentCode=21
+                          - text: 
+                          - generic [ref=f7e744]: "*ใหม่*Videos คู่มือการใช้แอพมือถือ"
+                      - listitem [ref=f7e745]:
+                        - generic [ref=f7e746]:
+                          - text: 
+                          - generic [ref=f7e747]: คู่มือใช้งานแอพพลิเคชัน
+                      - listitem [ref=f7e748]:
+                        - generic [ref=f7e749]:
+                          - text: 
+                          - generic [ref=f7e750]: คู่มือข้อมูลส่วนบุคคล
+                      - listitem [ref=f7e751]:
+                        - generic [ref=f7e752]:
+                          - text: 
+                          - generic [ref=f7e753]: คู่มือการลา
+                      - listitem [ref=f7e754]:
+                        - generic [ref=f7e755]:
+                          - text: 
+                          - generic [ref=f7e756]: คู่มือการจัดการเวลา
+                      - listitem [ref=f7e757]:
+                        - generic [ref=f7e758]:
+                          - text: 
+                          - generic [ref=f7e759]: ตั้งค่า I-phone
+                      - listitem [ref=f7e760]:
+                        - generic [ref=f7e761]:
+                          - text: 
+                          - generic [ref=f7e762]: SPVI-วิธีใช้ระบบ HCM Cloud ผ่านทาง Web Browser for manager_v2
+                  - generic [ref=f7e763]:
+                    - generic [ref=f7e764]:  จรรยาบรรณธุรกิจ
+                    - list [ref=f7e766]:
+                      - listitem [ref=f7e767]:
+                        - generic [ref=f7e768]:
+                          - text: 
+                          - generic [ref=f7e769]: จรรยาบรรณธุรกิจ_ฉบับปรับปรุง ปี 2568
+                  - generic [ref=f7e770]:
+                    - generic [ref=f7e771]:  นโยบายบริษัทฯ /Company's Policies
+                    - list [ref=f7e773]:
+                      - listitem [ref=f7e774]:
+                        - generic [ref=f7e775]:
+                          - text: 
+                          - generic [ref=f7e776]: นโยบายด้านสิทธิมนุษยชน
+                      - listitem [ref=f7e777]:
+                        - generic [ref=f7e778]:
+                          - text: 
+                          - generic [ref=f7e779]: นโยบายที่พักและการบังคับใช้เป็นนโยบายส่วนกลาง l Announcement of the Revised Accommodation Policy and Its Implementation as a Central Policy
+                      - listitem [ref=f7e780]:
+                        - generic [ref=f7e781]:
+                          - text: 
+                          - generic [ref=f7e782]: นโนยาบการกำกับดูแลกิจการ (ฉบับภาษาไทยและภาษาอังกฤษ)
+                      - listitem [ref=f7e783]:
+                        - generic [ref=f7e784]:
+                          - text: 
+                          - generic [ref=f7e785]: นโยบาย สิทธิในการเริ่มงานหยุดงานเพื่อความปลอดภัย
+                      - listitem [ref=f7e786]:
+                        - generic [ref=f7e787]:
+                          - text: 
+                          - generic [ref=f7e788]: นโยบายการความคุมการเข้าถึงสารเสพติดและแอลกอฮอล์ของพนักงาน ณ ฐานปฏิบัติงานโรงงานพุนพิน
+                      - listitem [ref=f7e789]:
+                        - generic [ref=f7e790]:
+                          - text: 
+                          - generic [ref=f7e791]: นโยบายด้านสิทธิมนุษยชน การจ้างงานและปฏิบัติต่อแรงงานอย่างเป็นธรรม
+                      - listitem [ref=f7e792]:
+                        - generic [ref=f7e793]:
+                          - text: 
+                          - generic [ref=f7e794]: นโยบายการบริหารจัดการก๊าชเรือนกระจก 4 สิงหาคม 2568
+                      - listitem [ref=f7e795]:
+                        - generic [ref=f7e796]:
+                          - text: 
+                          - generic [ref=f7e797]: นโยบายด้านสิ่งแวดล้อม 4 สิงหาคม 2568
+                      - listitem [ref=f7e798]:
+                        - generic [ref=f7e799]:
+                          - text: 
+                          - generic [ref=f7e800]: นโยบายความปลอดภัยด้านอาหาร (Food Safety)
+                      - listitem [ref=f7e801]:
+                        - generic [ref=f7e802]:
+                          - text: 
+                          - generic [ref=f7e803]: นโยบายและแนวปฏฺิบัติการบริหารความเสี่ยงองค์กร ฉ.ปรับปรุง ครั้งที่ 1_68
+                      - listitem [ref=f7e804]:
+                        - generic [ref=f7e805]:
+                          - text: 
+                          - generic [ref=f7e806]: นโยบายความเป็นกลางทางการเมือง
+                      - listitem [ref=f7e807]:
+                        - generic [ref=f7e808]:
+                          - text: 
+                          - generic [ref=f7e809]: นโยบายและแนวปฏิบัติการรับเรื่องร้องเรียน
+                      - listitem [ref=f7e810]:
+                        - generic [ref=f7e811]:
+                          - text: 
+                          - generic [ref=f7e812]: นโยบายการตรวจประวัติอาชญากรรม สำหรับพนักงานใหม่
+                      - listitem [ref=f7e813]:
+                        - generic [ref=f7e814]:
+                          - text: 
+                          - generic [ref=f7e815]: นโยบายความรับผิดชอบทางสังคมด้านแรงงาน
+                      - listitem [ref=f7e816]:
+                        - generic [ref=f7e817]:
+                          - text: 
+                          - generic [ref=f7e818]: ประกาศเรื่องพฤติกรรมที่ต้องสร้างให้เป็นวัฒนธรรมองค์กร
+                      - listitem [ref=f7e819]:
+                        - generic [ref=f7e820]:
+                          - text: 
+                          - generic [ref=f7e821]: นโยบายด้านสิ่งแวดล้อม
+                      - listitem [ref=f7e822]:
+                        - generic [ref=f7e823]:
+                          - text: 
+                          - generic [ref=f7e824]: นโยบายความปลอดภัย อาชีวอนามัยและสภาพแวดล้อมในการทำงาน
+                      - listitem [ref=f7e825]:
+                        - generic [ref=f7e826]:
+                          - text: 
+                          - generic [ref=f7e827]: นโยบายด้านคุณภาพ
+                      - listitem [ref=f7e828]:
+                        - generic [ref=f7e829]:
+                          - text: 
+                          - generic [ref=f7e830]: นโยบายความปลอดภัย อาชีวอนามัยและสิ่งแวดล้อมด้านการใช้ยานพาหนะ
+                      - listitem [ref=f7e831]:
+                        - generic [ref=f7e832]:
+                          - text: 
+                          - generic [ref=f7e833]: นโยบายส่งเสริมความหลากหลายและยอมรับความแตกต่างในองค์กร (Diversity and lnclusion Policy)
+                      - listitem [ref=f7e834]:
+                        - generic [ref=f7e835]:
+                          - text: 
+                          - generic [ref=f7e836]: นโยบายด้านความมั่นคงปลอดภัยไซเบอร์เกี่ยวกับการใช้ MFA
+                      - listitem [ref=f7e837]:
+                        - generic [ref=f7e838]:
+                          - text: 
+                          - generic [ref=f7e839]: นโยบายความปลอดภัยด้านแรงงาน
+                      - listitem [ref=f7e840]:
+                        - generic [ref=f7e841]:
+                          - text: 
+                          - generic [ref=f7e842]: นโยบายการจัดประเภทข้อมูลส่วนบุคคลและแนวทางการจัดการ
+                      - listitem [ref=f7e843]:
+                        - generic [ref=f7e844]:
+                          - text: 
+                          - generic [ref=f7e845]: นโยบายการจัดการข้อมูลภายในของบริษัทและช่วงระยะเวลาห้ามการซื้อขายหลักทรัพย์ของบริษัท หาดทิพย์ จำกัด (มหาชน)
+                      - listitem [ref=f7e846]:
+                        - generic [ref=f7e847]:
+                          - text: 
+                          - generic [ref=f7e848]: นโยบายการใช้ “Generative AI” หรือ “ระบบแชตบอตปัญญาประดิษฐ์” ในการทำงาน
+                      - listitem [ref=f7e849]:
+                        - generic [ref=f7e850]:
+                          - text: 
+                          - generic [ref=f7e851]: นโยบายการเก็บรักษาและการลบทำลายข้อมูลส่วนบุคคล
+                      - listitem [ref=f7e852]:
+                        - generic [ref=f7e853]:
+                          - text: 
+                          - generic [ref=f7e854]: นโยบายและแนวปฏิบัติต่อต้านการทุจริตคอร์รัปชัน ฉบับปรับปรุงครั้งที่ 3 พ.ศ. 2567
+                      - listitem [ref=f7e855]:
+                        - generic [ref=f7e856]:
+                          - text: 
+                          - generic [ref=f7e857]: นโยบายและแนวปฏิบัติการบริหารความเสี่ยงองค์กร
+                  - generic [ref=f7e858]:
+                    - generic [ref=f7e859]:  พระราชบัญญัติคุ้มครองข้อมูลส่วนบุคคล /PDPA
+                    - list [ref=f7e861]:
+                      - listitem [ref=f7e862]:
+                        - generic [ref=f7e863]:
+                          - text: 
+                          - generic [ref=f7e864]: 3_Privacy Policy สำหรับผู้ปฏิบัติงาน_Revise มิถุนายน 65
+                  - generic [ref=f7e865]:
+                    - generic [ref=f7e866]:  ระเบียบบริษัทฯ /Company's Rule
+                    - list [ref=f7e868]:
+                      - listitem [ref=f7e869]:
+                        - generic [ref=f7e870]:
+                          - text: 
+                          - generic [ref=f7e871]: ระเบียบบริษัท เรื่อง ทุนการศึกษาภายในประเทศและต่างประเทศ ปี 2568
+                      - listitem [ref=f7e872]:
+                        - generic [ref=f7e873]:
+                          - text: 
+                          - generic [ref=f7e874]: ระเบียบค่ารักษาพยาบาล
+                      - listitem [ref=f7e875]:
+                        - generic [ref=f7e876]:
+                          - text: 
+                          - generic [ref=f7e877]: ระเบียบ บริษัท หาดทิพย์ จำกัด (มหาชน) ว่าด้วยค่าใช้จ่ายในการเดินทางไปปฏิบัติงานนอกสถานที่ทำงานปกติ พ.ศ.2565 แก้ไขครั้งที่ 1/2568
+                      - listitem [ref=f7e878]:
+                        - generic [ref=f7e879]:
+                          - text: 
+                          - generic [ref=f7e880]: ระเบียบเงินยืมสวัสดิการ
+                      - listitem [ref=f7e881]:
+                        - generic [ref=f7e882]:
+                          - text: 
+                          - generic [ref=f7e883]: ระเบียบสวัสดิการงานแต่งงาน งานบวช งานศพ
+                      - listitem [ref=f7e884]:
+                        - generic [ref=f7e885]:
+                          - text: 
+                          - generic [ref=f7e886]: ระเบียบสวัสดิการสำหรับกลุ่มLGBTQI
+                      - listitem [ref=f7e887]:
+                        - generic [ref=f7e888]:
+                          - text: 
+                          - generic [ref=f7e889]: ระเบียบว่าด้วยค่าใช้จ่ายในการเดินทางไปปฏิบัติงานนอกสถานที่ทำงานปกติ
+                      - listitem [ref=f7e890]:
+                        - generic [ref=f7e891]:
+                          - text: 
+                          - generic [ref=f7e892]: ระเบียบการใช้รถยนต์ส่วนตัวเพื่อปฎิบัติงาน
+                      - listitem [ref=f7e893]:
+                        - generic [ref=f7e894]:
+                          - text: 
+                          - generic [ref=f7e895]: ระเบียบ ว่าด้วยการใช้ห้องออกกำลังกาย และแจ้งปรับเปลี่ยนเวลาการให้บริการ
+                  - generic [ref=f7e896]:
+                    - generic [ref=f7e897]:  อำนาจอนุมัติฯ/ Designated Approval Authority
+                    - list [ref=f7e899]:
+                      - listitem [ref=f7e900]:
+                        - generic [ref=f7e901]:
+                          - text: 
+                          - generic [ref=f7e902]: "[ฉบับล่าสุด] อำนาจอนุมัติ"
+                      - listitem [ref=f7e903]:
+                        - generic [ref=f7e904]:
+                          - text: 
+                          - generic [ref=f7e905]: อำนาจอนุมัติเลี้ยงรับรอง
+                      - listitem [ref=f7e906]:
+                        - generic [ref=f7e907]:
+                          - text: 
+                          - generic [ref=f7e908]: อำนาจอนุมัติ
+                - text:  
+            - text:    
+        - listitem [ref=f7e284]:
+          - generic [ref=f7e911]:
+            - generic [ref=f7e912]:
+              - generic [ref=f7e913]: 
+              - generic [ref=f7e914]: My Training Summary
+              - generic [ref=f7e915] [cursor=pointer]: 
+            - generic [ref=f7e917]:
+              - generic [ref=f7e918]:
+                - generic [ref=f7e919] [cursor=pointer]:
+                  - generic [ref=f7e920]: "0"
+                  - generic [ref=f7e921]:
+                    - generic [ref=f7e922]: Completed
+                    - generic [ref=f7e923]: Training
+                - generic [ref=f7e924] [cursor=pointer]:
+                  - generic [ref=f7e925]: "0"
+                  - generic [ref=f7e926]:
+                    - generic [ref=f7e927]: Ongoing
+                    - generic [ref=f7e928]: Training
+                - generic [ref=f7e929] [cursor=pointer]:
+                  - generic [ref=f7e930]: "0"
+                  - generic [ref=f7e931]:
+                    - generic [ref=f7e932]: Scheduled
+                    - generic [ref=f7e933]: Training
+              - generic [ref=f7e936]:
+                - text: There are no
+                - generic [ref=f7e937]: completed
+                - text: trainings !
+      - text:           
+  - text: 

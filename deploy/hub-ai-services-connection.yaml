@@ -1,8 +1,0 @@
-# Azure AI Foundry Hub → AI Services connection
-# Uses Managed Identity (credential-less) — no API key needed
-# Ref: https://learn.microsoft.com/en-us/azure/machine-learning/reference-yaml-connection-ai-services
-name: haadthip-ai-services
-type: azure_ai_services
-description: "AI Services for Enterprise Chat — GPT-5.4 model deployments"
-endpoint: https://aif-entchat-poc-sand.cognitiveservices.azure.com/
-ai_services_resource_id: /subscriptions/82f65db7-e209-4eb1-98fe-3e56bc45607a/resourceGroups/RG-ENTCHAT-POC-SAND-SEA/providers/Microsoft.CognitiveServices/accounts/aif-entchat-poc-sand

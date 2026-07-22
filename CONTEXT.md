@@ -1,6 +1,20 @@
 # EnterpriseChat — Domain Context
 
-> ## 📝 Recent Changes (2026-07-16)
+> ## 📝 Recent Changes (2026-07-21)
+>
+> ### ✅ Custom Azure AI Search Vector DB Backend
+> - **VECTOR_DB=azure-ai-search**: แทนที่ ChromaDB ด้วย Azure AI Search เป็น RAG vector store
+> - **Index auto-create**: สร้าง index schema อัตโนมัติตอน insert ครั้งแรก (HNSW, dimension-detect)
+> - **Search types**: รองรับ 4 โหมด — vector, fulltext, hybrid, semantic (ตั้งค่าผ่าน `AZURE_SEARCH_TYPE`)
+> - **Namespace consolidation** (`AZURE_SEARCH_NAMESPACE_MODE=true`): รวม KBs/files/memories ลง shared indexes แค่ 3 ตัว (`owui-knowledge`, `owui-files`, `owui-memory`) — หลีกเลี่ยง 200-index limit
+> - **Semantic search**: optional (`AZURE_ENABLE_SEMANTIC_SEARCH=true`) — auto-create semantic config บน index
+> - **Implementation**: `src/vector/azure_ai_search.py` (+ patches `type.py`, `factory.py`)
+>
+> ### ✅ Teams Auth v5 — notifySuccess + open browser + signin loop fix
+> - **notifySuccess**: เรียก `appInitialization.notifySuccess()` หลัง `initialize()` — กัน "There was a problem reaching this app" timeout
+> - **ปุ่มเปิดเบราว์เซอร์ภายนอก**: ใช้ `microsoftTeams.app.openLink()` ใน Teams → fallback `window.open()`
+> - **Signin success รัว ๆ**: guard `authCompleted` + `clearStaleTokenCookie()` — กัน polling/successCallback เรียกซ้ำ
+> - **Cache-bust**: redirect ใช้ `/?ts=<timestamp>` ป้องกัน cache session เก่า
 >
 > ### ✅ Teams Auth v4 — SDK popup + session polling
 > - **Auth flow**: เปลี่ยนจาก `window.open()` (Teams block) → `microsoftTeams.authentication.authenticate()` (Teams SDK จัดการ popup ให้)
@@ -15,19 +29,6 @@
 > - **Azure cache pricing**: ตรงตลาด (90% off): nano=$0.02, mini=$0.08, 5.4=$0.25, 5.2=$0.18 /1M
 > - **API version**: `AZURE_API_VERSION=2024-10-21` (GA) แก้ 404 Resource not found
 > - **DOCKER_CUSTOM_IMAGE_NAME**: ลบ override → ใช้ digest จริง
->
-> ### ✅ Teams SSO + User Manual
-> - **Auth**: ใช้ Teams SDK v2 + popup + polling (v4)
-> - **Manual**: เพิ่ม Knowledge attachment flow (More → Attach Knowledge), Calculator Tool, Feedback, CSV use case
->
-> ### ✅ Public Web + Enterprise Doc Ingestion
-> - `enterprise-docs-idx`: 792 chunks (corporate + hr-policies + haadthip-public-web)
-> - `eexpense-faq-idx`: 42 FAQ docs
-> - Cleanup: ลบ skillsets, indexers, datasources, KBs, blob containers เก่า
->
-> ### ✅ Fixes Roundup
-> - ACR pull: OCI image index (ARM64 Mac) → ต้องใช้ AMD64 sub-manifest digest ในการ deploy
-> - LiteLLM model `text-embedding-3-large` หาย → re-add + add cache cost fields
 > - Open WebUI database: `config` table key-value schema + alembic_version fix
 
 ## Glossary (abridged)
@@ -91,14 +92,44 @@
 | Field | Value |
 |-------|-------|
 | URL | `genie.haadthip.com` / `app-entchat-owui-poc-sand.azurewebsites.net` |
-| Image | `owui-entchat-teams@sha256:...` (v0.10.2 + teams-auth.html + screenshots) |
+| Image | `owui-entchat-teams@sha256:...` (v0.10.2 + teams-auth.html + screenshots + Azure AI Search backend) |
 | Auth | Microsoft Entra ID SSO (OIDC) — auto signup enabled |
 | DB | `postgresql://entchatadm:***@psql-...:5432/open_webui?sslmode=require` |
 | LiteLLM | OpenAI API: `https://app-litellm-poc-sand.azurewebsites.net` |
-| Teams Auth | `/teams-auth.html` — Teams SDK v2 + popup (ใน Teams) → fallback external browser |
+| Teams Auth | `/teams-auth.html` — Teams SDK v2 + popup + notifySuccess + ปุ่มเปิด browser ภายนอก |
+| **Vector DB** | **Azure AI Search** (`srch-entchat-poc-sand`) — custom `AzureAISearchClient` |
+| **Search type** | `AZURE_SEARCH_TYPE=hybrid` (vector+BM25) |
+| **Namespace mode** | `AZURE_SEARCH_NAMESPACE_MODE=true` — shared indexes |
+| **Semantic** | `AZURE_ENABLE_SEMANTIC_SEARCH=false` (optional, เพิ่ม cost)
 
 ### App Settings (key)
 `WEBSITES_PORT=8080`, `WEBSITES_ENABLE_APP_SERVICE_STORAGE=true`, `WEBSITES_CONTAINER_START_TIME_LIMIT=1800`
+
+### Vector DB Config (Azure AI Search)
+| Setting | Value |
+|---------|-------|
+| `VECTOR_DB` | `azure-ai-search` |
+| `AZURE_SEARCH_ENDPOINT` | `https://srch-entchat-poc-sand.search.windows.net` |
+| `AZURE_SEARCH_ADMIN_KEY` | (secret — for CRUD operations) |
+| `AZURE_SEARCH_TYPE` | `hybrid` (vector / fulltext / hybrid / semantic) |
+| `AZURE_SEARCH_NAMESPACE_MODE` | `true` (shared indexes) |
+| `AZURE_ENABLE_SEMANTIC_SEARCH` | `false` |
+| `AZURE_SEARCH_API_VERSION` | `2024-07-01` |
+
+### Vector DB Architecture
+```
+srch-entchat-poc-sand  (Azure AI Search, Standard tier)
+├── owui-knowledge     ← ทุก Knowledge Base (filter by collection_key)
+├── owui-files         ← ไฟล์แนบในแชท (filter by collection_key)
+├── owui-memory        ← User memory (filter by collection_key)
+├── enterprise-docs-idx ← Enterprise Search Tool (792+ chunks)
+└── docwise-docs-v2    ← DocWise
+```
+
+**Custom client**: `src/vector/azure_ai_search.py` — implement `VectorDBBase` 10 methods
+- Auto-create index schema with HNSW vector profile
+- `collection_key` field สำหรับ OData server-side filter ใน namespace mode
+- Schema auto-heal: ตรวจจับ index ที่ไม่มี `collection_key` แล้ว recreate
 
 ### Tools in System
 | Tool | Purpose |
@@ -190,6 +221,9 @@ Teams iframe → teams-auth.html → Teams SDK init
 | 7 | LiteLLM `cache_hit=None` | Add `cache: True` / `cache_params.type: local` ใน config |
 | 8 | LiteLLM model cost no cache discount | Add `cache_read_input_token_cost=input*0.1` (90% off) ต่อ model |
 | 9 | MSI auth for ACR | SystemAssigned MI + `AcrPull` role + `acrUseManagedIdentityCreds: true` |
+| 10 | Azure AI Search index schema missing `collection_key` | Client auto-heals: ตรวจจับ schema mismatch → delete + recreate index |
+| 11 | Azure AI Search propagation delay (new field) | `insert()` sleeps 3s after creating shared index with `collection_key` |
+| 12 | OWUI v0.10.2 internal API is async | ใช้ `SessionLocal()` + raw SQL แทน `get_db()` + ORM สำหรับ bulk operations |
 
 ## Docker Compose Files
 
@@ -217,23 +251,29 @@ EnterpriseChat/
 ├── README.md               ← Project overview
 ├── .gitignore
 │
-├── deploy/                 ← Docker, Compose, Deploy scripts
-│   ├── docker/
-│   │   ├── Dockerfile.teams
-│   │   ├── Dockerfile.litellm
-│   │   ├── docker-compose.local.yml
-│   │   ├── docker-compose.litellm.yml
-│   │   └── docker.env          ← Secrets (gitignored)
-│   ├── litellm/
-│   │   └── litellm_config*.yaml
-│   └── scripts/
-│       └── deploy-litellm-azure.sh
+├── app/                    ← Files copied into Docker image
+│   ├── patches/            ← OWUI source patches (Azure AI Search VECTOR_DB backend)
+│   │   ├── client.py       ← AzureAISearchClient (VectorDBBase impl)
+│   │   ├── type.py         ← Patched VectorType enum
+│   │   └── factory.py      ← Patched Vector factory
+│   ├── auth/               ← Teams SSO (teams-auth.html, teams-auth-bridge.html)
+│   └── static/             ← Static assets (genie-setup-manual.html)
 │
-├── src/                   ← Open WebUI Functions
-│   ├── pipes/             ← Knowledge base query pipes
-│   ├── tools/             ← Enterprise Search, Calculator tools
-│   ├── filters/           ← Token tracking filter
-│   └── auth/              ← teams-auth.html (Teams SSO)
+├── docker/                 ← Docker build & deploy config
+│   ├── Dockerfile.owui
+│   ├── Dockerfile.litellm
+│   ├── compose.yml         ← Main local dev compose
+│   ├── nginx.conf          ← nginx reverse proxy config
+│   ├── litellm-config.yaml
+│   ├── litellm-config.local.yaml
+│   └── .env                ← Secrets (gitignored)
+│
+├── functions/              ← Open WebUI functions (paste into admin panel)
+│   ├── tools/              ← Enterprise Search, Calculator, etc.
+│   ├── pipes/              ← Knowledge base query pipes
+│   └── filters/            ← Token tracking filter
+│
+├── screenshots/            ← UI screenshots (served in container)
 │
 ├── docs/                  ← Documentation, presentations
 │   ├── genie-setup-manual.html/pdf
