@@ -1,0 +1,16 @@
+{
+  "exported_at": "20260724-121526",
+  "base_url": "https://genie.haadthip.com",
+  "model": {
+    "id": "procurement-ai-v1",
+    "size": 1199
+  },
+  "tool": {
+    "id": "procurement_price_lookup",
+    "size": 78292
+  },
+  "skill": {
+    "id": "procurement-agent",
+    "size": 18734
+  }
+}
