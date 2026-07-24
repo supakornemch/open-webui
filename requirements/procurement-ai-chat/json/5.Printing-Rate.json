@@ -1,0 +1,6350 @@
+[
+  {
+    "id": "PRINT_RATE_1",
+    "category": "งานพิมพ์อัตราค่าบริการ",
+    "item_name": "Arch 60x70 cm.ไดคัทตามแบบPP Board 5 มิล ขึ้นรูปประกอบเป็น Arch /2 หน้า สามารถส่งให้หน้างานประกอบเองได้/มีความคงทน",
+    "price_tiers": [
+      {
+        "qty": "1-10",
+        "unit_price": 155.0,
+        "vendor_prices": {
+          "vendor_2": 490.0,
+          "vendor_3": 230.0,
+          "vendor_7": 520.0,
+          "vendor_8": 380.0,
+          "vendor_9": 155.0,
+          "vendor_10": 260.0,
+          "vendor_11": 230.0,
+          "vendor_13": 230.0
+        }
+      },
+      {
+        "qty": "11-20",
+        "unit_price": 150.0,
+        "vendor_prices": {
+          "vendor_2": 480.0,
+          "vendor_3": 207.0,
+          "vendor_7": 450.0,
+          "vendor_8": 350.0,
+          "vendor_9": 150.0,
+          "vendor_10": 250.0,
+          "vendor_11": 207.0,
+          "vendor_13": 207.0
+        }
+      }
+    ],
+    "approved_price_per_unit": 150.0,
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%"
+  },
+  {
+    "id": "PRINT_RATE_2",
+    "category": "งานพิมพ์อัตราค่าบริการ",
+    "item_name": "Arch 60x90 cm.ไดคัทตามแบบPP Board 5 มิล ขึ้นรูปประกอบเป็น Arch /2 หน้า สามารถส่งให้หน้างานประกอบเองได้/มีความคงทน",
+    "price_tiers": [
+      {
+        "qty": "1-10",
+        "unit_price": 185.0,
+        "vendor_prices": {
+          "vendor_2": 520.0,
+          "vendor_3": 264.5,
+          "vendor_7": 650.0,
+          "vendor_8": 480.0,
+          "vendor_9": 185.0,
+          "vendor_10": 300.0,
+          "vendor_11": 264.5,
+          "vendor_13": 264.5
+        }
+      },
+      {
+        "qty": "11-20",
+        "unit_price": 175.0,
+        "vendor_prices": {
+          "vendor_2": 510.0,
+          "vendor_3": 258.75,
+          "vendor_7": 600.0,
+          "vendor_8": 450.0,
+          "vendor_9": 175.0,
+          "vendor_10": 290.0,
+          "vendor_11": 258.75,
+          "vendor_13": 258.75
+        }
+      }
+    ],
+    "approved_price_per_unit": 175.0,
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%"
+  },
+  {
+    "id": "PRINT_RATE_3",
+    "category": "งานพิมพ์อัตราค่าบริการ",
+    "item_name": "Arch 60x100 cm.ไดคัทตามแบบPP Board 5 มิล ขึ้นรูปประกอบเป็น Arch /2 หน้า สามารถส่งให้หน้างานประกอบเองได้/มีความคงทน",
+    "price_tiers": [
+      {
+        "qty": "1-10",
+        "unit_price": 195.0,
+        "vendor_prices": {
+          "vendor_2": 590.0,
+          "vendor_3": 310.5,
+          "vendor_7": 720.0,
+          "vendor_8": 540.0,
+          "vendor_9": 195.0,
+          "vendor_10": 350.0,
+          "vendor_11": 310.0,
+          "vendor_13": 310.0
+        }
+      },
+      {
+        "qty": "11-20",
+        "unit_price": 185.0,
+        "vendor_prices": {
+          "vendor_2": 580.0,
+          "vendor_3": 304.75,
+          "vendor_6": 465.0,
+          "vendor_7": 700.0,
+          "vendor_8": 500.0,
+          "vendor_9": 185.0,
+          "vendor_10": 340.0,
+          "vendor_11": 305.0,
+          "vendor_13": 304.75
+        }
+      }
+    ],
+    "approved_price_per_unit": 185.0,
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%"
+  },
+  {
+    "id": "PRINT_RATE_4",
+    "category": "งานพิมพ์อัตราค่าบริการ",
+    "item_name": "Arch 75x160 cm.ไดคัทตามแบบPP Board 5 มิล ขึ้นรูปประกอบเป็น Arch /2 หน้า สามารถส่งให้หน้างานประกอบเองได้/มีความคงทน",
+    "price_tiers": [
+      {
+        "qty": "1-10",
+        "unit_price": 480.0,
+        "vendor_prices": {
+          "vendor_2": 760.0,
+          "vendor_3": 557.75,
+          "vendor_7": 720.0,
+          "vendor_8": 540.0,
+          "vendor_9": 480.0,
+          "vendor_10": 650.0,
+          "vendor_11": 560.0,
+          "vendor_13": 540.0
+        }
+      },
+      {
+        "qty": "11-20",
+        "unit_price": 460.0,
+        "vendor_prices": {
+          "vendor_2": 750.0,
+          "vendor_3": 552.0,
+          "vendor_6": 1100.0,
+          "vendor_7": 700.0,
+          "vendor_8": 500.0,
+          "vendor_9": 460.0,
+          "vendor_10": 640.0,
+          "vendor_11": 560.0,
+          "vendor_13": 500.0
+        }
+      }
+    ],
+    "approved_price_per_unit": 460.0,
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%"
+  },
+  {
+    "id": "PRINT_RATE_5",
+    "category": "งานพิมพ์อัตราค่าบริการ",
+    "item_name": "Arch 90x100 cm.ไดคัทตามแบบPP Board 5 มิล ขึ้นรูปประกอบเป็น Arch /2 หน้า สามารถส่งให้หน้างานประกอบเองได้/มีความคงทน",
+    "price_tiers": [
+      {
+        "qty": "1-10",
+        "unit_price": 325.0,
+        "vendor_prices": {
+          "vendor_2": 640.0,
+          "vendor_3": 442.75,
+          "vendor_7": 1080.0,
+          "vendor_8": 400.0,
+          "vendor_9": 325.0,
+          "vendor_10": 530.0,
+          "vendor_11": 445.0,
+          "vendor_13": 400.0
+        }
+      },
+      {
+        "qty": "11-20",
+        "unit_price": 315.0,
+        "vendor_prices": {
+          "vendor_2": 630.0,
+          "vendor_3": 437.0,
+          "vendor_6": 770.0,
+          "vendor_7": 1000.0,
+          "vendor_8": 400.0,
+          "vendor_9": 315.0,
+          "vendor_10": 520.0,
+          "vendor_11": 440.0,
+          "vendor_13": 400.0
+        }
+      }
+    ],
+    "approved_price_per_unit": 315.0,
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%"
+  },
+  {
+    "id": "PRINT_RATE_6",
+    "category": "งานพิมพ์อัตราค่าบริการ",
+    "item_name": "Arch 120x170 cm.ไดคัทตามแบบPP Board 5 มิล ขึ้นรูปประกอบเป็น Arch /2 หน้า สามารถส่งให้หน้างานประกอบเองได้/มีความคงทน",
+    "price_tiers": [
+      {
+        "qty": "1-10",
+        "unit_price": 680.0,
+        "vendor_prices": {
+          "vendor_2": 1220.0,
+          "vendor_3": 920.0,
+          "vendor_7": 3200.0,
+          "vendor_8": 1800.0,
+          "vendor_9": 680.0,
+          "vendor_10": 1000.0,
+          "vendor_11": 920.0,
+          "vendor_13": 920.0
+        }
+      },
+      {
+        "qty": "11-20",
+        "unit_price": 660.0,
+        "vendor_prices": {
+          "vendor_2": 1200.0,
+          "vendor_3": 908.5,
+          "vendor_7": 3000.0,
+          "vendor_8": 1800.0,
+          "vendor_9": 660.0,
+          "vendor_10": 980.0,
+          "vendor_11": 910.0,
+          "vendor_13": 908.5
+        }
+      }
+    ],
+    "approved_price_per_unit": 660.0,
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%"
+  },
+  {
+    "id": "PRINT_RATE_7",
+    "category": "งานพิมพ์อัตราค่าบริการ",
+    "item_name": "Arch 190x90 cm.ไดคัทตามแบบPP Board 5 มิล ขึ้นรูปประกอบเป็น Arch /2 หน้า สามารถส่งให้หน้างานประกอบเองได้/มีความคงทน",
+    "price_tiers": [
+      {
+        "qty": "1-10",
+        "unit_price": 620.0,
+        "vendor_prices": {
+          "vendor_2": 980.0,
+          "vendor_3": 776.25,
+          "vendor_7": 2700.0,
+          "vendor_8": 1540.0,
+          "vendor_9": 620.0,
+          "vendor_10": 870.0,
+          "vendor_11": 776.25,
+          "vendor_13": 776.25
+        }
+      },
+      {
+        "qty": "11-20",
+        "unit_price": 610.0,
+        "vendor_prices": {
+          "vendor_2": 970.0,
+          "vendor_3": 770.5,
+          "vendor_7": 2500.0,
+          "vendor_8": 1540.0,
+          "vendor_9": 610.0,
+          "vendor_10": 850.0,
+          "vendor_11": 772.0,
+          "vendor_13": 770.5
+        }
+      }
+    ],
+    "approved_price_per_unit": 610.0,
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%"
+  },
+  {
+    "id": "PRINT_RATE_8",
+    "category": "งานพิมพ์อัตราค่าบริการ",
+    "item_name": "Arch 180x100 cm.ไดคัทตามแบบPP Board 5 มิล ขึ้นรูปประกอบเป็น Arch /2 หน้า สามารถส่งให้หน้างานประกอบเองได้/มีความคงทน",
+    "price_tiers": [
+      {
+        "qty": "1-10",
+        "unit_price": 620.0,
+        "vendor_prices": {
+          "vendor_2": 980.0,
+          "vendor_3": 833.75,
+          "vendor_7": 2700.0,
+          "vendor_8": 1620.0,
+          "vendor_9": 620.0,
+          "vendor_10": 870.0,
+          "vendor_11": 835.0,
+          "vendor_13": 833.75
+        }
+      },
+      {
+        "qty": "11-20",
+        "unit_price": 610.0,
+        "vendor_prices": {
+          "vendor_2": 970.0,
+          "vendor_3": 828.0,
+          "vendor_7": 2500.0,
+          "vendor_8": 1620.0,
+          "vendor_9": 610.0,
+          "vendor_10": 850.0,
+          "vendor_11": 830.0,
+          "vendor_13": 828.0
+        }
+      }
+    ],
+    "approved_price_per_unit": 610.0,
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%"
+  },
+  {
+    "id": "PRINT_RATE_9",
+    "category": "งานพิมพ์อัตราค่าบริการ",
+    "item_name": "Arch  ราคาต่อตารางเมตร (กรณีไม่มีขนาดตามข้อที่ 1-8)\nไดคัทตามแบบPP Board 5 มิล ขึ้นรูปประกอบเป็น Arch /2 หน้า สามารถส่งให้หน้างานประกอบเองได้/มีความคงทน",
+    "price_tiers": [
+      {
+        "qty": "1-10",
+        "unit_price": 340.0,
+        "vendor_prices": {
+          "vendor_2": 340.0,
+          "vendor_3": 460.0,
+          "vendor_7": 600.0,
+          "vendor_8": 450.0,
+          "vendor_9": 395.0,
+          "vendor_10": 550.0,
+          "vendor_11": 460.0,
+          "vendor_13": 340.0
+        }
+      },
+      {
+        "qty": "11-20",
+        "unit_price": 330.0,
+        "vendor_prices": {
+          "vendor_2": 330.0,
+          "vendor_3": 460.0,
+          "vendor_7": 550.0,
+          "vendor_8": 450.0,
+          "vendor_9": 385.0,
+          "vendor_10": 500.0,
+          "vendor_11": 460.0,
+          "vendor_13": 330.0
+        }
+      }
+    ],
+    "approved_price_per_unit": 330.0,
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%"
+  },
+  {
+    "id": "PRINT_RATE_10",
+    "category": "งานพิมพ์อัตราค่าบริการ",
+    "item_name": "Wrap Around 3 mm. 30x70 cm.\n - วัสดุ PP Board 3 mm. พิมพ์ 1 ด้าน \n - ตัดสี่เหลี่ยม,  พิมพ์ 4 สี\n - Indoor บน สติ๊กเกอร์ ติดบนแผ่น PP Board 3 mm.",
+    "price_tiers": [
+      {
+        "qty": "1-20",
+        "unit_price": 39.0,
+        "vendor_prices": {
+          "vendor_1": 65.0,
+          "vendor_2": 39.0,
+          "vendor_3": 57.5,
+          "vendor_4": 360.0,
+          "vendor_7": 105.0,
+          "vendor_8": 70.0,
+          "vendor_9": 72.5,
+          "vendor_10": 65.0,
+          "vendor_11": 58.0,
+          "vendor_12": 55.0,
+          "vendor_13": 39.0
+        }
+      },
+      {
+        "qty": "21-50",
+        "unit_price": 38.0,
+        "vendor_prices": {
+          "vendor_1": 64.0,
+          "vendor_2": 38.0,
+          "vendor_3": 55.2,
+          "vendor_4": 75.0,
+          "vendor_7": 100.0,
+          "vendor_8": 70.0,
+          "vendor_9": 69.5,
+          "vendor_10": 60.0,
+          "vendor_11": 57.0,
+          "vendor_12": 55.0,
+          "vendor_13": 38.0
+        }
+      },
+      {
+        "qty": "51-100",
+        "unit_price": 37.0,
+        "vendor_prices": {
+          "vendor_1": 63.0,
+          "vendor_2": 37.0,
+          "vendor_3": 48.3,
+          "vendor_4": 70.0,
+          "vendor_7": 97.0,
+          "vendor_8": 70.0,
+          "vendor_9": 64.5,
+          "vendor_10": 57.0,
+          "vendor_11": 50.0,
+          "vendor_12": 55.0,
+          "vendor_13": 37.0
+        }
+      },
+      {
+        "qty": "101-500",
+        "unit_price": 36.0,
+        "vendor_prices": {
+          "vendor_1": 62.0,
+          "vendor_2": 36.0,
+          "vendor_3": 44.85,
+          "vendor_4": 65.0,
+          "vendor_7": 96.0,
+          "vendor_8": 63.0,
+          "vendor_9": 64.5,
+          "vendor_10": 52.0,
+          "vendor_11": 46.0,
+          "vendor_12": 55.0,
+          "vendor_13": 36.0
+        }
+      },
+      {
+        "qty": "501-1000",
+        "unit_price": 35.0,
+        "vendor_prices": {
+          "vendor_1": 61.0,
+          "vendor_2": 35.0,
+          "vendor_3": 36.8,
+          "vendor_4": 60.0,
+          "vendor_7": 95.0,
+          "vendor_8": 52.0,
+          "vendor_9": 49.0,
+          "vendor_10": 46.0,
+          "vendor_11": 40.0,
+          "vendor_12": 55.0,
+          "vendor_13": 35.0
+        }
+      },
+      {
+        "qty": "1001-2,000",
+        "unit_price": 34.0,
+        "vendor_prices": {
+          "vendor_1": 60.0,
+          "vendor_2": 34.0,
+          "vendor_3": 34.5,
+          "vendor_4": 55.0,
+          "vendor_7": 94.0,
+          "vendor_8": 50.0,
+          "vendor_9": 44.0,
+          "vendor_10": 42.0,
+          "vendor_11": 35.0,
+          "vendor_12": 55.0,
+          "vendor_13": 34.0
+        }
+      }
+    ],
+    "approved_price_per_unit": 34.0,
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%"
+  },
+  {
+    "id": "PRINT_RATE_11",
+    "category": "งานพิมพ์อัตราค่าบริการ",
+    "item_name": "Wrap Around 3 mm. 30x100 cm.\n - วัสดุ PP Board 3 mm. พิมพ์ 1 ด้าน\n - Indoor บน สติ๊กเกอร์ ติดบนแผ่น PP Board 3 mm.\n - ตัดสี่เหลี่ยม พิมพ์ 4 สี",
+    "price_tiers": [
+      {
+        "qty": "1-20",
+        "unit_price": 52.0,
+        "vendor_prices": {
+          "vendor_1": 90.0,
+          "vendor_2": 52.0,
+          "vendor_3": 69.0,
+          "vendor_4": 360.0,
+          "vendor_7": 126.0,
+          "vendor_8": 105.0,
+          "vendor_9": 95.0,
+          "vendor_11": 70.0,
+          "vendor_12": 80.0,
+          "vendor_13": 52.0
+        }
+      },
+      {
+        "qty": "21-50",
+        "unit_price": 51.0,
+        "vendor_prices": {
+          "vendor_1": 89.0,
+          "vendor_2": 51.0,
+          "vendor_3": 59.8,
+          "vendor_4": 100.0,
+          "vendor_7": 120.0,
+          "vendor_8": 90.0,
+          "vendor_9": 89.0,
+          "vendor_10": 80.0,
+          "vendor_11": 65.0,
+          "vendor_12": 80.0,
+          "vendor_13": 51.0
+        }
+      },
+      {
+        "qty": "51-100",
+        "unit_price": 50.0,
+        "vendor_prices": {
+          "vendor_1": 88.0,
+          "vendor_2": 50.0,
+          "vendor_3": 57.5,
+          "vendor_4": 95.0,
+          "vendor_7": 114.0,
+          "vendor_8": 80.0,
+          "vendor_9": 84.0,
+          "vendor_10": 70.0,
+          "vendor_11": 60.0,
+          "vendor_12": 80.0,
+          "vendor_13": 50.0
+        }
+      },
+      {
+        "qty": "101-500",
+        "unit_price": 49.0,
+        "vendor_prices": {
+          "vendor_1": 80.0,
+          "vendor_2": 49.0,
+          "vendor_3": 57.5,
+          "vendor_4": 90.0,
+          "vendor_7": 108.0,
+          "vendor_8": 75.0,
+          "vendor_9": 84.0,
+          "vendor_10": 65.0,
+          "vendor_11": 56.0,
+          "vendor_12": 80.0,
+          "vendor_13": 49.0
+        }
+      },
+      {
+        "qty": "501-1000",
+        "unit_price": 48.0,
+        "vendor_prices": {
+          "vendor_1": 80.0,
+          "vendor_2": 48.0,
+          "vendor_3": 55.2,
+          "vendor_4": 75.0,
+          "vendor_7": 102.0,
+          "vendor_8": 70.0,
+          "vendor_9": 78.0,
+          "vendor_10": 60.0,
+          "vendor_11": 54.0,
+          "vendor_12": 80.0,
+          "vendor_13": 48.0
+        }
+      },
+      {
+        "qty": "1001-2,000",
+        "unit_price": 47.0,
+        "vendor_prices": {
+          "vendor_1": 75.0,
+          "vendor_2": 47.0,
+          "vendor_3": 51.75,
+          "vendor_4": 70.0,
+          "vendor_6": 90.0,
+          "vendor_7": 97.5,
+          "vendor_8": 60.0,
+          "vendor_9": 64.0,
+          "vendor_10": 55.0,
+          "vendor_11": 52.0,
+          "vendor_12": 80.0,
+          "vendor_13": 47.0
+        }
+      }
+    ],
+    "approved_price_per_unit": 47.0,
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%"
+  },
+  {
+    "id": "PRINT_RATE_12",
+    "category": "งานพิมพ์อัตราค่าบริการ",
+    "item_name": "Wrap Around 3 mm. 30x120 cm.\n - วัสดุ PP Board 3 mm. พิมพ์ 1 ด้าน \n - ตัดสี่เหลี่ยม,  พิมพ์ 4 สี\n - Indoor บน สติ๊กเกอร์ ติดบนแผ่น PP Board 3 mm.",
+    "price_tiers": [
+      {
+        "qty": "1-20",
+        "unit_price": 63.0,
+        "vendor_prices": {
+          "vendor_1": 108.0,
+          "vendor_2": 63.0,
+          "vendor_3": 74.75,
+          "vendor_4": 360.0,
+          "vendor_7": 155.0,
+          "vendor_8": 120.0,
+          "vendor_9": 108.0,
+          "vendor_10": 90.0,
+          "vendor_11": 75.0,
+          "vendor_12": 95.0,
+          "vendor_13": 63.0
+        }
+      },
+      {
+        "qty": "21-50",
+        "unit_price": 62.0,
+        "vendor_prices": {
+          "vendor_1": 107.0,
+          "vendor_2": 62.0,
+          "vendor_3": 71.3,
+          "vendor_4": 120.0,
+          "vendor_7": 145.0,
+          "vendor_8": 110.0,
+          "vendor_9": 101.0,
+          "vendor_10": 83.0,
+          "vendor_11": 72.0,
+          "vendor_12": 95.0,
+          "vendor_13": 62.0
+        }
+      },
+      {
+        "qty": "51-100",
+        "unit_price": 61.0,
+        "vendor_prices": {
+          "vendor_1": 100.0,
+          "vendor_2": 61.0,
+          "vendor_3": 71.3,
+          "vendor_4": 100.0,
+          "vendor_7": 137.0,
+          "vendor_8": 100.0,
+          "vendor_9": 93.0,
+          "vendor_10": 80.0,
+          "vendor_11": 72.0,
+          "vendor_12": 95.0,
+          "vendor_13": 61.0
+        }
+      },
+      {
+        "qty": "101-500",
+        "unit_price": 60.0,
+        "vendor_prices": {
+          "vendor_1": 97.0,
+          "vendor_2": 60.0,
+          "vendor_3": 69.0,
+          "vendor_4": 90.0,
+          "vendor_7": 130.0,
+          "vendor_8": 90.0,
+          "vendor_9": 93.0,
+          "vendor_10": 77.0,
+          "vendor_11": 70.0,
+          "vendor_12": 95.0,
+          "vendor_13": 60.0
+        }
+      },
+      {
+        "qty": "501-1000",
+        "unit_price": 59.0,
+        "vendor_prices": {
+          "vendor_1": 93.0,
+          "vendor_2": 59.0,
+          "vendor_3": 66.7,
+          "vendor_4": 80.0,
+          "vendor_7": 122.5,
+          "vendor_8": 80.0,
+          "vendor_9": 76.0,
+          "vendor_10": 68.0,
+          "vendor_11": 70.0,
+          "vendor_12": 95.0,
+          "vendor_13": 59.0
+        }
+      },
+      {
+        "qty": "1001-2,000",
+        "unit_price": 58.0,
+        "vendor_prices": {
+          "vendor_1": 90.0,
+          "vendor_2": 58.0,
+          "vendor_3": 62.1,
+          "vendor_4": 75.0,
+          "vendor_6": 110.0,
+          "vendor_7": 117.0,
+          "vendor_8": 70.0,
+          "vendor_9": 68.0,
+          "vendor_10": 64.0,
+          "vendor_11": 69.0,
+          "vendor_12": 95.0,
+          "vendor_13": 58.0
+        }
+      }
+    ],
+    "approved_price_per_unit": 58.0,
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%"
+  },
+  {
+    "id": "PRINT_RATE_13",
+    "category": "งานพิมพ์อัตราค่าบริการ",
+    "item_name": "Wrap Around 3 mm. 40x100 cm.\n - วัสดุ PP Board 3 mm. พิมพ์ 1 ด้าน \n - ตัดสี่เหลี่ยม,  พิมพ์ 4 สี\n - Indoor บน สติ๊กเกอร์ ติดบนแผ่น PP Board 3 mm.",
+    "price_tiers": [
+      {
+        "qty": "1-20",
+        "unit_price": 70.0,
+        "vendor_prices": {
+          "vendor_1": 120.0,
+          "vendor_2": 70.0,
+          "vendor_3": 74.75,
+          "vendor_4": 360.0,
+          "vendor_7": 170.0,
+          "vendor_8": 140.0,
+          "vendor_9": 118.0,
+          "vendor_10": 85.0,
+          "vendor_11": 75.0,
+          "vendor_12": 100.0,
+          "vendor_13": 70.0
+        }
+      },
+      {
+        "qty": "21-50",
+        "unit_price": 69.0,
+        "vendor_prices": {
+          "vendor_1": 118.0,
+          "vendor_2": 69.0,
+          "vendor_3": 74.75,
+          "vendor_4": 145.0,
+          "vendor_7": 160.0,
+          "vendor_8": 120.0,
+          "vendor_9": 111.0,
+          "vendor_10": 82.0,
+          "vendor_11": 74.0,
+          "vendor_12": 100.0,
+          "vendor_13": 69.0
+        }
+      },
+      {
+        "qty": "51-100",
+        "unit_price": 68.0,
+        "vendor_prices": {
+          "vendor_1": 115.0,
+          "vendor_2": 68.0,
+          "vendor_3": 73.6,
+          "vendor_4": 140.0,
+          "vendor_7": 152.0,
+          "vendor_8": 100.0,
+          "vendor_9": 103.0,
+          "vendor_10": 79.0,
+          "vendor_11": 74.0,
+          "vendor_12": 100.0,
+          "vendor_13": 68.0
+        }
+      },
+      {
+        "qty": "101-500",
+        "unit_price": 67.0,
+        "vendor_prices": {
+          "vendor_1": 108.0,
+          "vendor_2": 67.0,
+          "vendor_3": 71.3,
+          "vendor_4": 135.0,
+          "vendor_7": 144.0,
+          "vendor_8": 80.0,
+          "vendor_9": 103.0,
+          "vendor_10": 74.0,
+          "vendor_11": 74.0,
+          "vendor_12": 100.0,
+          "vendor_13": 67.0
+        }
+      },
+      {
+        "qty": "501-1000",
+        "unit_price": 66.0,
+        "vendor_prices": {
+          "vendor_1": 104.0,
+          "vendor_2": 66.0,
+          "vendor_3": 71.3,
+          "vendor_4": 125.0,
+          "vendor_7": 136.0,
+          "vendor_8": 80.0,
+          "vendor_9": 84.0,
+          "vendor_10": 70.0,
+          "vendor_11": 72.0,
+          "vendor_12": 100.0,
+          "vendor_13": 66.0
+        }
+      },
+      {
+        "qty": "1001-2,000",
+        "unit_price": 65.0,
+        "vendor_prices": {
+          "vendor_1": 100.0,
+          "vendor_2": 65.0,
+          "vendor_3": 69.0,
+          "vendor_4": 100.0,
+          "vendor_7": 130.0,
+          "vendor_8": 80.0,
+          "vendor_9": 77.0,
+          "vendor_10": 68.0,
+          "vendor_11": 72.0,
+          "vendor_12": 100.0,
+          "vendor_13": 65.0
+        }
+      }
+    ],
+    "approved_price_per_unit": 65.0,
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%"
+  },
+  {
+    "id": "PRINT_RATE_14",
+    "category": "งานพิมพ์อัตราค่าบริการ",
+    "item_name": "Wrap Around 3 mm. 40x120 cm.\n - วัสดุ PP Board 3 mm. พิมพ์ 1 ด้าน\n - Indoor บน สติ๊กเกอร์ ติดบนแผ่น PP Board 3 mm., พิมพ์ 4 สี \n - ตัดสี่เหลี่ยม",
+    "price_tiers": [
+      {
+        "qty": "1-20",
+        "unit_price": 85.0,
+        "vendor_prices": {
+          "vendor_1": 145.0,
+          "vendor_2": 85.0,
+          "vendor_3": 92.0,
+          "vendor_4": 360.0,
+          "vendor_7": 205.0,
+          "vendor_8": 170.0,
+          "vendor_9": 118.0,
+          "vendor_10": 105.0,
+          "vendor_11": 95.0,
+          "vendor_12": 125.0,
+          "vendor_13": 85.0
+        }
+      },
+      {
+        "qty": "21-50",
+        "unit_price": 84.0,
+        "vendor_prices": {
+          "vendor_1": 140.0,
+          "vendor_2": 84.0,
+          "vendor_3": 89.7,
+          "vendor_4": 175.0,
+          "vendor_7": 192.0,
+          "vendor_8": 160.0,
+          "vendor_9": 111.0,
+          "vendor_10": 99.0,
+          "vendor_11": 95.0,
+          "vendor_12": 125.0,
+          "vendor_13": 84.0
+        }
+      },
+      {
+        "qty": "51-100",
+        "unit_price": 83.0,
+        "vendor_prices": {
+          "vendor_1": 135.0,
+          "vendor_2": 83.0,
+          "vendor_3": 86.25,
+          "vendor_4": 170.0,
+          "vendor_7": 183.0,
+          "vendor_8": 150.0,
+          "vendor_9": 103.0,
+          "vendor_10": 95.0,
+          "vendor_11": 87.0,
+          "vendor_12": 125.0,
+          "vendor_13": 83.0
+        }
+      },
+      {
+        "qty": "101-500",
+        "unit_price": 82.0,
+        "vendor_prices": {
+          "vendor_1": 130.0,
+          "vendor_2": 82.0,
+          "vendor_3": 86.25,
+          "vendor_4": 165.0,
+          "vendor_7": 173.0,
+          "vendor_8": 120.0,
+          "vendor_9": 103.0,
+          "vendor_10": 90.0,
+          "vendor_11": 87.0,
+          "vendor_12": 125.0,
+          "vendor_13": 82.0
+        }
+      },
+      {
+        "qty": "501-1000",
+        "unit_price": 81.0,
+        "vendor_prices": {
+          "vendor_1": 125.0,
+          "vendor_2": 81.0,
+          "vendor_3": 82.8,
+          "vendor_4": 155.0,
+          "vendor_7": 164.0,
+          "vendor_8": 120.0,
+          "vendor_9": 84.0,
+          "vendor_10": 85.0,
+          "vendor_11": 84.0,
+          "vendor_12": 125.0,
+          "vendor_13": 81.0
+        }
+      },
+      {
+        "qty": "1001-2,000",
+        "unit_price": 77.0,
+        "vendor_prices": {
+          "vendor_1": 120.0,
+          "vendor_2": 80.0,
+          "vendor_3": 82.8,
+          "vendor_4": 130.0,
+          "vendor_7": 156.0,
+          "vendor_8": 100.0,
+          "vendor_9": 77.0,
+          "vendor_10": 82.0,
+          "vendor_11": 84.0,
+          "vendor_12": 125.0,
+          "vendor_13": 77.0
+        }
+      }
+    ],
+    "approved_price_per_unit": 77.0,
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%"
+  },
+  {
+    "id": "PRINT_RATE_15",
+    "category": "งานพิมพ์อัตราค่าบริการ",
+    "item_name": "Wrap Around 3 mm. 50x100 cm.\n - วัสดุ PP Board 3 mm. พิมพ์ 1 ด้าน \n - ตัดสี่เหลี่ยม,  พิมพ์ 4 สี\n - Indoor บน สติ๊กเกอร์ ติดบนแผ่น PP Board 3 mm.",
+    "price_tiers": [
+      {
+        "qty": "1-20",
+        "unit_price": 87.0,
+        "vendor_prices": {
+          "vendor_1": 150.0,
+          "vendor_2": 87.0,
+          "vendor_3": 97.75,
+          "vendor_4": 360.0,
+          "vendor_7": 250.0,
+          "vendor_8": 175.0,
+          "vendor_9": 143.0,
+          "vendor_10": 115.0,
+          "vendor_11": 98.0,
+          "vendor_12": 130.0,
+          "vendor_13": 87.0
+        }
+      },
+      {
+        "qty": "21-50",
+        "unit_price": 86.0,
+        "vendor_prices": {
+          "vendor_1": 145.0,
+          "vendor_2": 86.0,
+          "vendor_3": 94.3,
+          "vendor_4": 180.0,
+          "vendor_7": 200.0,
+          "vendor_8": 175.0,
+          "vendor_9": 151.0,
+          "vendor_10": 110.0,
+          "vendor_11": 98.0,
+          "vendor_12": 130.0,
+          "vendor_13": 86.0
+        }
+      },
+      {
+        "qty": "51-100",
+        "unit_price": 85.0,
+        "vendor_prices": {
+          "vendor_1": 140.0,
+          "vendor_2": 85.0,
+          "vendor_3": 92.0,
+          "vendor_4": 125.0,
+          "vendor_7": 190.0,
+          "vendor_8": 170.0,
+          "vendor_9": 128.0,
+          "vendor_10": 105.0,
+          "vendor_11": 95.0,
+          "vendor_12": 130.0,
+          "vendor_13": 85.0
+        }
+      },
+      {
+        "qty": "101-500",
+        "unit_price": 84.0,
+        "vendor_prices": {
+          "vendor_1": 135.0,
+          "vendor_2": 84.0,
+          "vendor_3": 89.7,
+          "vendor_4": 110.0,
+          "vendor_6": 150.0,
+          "vendor_7": 180.0,
+          "vendor_8": 160.0,
+          "vendor_9": 128.0,
+          "vendor_10": 98.0,
+          "vendor_11": 95.0,
+          "vendor_12": 130.0,
+          "vendor_13": 84.0
+        }
+      },
+      {
+        "qty": "501-1000",
+        "unit_price": 83.0,
+        "vendor_prices": {
+          "vendor_1": 130.0,
+          "vendor_2": 83.0,
+          "vendor_3": 88.75,
+          "vendor_4": 100.0,
+          "vendor_7": 170.0,
+          "vendor_8": 125.0,
+          "vendor_9": 108.0,
+          "vendor_10": 92.0,
+          "vendor_11": 90.0,
+          "vendor_12": 130.0,
+          "vendor_13": 83.0
+        }
+      },
+      {
+        "qty": "1001-2,000",
+        "unit_price": 82.0,
+        "vendor_prices": {
+          "vendor_1": 125.0,
+          "vendor_2": 82.0,
+          "vendor_3": 86.25,
+          "vendor_4": 95.0,
+          "vendor_7": 163.0,
+          "vendor_8": 120.0,
+          "vendor_9": 99.0,
+          "vendor_10": 88.0,
+          "vendor_11": 89.0,
+          "vendor_12": 130.0,
+          "vendor_13": 82.0
+        }
+      }
+    ],
+    "approved_price_per_unit": 82.0,
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%"
+  },
+  {
+    "id": "PRINT_RATE_16",
+    "category": "งานพิมพ์อัตราค่าบริการ",
+    "item_name": "Wrap Around 3 mm. 50x120 cm.\n - วัสดุ PP Board 3 mm. พิมพ์ 1 ด้าน\n - Indoor บน สติ๊กเกอร์ ติดบนแผ่น PP Board 3 mm. พิมพ์ 4 สี \n - ตัดสี่เหลี่ยม",
+    "price_tiers": [
+      {
+        "qty": "1-20",
+        "unit_price": 105.0,
+        "vendor_prices": {
+          "vendor_1": 180.0,
+          "vendor_2": 105.0,
+          "vendor_3": 115.0,
+          "vendor_4": 360.0,
+          "vendor_7": 250.0,
+          "vendor_8": 210.0,
+          "vendor_9": 183.0,
+          "vendor_10": 130.0,
+          "vendor_11": 115.0,
+          "vendor_12": 155.0,
+          "vendor_13": 105.0
+        }
+      },
+      {
+        "qty": "21-50",
+        "unit_price": 104.0,
+        "vendor_prices": {
+          "vendor_1": 175.0,
+          "vendor_2": 104.0,
+          "vendor_3": 112.7,
+          "vendor_4": 220.0,
+          "vendor_7": 200.0,
+          "vendor_8": 210.0,
+          "vendor_9": 178.0,
+          "vendor_10": 125.0,
+          "vendor_11": 115.0,
+          "vendor_12": 155.0,
+          "vendor_13": 104.0
+        }
+      },
+      {
+        "qty": "51-100",
+        "unit_price": 103.0,
+        "vendor_prices": {
+          "vendor_1": 170.0,
+          "vendor_2": 103.0,
+          "vendor_3": 109.25,
+          "vendor_4": 215.0,
+          "vendor_7": 190.0,
+          "vendor_8": 180.0,
+          "vendor_9": 172.0,
+          "vendor_10": 120.0,
+          "vendor_11": 113.0,
+          "vendor_12": 155.0,
+          "vendor_13": 103.0
+        }
+      },
+      {
+        "qty": "101-500",
+        "unit_price": 102.0,
+        "vendor_prices": {
+          "vendor_1": 165.0,
+          "vendor_2": 102.0,
+          "vendor_3": 105.8,
+          "vendor_4": 210.0,
+          "vendor_6": 180.0,
+          "vendor_7": 180.0,
+          "vendor_8": 170.0,
+          "vendor_9": 117.0,
+          "vendor_10": 110.0,
+          "vendor_11": 110.0,
+          "vendor_12": 155.0,
+          "vendor_13": 102.0
+        }
+      },
+      {
+        "qty": "501-1000",
+        "unit_price": 100.0,
+        "vendor_prices": {
+          "vendor_1": 160.0,
+          "vendor_2": 101.0,
+          "vendor_3": 103.5,
+          "vendor_4": 200.0,
+          "vendor_7": 170.0,
+          "vendor_8": 120.0,
+          "vendor_9": 108.0,
+          "vendor_10": 100.0,
+          "vendor_11": 105.0,
+          "vendor_12": 155.0,
+          "vendor_13": 100.0
+        }
+      },
+      {
+        "qty": "1001-2,000",
+        "unit_price": 98.0,
+        "vendor_prices": {
+          "vendor_1": 155.0,
+          "vendor_2": 100.0,
+          "vendor_3": 103.5,
+          "vendor_4": 165.0,
+          "vendor_7": 163.0,
+          "vendor_8": 120.0,
+          "vendor_9": 108.0,
+          "vendor_10": 98.0,
+          "vendor_11": 105.0,
+          "vendor_12": 155.0,
+          "vendor_13": 98.0
+        }
+      }
+    ],
+    "approved_price_per_unit": 98.0,
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%"
+  },
+  {
+    "id": "PRINT_RATE_17",
+    "category": "งานพิมพ์อัตราค่าบริการ",
+    "item_name": "Wrap Around 3 mm. 60x100 cm.\n - วัสดุ PP Board 3 mm. พิมพ์ 1 ด้าน \n - ตัดสี่เหลี่ยม,  พิมพ์ 4 สี\n - Indoor บน สติ๊กเกอร์ ติดบนแผ่น PP Board 3 mm.",
+    "price_tiers": [
+      {
+        "qty": "1-20",
+        "unit_price": 105.0,
+        "vendor_prices": {
+          "vendor_1": 180.0,
+          "vendor_2": 105.0,
+          "vendor_3": 112.7,
+          "vendor_4": 360.0,
+          "vendor_7": 300.0,
+          "vendor_8": 210.0,
+          "vendor_9": 183.0,
+          "vendor_10": 135.0,
+          "vendor_11": 113.0,
+          "vendor_13": 105.0
+        }
+      },
+      {
+        "qty": "21-50",
+        "unit_price": 104.0,
+        "vendor_prices": {
+          "vendor_1": 175.0,
+          "vendor_2": 104.0,
+          "vendor_3": 109.25,
+          "vendor_4": 220.0,
+          "vendor_7": 240.0,
+          "vendor_8": 180.0,
+          "vendor_9": 178.0,
+          "vendor_10": 130.0,
+          "vendor_11": 110.0,
+          "vendor_13": 104.0
+        }
+      },
+      {
+        "qty": "51-100",
+        "unit_price": 103.0,
+        "vendor_prices": {
+          "vendor_1": 170.0,
+          "vendor_2": 103.0,
+          "vendor_3": 109.25,
+          "vendor_4": 215.0,
+          "vendor_7": 228.0,
+          "vendor_8": 170.0,
+          "vendor_9": 172.0,
+          "vendor_10": 120.0,
+          "vendor_11": 108.0,
+          "vendor_13": 103.0
+        }
+      },
+      {
+        "qty": "101-500",
+        "unit_price": 102.0,
+        "vendor_prices": {
+          "vendor_1": 165.0,
+          "vendor_2": 102.0,
+          "vendor_3": 107.0,
+          "vendor_4": 210.0,
+          "vendor_7": 216.0,
+          "vendor_8": 120.0,
+          "vendor_9": 172.0,
+          "vendor_10": 110.0,
+          "vendor_11": 106.0,
+          "vendor_13": 102.0
+        }
+      },
+      {
+        "qty": "501-1000",
+        "unit_price": 100.0,
+        "vendor_prices": {
+          "vendor_1": 160.0,
+          "vendor_2": 101.0,
+          "vendor_3": 103.5,
+          "vendor_4": 200.0,
+          "vendor_7": 204.0,
+          "vendor_8": 120.0,
+          "vendor_9": 117.0,
+          "vendor_10": 100.0,
+          "vendor_11": 106.0,
+          "vendor_13": 100.0
+        }
+      },
+      {
+        "qty": "1001-2,000",
+        "unit_price": 98.0,
+        "vendor_prices": {
+          "vendor_1": 155.0,
+          "vendor_2": 100.0,
+          "vendor_3": 103.5,
+          "vendor_4": 170.0,
+          "vendor_7": 195.0,
+          "vendor_8": 120.0,
+          "vendor_9": 108.0,
+          "vendor_10": 98.0,
+          "vendor_11": 105.0,
+          "vendor_13": 98.0
+        }
+      }
+    ],
+    "approved_price_per_unit": 98.0,
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%"
+  },
+  {
+    "id": "PRINT_RATE_18",
+    "category": "งานพิมพ์อัตราค่าบริการ",
+    "item_name": "Wrap Around 3 mm. 60x120 cm.\n - วัสดุ PP Board 3 mm. พิมพ์ 1 ด้าน\n - Indoor บน สติ๊กเกอร์ ติดบนแผ่น PP Board 3 mm., พิมพ์ 4 สี \n - ตัดสี่เหลี่ยม",
+    "price_tiers": [
+      {
+        "qty": "1-20",
+        "unit_price": 127.0,
+        "vendor_prices": {
+          "vendor_1": 215.0,
+          "vendor_2": 127.0,
+          "vendor_3": 135.7,
+          "vendor_4": 360.0,
+          "vendor_7": 350.0,
+          "vendor_8": 250.0,
+          "vendor_9": 223.0,
+          "vendor_10": 150.0,
+          "vendor_11": 136.0,
+          "vendor_13": 127.0
+        }
+      },
+      {
+        "qty": "21-50",
+        "unit_price": 126.0,
+        "vendor_prices": {
+          "vendor_1": 210.0,
+          "vendor_2": 126.0,
+          "vendor_3": 132.25,
+          "vendor_4": 260.0,
+          "vendor_7": 290.0,
+          "vendor_8": 250.0,
+          "vendor_9": 216.0,
+          "vendor_10": 145.0,
+          "vendor_11": 136.0,
+          "vendor_13": 126.0
+        }
+      },
+      {
+        "qty": "51-100",
+        "unit_price": 125.0,
+        "vendor_prices": {
+          "vendor_1": 205.0,
+          "vendor_2": 125.0,
+          "vendor_3": 132.25,
+          "vendor_4": 255.0,
+          "vendor_7": 273.5,
+          "vendor_8": 220.0,
+          "vendor_9": 209.0,
+          "vendor_10": 135.0,
+          "vendor_11": 135.0,
+          "vendor_13": 125.0
+        }
+      },
+      {
+        "qty": "101-500",
+        "unit_price": 124.0,
+        "vendor_prices": {
+          "vendor_1": 180.0,
+          "vendor_2": 124.0,
+          "vendor_3": 128.8,
+          "vendor_4": 250.0,
+          "vendor_7": 260.0,
+          "vendor_8": 180.0,
+          "vendor_9": 209.0,
+          "vendor_10": 130.0,
+          "vendor_11": 135.0,
+          "vendor_13": 124.0
+        }
+      },
+      {
+        "qty": "501-1000",
+        "unit_price": 122.0,
+        "vendor_prices": {
+          "vendor_1": 170.0,
+          "vendor_2": 123.0,
+          "vendor_3": 126.5,
+          "vendor_4": 240.0,
+          "vendor_7": 245.0,
+          "vendor_8": 150.0,
+          "vendor_9": 128.0,
+          "vendor_10": 122.0,
+          "vendor_11": 130.0,
+          "vendor_13": 122.0
+        }
+      },
+      {
+        "qty": "1001-2,000",
+        "unit_price": 116.0,
+        "vendor_prices": {
+          "vendor_1": 160.0,
+          "vendor_2": 122.0,
+          "vendor_3": 124.2,
+          "vendor_4": 210.0,
+          "vendor_7": 234.0,
+          "vendor_8": 145.0,
+          "vendor_9": 120.0,
+          "vendor_10": 116.0,
+          "vendor_11": 129.0,
+          "vendor_13": 116.0
+        }
+      }
+    ],
+    "approved_price_per_unit": 116.0,
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%"
+  },
+  {
+    "id": "PRINT_RATE_19",
+    "category": "งานพิมพ์อัตราค่าบริการ",
+    "item_name": "Wrap Around 3 mm. 70x100 cm.\n - วัสดุ PP Board 3 mm. พิมพ์ 1 ด้าน \n - ตัดสี่เหลี่ยม,  พิมพ์ 4 สี\n - Indoor บน สติ๊กเกอร์ ติดบนแผ่น PP Board 3 mm.",
+    "price_tiers": [
+      {
+        "qty": "1-20",
+        "unit_price": 123.0,
+        "vendor_prices": {
+          "vendor_1": 200.0,
+          "vendor_2": 123.0,
+          "vendor_3": 128.8,
+          "vendor_4": 360.0,
+          "vendor_7": 400.0,
+          "vendor_8": 245.0,
+          "vendor_9": 213.0,
+          "vendor_10": 145.0,
+          "vendor_11": 127.0,
+          "vendor_13": 123.0
+        }
+      },
+      {
+        "qty": "21-50",
+        "unit_price": 122.0,
+        "vendor_prices": {
+          "vendor_1": 195.0,
+          "vendor_2": 122.0,
+          "vendor_3": 126.5,
+          "vendor_4": 250.0,
+          "vendor_7": 350.0,
+          "vendor_8": 240.0,
+          "vendor_9": 206.0,
+          "vendor_10": 140.0,
+          "vendor_11": 127.0,
+          "vendor_13": 122.0
+        }
+      },
+      {
+        "qty": "51-100",
+        "unit_price": 121.0,
+        "vendor_prices": {
+          "vendor_1": 190.0,
+          "vendor_2": 121.0,
+          "vendor_3": 124.2,
+          "vendor_4": 245.0,
+          "vendor_7": 300.0,
+          "vendor_8": 210.0,
+          "vendor_9": 199.0,
+          "vendor_10": 135.0,
+          "vendor_11": 125.0,
+          "vendor_13": 121.0
+        }
+      },
+      {
+        "qty": "101-500",
+        "unit_price": 120.0,
+        "vendor_prices": {
+          "vendor_1": 185.0,
+          "vendor_2": 120.0,
+          "vendor_3": 124.2,
+          "vendor_4": 240.0,
+          "vendor_7": 270.0,
+          "vendor_8": 210.0,
+          "vendor_9": 199.0,
+          "vendor_10": 130.0,
+          "vendor_11": 125.0,
+          "vendor_13": 120.0
+        }
+      },
+      {
+        "qty": "501-1000",
+        "unit_price": 119.0,
+        "vendor_prices": {
+          "vendor_1": 180.0,
+          "vendor_2": 119.0,
+          "vendor_3": 120.75,
+          "vendor_4": 230.0,
+          "vendor_7": 260.0,
+          "vendor_8": 160.0,
+          "vendor_9": 124.0,
+          "vendor_10": 120.0,
+          "vendor_11": 122.0,
+          "vendor_13": 119.0
+        }
+      },
+      {
+        "qty": "1001-2,000",
+        "unit_price": 115.0,
+        "vendor_prices": {
+          "vendor_1": 175.0,
+          "vendor_2": 118.0,
+          "vendor_3": 120.75,
+          "vendor_4": 200.0,
+          "vendor_7": 245.0,
+          "vendor_8": 140.0,
+          "vendor_9": 115.0,
+          "vendor_10": 115.0,
+          "vendor_11": 122.0,
+          "vendor_13": 115.0
+        }
+      }
+    ],
+    "approved_price_per_unit": 115.0,
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%"
+  },
+  {
+    "id": "PRINT_RATE_20",
+    "category": "งานพิมพ์อัตราค่าบริการ",
+    "item_name": "Wrap Around 3 mm. 70x120 cm.\n - วัสดุ PP Board 3 mm. พิมพ์ 1 ด้าน\n - Indoor บน สติ๊กเกอร์ ติดบนแผ่น PP Board 3 mm., พิมพ์ 4 สี \n - ตัดสี่เหลี่ยม",
+    "price_tiers": [
+      {
+        "qty": "1-20",
+        "unit_price": 147.0,
+        "vendor_prices": {
+          "vendor_1": 250.0,
+          "vendor_2": 147.0,
+          "vendor_3": 155.25,
+          "vendor_4": 360.0,
+          "vendor_7": 420.0,
+          "vendor_8": 290.0,
+          "vendor_9": 243.0,
+          "vendor_10": 170.0,
+          "vendor_11": 155.25,
+          "vendor_13": 147.0
+        }
+      },
+      {
+        "qty": "21-50",
+        "unit_price": 146.0,
+        "vendor_prices": {
+          "vendor_1": 245.0,
+          "vendor_2": 146.0,
+          "vendor_3": 149.5,
+          "vendor_4": 300.0,
+          "vendor_7": 370.0,
+          "vendor_8": 280.0,
+          "vendor_9": 232.0,
+          "vendor_10": 165.0,
+          "vendor_11": 155.0,
+          "vendor_13": 146.0
+        }
+      },
+      {
+        "qty": "51-100",
+        "unit_price": 145.0,
+        "vendor_prices": {
+          "vendor_1": 240.0,
+          "vendor_2": 145.0,
+          "vendor_3": 149.5,
+          "vendor_4": 295.0,
+          "vendor_7": 320.0,
+          "vendor_8": 250.0,
+          "vendor_9": 224.0,
+          "vendor_10": 155.0,
+          "vendor_11": 150.0,
+          "vendor_13": 145.0
+        }
+      },
+      {
+        "qty": "101-500",
+        "unit_price": 144.0,
+        "vendor_prices": {
+          "vendor_1": 210.0,
+          "vendor_2": 144.0,
+          "vendor_3": 147.2,
+          "vendor_4": 290.0,
+          "vendor_6": 240.0,
+          "vendor_7": 290.0,
+          "vendor_8": 200.0,
+          "vendor_9": 224.0,
+          "vendor_10": 150.0,
+          "vendor_11": 150.0,
+          "vendor_13": 144.0
+        }
+      },
+      {
+        "qty": "501-1000",
+        "unit_price": 140.0,
+        "vendor_prices": {
+          "vendor_1": 200.0,
+          "vendor_2": 143.0,
+          "vendor_3": 144.9,
+          "vendor_4": 280.0,
+          "vendor_7": 280.0,
+          "vendor_8": 170.0,
+          "vendor_9": 147.0,
+          "vendor_10": 140.0,
+          "vendor_11": 147.2,
+          "vendor_13": 140.0
+        }
+      },
+      {
+        "qty": "1001-2,000",
+        "unit_price": 135.0,
+        "vendor_prices": {
+          "vendor_1": 195.0,
+          "vendor_2": 142.0,
+          "vendor_3": 143.75,
+          "vendor_4": 250.0,
+          "vendor_7": 265.0,
+          "vendor_8": 170.0,
+          "vendor_9": 139.0,
+          "vendor_10": 135.0,
+          "vendor_11": 145.0,
+          "vendor_13": 135.0
+        }
+      }
+    ],
+    "approved_price_per_unit": 135.0,
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%"
+  },
+  {
+    "id": "PRINT_RATE_21",
+    "category": "งานพิมพ์อัตราค่าบริการ",
+    "item_name": "Wrap Around 3 mm. 80x100 cm.\n - วัสดุ PP Board 3 mm. พิมพ์ 1 ด้าน \n - ตัดสี่เหลี่ยม,  พิมพ์ 4 สี\n - Indoor บน สติ๊กเกอร์ ติดบนแผ่น PP Board 3 mm.",
+    "price_tiers": [
+      {
+        "qty": "1-20",
+        "unit_price": 140.0,
+        "vendor_prices": {
+          "vendor_1": 240.0,
+          "vendor_2": 140.0,
+          "vendor_3": 149.5,
+          "vendor_4": 360.0,
+          "vendor_7": 400.0,
+          "vendor_8": 280.0,
+          "vendor_9": 243.0,
+          "vendor_10": 170.0,
+          "vendor_11": 150.0,
+          "vendor_12": 208.0,
+          "vendor_13": 140.0
+        }
+      },
+      {
+        "qty": "21-50",
+        "unit_price": 139.0,
+        "vendor_prices": {
+          "vendor_1": 235.0,
+          "vendor_2": 139.0,
+          "vendor_3": 147.2,
+          "vendor_4": 290.0,
+          "vendor_7": 340.0,
+          "vendor_8": 270.0,
+          "vendor_9": 232.0,
+          "vendor_10": 165.0,
+          "vendor_11": 150.0,
+          "vendor_12": 208.0,
+          "vendor_13": 139.0
+        }
+      },
+      {
+        "qty": "51-100",
+        "unit_price": 138.0,
+        "vendor_prices": {
+          "vendor_1": 230.0,
+          "vendor_2": 138.0,
+          "vendor_3": 143.75,
+          "vendor_4": 285.0,
+          "vendor_7": 305.0,
+          "vendor_8": 200.0,
+          "vendor_9": 224.0,
+          "vendor_10": 160.0,
+          "vendor_11": 148.0,
+          "vendor_12": 208.0,
+          "vendor_13": 138.0
+        }
+      },
+      {
+        "qty": "101-500",
+        "unit_price": 137.0,
+        "vendor_prices": {
+          "vendor_1": 200.0,
+          "vendor_2": 137.0,
+          "vendor_3": 140.3,
+          "vendor_4": 280.0,
+          "vendor_7": 288.0,
+          "vendor_8": 180.0,
+          "vendor_9": 224.0,
+          "vendor_10": 145.0,
+          "vendor_11": 148.0,
+          "vendor_12": 208.0,
+          "vendor_13": 137.0
+        }
+      },
+      {
+        "qty": "501-1000",
+        "unit_price": 135.0,
+        "vendor_prices": {
+          "vendor_1": 190.0,
+          "vendor_2": 136.0,
+          "vendor_3": 138.0,
+          "vendor_4": 270.0,
+          "vendor_7": 272.0,
+          "vendor_8": 160.0,
+          "vendor_9": 147.0,
+          "vendor_10": 135.0,
+          "vendor_11": 145.0,
+          "vendor_12": 208.0,
+          "vendor_13": 135.0
+        }
+      },
+      {
+        "qty": "1001-2,000",
+        "unit_price": 128.0,
+        "vendor_prices": {
+          "vendor_1": 180.0,
+          "vendor_2": 135.0,
+          "vendor_3": 138.0,
+          "vendor_4": 240.0,
+          "vendor_7": 260.0,
+          "vendor_8": 160.0,
+          "vendor_9": 139.0,
+          "vendor_10": 128.0,
+          "vendor_11": 140.0,
+          "vendor_12": 208.0,
+          "vendor_13": 128.0
+        }
+      }
+    ],
+    "approved_price_per_unit": 128.0,
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%"
+  },
+  {
+    "id": "PRINT_RATE_22",
+    "category": "งานพิมพ์อัตราค่าบริการ",
+    "item_name": "Wrap Around 3 mm. 80x120 cm.\n - วัสดุ PP Board 3 mm. พิมพ์ 1 ด้าน\n - Indoor บน สติ๊กเกอร์ ติดบนแผ่น PP Board 3 mm., พิมพ์ 4 สี \n - ตัดสี่เหลี่ยม",
+    "price_tiers": [
+      {
+        "qty": "1-20",
+        "unit_price": 168.0,
+        "vendor_prices": {
+          "vendor_1": 290.0,
+          "vendor_2": 168.0,
+          "vendor_3": 178.25,
+          "vendor_4": 360.0,
+          "vendor_7": 420.0,
+          "vendor_8": 330.0,
+          "vendor_9": 273.0,
+          "vendor_10": 200.0,
+          "vendor_11": 180.0,
+          "vendor_12": 250.0,
+          "vendor_13": 168.0
+        }
+      },
+      {
+        "qty": "21-50",
+        "unit_price": 167.0,
+        "vendor_prices": {
+          "vendor_1": 285.0,
+          "vendor_2": 167.0,
+          "vendor_3": 174.8,
+          "vendor_4": 345.0,
+          "vendor_7": 384.0,
+          "vendor_8": 300.0,
+          "vendor_9": 264.0,
+          "vendor_10": 195.0,
+          "vendor_11": 180.0,
+          "vendor_12": 250.0,
+          "vendor_13": 167.0
+        }
+      },
+      {
+        "qty": "51-100",
+        "unit_price": 166.0,
+        "vendor_prices": {
+          "vendor_1": 280.0,
+          "vendor_2": 166.0,
+          "vendor_3": 172.5,
+          "vendor_4": 340.0,
+          "vendor_7": 365.0,
+          "vendor_8": 250.0,
+          "vendor_9": 253.0,
+          "vendor_10": 185.0,
+          "vendor_11": 175.0,
+          "vendor_12": 250.0,
+          "vendor_13": 166.0
+        }
+      },
+      {
+        "qty": "101-500",
+        "unit_price": 165.0,
+        "vendor_prices": {
+          "vendor_1": 240.0,
+          "vendor_2": 165.0,
+          "vendor_3": 170.2,
+          "vendor_4": 335.0,
+          "vendor_6": 280.0,
+          "vendor_7": 345.0,
+          "vendor_8": 200.0,
+          "vendor_9": 253.0,
+          "vendor_10": 175.0,
+          "vendor_11": 175.0,
+          "vendor_12": 250.0,
+          "vendor_13": 165.0
+        }
+      },
+      {
+        "qty": "501-1000",
+        "unit_price": 164.0,
+        "vendor_prices": {
+          "vendor_1": 220.0,
+          "vendor_2": 164.0,
+          "vendor_3": 166.75,
+          "vendor_4": 325.0,
+          "vendor_7": 326.5,
+          "vendor_8": 190.0,
+          "vendor_9": 177.0,
+          "vendor_10": 165.0,
+          "vendor_11": 167.0,
+          "vendor_12": 250.0,
+          "vendor_13": 164.0
+        }
+      },
+      {
+        "qty": "1001-2,000",
+        "unit_price": 160.0,
+        "vendor_prices": {
+          "vendor_1": 210.0,
+          "vendor_2": 163.0,
+          "vendor_3": 166.75,
+          "vendor_4": 295.0,
+          "vendor_7": 312.0,
+          "vendor_8": 190.0,
+          "vendor_9": 169.0,
+          "vendor_10": 160.0,
+          "vendor_11": 165.0,
+          "vendor_12": 250.0,
+          "vendor_13": 160.0
+        }
+      }
+    ],
+    "approved_price_per_unit": 160.0,
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%"
+  },
+  {
+    "id": "PRINT_RATE_23",
+    "category": "งานพิมพ์อัตราค่าบริการ",
+    "item_name": "Wrap Around 3 mm. ราคาตารางเมตรละ \n - วัสดุ PP Board 3 mm. พิมพ์ 1 ด้าน\n - Indoor บน สติ๊กเกอร์ ติดบนแผ่น PP Board 3 mm., พิมพ์ 4 สี \n - ตัดสี่เหลี่ยม",
+    "price_tiers": [
+      {
+        "qty": "1-20",
+        "unit_price": 150.0,
+        "vendor_prices": {
+          "vendor_2": 150.0,
+          "vendor_3": 195.5,
+          "vendor_4": 360.0,
+          "vendor_7": 500.0,
+          "vendor_8": 350.0,
+          "vendor_9": 325.0,
+          "vendor_10": 220.0,
+          "vendor_11": 200.0,
+          "vendor_12": 260.0,
+          "vendor_13": 150.0
+        }
+      },
+      {
+        "qty": "21-50",
+        "unit_price": 149.0,
+        "vendor_prices": {
+          "vendor_2": 149.0,
+          "vendor_3": 189.75,
+          "vendor_4": 360.0,
+          "vendor_7": 400.0,
+          "vendor_8": 350.0,
+          "vendor_9": 320.0,
+          "vendor_10": 210.0,
+          "vendor_11": 200.0,
+          "vendor_12": 260.0,
+          "vendor_13": 149.0
+        }
+      },
+      {
+        "qty": "51-100",
+        "unit_price": 148.0,
+        "vendor_prices": {
+          "vendor_2": 148.0,
+          "vendor_3": 186.3,
+          "vendor_4": 355.0,
+          "vendor_7": 380.0,
+          "vendor_8": 300.0,
+          "vendor_9": 318.0,
+          "vendor_10": 200.0,
+          "vendor_11": 190.0,
+          "vendor_12": 260.0,
+          "vendor_13": 148.0
+        }
+      },
+      {
+        "qty": "101-500",
+        "unit_price": 147.0,
+        "vendor_prices": {
+          "vendor_2": 147.0,
+          "vendor_3": 184.0,
+          "vendor_4": 340.0,
+          "vendor_7": 360.0,
+          "vendor_8": 250.0,
+          "vendor_9": 315.0,
+          "vendor_10": 190.0,
+          "vendor_11": 190.0,
+          "vendor_12": 260.0,
+          "vendor_13": 147.0
+        }
+      },
+      {
+        "qty": "501-1000",
+        "unit_price": 146.0,
+        "vendor_prices": {
+          "vendor_2": 146.0,
+          "vendor_3": 184.0,
+          "vendor_4": 338.0,
+          "vendor_7": 340.0,
+          "vendor_8": 250.0,
+          "vendor_9": 310.0,
+          "vendor_10": 180.0,
+          "vendor_11": 185.0,
+          "vendor_12": 260.0,
+          "vendor_13": 146.0
+        }
+      },
+      {
+        "qty": "1001-2,000",
+        "unit_price": 145.0,
+        "vendor_prices": {
+          "vendor_2": 145.0,
+          "vendor_3": 172.5,
+          "vendor_4": 300.0,
+          "vendor_7": 325.0,
+          "vendor_8": 200.0,
+          "vendor_9": 308.0,
+          "vendor_10": 170.0,
+          "vendor_11": 185.0,
+          "vendor_12": 260.0,
+          "vendor_13": 145.0
+        }
+      }
+    ],
+    "approved_price_per_unit": 145.0,
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%"
+  },
+  {
+    "id": "PRINT_RATE_24",
+    "category": "งานพิมพ์อัตราค่าบริการ",
+    "item_name": "Wrap Around 5 mm. ราคาตารางเมตรละ \n - วัสดุ PP Board 5 mm. พิมพ์ 1 ด้าน\n - Indoor บน สติ๊กเกอร์ ติดบนแผ่น PP Board 3 mm., พิมพ์ 4 สี \n - ตัดสี่เหลี่ยม",
+    "price_tiers": [
+      {
+        "qty": "1-20",
+        "unit_price": 171.0,
+        "vendor_prices": {
+          "vendor_2": 171.0,
+          "vendor_3": 253.0,
+          "vendor_7": 550.0,
+          "vendor_8": 450.0,
+          "vendor_9": 395.0,
+          "vendor_10": 270.0,
+          "vendor_11": 255.0,
+          "vendor_12": 270.0,
+          "vendor_13": 171.0
+        }
+      },
+      {
+        "qty": "21-50",
+        "unit_price": 170.0,
+        "vendor_prices": {
+          "vendor_2": 170.0,
+          "vendor_3": 247.25,
+          "vendor_7": 500.0,
+          "vendor_8": 450.0,
+          "vendor_9": 390.0,
+          "vendor_10": 245.0,
+          "vendor_11": 255.0,
+          "vendor_12": 270.0,
+          "vendor_13": 170.0
+        }
+      },
+      {
+        "qty": "51-100",
+        "unit_price": 169.0,
+        "vendor_prices": {
+          "vendor_2": 169.0,
+          "vendor_3": 230.0,
+          "vendor_7": 480.0,
+          "vendor_8": 400.0,
+          "vendor_9": 385.0,
+          "vendor_10": 230.0,
+          "vendor_11": 250.0,
+          "vendor_12": 270.0,
+          "vendor_13": 169.0
+        }
+      },
+      {
+        "qty": "101-500",
+        "unit_price": 168.0,
+        "vendor_prices": {
+          "vendor_2": 168.0,
+          "vendor_3": 212.75,
+          "vendor_7": 450.0,
+          "vendor_8": 300.0,
+          "vendor_9": 380.0,
+          "vendor_10": 220.0,
+          "vendor_11": 250.0,
+          "vendor_12": 270.0,
+          "vendor_13": 168.0
+        }
+      },
+      {
+        "qty": "501-1000",
+        "unit_price": 167.0,
+        "vendor_prices": {
+          "vendor_2": 167.0,
+          "vendor_3": 209.3,
+          "vendor_7": 430.0,
+          "vendor_8": 250.0,
+          "vendor_9": 377.0,
+          "vendor_10": 205.0,
+          "vendor_11": 220.0,
+          "vendor_12": 270.0,
+          "vendor_13": 167.0
+        }
+      },
+      {
+        "qty": "1001-2,000",
+        "unit_price": 166.0,
+        "vendor_prices": {
+          "vendor_2": 166.0,
+          "vendor_3": 207.0,
+          "vendor_7": 400.0,
+          "vendor_8": 250.0,
+          "vendor_9": 375.0,
+          "vendor_10": 195.0,
+          "vendor_11": 210.0,
+          "vendor_12": 270.0,
+          "vendor_13": 166.0
+        }
+      }
+    ],
+    "approved_price_per_unit": 166.0,
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%"
+  },
+  {
+    "id": "PRINT_RATE_25",
+    "category": "งานพิมพ์อัตราค่าบริการ",
+    "item_name": "Journal A4 with 60-65 pages 4color รวมปก",
+    "price_tiers": [
+      {
+        "qty": "100-200",
+        "unit_price": 176.0,
+        "vendor_prices": {
+          "vendor_2": 176.0,
+          "vendor_4": 240.0,
+          "vendor_7": 400.0,
+          "vendor_9": 317.0,
+          "vendor_13": 176.0
+        }
+      }
+    ],
+    "approved_price_per_unit": 176.0,
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%"
+  },
+  {
+    "id": "PRINT_RATE_26",
+    "category": "งานพิมพ์อัตราค่าบริการ",
+    "item_name": "Flat Size A3 (420mm x 297mm)\nกระดาษถนอมสายตา 80 แกรม\nแม็กกลาง พิมพ์ 4 สี แบบ Offset",
+    "price_tiers": [
+      {
+        "qty": "201-300",
+        "unit_price": 136.0,
+        "vendor_prices": {
+          "vendor_2": 136.0,
+          "vendor_4": 210.0,
+          "vendor_7": 320.0,
+          "vendor_9": 179.0,
+          "vendor_13": 136.0
+        }
+      }
+    ],
+    "approved_price_per_unit": 136.0,
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%"
+  },
+  {
+    "id": "PRINT_RATE_27",
+    "category": "งานพิมพ์อัตราค่าบริการ",
+    "item_name": "Journal A4 with66- 75 pages รวมปก",
+    "price_tiers": [
+      {
+        "qty": "100-200",
+        "unit_price": 214.0,
+        "vendor_prices": {
+          "vendor_2": 214.0,
+          "vendor_4": 270.0,
+          "vendor_7": 460.0,
+          "vendor_9": 327.0,
+          "vendor_13": 214.0
+        }
+      }
+    ],
+    "approved_price_per_unit": 214.0,
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%"
+  },
+  {
+    "id": "PRINT_RATE_28",
+    "category": "งานพิมพ์อัตราค่าบริการ",
+    "item_name": "Flat SizeA3 (420mm x 297mm)\nกระดาษถนอมสายตา 80 แกรม\nแม็กกลาง พิมพ์ 4 สี แบบ Offset",
+    "price_tiers": [
+      {
+        "qty": "201-300",
+        "unit_price": 172.0,
+        "vendor_prices": {
+          "vendor_2": 172.0,
+          "vendor_4": 240.0,
+          "vendor_7": 370.0,
+          "vendor_9": 189.0,
+          "vendor_13": 172.0
+        }
+      }
+    ],
+    "approved_price_per_unit": 172.0,
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%"
+  },
+  {
+    "id": "PRINT_RATE_29",
+    "category": "งานพิมพ์อัตราค่าบริการ",
+    "item_name": "Neck tag 6.5x7 cm. Art card 250 grams",
+    "price_tiers": [
+      {
+        "qty": "500",
+        "unit_price": 1.54,
+        "vendor_prices": {
+          "vendor_2": 1.54,
+          "vendor_3": 3.75,
+          "vendor_4": 8.0,
+          "vendor_7": 1000.0,
+          "vendor_9": 9.0,
+          "vendor_10": 4.5,
+          "vendor_11": 21.0,
+          "vendor_13": 3.75
+        }
+      }
+    ],
+    "approved_price_per_unit": 1.54,
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%"
+  },
+  {
+    "id": "PRINT_RATE_30",
+    "category": "งานพิมพ์อัตราค่าบริการ",
+    "item_name": "Material: Art card 250 grams Printing: 4 colors offset (CMYK)",
+    "price_tiers": [
+      {
+        "qty": "1000",
+        "unit_price": 3.45,
+        "vendor_prices": {
+          "vendor_2": 4.9,
+          "vendor_3": 3.45,
+          "vendor_4": 8.0,
+          "vendor_7": 1500.0,
+          "vendor_9": 6.0,
+          "vendor_10": 4.0,
+          "vendor_11": 18.0,
+          "vendor_13": 3.45
+        }
+      }
+    ],
+    "approved_price_per_unit": 3.45,
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%"
+  },
+  {
+    "id": "PRINT_RATE_31",
+    "category": "งานพิมพ์อัตราค่าบริการ",
+    "item_name": "โปสเตอร์ Cut2  ขนาด 20 x 30 นิ้ว กระดาษอาร์ตการ์ด250แกรม",
+    "price_tiers": [
+      {
+        "qty": "1-100",
+        "unit_price": 69.0,
+        "vendor_prices": {
+          "vendor_2": 69.0,
+          "vendor_3": 86.25,
+          "vendor_7": 95.0,
+          "vendor_10": 95.0,
+          "vendor_11": 90.0,
+          "vendor_13": 69.0
+        }
+      }
+    ],
+    "approved_price_per_unit": 69.0,
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%"
+  },
+  {
+    "id": "PRINT_RATE_32",
+    "category": "งานพิมพ์อัตราค่าบริการ",
+    "item_name": "พิมพ์ 4 สี 1 หน้า ตัดสี่เหลี่ยม",
+    "price_tiers": [
+      {
+        "qty": "101-200",
+        "unit_price": 54.0,
+        "vendor_prices": {
+          "vendor_2": 54.0,
+          "vendor_3": 80.5,
+          "vendor_7": 88.0,
+          "vendor_9": 113.0,
+          "vendor_10": 90.0,
+          "vendor_11": 85.0,
+          "vendor_13": 54.0
+        }
+      }
+    ],
+    "approved_price_per_unit": 54.0,
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%"
+  },
+  {
+    "id": "PRINT_RATE_33",
+    "category": "งานพิมพ์อัตราค่าบริการ",
+    "item_name": "โปสเตอร์ Cut4 ขนาด 15 x 21 นิ้ว กระดาษอาร์ตการ์ด250แกรม",
+    "price_tiers": [
+      {
+        "qty": "1-200",
+        "unit_price": 32.0,
+        "vendor_prices": {
+          "vendor_2": 32.0,
+          "vendor_3": 42.55,
+          "vendor_7": 65.0,
+          "vendor_9": 72.0,
+          "vendor_10": 55.0,
+          "vendor_11": 43.0,
+          "vendor_13": 32.0
+        }
+      }
+    ],
+    "approved_price_per_unit": 32.0,
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%"
+  },
+  {
+    "id": "PRINT_RATE_34",
+    "category": "งานพิมพ์อัตราค่าบริการ",
+    "item_name": "พิมพ์ 4 สี 1 หน้า ตัดสี่เหลี่ยม",
+    "price_tiers": [
+      {
+        "qty": "201-300",
+        "unit_price": 24.0,
+        "vendor_prices": {
+          "vendor_2": 24.0,
+          "vendor_3": 40.25,
+          "vendor_7": 50.0,
+          "vendor_9": 72.0,
+          "vendor_10": 50.0,
+          "vendor_11": 41.0,
+          "vendor_13": 24.0
+        }
+      }
+    ],
+    "approved_price_per_unit": 24.0,
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%"
+  },
+  {
+    "id": "PRINT_RATE_35",
+    "category": "งานพิมพ์อัตราค่าบริการ",
+    "item_name": "โปสเตอร์  ขนาด 16 x 24 นิ้ว  พิมพ์ 4 สี 1 หน้า",
+    "price_tiers": [
+      {
+        "qty": "5000",
+        "unit_price": 4.0,
+        "vendor_prices": {
+          "vendor_2": 5.9,
+          "vendor_3": 48.3,
+          "vendor_5": 4.0,
+          "vendor_9": 72.0,
+          "vendor_10": 55.0,
+          "vendor_11": 40.0,
+          "vendor_13": 4.0
+        }
+      }
+    ],
+    "approved_price_per_unit": 4.0,
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%"
+  },
+  {
+    "id": "PRINT_RATE_36",
+    "category": "งานพิมพ์อัตราค่าบริการ",
+    "item_name": "วัสดุ กระดาษกล่องแป้งหลังมันหลังเทา 270 g. ตัดสี่เหลี่ยม",
+    "price_tiers": [
+      {
+        "qty": "10000",
+        "unit_price": 3.2,
+        "vendor_prices": {
+          "vendor_2": 4.84,
+          "vendor_3": 46.0,
+          "vendor_5": 3.5,
+          "vendor_7": 3.2,
+          "vendor_9": 485.0,
+          "vendor_10": 48.0,
+          "vendor_11": 35.0,
+          "vendor_13": 3.2
+        }
+      }
+    ],
+    "approved_price_per_unit": 3.2,
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%"
+  },
+  {
+    "id": "PRINT_RATE_37",
+    "category": "งานพิมพ์อัตราค่าบริการ",
+    "item_name": "PP Board 29 x 50 cm .",
+    "price_tiers": [
+      {
+        "qty": "100",
+        "unit_price": 25.3,
+        "vendor_prices": {
+          "vendor_1": 45.0,
+          "vendor_2": 27.0,
+          "vendor_3": 25.3,
+          "vendor_7": 60.0,
+          "vendor_8": 40.0,
+          "vendor_9": 59.5,
+          "vendor_10": 35.0,
+          "vendor_11": 26.0,
+          "vendor_12": 37.0,
+          "vendor_13": 25.3
+        }
+      }
+    ],
+    "approved_price_per_unit": 25.3,
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%"
+  },
+  {
+    "id": "PRINT_RATE_38",
+    "category": "งานพิมพ์อัตราค่าบริการ",
+    "item_name": "- PP Board 3 mm. -หน้าเดียว Headboard PVS Rack",
+    "price_tiers": [
+      {
+        "qty": "500",
+        "unit_price": 24.15,
+        "vendor_prices": {
+          "vendor_1": 40.0,
+          "vendor_2": 26.0,
+          "vendor_3": 24.15,
+          "vendor_7": 51.0,
+          "vendor_8": 35.0,
+          "vendor_9": 48.5,
+          "vendor_10": 28.0,
+          "vendor_11": 25.0,
+          "vendor_12": 37.0,
+          "vendor_13": 24.15
+        }
+      }
+    ],
+    "approved_price_per_unit": 24.15,
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%"
+  },
+  {
+    "id": "PRINT_RATE_39",
+    "category": "งานพิมพ์อัตราค่าบริการ",
+    "item_name": "- หน้าเดียว Headboard PVS Rack",
+    "price_tiers": [
+      {
+        "qty": "1000",
+        "unit_price": 23.0,
+        "vendor_prices": {
+          "vendor_1": 36.0,
+          "vendor_2": 25.0,
+          "vendor_3": 23.0,
+          "vendor_7": 49.0,
+          "vendor_8": 30.0,
+          "vendor_9": 39.75,
+          "vendor_10": 25.0,
+          "vendor_11": 24.0,
+          "vendor_12": 37.0,
+          "vendor_13": 23.0
+        }
+      }
+    ],
+    "approved_price_per_unit": 23.0,
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%"
+  },
+  {
+    "id": "PRINT_RATE_40",
+    "category": "งานพิมพ์อัตราค่าบริการ",
+    "item_name": "- Injet Indoor",
+    "price_tiers": [
+      {
+        "qty": "5000",
+        "unit_price": 21.85,
+        "vendor_prices": {
+          "vendor_1": 35.0,
+          "vendor_2": 24.0,
+          "vendor_3": 21.85,
+          "vendor_7": 45.0,
+          "vendor_8": 30.0,
+          "vendor_9": 32.4,
+          "vendor_10": 23.0,
+          "vendor_11": 23.0,
+          "vendor_12": 35.0,
+          "vendor_13": 21.85
+        }
+      }
+    ],
+    "approved_price_per_unit": 21.85,
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%"
+  },
+  {
+    "id": "PRINT_RATE_41",
+    "category": "งานพิมพ์อัตราค่าบริการ",
+    "item_name": "Headboard PVS Rack PP board 30 x 47 cm. \n - หน้าเดียว PP Board 3 mm.  \n - ตัดสี่เหลี่ยม Inkjet Indoor",
+    "price_tiers": [
+      {
+        "qty": "100",
+        "unit_price": 24.15,
+        "vendor_prices": {
+          "vendor_1": 40.0,
+          "vendor_2": 26.0,
+          "vendor_3": 24.15,
+          "vendor_7": 60.0,
+          "vendor_8": 40.0,
+          "vendor_9": 57.0,
+          "vendor_10": 34.0,
+          "vendor_11": 25.0,
+          "vendor_12": 37.0,
+          "vendor_13": 24.15
+        }
+      },
+      {
+        "qty": "500",
+        "unit_price": 23.0,
+        "vendor_prices": {
+          "vendor_1": 37.0,
+          "vendor_2": 25.0,
+          "vendor_3": 23.0,
+          "vendor_7": 51.0,
+          "vendor_8": 35.0,
+          "vendor_9": 46.0,
+          "vendor_10": 27.0,
+          "vendor_11": 24.0,
+          "vendor_12": 37.0,
+          "vendor_13": 23.0
+        }
+      },
+      {
+        "qty": "1000",
+        "unit_price": 21.85,
+        "vendor_prices": {
+          "vendor_1": 30.0,
+          "vendor_2": 24.0,
+          "vendor_3": 21.85,
+          "vendor_7": 49.0,
+          "vendor_8": 30.0,
+          "vendor_9": 37.5,
+          "vendor_10": 24.0,
+          "vendor_11": 24.0,
+          "vendor_12": 37.0,
+          "vendor_13": 21.85
+        }
+      },
+      {
+        "qty": "5000",
+        "unit_price": 20.7,
+        "vendor_prices": {
+          "vendor_1": 28.0,
+          "vendor_2": 23.0,
+          "vendor_3": 20.7,
+          "vendor_7": 45.0,
+          "vendor_8": 30.0,
+          "vendor_9": 29.8,
+          "vendor_10": 23.0,
+          "vendor_11": 22.0,
+          "vendor_12": 35.0,
+          "vendor_13": 20.7
+        }
+      }
+    ],
+    "approved_price_per_unit": 20.7,
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%"
+  },
+  {
+    "id": "PRINT_RATE_42",
+    "category": "งานพิมพ์อัตราค่าบริการ",
+    "item_name": "PP Board 46x123.5 cm. 4 mm. \n-หน้าเดียวสติ๊กเกอร์ PVC  ติดบน PP Board \nหากจำนวนเยอะใช้วิธีการ silk screen",
+    "price_tiers": [
+      {
+        "qty": "100",
+        "unit_price": 105.0,
+        "vendor_prices": {
+          "vendor_1": 170.0,
+          "vendor_2": 135.0,
+          "vendor_3": 120.75,
+          "vendor_7": 270.0,
+          "vendor_8": 130.0,
+          "vendor_9": 185.0,
+          "vendor_10": 105.0,
+          "vendor_11": 122.0,
+          "vendor_12": 150.0,
+          "vendor_13": 105.0
+        }
+      },
+      {
+        "qty": "500",
+        "unit_price": 98.0,
+        "vendor_prices": {
+          "vendor_1": 160.0,
+          "vendor_2": 134.0,
+          "vendor_3": 117.3,
+          "vendor_7": 240.0,
+          "vendor_8": 120.0,
+          "vendor_9": 135.0,
+          "vendor_10": 98.0,
+          "vendor_11": 120.0,
+          "vendor_12": 150.0,
+          "vendor_13": 98.0
+        }
+      },
+      {
+        "qty": "1000",
+        "unit_price": 94.0,
+        "vendor_prices": {
+          "vendor_1": 145.0,
+          "vendor_2": 125.0,
+          "vendor_3": 98.9,
+          "vendor_7": 230.0,
+          "vendor_8": 115.0,
+          "vendor_9": 122.0,
+          "vendor_10": 94.0,
+          "vendor_11": 118.0,
+          "vendor_12": 150.0,
+          "vendor_13": 94.0
+        }
+      },
+      {
+        "qty": "5000",
+        "unit_price": 90.0,
+        "vendor_prices": {
+          "vendor_1": 140.0,
+          "vendor_2": 96.0,
+          "vendor_3": 97.75,
+          "vendor_7": 225.0,
+          "vendor_8": 115.0,
+          "vendor_9": 113.0,
+          "vendor_10": 90.0,
+          "vendor_11": 110.0,
+          "vendor_12": 150.0,
+          "vendor_13": 90.0
+        }
+      }
+    ],
+    "approved_price_per_unit": 90.0,
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%"
+  },
+  {
+    "id": "PRINT_RATE_43",
+    "category": "งานพิมพ์อัตราค่าบริการ",
+    "item_name": "Standee 60x160 cm. พร้อมขาตั้ง \n - สติ๊กเกอร์ PVCติดบน PP Board หนา 5 mm.หน้าเดียว พร้อมฐานขาตั้ง",
+    "price_tiers": [
+      {
+        "qty": "5",
+        "unit_price": 310.5,
+        "vendor_prices": {
+          "vendor_1": 500.0,
+          "vendor_2": 350.0,
+          "vendor_3": 310.5,
+          "vendor_4": 600.0,
+          "vendor_7": 600.0,
+          "vendor_8": 550.0,
+          "vendor_9": 850.0,
+          "vendor_10": 350.0,
+          "vendor_11": 315.0,
+          "vendor_13": 310.5
+        }
+      },
+      {
+        "qty": "10",
+        "unit_price": 304.75,
+        "vendor_prices": {
+          "vendor_1": 485.0,
+          "vendor_2": 340.0,
+          "vendor_3": 304.75,
+          "vendor_4": 550.0,
+          "vendor_7": 555.0,
+          "vendor_8": 550.0,
+          "vendor_9": 780.0,
+          "vendor_10": 330.0,
+          "vendor_11": 310.0,
+          "vendor_13": 304.75
+        }
+      }
+    ],
+    "approved_price_per_unit": 304.75,
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%"
+  },
+  {
+    "id": "PRINT_RATE_44",
+    "category": "งานพิมพ์อัตราค่าบริการ",
+    "item_name": "- Injet Indoor",
+    "price_tiers": [
+      {
+        "qty": "20",
+        "unit_price": 304.75,
+        "vendor_prices": {
+          "vendor_1": 465.0,
+          "vendor_2": 330.0,
+          "vendor_3": 304.75,
+          "vendor_4": 530.0,
+          "vendor_7": 545.0,
+          "vendor_8": 500.0,
+          "vendor_9": 760.0,
+          "vendor_10": 320.0,
+          "vendor_11": 310.0,
+          "vendor_13": 304.75
+        }
+      }
+    ],
+    "approved_price_per_unit": 304.75,
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%"
+  },
+  {
+    "id": "PRINT_RATE_45",
+    "category": "งานพิมพ์อัตราค่าบริการ",
+    "item_name": "- ไดคัทตามแบบ",
+    "price_tiers": [
+      {
+        "qty": "50",
+        "unit_price": 299.0,
+        "vendor_prices": {
+          "vendor_1": 450.0,
+          "vendor_2": 320.0,
+          "vendor_3": 299.0,
+          "vendor_4": 480.0,
+          "vendor_7": 528.0,
+          "vendor_8": 450.0,
+          "vendor_9": 750.0,
+          "vendor_10": 310.0,
+          "vendor_11": 305.0,
+          "vendor_13": 299.0
+        }
+      }
+    ],
+    "approved_price_per_unit": 299.0,
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%"
+  },
+  {
+    "id": "PRINT_RATE_46",
+    "category": "งานพิมพ์อัตราค่าบริการ",
+    "item_name": "หากจำนวนเยอะใช้วิธีการ silk screen",
+    "price_tiers": [
+      {
+        "qty": "100",
+        "unit_price": 293.25,
+        "vendor_prices": {
+          "vendor_1": 435.0,
+          "vendor_2": 315.0,
+          "vendor_3": 293.25,
+          "vendor_4": 450.0,
+          "vendor_7": 510.0,
+          "vendor_8": 450.0,
+          "vendor_9": 740.0,
+          "vendor_10": 300.0,
+          "vendor_11": 300.0,
+          "vendor_13": 293.25
+        }
+      }
+    ],
+    "approved_price_per_unit": 293.25,
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%"
+  },
+  {
+    "id": "PRINT_RATE_47",
+    "category": "งานพิมพ์อัตราค่าบริการ",
+    "item_name": "Tent card A3 \n - วัสดุ Inkjet Indoor บนสติกเกอร์ PVC เมาส์บนPP Board 3 mm. \n - ประกอบเป็นเต้นท์การ์ดทรงปฏิทิน ภาพ 2 หน้า(หน้า-หลังเหมือนกัน)",
+    "price_tiers": [
+      {
+        "qty": "1-10",
+        "unit_price": 45.0,
+        "vendor_prices": {
+          "vendor_1": 80.0,
+          "vendor_2": 45.0,
+          "vendor_3": 63.25,
+          "vendor_5": 120.0,
+          "vendor_7": 150.0,
+          "vendor_8": 108.0,
+          "vendor_9": 95.0,
+          "vendor_10": 65.0,
+          "vendor_11": 65.0,
+          "vendor_13": 45.0
+        }
+      },
+      {
+        "qty": "11-20",
+        "unit_price": 44.0,
+        "vendor_prices": {
+          "vendor_1": 80.0,
+          "vendor_2": 44.0,
+          "vendor_3": 58.65,
+          "vendor_5": 120.0,
+          "vendor_7": 125.0,
+          "vendor_8": 80.0,
+          "vendor_9": 90.0,
+          "vendor_10": 60.0,
+          "vendor_11": 65.0,
+          "vendor_13": 44.0
+        }
+      },
+      {
+        "qty": "21-50",
+        "unit_price": 43.0,
+        "vendor_prices": {
+          "vendor_1": 80.0,
+          "vendor_2": 43.0,
+          "vendor_3": 57.5,
+          "vendor_5": 120.0,
+          "vendor_7": 120.0,
+          "vendor_8": 70.0,
+          "vendor_9": 85.0,
+          "vendor_10": 58.0,
+          "vendor_11": 58.0,
+          "vendor_13": 43.0
+        }
+      },
+      {
+        "qty": "51-100",
+        "unit_price": 42.0,
+        "vendor_prices": {
+          "vendor_1": 75.0,
+          "vendor_2": 42.0,
+          "vendor_3": 56.35,
+          "vendor_5": 120.0,
+          "vendor_7": 110.0,
+          "vendor_8": 70.0,
+          "vendor_9": 82.0,
+          "vendor_10": 56.0,
+          "vendor_11": 58.0,
+          "vendor_13": 42.0
+        }
+      },
+      {
+        "qty": "101-300",
+        "unit_price": 41.0,
+        "vendor_prices": {
+          "vendor_1": 70.0,
+          "vendor_2": 41.0,
+          "vendor_3": 56.35,
+          "vendor_4": 100.0,
+          "vendor_5": 120.0,
+          "vendor_7": 105.0,
+          "vendor_8": 60.0,
+          "vendor_9": 80.0,
+          "vendor_10": 55.0,
+          "vendor_11": 57.0,
+          "vendor_13": 41.0
+        }
+      },
+      {
+        "qty": "301-500",
+        "unit_price": 40.0,
+        "vendor_prices": {
+          "vendor_1": 65.0,
+          "vendor_2": 40.0,
+          "vendor_3": 55.2,
+          "vendor_4": 100.0,
+          "vendor_5": 100.0,
+          "vendor_7": 100.0,
+          "vendor_8": 50.0,
+          "vendor_9": 78.0,
+          "vendor_10": 53.0,
+          "vendor_11": 54.0,
+          "vendor_13": 40.0
+        }
+      },
+      {
+        "qty": "501-1,000",
+        "unit_price": 39.0,
+        "vendor_prices": {
+          "vendor_1": 60.0,
+          "vendor_2": 39.0,
+          "vendor_3": 51.75,
+          "vendor_4": 90.0,
+          "vendor_5": 100.0,
+          "vendor_7": 95.0,
+          "vendor_8": 50.0,
+          "vendor_9": 65.0,
+          "vendor_10": 50.0,
+          "vendor_11": 52.0,
+          "vendor_13": 39.0
+        }
+      }
+    ],
+    "approved_price_per_unit": 39.0,
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%"
+  },
+  {
+    "id": "PRINT_RATE_48",
+    "category": "งานพิมพ์อัตราค่าบริการ",
+    "item_name": "Tent card A4 \n - วัสดุ Inkjet Indoor บนสติกเกอร์ PVC เมาส์บนPP Board 3 mm.\n - ประกอบเป็นเต้นท์การ์ดทรงปฏิทิน ภาพ 2 หน้า(หน้า-หลังเหมือนกัน)",
+    "price_tiers": [
+      {
+        "qty": "1-10",
+        "unit_price": 27.0,
+        "vendor_prices": {
+          "vendor_1": 45.0,
+          "vendor_2": 27.0,
+          "vendor_3": 33.35,
+          "vendor_5": 60.0,
+          "vendor_7": 70.0,
+          "vendor_8": 45.0,
+          "vendor_9": 65.0,
+          "vendor_10": 50.0,
+          "vendor_13": 27.0
+        }
+      },
+      {
+        "qty": "11-20",
+        "unit_price": 26.0,
+        "vendor_prices": {
+          "vendor_1": 45.0,
+          "vendor_2": 26.0,
+          "vendor_3": 33.35,
+          "vendor_5": 60.0,
+          "vendor_7": 68.0,
+          "vendor_8": 45.0,
+          "vendor_9": 60.0,
+          "vendor_10": 45.0,
+          "vendor_11": 35.0,
+          "vendor_13": 26.0
+        }
+      },
+      {
+        "qty": "21-50",
+        "unit_price": 25.0,
+        "vendor_prices": {
+          "vendor_1": 45.0,
+          "vendor_2": 25.0,
+          "vendor_3": 32.2,
+          "vendor_5": 60.0,
+          "vendor_7": 65.0,
+          "vendor_8": 45.0,
+          "vendor_9": 58.0,
+          "vendor_10": 42.0,
+          "vendor_11": 35.0,
+          "vendor_13": 25.0
+        }
+      },
+      {
+        "qty": "51-100",
+        "unit_price": 24.0,
+        "vendor_prices": {
+          "vendor_1": 40.0,
+          "vendor_2": 24.0,
+          "vendor_3": 32.2,
+          "vendor_5": 60.0,
+          "vendor_7": 60.0,
+          "vendor_8": 45.0,
+          "vendor_9": 56.0,
+          "vendor_10": 40.0,
+          "vendor_11": 33.0,
+          "vendor_13": 24.0
+        }
+      },
+      {
+        "qty": "101-300",
+        "unit_price": 23.0,
+        "vendor_prices": {
+          "vendor_1": 38.0,
+          "vendor_2": 23.0,
+          "vendor_3": 28.75,
+          "vendor_4": 70.0,
+          "vendor_5": 60.0,
+          "vendor_7": 55.0,
+          "vendor_8": 40.0,
+          "vendor_9": 54.0,
+          "vendor_10": 35.0,
+          "vendor_11": 33.0,
+          "vendor_13": 23.0
+        }
+      },
+      {
+        "qty": "301-500",
+        "unit_price": 22.0,
+        "vendor_prices": {
+          "vendor_1": 36.0,
+          "vendor_2": 22.0,
+          "vendor_3": 28.75,
+          "vendor_4": 70.0,
+          "vendor_5": 50.0,
+          "vendor_7": 52.0,
+          "vendor_8": 30.0,
+          "vendor_9": 55.0,
+          "vendor_10": 33.0,
+          "vendor_11": 33.0,
+          "vendor_13": 22.0
+        }
+      },
+      {
+        "qty": "501-1,000",
+        "unit_price": 21.0,
+        "vendor_prices": {
+          "vendor_1": 35.0,
+          "vendor_2": 21.0,
+          "vendor_3": 27.6,
+          "vendor_4": 60.0,
+          "vendor_5": 50.0,
+          "vendor_7": 48.0,
+          "vendor_8": 30.0,
+          "vendor_9": 45.0,
+          "vendor_10": 30.0,
+          "vendor_11": 30.0,
+          "vendor_13": 21.0
+        }
+      }
+    ],
+    "approved_price_per_unit": 21.0,
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%"
+  },
+  {
+    "id": "PRINT_RATE_49",
+    "category": "งานพิมพ์อัตราค่าบริการ",
+    "item_name": "Tent card A5 \n - วัสดุ Inkjet Indoor บนสติกเกอร์ PVC เมาส์บนPP Board 3 mm.\n - ประกอบเป็นเต้นท์การ์ดทรงปฏิทิน ภาพ 2 หน้า(หน้า-หลังเหมือนกัน)",
+    "price_tiers": [
+      {
+        "qty": "1-10",
+        "unit_price": 18.0,
+        "vendor_prices": {
+          "vendor_1": 25.0,
+          "vendor_2": 18.0,
+          "vendor_3": 23.0,
+          "vendor_5": 40.0,
+          "vendor_7": 40.0,
+          "vendor_8": 20.0,
+          "vendor_9": 38.0,
+          "vendor_10": 40.0,
+          "vendor_11": 23.0,
+          "vendor_13": 18.0
+        }
+      },
+      {
+        "qty": "11-20",
+        "unit_price": 17.0,
+        "vendor_prices": {
+          "vendor_1": 25.0,
+          "vendor_2": 17.0,
+          "vendor_3": 21.85,
+          "vendor_5": 40.0,
+          "vendor_7": 35.0,
+          "vendor_8": 20.0,
+          "vendor_9": 35.0,
+          "vendor_10": 35.0,
+          "vendor_11": 23.0,
+          "vendor_13": 17.0
+        }
+      },
+      {
+        "qty": "21-50",
+        "unit_price": 16.0,
+        "vendor_prices": {
+          "vendor_1": 25.0,
+          "vendor_2": 16.0,
+          "vendor_3": 19.55,
+          "vendor_5": 40.0,
+          "vendor_7": 30.0,
+          "vendor_8": 20.0,
+          "vendor_9": 33.0,
+          "vendor_10": 30.0,
+          "vendor_11": 22.0,
+          "vendor_13": 16.0
+        }
+      },
+      {
+        "qty": "51-100",
+        "unit_price": 15.0,
+        "vendor_prices": {
+          "vendor_1": 23.0,
+          "vendor_2": 15.0,
+          "vendor_3": 18.4,
+          "vendor_5": 40.0,
+          "vendor_7": 28.5,
+          "vendor_8": 20.0,
+          "vendor_9": 32.0,
+          "vendor_10": 28.0,
+          "vendor_11": 22.0,
+          "vendor_13": 15.0
+        }
+      },
+      {
+        "qty": "101-300",
+        "unit_price": 14.0,
+        "vendor_prices": {
+          "vendor_1": 22.0,
+          "vendor_2": 14.0,
+          "vendor_3": 17.25,
+          "vendor_4": 50.0,
+          "vendor_5": 40.0,
+          "vendor_7": 27.0,
+          "vendor_8": 15.0,
+          "vendor_9": 30.0,
+          "vendor_10": 25.0,
+          "vendor_11": 20.0,
+          "vendor_13": 14.0
+        }
+      },
+      {
+        "qty": "301-500",
+        "unit_price": 13.0,
+        "vendor_prices": {
+          "vendor_1": 21.0,
+          "vendor_2": 13.0,
+          "vendor_3": 16.1,
+          "vendor_4": 50.0,
+          "vendor_5": 35.0,
+          "vendor_7": 26.0,
+          "vendor_8": 15.0,
+          "vendor_9": 28.0,
+          "vendor_10": 21.0,
+          "vendor_11": 16.5,
+          "vendor_13": 13.0
+        }
+      },
+      {
+        "qty": "501-1,000",
+        "unit_price": 12.0,
+        "vendor_prices": {
+          "vendor_1": 20.0,
+          "vendor_2": 12.0,
+          "vendor_3": 14.95,
+          "vendor_4": 35.0,
+          "vendor_5": 35.0,
+          "vendor_7": 25.0,
+          "vendor_8": 15.0,
+          "vendor_9": 24.0,
+          "vendor_10": 20.0,
+          "vendor_11": 16.0,
+          "vendor_13": 12.0
+        }
+      }
+    ],
+    "approved_price_per_unit": 12.0,
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%"
+  },
+  {
+    "id": "PRINT_RATE_50",
+    "category": "งานพิมพ์อัตราค่าบริการ",
+    "item_name": "Vacuum STICKER  ขนาด 10x10 cm.",
+    "price_tiers": [
+      {
+        "qty": "100-500",
+        "unit_price": 3.0,
+        "vendor_prices": {
+          "vendor_2": 8.5,
+          "vendor_3": 6.9,
+          "vendor_4": 15.0,
+          "vendor_7": 3.0,
+          "vendor_8": 5.0,
+          "vendor_9": 32.0,
+          "vendor_10": 9.0,
+          "vendor_11": 7.2,
+          "vendor_13": 3.0
+        }
+      }
+    ],
+    "approved_price_per_unit": 3.0,
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%"
+  },
+  {
+    "id": "PRINT_RATE_51",
+    "category": "งานพิมพ์อัตราค่าบริการ",
+    "item_name": "- สติ๊กเกอร์กาวรีมูฟสำหรับติดกระจกด้านหน้าตู้เย็น",
+    "price_tiers": [
+      {
+        "qty": "501-1,000",
+        "unit_price": 2.8,
+        "vendor_prices": {
+          "vendor_2": 8.24,
+          "vendor_3": 6.33,
+          "vendor_4": 10.0,
+          "vendor_7": 2.8,
+          "vendor_8": 5.0,
+          "vendor_9": 10.0,
+          "vendor_10": 8.5,
+          "vendor_11": 6.5,
+          "vendor_13": 2.8
+        }
+      }
+    ],
+    "approved_price_per_unit": 2.8,
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%"
+  },
+  {
+    "id": "PRINT_RATE_52",
+    "category": "งานพิมพ์อัตราค่าบริการ",
+    "item_name": "- ไดคัทตามแบบ",
+    "price_tiers": [
+      {
+        "qty": "1,001-1,500",
+        "unit_price": 2.7,
+        "vendor_prices": {
+          "vendor_2": 7.9,
+          "vendor_3": 5.93,
+          "vendor_4": 66.0,
+          "vendor_7": 2.7,
+          "vendor_8": 3.0,
+          "vendor_9": 10.0,
+          "vendor_10": 8.2,
+          "vendor_11": 6.4,
+          "vendor_13": 2.7
+        }
+      },
+      {
+        "qty": "1,501-2,000",
+        "unit_price": 2.5,
+        "vendor_prices": {
+          "vendor_2": 6.4,
+          "vendor_3": 5.75,
+          "vendor_7": 2.5,
+          "vendor_8": 3.0,
+          "vendor_9": 9.25,
+          "vendor_10": 8.0,
+          "vendor_11": 6.0,
+          "vendor_13": 2.5
+        }
+      },
+      {
+        "qty": "2,001-5,000",
+        "unit_price": 2.0,
+        "vendor_prices": {
+          "vendor_2": 5.64,
+          "vendor_3": 4.89,
+          "vendor_4": 6.0,
+          "vendor_6": 4.0,
+          "vendor_7": 2.0,
+          "vendor_8": 3.0,
+          "vendor_9": 8.4,
+          "vendor_10": 7.5,
+          "vendor_11": 5.8,
+          "vendor_13": 2.0
+        }
+      }
+    ],
+    "approved_price_per_unit": 2.0,
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%"
+  },
+  {
+    "id": "PRINT_RATE_53",
+    "category": "งานพิมพ์อัตราค่าบริการ",
+    "item_name": "Vacuum STICKER  ขนาด 12x12 cm.",
+    "price_tiers": [
+      {
+        "qty": "100-500",
+        "unit_price": 4.32,
+        "vendor_prices": {
+          "vendor_2": 9.4,
+          "vendor_3": 5.75,
+          "vendor_4": 20.0,
+          "vendor_7": 4.32,
+          "vendor_8": 5.0,
+          "vendor_9": 39.0,
+          "vendor_10": 11.0,
+          "vendor_11": 6.0,
+          "vendor_13": 4.32
+        }
+      }
+    ],
+    "approved_price_per_unit": 4.32,
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%"
+  },
+  {
+    "id": "PRINT_RATE_54",
+    "category": "งานพิมพ์อัตราค่าบริการ",
+    "item_name": "- สติ๊กเกอร์กาวรีมูฟสำหรับติดกระจกด้านหน้าตู้เย็น",
+    "price_tiers": [
+      {
+        "qty": "501-1,000",
+        "unit_price": 4.0,
+        "vendor_prices": {
+          "vendor_2": 9.0,
+          "vendor_3": 5.47,
+          "vendor_4": 12.0,
+          "vendor_7": 4.0,
+          "vendor_8": 5.0,
+          "vendor_9": 16.5,
+          "vendor_10": 9.5,
+          "vendor_11": 6.0,
+          "vendor_13": 4.0
+        }
+      }
+    ],
+    "approved_price_per_unit": 4.0,
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%"
+  },
+  {
+    "id": "PRINT_RATE_55",
+    "category": "งานพิมพ์อัตราค่าบริการ",
+    "item_name": "- ไดคัทตามแบบ",
+    "price_tiers": [
+      {
+        "qty": "1,001-1,500",
+        "unit_price": 3.8,
+        "vendor_prices": {
+          "vendor_2": 8.7,
+          "vendor_3": 5.2,
+          "vendor_4": 9.0,
+          "vendor_7": 3.8,
+          "vendor_8": 5.0,
+          "vendor_9": 10.9,
+          "vendor_10": 8.6,
+          "vendor_11": 5.3,
+          "vendor_13": 3.8
+        }
+      },
+      {
+        "qty": "1,501-2,000",
+        "unit_price": 3.6,
+        "vendor_prices": {
+          "vendor_2": 7.0,
+          "vendor_3": 5.0,
+          "vendor_4": 9.0,
+          "vendor_7": 3.6,
+          "vendor_8": 5.0,
+          "vendor_9": 10.25,
+          "vendor_10": 8.3,
+          "vendor_11": 5.3,
+          "vendor_13": 3.6
+        }
+      },
+      {
+        "qty": "2,001-5,000",
+        "unit_price": 2.9,
+        "vendor_prices": {
+          "vendor_2": 6.2,
+          "vendor_3": 5.0,
+          "vendor_4": 9.0,
+          "vendor_7": 2.9,
+          "vendor_8": 5.0,
+          "vendor_9": 9.85,
+          "vendor_10": 8.0,
+          "vendor_11": 5.3,
+          "vendor_13": 2.9
+        }
+      }
+    ],
+    "approved_price_per_unit": 2.9,
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%"
+  },
+  {
+    "id": "PRINT_RATE_56",
+    "category": "งานพิมพ์อัตราค่าบริการ",
+    "item_name": "Vacuum STICKER  ขนาด 15x15 cm.",
+    "price_tiers": [
+      {
+        "qty": "100-500",
+        "unit_price": 5.0,
+        "vendor_prices": {
+          "vendor_2": 10.4,
+          "vendor_3": 10.35,
+          "vendor_4": 30.0,
+          "vendor_7": 6.75,
+          "vendor_8": 5.0,
+          "vendor_9": 49.0,
+          "vendor_10": 14.0,
+          "vendor_11": 10.5,
+          "vendor_13": 5.0
+        }
+      }
+    ],
+    "approved_price_per_unit": 5.0,
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%"
+  },
+  {
+    "id": "PRINT_RATE_57",
+    "category": "งานพิมพ์อัตราค่าบริการ",
+    "item_name": "- สติ๊กเกอร์กาวรีมูฟสำหรับติดกระจกด้านหน้าตู้เย็น",
+    "price_tiers": [
+      {
+        "qty": "501-1,000",
+        "unit_price": 5.0,
+        "vendor_prices": {
+          "vendor_2": 9.9,
+          "vendor_3": 10.35,
+          "vendor_4": 20.0,
+          "vendor_7": 6.3,
+          "vendor_8": 5.0,
+          "vendor_9": 17.9,
+          "vendor_10": 13.0,
+          "vendor_11": 10.5,
+          "vendor_13": 5.0
+        }
+      }
+    ],
+    "approved_price_per_unit": 5.0,
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%"
+  },
+  {
+    "id": "PRINT_RATE_58",
+    "category": "งานพิมพ์อัตราค่าบริการ",
+    "item_name": "- ไดคัทตามแบบ",
+    "price_tiers": [
+      {
+        "qty": "1,001-1,500",
+        "unit_price": 4.5,
+        "vendor_prices": {
+          "vendor_2": 9.6,
+          "vendor_3": 9.78,
+          "vendor_4": 13.5,
+          "vendor_7": 6.0,
+          "vendor_8": 4.5,
+          "vendor_9": 11.9,
+          "vendor_10": 12.0,
+          "vendor_11": 10.0,
+          "vendor_13": 4.5
+        }
+      },
+      {
+        "qty": "1,501-2,000",
+        "unit_price": 4.5,
+        "vendor_prices": {
+          "vendor_2": 7.7,
+          "vendor_3": 9.78,
+          "vendor_4": 13.5,
+          "vendor_7": 5.6,
+          "vendor_8": 4.5,
+          "vendor_9": 11.0,
+          "vendor_10": 11.0,
+          "vendor_11": 10.0,
+          "vendor_13": 4.5
+        }
+      },
+      {
+        "qty": "2,001-5,000",
+        "unit_price": 4.5,
+        "vendor_prices": {
+          "vendor_2": 6.8,
+          "vendor_3": 8.98,
+          "vendor_4": 13.5,
+          "vendor_7": 4.5,
+          "vendor_8": 4.5,
+          "vendor_9": 10.55,
+          "vendor_10": 10.0,
+          "vendor_11": 9.0,
+          "vendor_13": 4.5
+        }
+      }
+    ],
+    "approved_price_per_unit": 4.5,
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%"
+  },
+  {
+    "id": "PRINT_RATE_59",
+    "category": "งานพิมพ์อัตราค่าบริการ",
+    "item_name": "Wobbler 10x10 cm.\n - วัสดุกระดาษอาร์ตการ์ด 300 แกรมพิมพ์ 4/0 สี จำนวน 1 ด้าน\n - ไดคัทตามแบบ ติดด้านพลาสติกใส",
+    "price_tiers": [
+      {
+        "qty": "1-50",
+        "unit_price": 5.0,
+        "vendor_prices": {
+          "vendor_2": 22.4,
+          "vendor_3": 11.5,
+          "vendor_7": 5.0,
+          "vendor_9": 85.0,
+          "vendor_10": 20.0,
+          "vendor_11": 11.5,
+          "vendor_13": 5.0
+        }
+      },
+      {
+        "qty": "50-100",
+        "unit_price": 4.8,
+        "vendor_prices": {
+          "vendor_2": 19.5,
+          "vendor_3": 10.35,
+          "vendor_7": 4.8,
+          "vendor_9": 37.0,
+          "vendor_10": 15.0,
+          "vendor_11": 10.35,
+          "vendor_13": 4.8
+        }
+      },
+      {
+        "qty": "100-500",
+        "unit_price": 4.5,
+        "vendor_prices": {
+          "vendor_2": 6.1,
+          "vendor_3": 9.2,
+          "vendor_6": 10.0,
+          "vendor_7": 4.5,
+          "vendor_9": 28.0,
+          "vendor_10": 14.0,
+          "vendor_11": 9.5,
+          "vendor_13": 4.5
+        }
+      },
+      {
+        "qty": "500-1,000",
+        "unit_price": 4.2,
+        "vendor_prices": {
+          "vendor_2": 4.35,
+          "vendor_3": 8.05,
+          "vendor_7": 4.2,
+          "vendor_9": 24.0,
+          "vendor_10": 13.0,
+          "vendor_11": 8.2,
+          "vendor_13": 4.2
+        }
+      },
+      {
+        "qty": "1,000-3,000",
+        "unit_price": 3.08,
+        "vendor_prices": {
+          "vendor_2": 3.08,
+          "vendor_3": 5.75,
+          "vendor_7": 4.0,
+          "vendor_9": 22.0,
+          "vendor_10": 10.0,
+          "vendor_11": 6.5,
+          "vendor_13": 3.08
+        }
+      },
+      {
+        "qty": "3,000-5000",
+        "unit_price": 2.74,
+        "vendor_prices": {
+          "vendor_2": 2.74,
+          "vendor_3": 4.6,
+          "vendor_7": 3.8,
+          "vendor_9": 19.5,
+          "vendor_10": 8.0,
+          "vendor_11": 6.0,
+          "vendor_13": 2.74
+        }
+      },
+      {
+        "qty": "5,001-10,000",
+        "unit_price": 2.45,
+        "vendor_prices": {
+          "vendor_2": 2.45,
+          "vendor_3": 4.49,
+          "vendor_6": 4.55,
+          "vendor_7": 3.5,
+          "vendor_9": 18.2,
+          "vendor_10": 6.5,
+          "vendor_11": 5.0,
+          "vendor_13": 2.45
+        }
+      },
+      {
+        "qty": "10,000-15,000",
+        "unit_price": 2.2,
+        "vendor_prices": {
+          "vendor_2": 2.2,
+          "vendor_3": 3.28,
+          "vendor_7": 3.0,
+          "vendor_9": 16.5,
+          "vendor_10": 5.0,
+          "vendor_11": 3.5,
+          "vendor_13": 2.2
+        }
+      }
+    ],
+    "approved_price_per_unit": 2.2,
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%"
+  },
+  {
+    "id": "PRINT_RATE_60",
+    "category": "งานพิมพ์อัตราค่าบริการ",
+    "item_name": "Wobbler 12x12 cm.\n - วัสดุกระดาษอาร์ตการ์ด 300 แกรมพิมพ์ 4/0 สี จำนวน 1 ด้าน\n - ไดคัทตามแบบ ติดด้านพลาสติกใส",
+    "price_tiers": [
+      {
+        "qty": "1-50",
+        "unit_price": 10.0,
+        "vendor_prices": {
+          "vendor_2": 23.97,
+          "vendor_3": 11.5,
+          "vendor_7": 10.0,
+          "vendor_9": 95.0,
+          "vendor_10": 20.0,
+          "vendor_11": 11.5,
+          "vendor_13": 10.0
+        }
+      },
+      {
+        "qty": "51-100",
+        "unit_price": 9.6,
+        "vendor_prices": {
+          "vendor_2": 20.87,
+          "vendor_3": 10.35,
+          "vendor_7": 9.6,
+          "vendor_9": 48.0,
+          "vendor_10": 15.0,
+          "vendor_11": 11.5,
+          "vendor_13": 9.6
+        }
+      },
+      {
+        "qty": "101-500",
+        "unit_price": 6.53,
+        "vendor_prices": {
+          "vendor_2": 6.53,
+          "vendor_3": 9.2,
+          "vendor_7": 9.0,
+          "vendor_9": 37.0,
+          "vendor_10": 14.0,
+          "vendor_11": 10.5,
+          "vendor_13": 6.53
+        }
+      },
+      {
+        "qty": "501-1,000",
+        "unit_price": 4.65,
+        "vendor_prices": {
+          "vendor_2": 4.65,
+          "vendor_3": 8.05,
+          "vendor_7": 8.4,
+          "vendor_9": 32.0,
+          "vendor_10": 12.0,
+          "vendor_11": 8.1,
+          "vendor_13": 4.65
+        }
+      },
+      {
+        "qty": "1,001-3,000",
+        "unit_price": 3.3,
+        "vendor_prices": {
+          "vendor_2": 3.3,
+          "vendor_3": 5.87,
+          "vendor_7": 8.0,
+          "vendor_9": 29.0,
+          "vendor_10": 10.0,
+          "vendor_11": 6.0,
+          "vendor_13": 3.3
+        }
+      },
+      {
+        "qty": "3,000-5,000",
+        "unit_price": 2.93,
+        "vendor_prices": {
+          "vendor_2": 2.93,
+          "vendor_3": 4.72,
+          "vendor_7": 7.6,
+          "vendor_9": 24.0,
+          "vendor_10": 9.0,
+          "vendor_11": 5.8,
+          "vendor_13": 2.93
+        }
+      },
+      {
+        "qty": "5,001-10,000",
+        "unit_price": 2.62,
+        "vendor_prices": {
+          "vendor_2": 2.62,
+          "vendor_3": 4.55,
+          "vendor_7": 7.0,
+          "vendor_9": 22.0,
+          "vendor_10": 7.5,
+          "vendor_11": 5.5,
+          "vendor_13": 2.62
+        }
+      },
+      {
+        "qty": "10,000-15,000",
+        "unit_price": 2.35,
+        "vendor_prices": {
+          "vendor_2": 2.35,
+          "vendor_3": 3.34,
+          "vendor_7": 6.0,
+          "vendor_9": 19.5,
+          "vendor_10": 6.0,
+          "vendor_11": 3.5,
+          "vendor_13": 2.35
+        }
+      }
+    ],
+    "approved_price_per_unit": 2.35,
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%"
+  },
+  {
+    "id": "PRINT_RATE_61",
+    "category": "งานพิมพ์อัตราค่าบริการ",
+    "item_name": "Wobbler 15x15 cm.\n - วัสดุกระดาษอาร์ตการ์ด 300 แกรมพิมพ์ 4/0 สี จำนวน 1 ด้าน\n - ไดคัทตามแบบ ติดด้านพลาสติกใส",
+    "price_tiers": [
+      {
+        "qty": "1-50",
+        "unit_price": 11.0,
+        "vendor_prices": {
+          "vendor_2": 25.16,
+          "vendor_3": 17.25,
+          "vendor_7": 11.0,
+          "vendor_9": 125.0,
+          "vendor_10": 25.0,
+          "vendor_11": 17.5,
+          "vendor_13": 11.0
+        }
+      },
+      {
+        "qty": "51-100",
+        "unit_price": 10.5,
+        "vendor_prices": {
+          "vendor_2": 21.9,
+          "vendor_3": 13.8,
+          "vendor_7": 10.5,
+          "vendor_9": 57.0,
+          "vendor_10": 20.0,
+          "vendor_11": 14.0,
+          "vendor_13": 10.5
+        }
+      },
+      {
+        "qty": "101-500",
+        "unit_price": 6.85,
+        "vendor_prices": {
+          "vendor_2": 6.85,
+          "vendor_3": 9.03,
+          "vendor_7": 10.0,
+          "vendor_9": 45.0,
+          "vendor_10": 15.0,
+          "vendor_11": 9.2,
+          "vendor_13": 6.85
+        }
+      },
+      {
+        "qty": "501-1,000",
+        "unit_price": 4.88,
+        "vendor_prices": {
+          "vendor_2": 4.88,
+          "vendor_3": 5.75,
+          "vendor_7": 9.5,
+          "vendor_9": 36.0,
+          "vendor_10": 11.0,
+          "vendor_11": 6.5,
+          "vendor_13": 4.88
+        }
+      },
+      {
+        "qty": "1,000-3,000",
+        "unit_price": 3.46,
+        "vendor_prices": {
+          "vendor_2": 3.46,
+          "vendor_3": 4.89,
+          "vendor_7": 9.0,
+          "vendor_9": 33.0,
+          "vendor_10": 9.0,
+          "vendor_11": 5.0,
+          "vendor_13": 3.46
+        }
+      },
+      {
+        "qty": "3,001-5,000",
+        "unit_price": 3.3,
+        "vendor_prices": {
+          "vendor_2": 3.3,
+          "vendor_3": 4.89,
+          "vendor_7": 8.5,
+          "vendor_9": 29.5,
+          "vendor_10": 8.5,
+          "vendor_11": 4.9,
+          "vendor_13": 3.3
+        }
+      },
+      {
+        "qty": "5,001-10,000",
+        "unit_price": 2.75,
+        "vendor_prices": {
+          "vendor_2": 2.75,
+          "vendor_3": 4.59,
+          "vendor_4": 4.5,
+          "vendor_7": 8.0,
+          "vendor_9": 26.3,
+          "vendor_10": 8.0,
+          "vendor_11": 4.8,
+          "vendor_13": 2.75
+        }
+      },
+      {
+        "qty": "10,001-15,000",
+        "unit_price": 2.46,
+        "vendor_prices": {
+          "vendor_2": 2.46,
+          "vendor_3": 3.63,
+          "vendor_4": 2.5,
+          "vendor_7": 7.0,
+          "vendor_9": 23.5,
+          "vendor_10": 7.0,
+          "vendor_11": 4.0,
+          "vendor_13": 2.46
+        }
+      }
+    ],
+    "approved_price_per_unit": 2.46,
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%"
+  },
+  {
+    "id": "PRINT_RATE_62",
+    "category": "งานพิมพ์อัตราค่าบริการ",
+    "item_name": "*หมายเหตุ  1.พิจารณาลำดับแรกจากราคาต่ำสุด(ระยะเวลาผลิต 15 วัน)หากเป็นความต้องการเร่งด่วนภายใน5-7 วัน พิจารณาซัพพลายเออร์ในท้องถิ่น",
+    "price_tiers": [],
+    "approved_price_per_unit": 0,
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%"
+  },
+  {
+    "id": "PRINT_RATE_63",
+    "category": "งานพิมพ์อัตราค่าบริการ",
+    "item_name": "*หมายเหตุ  2.เนื่องจากงาน Print rate ไม่มีจำนวนและระยะเวลาที่แน่นอน ในกรณีซัพพลายเออร์รายแรก ไม่สามารถผลิตได้ทันในระยะเวลาที่ต้องการ ให้พิจารณาซัพพลายเออร์รายถัดไป",
+    "price_tiers": [],
+    "approved_price_per_unit": 0,
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%"
+  },
+  {
+    "id": "PRINT_RATE_64",
+    "category": "งานพิมพ์อัตราค่าบริการ",
+    "item_name": "Shelf Talker 8x21 cm.+Diecut 3 cm.",
+    "price_tiers": [
+      {
+        "qty": "1-50",
+        "unit_price": 10.0,
+        "vendor_prices": {
+          "vendor_6": 11.5,
+          "vendor_9": 23.9,
+          "vendor_11": 10.0,
+          "vendor_13": 12.0,
+          "vendor_14": 20.0,
+          "vendor_15": 123.0,
+          "vendor_16": 10.0
+        }
+      }
+    ],
+    "approved_price_per_unit": 10.0,
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%"
+  },
+  {
+    "id": "PRINT_RATE_65",
+    "category": "งานพิมพ์อัตราค่าบริการ",
+    "item_name": "วัสดุกระดาษอาร์ตการ์ด 300 g พิมพ์ 4 สี  1 ด้าน",
+    "price_tiers": [
+      {
+        "qty": "51-100",
+        "unit_price": 9.0,
+        "vendor_prices": {
+          "vendor_6": 10.35,
+          "vendor_9": 20.81,
+          "vendor_11": 9.0,
+          "vendor_13": 10.5,
+          "vendor_14": 17.0,
+          "vendor_15": 36.0,
+          "vendor_16": 9.0
+        }
+      }
+    ],
+    "approved_price_per_unit": 9.0,
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%"
+  },
+  {
+    "id": "PRINT_RATE_66",
+    "category": "งานพิมพ์อัตราค่าบริการ",
+    "item_name": "ไดคัทตามแบบ ติดเทปกาว 2หน้า 1จุด",
+    "price_tiers": [
+      {
+        "qty": "101-500",
+        "unit_price": 6.51,
+        "vendor_prices": {
+          "vendor_6": 9.2,
+          "vendor_9": 6.51,
+          "vendor_11": 7.0,
+          "vendor_13": 9.5,
+          "vendor_14": 13.0,
+          "vendor_15": 24.0,
+          "vendor_16": 6.51
+        }
+      },
+      {
+        "qty": "501-1,000",
+        "unit_price": 4.64,
+        "vendor_prices": {
+          "vendor_6": 6.9,
+          "vendor_9": 4.64,
+          "vendor_11": 5.0,
+          "vendor_13": 7.0,
+          "vendor_14": 10.0,
+          "vendor_15": 14.4,
+          "vendor_16": 4.64
+        }
+      },
+      {
+        "qty": "1,001-3,000",
+        "unit_price": 3.29,
+        "vendor_prices": {
+          "vendor_5": 6.5,
+          "vendor_6": 5.75,
+          "vendor_9": 3.29,
+          "vendor_11": 4.2,
+          "vendor_13": 6.0,
+          "vendor_14": 8.0,
+          "vendor_15": 12.8,
+          "vendor_16": 3.29
+        }
+      },
+      {
+        "qty": "3,001-5,000",
+        "unit_price": 3.15,
+        "vendor_prices": {
+          "vendor_6": 5.75,
+          "vendor_9": 3.15,
+          "vendor_11": 3.6,
+          "vendor_13": 5.7,
+          "vendor_14": 7.0,
+          "vendor_15": 8.4,
+          "vendor_16": 3.15
+        }
+      },
+      {
+        "qty": "5,001-10,000",
+        "unit_price": 2.61,
+        "vendor_prices": {
+          "vendor_6": 3.45,
+          "vendor_9": 2.61,
+          "vendor_11": 3.35,
+          "vendor_13": 3.5,
+          "vendor_14": 6.0,
+          "vendor_15": 7.2,
+          "vendor_16": 2.61
+        }
+      },
+      {
+        "qty": "10,001-15,000",
+        "unit_price": 2.34,
+        "vendor_prices": {
+          "vendor_6": 3.17,
+          "vendor_9": 2.34,
+          "vendor_11": 3.0,
+          "vendor_13": 3.2,
+          "vendor_14": 5.0,
+          "vendor_15": 6.35,
+          "vendor_16": 2.34
+        }
+      }
+    ],
+    "approved_price_per_unit": 2.34,
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%"
+  },
+  {
+    "id": "PRINT_RATE_67",
+    "category": "งานพิมพ์อัตราค่าบริการ",
+    "item_name": "Sticker Cool Zone ขนาด 4x300 cm.",
+    "price_tiers": [
+      {
+        "qty": "5000",
+        "unit_price": 25.0,
+        "vendor_prices": {
+          "vendor_6": 25.3,
+          "vendor_9": 27.0,
+          "vendor_11": 167500.0,
+          "vendor_13": 25.5,
+          "vendor_14": 25.0,
+          "vendor_15": 26.5,
+          "vendor_16": 25.0
+        }
+      }
+    ],
+    "approved_price_per_unit": 25.0,
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%"
+  },
+  {
+    "id": "PRINT_RATE_68",
+    "category": "งานพิมพ์อัตราค่าบริการ",
+    "item_name": "วัสดุสติกเกอร์พีวีซีขาวเงากาวรีมูฟ พิมพ์ 4/0 จำนวน 1หน้า",
+    "price_tiers": [
+      {
+        "qty": "10000",
+        "unit_price": 22.5,
+        "vendor_prices": {
+          "vendor_5": 35.0,
+          "vendor_6": 23.0,
+          "vendor_9": 26.0,
+          "vendor_11": 32.0,
+          "vendor_13": 23.0,
+          "vendor_14": 24.0,
+          "vendor_15": 22.5,
+          "vendor_16": 22.5
+        }
+      }
+    ],
+    "approved_price_per_unit": 22.5,
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%"
+  },
+  {
+    "id": "PRINT_RATE_69",
+    "category": "งานพิมพ์อัตราค่าบริการ",
+    "item_name": "ตัดสี่เหลี่ยม",
+    "price_tiers": [
+      {
+        "qty": "15000",
+        "unit_price": 21.6,
+        "vendor_prices": {
+          "vendor_6": 21.85,
+          "vendor_9": 24.0,
+          "vendor_11": 45.0,
+          "vendor_13": 22.0,
+          "vendor_14": 22.0,
+          "vendor_15": 21.6,
+          "vendor_16": 21.6
+        }
+      },
+      {
+        "qty": "20000",
+        "unit_price": 19.9,
+        "vendor_prices": {
+          "vendor_6": 20.7,
+          "vendor_9": 22.0,
+          "vendor_11": 53.0,
+          "vendor_13": 21.0,
+          "vendor_14": 20.0,
+          "vendor_15": 19.9,
+          "vendor_16": 19.9
+        }
+      }
+    ],
+    "approved_price_per_unit": 19.9,
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%"
+  },
+  {
+    "id": "PRINT_RATE_70",
+    "category": "งานพิมพ์อัตราค่าบริการ",
+    "item_name": "Price tag  ขนาด A3",
+    "price_tiers": [
+      {
+        "qty": "1-500",
+        "unit_price": 30.0,
+        "vendor_prices": {
+          "vendor_6": 34.5,
+          "vendor_8": 30.0,
+          "vendor_9": 35.8,
+          "vendor_11": 50.0,
+          "vendor_13": 35.0,
+          "vendor_14": 38.0,
+          "vendor_15": 33.0,
+          "vendor_16": 30.0
+        }
+      }
+    ],
+    "approved_price_per_unit": 30.0,
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%"
+  },
+  {
+    "id": "PRINT_RATE_71",
+    "category": "งานพิมพ์อัตราค่าบริการ",
+    "item_name": "- ขนาดดวงละ 9.6x9.6 cm.",
+    "price_tiers": [
+      {
+        "qty": "501-1,000",
+        "unit_price": 21.5,
+        "vendor_prices": {
+          "vendor_6": 32.2,
+          "vendor_8": 28.0,
+          "vendor_9": 21.5,
+          "vendor_11": 35.0,
+          "vendor_13": 33.0,
+          "vendor_14": 34.0,
+          "vendor_15": 33.0,
+          "vendor_16": 21.5
+        }
+      }
+    ],
+    "approved_price_per_unit": 21.5,
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%"
+  },
+  {
+    "id": "PRINT_RATE_72",
+    "category": "งานพิมพ์อัตราค่าบริการ",
+    "item_name": "- วัสดุสติ๊กเกอร์ขาว PVC เคลือบ UV เงา  ไดคัท",
+    "price_tiers": [
+      {
+        "qty": "1,001-1,500",
+        "unit_price": 16.74,
+        "vendor_prices": {
+          "vendor_6": 32.2,
+          "vendor_8": 25.0,
+          "vendor_9": 16.74,
+          "vendor_11": 30.0,
+          "vendor_13": 33.0,
+          "vendor_14": 32.0,
+          "vendor_15": 32.0,
+          "vendor_16": 16.74
+        }
+      }
+    ],
+    "approved_price_per_unit": 16.74,
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%"
+  },
+  {
+    "id": "PRINT_RATE_73",
+    "category": "งานพิมพ์อัตราค่าบริการ",
+    "item_name": "- ราคาต่อแผ่น",
+    "price_tiers": [
+      {
+        "qty": "1,501-2,000",
+        "unit_price": 14.98,
+        "vendor_prices": {
+          "vendor_5": 24.5,
+          "vendor_6": 28.75,
+          "vendor_8": 23.0,
+          "vendor_9": 14.98,
+          "vendor_11": 25.0,
+          "vendor_13": 29.0,
+          "vendor_14": 30.0,
+          "vendor_15": 31.0,
+          "vendor_16": 14.98
+        }
+      },
+      {
+        "qty": "2,001ขึ้นไป",
+        "unit_price": 12.24,
+        "vendor_prices": {
+          "vendor_6": 28.75,
+          "vendor_8": 20.0,
+          "vendor_9": 12.24,
+          "vendor_11": 20.0,
+          "vendor_13": 29.0,
+          "vendor_14": 28.0,
+          "vendor_15": 30.0,
+          "vendor_16": 12.24
+        }
+      }
+    ],
+    "approved_price_per_unit": 12.24,
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%"
+  },
+  {
+    "id": "PRINT_RATE_74",
+    "category": "งานพิมพ์อัตราค่าบริการ",
+    "item_name": "ป้ายไวนิล  แบบปล่อยชาย",
+    "price_tiers": [],
+    "approved_price_per_unit": 45.0,
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%"
+  },
+  {
+    "id": "PRINT_RATE_75",
+    "category": "งานพิมพ์อัตราค่าบริการ",
+    "item_name": "ป้ายไวนิล  แบบเจาะตาไก่ ไม่มีเชือก",
+    "price_tiers": [],
+    "approved_price_per_unit": 45.0,
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%"
+  },
+  {
+    "id": "PRINT_RATE_76",
+    "category": "งานพิมพ์อัตราค่าบริการ",
+    "item_name": "ป้ายไวนิล  แบบเจาะตาไก่ มีเชือก",
+    "price_tiers": [],
+    "approved_price_per_unit": 50.0,
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%"
+  },
+  {
+    "id": "PRINT_RATE_77",
+    "category": "งานพิมพ์อัตราค่าบริการ",
+    "item_name": "ป้ายไวนิลหลังดำ  แบบปล่อยชาย",
+    "price_tiers": [],
+    "approved_price_per_unit": 45.0,
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%"
+  },
+  {
+    "id": "PRINT_RATE_78",
+    "category": "งานพิมพ์อัตราค่าบริการ",
+    "item_name": "ป้ายไวนิลหลังดำ  แบบเจาะตาไก่ ไม่มีเชือก",
+    "price_tiers": [],
+    "approved_price_per_unit": 47.0,
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%"
+  },
+  {
+    "id": "PRINT_RATE_79",
+    "category": "งานพิมพ์อัตราค่าบริการ",
+    "item_name": "ป้ายไวนิลหลังดำ  แบบเจาะตาไก่ มีเชือก",
+    "price_tiers": [],
+    "approved_price_per_unit": 50.0,
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%"
+  },
+  {
+    "id": "PRINT_RATE_80",
+    "category": "งานพิมพ์อัตราค่าบริการ",
+    "item_name": "Wrap Around Top Shelf ขนาด 120x50 cm.",
+    "price_tiers": [
+      {
+        "qty": "1-10",
+        "unit_price": 110.0,
+        "vendor_prices": {
+          "vendor_6": 115.0,
+          "vendor_9": 110.0,
+          "vendor_10": 210.0,
+          "vendor_11": 252.0,
+          "vendor_13": 115.0,
+          "vendor_14": 150.0,
+          "vendor_15": 190.0,
+          "vendor_16": 110.0
+        }
+      }
+    ],
+    "approved_price_per_unit": 110.0,
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%"
+  },
+  {
+    "id": "PRINT_RATE_81",
+    "category": "งานพิมพ์อัตราค่าบริการ",
+    "item_name": "- วัสดุ PP Board 3 mm. พิมพ์ 1 ด้าน",
+    "price_tiers": [
+      {
+        "qty": "11-50",
+        "unit_price": 108.0,
+        "vendor_prices": {
+          "vendor_5": 190.0,
+          "vendor_6": 111.55,
+          "vendor_9": 108.0,
+          "vendor_10": 210.0,
+          "vendor_11": 240.0,
+          "vendor_13": 110.0,
+          "vendor_14": 140.0,
+          "vendor_15": 190.0,
+          "vendor_16": 108.0
+        }
+      }
+    ],
+    "approved_price_per_unit": 108.0,
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%"
+  },
+  {
+    "id": "PRINT_RATE_82",
+    "category": "งานพิมพ์อัตราค่าบริการ",
+    "item_name": "- Indoor บน สติ๊กเกอร์ ติดบนแผ่น PP Board 3 mm., พิมพ์ 4 สี",
+    "price_tiers": [
+      {
+        "qty": "51-100",
+        "unit_price": 106.0,
+        "vendor_prices": {
+          "vendor_6": 109.25,
+          "vendor_9": 106.0,
+          "vendor_10": 180.0,
+          "vendor_11": 228.0,
+          "vendor_13": 110.0,
+          "vendor_14": 130.0,
+          "vendor_15": 175.0,
+          "vendor_16": 106.0
+        }
+      }
+    ],
+    "approved_price_per_unit": 106.0,
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%"
+  },
+  {
+    "id": "PRINT_RATE_83",
+    "category": "งานพิมพ์อัตราค่าบริการ",
+    "item_name": "- ตัดสี่เหลี่ยม",
+    "price_tiers": [
+      {
+        "qty": "101-1,000",
+        "unit_price": 104.0,
+        "vendor_prices": {
+          "vendor_6": 105.8,
+          "vendor_9": 104.0,
+          "vendor_10": 150.0,
+          "vendor_11": 216.0,
+          "vendor_13": 108.0,
+          "vendor_14": 120.0,
+          "vendor_15": 168.0,
+          "vendor_16": 104.0
+        }
+      },
+      {
+        "qty": "1,001-2,000",
+        "unit_price": 102.0,
+        "vendor_prices": {
+          "vendor_6": 103.5,
+          "vendor_9": 102.0,
+          "vendor_10": 120.0,
+          "vendor_11": 204.0,
+          "vendor_13": 105.0,
+          "vendor_14": 105.0,
+          "vendor_15": 128.0,
+          "vendor_16": 102.0
+        }
+      }
+    ],
+    "approved_price_per_unit": 102.0,
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%"
+  },
+  {
+    "id": "PRINT_RATE_84",
+    "category": "งานพิมพ์อัตราค่าบริการ",
+    "item_name": "Hand prop A3  ด้าม PVC ไดคัทตามรูป พิมพ์ 4 สี",
+    "price_tiers": [
+      {
+        "qty": "1-10",
+        "unit_price": 40.0,
+        "vendor_prices": {
+          "vendor_6": 115.0,
+          "vendor_9": 40.0,
+          "vendor_10": 50.0,
+          "vendor_11": 180.0,
+          "vendor_13": 115.0,
+          "vendor_15": 130.0,
+          "vendor_16": 40.0
+        }
+      },
+      {
+        "qty": "11-50",
+        "unit_price": 39.0,
+        "vendor_prices": {
+          "vendor_6": 109.25,
+          "vendor_9": 39.0,
+          "vendor_10": 45.0,
+          "vendor_11": 160.0,
+          "vendor_13": 110.0,
+          "vendor_15": 135.0,
+          "vendor_16": 39.0
+        }
+      }
+    ],
+    "approved_price_per_unit": 39.0,
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%"
+  },
+  {
+    "id": "PRINT_RATE_85",
+    "category": "งานพิมพ์อัตราค่าบริการ",
+    "item_name": "Hand prop A4  ด้าม PVC ไดคัทตามรูป พิมพ์ 4 สี",
+    "price_tiers": [
+      {
+        "qty": "1-10",
+        "unit_price": 25.0,
+        "vendor_prices": {
+          "vendor_6": 103.5,
+          "vendor_9": 30.0,
+          "vendor_10": 25.0,
+          "vendor_11": 100.0,
+          "vendor_13": 105.0,
+          "vendor_15": 98.0,
+          "vendor_16": 25.0
+        }
+      },
+      {
+        "qty": "11-50",
+        "unit_price": 25.0,
+        "vendor_prices": {
+          "vendor_6": 97.75,
+          "vendor_9": 29.0,
+          "vendor_10": 25.0,
+          "vendor_11": 90.0,
+          "vendor_13": 98.0,
+          "vendor_16": 25.0
+        }
+      }
+    ],
+    "approved_price_per_unit": 25.0,
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%"
+  },
+  {
+    "id": "PRINT_RATE_86",
+    "category": "งานพิมพ์อัตราค่าบริการ",
+    "item_name": "ธงปีกนก  ไซด์ S -  วัสดุ (Matt fabric) \n- โครงไฟเบอร์ สูง 256 cm.",
+    "price_tiers": [
+      {
+        "qty": "1-10",
+        "unit_price": 990.0,
+        "vendor_prices": {
+          "vendor_3": 990.0,
+          "vendor_7": 1270.0,
+          "vendor_9": 1350.0,
+          "vendor_12": 1380.0,
+          "vendor_14": 1450.0,
+          "vendor_15": 2560.0,
+          "vendor_16": 990.0
+        }
+      }
+    ],
+    "approved_price_per_unit": 990.0,
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%"
+  },
+  {
+    "id": "PRINT_RATE_87",
+    "category": "งานพิมพ์อัตราค่าบริการ",
+    "item_name": "ขนาดงานพิมพ์ 66 cm.*206 cm.",
+    "price_tiers": [
+      {
+        "qty": "11-50",
+        "unit_price": 950.0,
+        "vendor_prices": {
+          "vendor_3": 950.0,
+          "vendor_7": 1270.0,
+          "vendor_9": 1300.0,
+          "vendor_12": 1320.0,
+          "vendor_14": 1400.0,
+          "vendor_16": 950.0
+        }
+      }
+    ],
+    "approved_price_per_unit": 950.0,
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%"
+  },
+  {
+    "id": "PRINT_RATE_88",
+    "category": "งานพิมพ์อัตราค่าบริการ",
+    "item_name": "พิมพ์ 1 หน้า",
+    "price_tiers": [
+      {
+        "qty": "21-30",
+        "unit_price": 900.0,
+        "vendor_prices": {
+          "vendor_3": 900.0,
+          "vendor_7": 1200.0,
+          "vendor_9": 1250.0,
+          "vendor_12": 1280.0,
+          "vendor_14": 1350.0,
+          "vendor_16": 900.0
+        }
+      }
+    ],
+    "approved_price_per_unit": 900.0,
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%"
+  },
+  {
+    "id": "PRINT_RATE_89",
+    "category": "งานพิมพ์อัตราค่าบริการ",
+    "item_name": "ธงปีกนก  ไซด์ M - พิมพ์ 1 หน้า\n- โครงไฟเบอร์ สูง 296 cm.",
+    "price_tiers": [
+      {
+        "qty": "1-10",
+        "unit_price": 1350.0,
+        "vendor_prices": {
+          "vendor_3": 1350.0,
+          "vendor_7": 1620.0,
+          "vendor_9": 1600.0,
+          "vendor_12": 1500.0,
+          "vendor_14": 1850.0,
+          "vendor_16": 1350.0
+        }
+      }
+    ],
+    "approved_price_per_unit": 1350.0,
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%"
+  },
+  {
+    "id": "PRINT_RATE_90",
+    "category": "งานพิมพ์อัตราค่าบริการ",
+    "item_name": "วัสดุ (Matt fabric)",
+    "price_tiers": [
+      {
+        "qty": "11-50",
+        "unit_price": 1300.0,
+        "vendor_prices": {
+          "vendor_3": 1300.0,
+          "vendor_7": 1590.0,
+          "vendor_9": 1550.0,
+          "vendor_12": 1440.0,
+          "vendor_14": 1800.0,
+          "vendor_16": 1300.0
+        }
+      }
+    ],
+    "approved_price_per_unit": 1300.0,
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%"
+  },
+  {
+    "id": "PRINT_RATE_91",
+    "category": "งานพิมพ์อัตราค่าบริการ",
+    "item_name": "ขนาดงานพิมพ์ 66 cm.*246 cm.พิมพ์ 1 หน้า",
+    "price_tiers": [
+      {
+        "qty": "21-30",
+        "unit_price": 1250.0,
+        "vendor_prices": {
+          "vendor_3": 1250.0,
+          "vendor_7": 1570.0,
+          "vendor_9": 1500.0,
+          "vendor_12": 1400.0,
+          "vendor_14": 1750.0,
+          "vendor_16": 1250.0
+        }
+      }
+    ],
+    "approved_price_per_unit": 1250.0,
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%"
+  },
+  {
+    "id": "PRINT_RATE_92",
+    "category": "งานพิมพ์อัตราค่าบริการ",
+    "item_name": "ธงปีกนก  ไซด์ L - พิมพ์ 1 หน้า\n- โครงไฟเบอร์ สูง 380 cm.",
+    "price_tiers": [
+      {
+        "qty": "1-10",
+        "unit_price": 1650.0,
+        "vendor_prices": {
+          "vendor_3": 1850.0,
+          "vendor_7": 2500.0,
+          "vendor_9": 2200.0,
+          "vendor_12": 1650.0,
+          "vendor_14": 2300.0,
+          "vendor_15": 3655.0,
+          "vendor_16": 1650.0
+        }
+      }
+    ],
+    "approved_price_per_unit": 1650.0,
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%"
+  },
+  {
+    "id": "PRINT_RATE_93",
+    "category": "งานพิมพ์อัตราค่าบริการ",
+    "item_name": "วัสดุ (Matt fabric)",
+    "price_tiers": [
+      {
+        "qty": "11-50",
+        "unit_price": 1610.0,
+        "vendor_prices": {
+          "vendor_3": 1800.0,
+          "vendor_7": 2100.0,
+          "vendor_9": 2150.0,
+          "vendor_12": 1610.0,
+          "vendor_14": 2250.0,
+          "vendor_15": 3455.0,
+          "vendor_16": 1610.0
+        }
+      }
+    ],
+    "approved_price_per_unit": 1610.0,
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%"
+  },
+  {
+    "id": "PRINT_RATE_94",
+    "category": "งานพิมพ์อัตราค่าบริการ",
+    "item_name": "ขนาดงานพิมพ์ 68 cm.*331 cm. พิมพ์ 1 หน้า",
+    "price_tiers": [
+      {
+        "qty": "21-30",
+        "unit_price": 1560.0,
+        "vendor_prices": {
+          "vendor_3": 1750.0,
+          "vendor_7": 2000.0,
+          "vendor_9": 2100.0,
+          "vendor_12": 1560.0,
+          "vendor_14": 2200.0,
+          "vendor_15": 3355.0,
+          "vendor_16": 1560.0
+        }
+      }
+    ],
+    "approved_price_per_unit": 1560.0,
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%"
+  },
+  {
+    "id": "PRINT_RATE_95",
+    "category": "งานพิมพ์อัตราค่าบริการ",
+    "item_name": "ธงปีกนก  ไซด์ XL - พิมพ์ 1 หน้า\n- โครงไฟเบอร์ สูง 466 cm.",
+    "price_tiers": [
+      {
+        "qty": "1-10",
+        "unit_price": 1800.0,
+        "vendor_prices": {
+          "vendor_3": 2450.0,
+          "vendor_7": 2850.0,
+          "vendor_9": 2700.0,
+          "vendor_12": 1800.0,
+          "vendor_14": 2800.0,
+          "vendor_15": 4350.0,
+          "vendor_16": 1800.0
+        }
+      }
+    ],
+    "approved_price_per_unit": 1800.0,
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%"
+  },
+  {
+    "id": "PRINT_RATE_96",
+    "category": "งานพิมพ์อัตราค่าบริการ",
+    "item_name": "วัสดุ (Matt fabric)",
+    "price_tiers": [
+      {
+        "qty": "11-50",
+        "unit_price": 1760.0,
+        "vendor_prices": {
+          "vendor_3": 2400.0,
+          "vendor_7": 2650.0,
+          "vendor_9": 2650.0,
+          "vendor_12": 1760.0,
+          "vendor_14": 2750.0,
+          "vendor_15": 4250.0,
+          "vendor_16": 1760.0
+        }
+      }
+    ],
+    "approved_price_per_unit": 1760.0,
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%"
+  },
+  {
+    "id": "PRINT_RATE_97",
+    "category": "งานพิมพ์อัตราค่าบริการ",
+    "item_name": "ขนาดงานพิมพ์ 68 cm.x416 cm. พิมพ์ 1 หน้า",
+    "price_tiers": [
+      {
+        "qty": "21-30",
+        "unit_price": 1720.0,
+        "vendor_prices": {
+          "vendor_3": 2350.0,
+          "vendor_7": 2500.0,
+          "vendor_9": 2600.0,
+          "vendor_12": 1720.0,
+          "vendor_14": 2700.0,
+          "vendor_15": 4150.0,
+          "vendor_16": 1720.0
+        }
+      }
+    ],
+    "approved_price_per_unit": 1720.0,
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%"
+  },
+  {
+    "id": "PRINT_RATE_98",
+    "category": "งานพิมพ์อัตราค่าบริการ",
+    "item_name": "ธงปีกนก  ไซด์ S - พิมพ์ 2 หน้า\n - โครงไฟเบอร์ สูง 256 cm.",
+    "price_tiers": [
+      {
+        "qty": "1-10",
+        "unit_price": 1450.0,
+        "vendor_prices": {
+          "vendor_3": 1450.0,
+          "vendor_7": 2050.0,
+          "vendor_9": 1900.0,
+          "vendor_12": 1800.0,
+          "vendor_15": 2750.0,
+          "vendor_16": 1450.0
+        }
+      }
+    ],
+    "approved_price_per_unit": 1450.0,
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%"
+  },
+  {
+    "id": "PRINT_RATE_99",
+    "category": "งานพิมพ์อัตราค่าบริการ",
+    "item_name": "- วัสดุ (Matt fabric)",
+    "price_tiers": [
+      {
+        "qty": "11-50",
+        "unit_price": 1400.0,
+        "vendor_prices": {
+          "vendor_3": 1400.0,
+          "vendor_7": 2020.0,
+          "vendor_9": 1850.0,
+          "vendor_12": 1760.0,
+          "vendor_15": 2560.0,
+          "vendor_16": 1400.0
+        }
+      }
+    ],
+    "approved_price_per_unit": 1400.0,
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%"
+  },
+  {
+    "id": "PRINT_RATE_100",
+    "category": "งานพิมพ์อัตราค่าบริการ",
+    "item_name": "- ขนาดงานพิมพ์ 66 cm.*206 cm.พิมพ์ 1 หน้า",
+    "price_tiers": [
+      {
+        "qty": "21-30",
+        "unit_price": 1350.0,
+        "vendor_prices": {
+          "vendor_3": 1350.0,
+          "vendor_7": 2000.0,
+          "vendor_9": 1800.0,
+          "vendor_12": 1720.0,
+          "vendor_15": 2460.0,
+          "vendor_16": 1350.0
+        }
+      }
+    ],
+    "approved_price_per_unit": 1350.0,
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%"
+  },
+  {
+    "id": "PRINT_RATE_101",
+    "category": "งานพิมพ์อัตราค่าบริการ",
+    "item_name": "ธงปีกนก  ไซด์ M - พิมพ์ 2 หน้า\n- โครงไฟเบอร์ สูง 296 cm.",
+    "price_tiers": [
+      {
+        "qty": "1-10",
+        "unit_price": 1850.0,
+        "vendor_prices": {
+          "vendor_3": 1850.0,
+          "vendor_7": 2360.0,
+          "vendor_9": 2400.0,
+          "vendor_12": 2100.0,
+          "vendor_15": 3245.0,
+          "vendor_16": 1850.0
+        }
+      }
+    ],
+    "approved_price_per_unit": 1850.0,
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%"
+  },
+  {
+    "id": "PRINT_RATE_102",
+    "category": "งานพิมพ์อัตราค่าบริการ",
+    "item_name": "วัสดุ (Matt fabric)",
+    "price_tiers": [
+      {
+        "qty": "11-50",
+        "unit_price": 1800.0,
+        "vendor_prices": {
+          "vendor_3": 1800.0,
+          "vendor_7": 2330.0,
+          "vendor_9": 2350.0,
+          "vendor_12": 2060.0,
+          "vendor_15": 3045.0,
+          "vendor_16": 1800.0
+        }
+      }
+    ],
+    "approved_price_per_unit": 1800.0,
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%"
+  },
+  {
+    "id": "PRINT_RATE_103",
+    "category": "งานพิมพ์อัตราค่าบริการ",
+    "item_name": "ขนาดงานพิมพ์ 66 cm.*246 cm.พิมพ์ 1 หน้า",
+    "price_tiers": [
+      {
+        "qty": "21-30",
+        "unit_price": 1750.0,
+        "vendor_prices": {
+          "vendor_3": 1750.0,
+          "vendor_7": 2300.0,
+          "vendor_9": 2300.0,
+          "vendor_12": 2020.0,
+          "vendor_15": 2945.0,
+          "vendor_16": 1750.0
+        }
+      }
+    ],
+    "approved_price_per_unit": 1750.0,
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%"
+  },
+  {
+    "id": "PRINT_RATE_104",
+    "category": "งานพิมพ์อัตราค่าบริการ",
+    "item_name": "ธงปีกนก  ไซด์ L - พิมพ์ 2 หน้า\n- โครงไฟเบอร์ สูง 380 cm.",
+    "price_tiers": [
+      {
+        "qty": "1-10",
+        "unit_price": 2380.0,
+        "vendor_prices": {
+          "vendor_3": 2900.0,
+          "vendor_7": 3470.0,
+          "vendor_9": 3400.0,
+          "vendor_12": 2380.0,
+          "vendor_15": 3855.0,
+          "vendor_16": 2380.0
+        }
+      }
+    ],
+    "approved_price_per_unit": 2380.0,
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%"
+  },
+  {
+    "id": "PRINT_RATE_105",
+    "category": "งานพิมพ์อัตราค่าบริการ",
+    "item_name": "ขนาดงานพิมพ์ 68 cm.x331 cm. พิมพ์ 1 หน้า",
+    "price_tiers": [
+      {
+        "qty": "11-50",
+        "unit_price": 2340.0,
+        "vendor_prices": {
+          "vendor_3": 2850.0,
+          "vendor_7": 3350.0,
+          "vendor_9": 3350.0,
+          "vendor_12": 2340.0,
+          "vendor_15": 3655.0,
+          "vendor_16": 2340.0
+        }
+      }
+    ],
+    "approved_price_per_unit": 2340.0,
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%"
+  },
+  {
+    "id": "PRINT_RATE_106",
+    "category": "งานพิมพ์อัตราค่าบริการ",
+    "item_name": "วัสดุ (Matt fabric)",
+    "price_tiers": [
+      {
+        "qty": "21-30",
+        "unit_price": 2300.0,
+        "vendor_prices": {
+          "vendor_3": 2800.0,
+          "vendor_7": 3200.0,
+          "vendor_9": 3300.0,
+          "vendor_12": 2300.0,
+          "vendor_15": 3555.0,
+          "vendor_16": 2300.0
+        }
+      }
+    ],
+    "approved_price_per_unit": 2300.0,
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%"
+  },
+  {
+    "id": "PRINT_RATE_107",
+    "category": "งานพิมพ์อัตราค่าบริการ",
+    "item_name": "ธงปีกนก  ไซด์ XL - พิมพ์ 2 หน้า\n- โครงไฟเบอร์ สูง 466 cm.",
+    "price_tiers": [
+      {
+        "qty": "1-10",
+        "unit_price": 2680.0,
+        "vendor_prices": {
+          "vendor_3": 4000.0,
+          "vendor_7": 4220.0,
+          "vendor_9": 4500.0,
+          "vendor_12": 2680.0,
+          "vendor_15": 4550.0,
+          "vendor_16": 2680.0
+        }
+      }
+    ],
+    "approved_price_per_unit": 2680.0,
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%"
+  },
+  {
+    "id": "PRINT_RATE_108",
+    "category": "งานพิมพ์อัตราค่าบริการ",
+    "item_name": "ขนาดงานพิมพ์ 68 cm.*416 cm. พิมพ์ 1 หน้า",
+    "price_tiers": [
+      {
+        "qty": "11-50",
+        "unit_price": 2640.0,
+        "vendor_prices": {
+          "vendor_3": 3950.0,
+          "vendor_7": 4100.0,
+          "vendor_9": 4450.0,
+          "vendor_12": 2640.0,
+          "vendor_15": 4350.0,
+          "vendor_16": 2640.0
+        }
+      }
+    ],
+    "approved_price_per_unit": 2640.0,
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%"
+  },
+  {
+    "id": "PRINT_RATE_109",
+    "category": "งานพิมพ์อัตราค่าบริการ",
+    "item_name": "วัสดุ (Matt fabric)",
+    "price_tiers": [
+      {
+        "qty": "21-30",
+        "unit_price": 2600.0,
+        "vendor_prices": {
+          "vendor_3": 3900.0,
+          "vendor_7": 4000.0,
+          "vendor_9": 4400.0,
+          "vendor_12": 2600.0,
+          "vendor_15": 4250.0,
+          "vendor_16": 2600.0
+        }
+      }
+    ],
+    "approved_price_per_unit": 2600.0,
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%"
+  },
+  {
+    "id": "PRINT_RATE_110",
+    "category": "งานพิมพ์อัตราค่าบริการ",
+    "item_name": "ฐานน้ำสำหรับธงปีกนก (Beach Flag) สีดำ ขนาด 20 L",
+    "price_tiers": [],
+    "approved_price_per_unit": 430.0,
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%"
+  },
+  {
+    "id": "PRINT_RATE_111",
+    "category": "งานพิมพ์อัตราค่าบริการ",
+    "item_name": "ฐานกากบาทสำหรับธงปีกนก",
+    "price_tiers": [
+      {
+        "qty": "น้อยกว่า 500",
+        "unit_price": 3.0,
+        "vendor_prices": {
+          "vendor_9": 5.6,
+          "vendor_11": 3.0,
+          "vendor_16": 3.0
+        }
+      }
+    ],
+    "approved_price_per_unit": 3.0,
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%"
+  },
+  {
+    "id": "PRINT_RATE_112",
+    "category": "งานพิมพ์อัตราค่าบริการ",
+    "item_name": "Riji ขนาด 6x5cm  หนา 0.3 mm. พิมพ์4สี 1 หน้า เคลือบยูวี  Diecut",
+    "price_tiers": [
+      {
+        "qty": "501 - 1,000",
+        "unit_price": 2.8,
+        "vendor_prices": {
+          "vendor_9": 3.8,
+          "vendor_11": 2.8,
+          "vendor_14": 11.0,
+          "vendor_16": 2.8
+        }
+      }
+    ],
+    "approved_price_per_unit": 2.8,
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%"
+  },
+  {
+    "id": "PRINT_RATE_113",
+    "category": "งานพิมพ์อัตราค่าบริการ",
+    "item_name": "ตามแบบทำปลายมนบน 2 มุม",
+    "price_tiers": [
+      {
+        "qty": "1,001 - 1,500",
+        "unit_price": 1.7,
+        "vendor_prices": {
+          "vendor_5": 1.7,
+          "vendor_9": 3.4,
+          "vendor_11": 2.5,
+          "vendor_14": 10.0,
+          "vendor_16": 1.7
+        }
+      },
+      {
+        "qty": "500 - 1,000",
+        "unit_price": 2.5,
+        "vendor_prices": {
+          "vendor_11": 2.5,
+          "vendor_15": 6.9,
+          "vendor_16": 2.5
+        }
+      }
+    ],
+    "approved_price_per_unit": 2.5,
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%"
+  },
+  {
+    "id": "PRINT_RATE_114",
+    "category": "งานพิมพ์อัตราค่าบริการ",
+    "item_name": "สายรัดข้อมือ BIB 25x250 mm วัสดุกระดาษกันน้ำ เขียนไม่ลอก",
+    "price_tiers": [
+      {
+        "qty": "1,001 - 2,000",
+        "unit_price": 2.2,
+        "vendor_prices": {
+          "vendor_11": 2.2,
+          "vendor_15": 5.75,
+          "vendor_16": 2.2
+        }
+      },
+      {
+        "qty": "2,001 - 3,000",
+        "unit_price": 2.0,
+        "vendor_prices": {
+          "vendor_11": 2.0,
+          "vendor_15": 4.95,
+          "vendor_16": 2.0
+        }
+      }
+    ],
+    "approved_price_per_unit": 2.0,
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%"
+  },
+  {
+    "id": "PRINT_RATE_115",
+    "category": "งานพิมพ์อัตราค่าบริการ",
+    "item_name": "shelf stip 4x40 cm อาร์ตการ์ด300g\nพิมพ์4สี จำนวน 1หน้า เคลือบ PVC",
+    "price_tiers": [
+      {
+        "qty": "1-50",
+        "unit_price": 10.0,
+        "vendor_prices": {
+          "vendor_6": 11.5,
+          "vendor_9": 37.4,
+          "vendor_11": 10.0,
+          "vendor_13": 11.5,
+          "vendor_14": 20.0,
+          "vendor_16": 10.0
+        }
+      },
+      {
+        "qty": "51 - 99",
+        "unit_price": 5.58,
+        "vendor_prices": {
+          "vendor_6": 5.58,
+          "vendor_9": 15.24,
+          "vendor_11": 8.0,
+          "vendor_13": 5.75,
+          "vendor_14": 15.0,
+          "vendor_16": 5.58
+        }
+      },
+      {
+        "qty": "100 - 200",
+        "unit_price": 4.43,
+        "vendor_prices": {
+          "vendor_6": 4.43,
+          "vendor_9": 9.6,
+          "vendor_11": 7.5,
+          "vendor_13": 4.6,
+          "vendor_14": 10.0,
+          "vendor_16": 4.43
+        }
+      },
+      {
+        "qty": "201 - 500",
+        "unit_price": 3.28,
+        "vendor_prices": {
+          "vendor_6": 3.28,
+          "vendor_9": 6.64,
+          "vendor_11": 7.0,
+          "vendor_13": 3.45,
+          "vendor_14": 9.0,
+          "vendor_16": 3.28
+        }
+      },
+      {
+        "qty": "501 - 1,000",
+        "unit_price": 2.88,
+        "vendor_prices": {
+          "vendor_6": 2.88,
+          "vendor_9": 5.18,
+          "vendor_11": 6.0,
+          "vendor_13": 3.0,
+          "vendor_14": 8.5,
+          "vendor_16": 2.88
+        }
+      }
+    ],
+    "approved_price_per_unit": 2.88,
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%"
+  },
+  {
+    "id": "PRINT_RATE_116",
+    "category": "งานพิมพ์อัตราค่าบริการ",
+    "item_name": "shelf talker15x15 cm อาร์ตการ์ด300g\nพิมพ์4สี จำนวน 1หน้า เคลือบ PVC",
+    "price_tiers": [
+      {
+        "qty": "1 - 50",
+        "unit_price": 10.0,
+        "vendor_prices": {
+          "vendor_6": 17.25,
+          "vendor_9": 33.66,
+          "vendor_11": 10.0,
+          "vendor_13": 17.25,
+          "vendor_14": 25.0,
+          "vendor_16": 10.0
+        }
+      },
+      {
+        "qty": "51 - 99",
+        "unit_price": 9.0,
+        "vendor_prices": {
+          "vendor_6": 11.5,
+          "vendor_9": 13.72,
+          "vendor_11": 9.0,
+          "vendor_13": 11.5,
+          "vendor_14": 20.0,
+          "vendor_16": 9.0
+        }
+      },
+      {
+        "qty": "100 - 200",
+        "unit_price": 8.5,
+        "vendor_prices": {
+          "vendor_6": 10.35,
+          "vendor_9": 8.64,
+          "vendor_11": 8.5,
+          "vendor_13": 10.5,
+          "vendor_14": 15.0,
+          "vendor_16": 8.5
+        }
+      },
+      {
+        "qty": "201 - 500",
+        "unit_price": 5.98,
+        "vendor_prices": {
+          "vendor_6": 8.05,
+          "vendor_9": 5.98,
+          "vendor_11": 8.0,
+          "vendor_13": 8.2,
+          "vendor_14": 12.0,
+          "vendor_16": 5.98
+        }
+      },
+      {
+        "qty": "501 - 1,000",
+        "unit_price": 4.66,
+        "vendor_prices": {
+          "vendor_6": 6.33,
+          "vendor_9": 4.66,
+          "vendor_11": 7.0,
+          "vendor_13": 6.5,
+          "vendor_14": 9.0,
+          "vendor_16": 4.66
+        }
+      }
+    ],
+    "approved_price_per_unit": 4.66,
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%"
+  },
+  {
+    "id": "PRINT_RATE_117",
+    "category": "งานพิมพ์อัตราค่าบริการ",
+    "item_name": "PP Board 3 มิล ติดสติกเกอร์ PVC ปริ้นธรรมดา  -ตัดสี่เหลี่ยมธรรมดา",
+    "price_tiers": [],
+    "approved_price_per_unit": 140.0,
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%"
+  },
+  {
+    "id": "PRINT_RATE_118",
+    "category": "งานพิมพ์อัตราค่าบริการ",
+    "item_name": "PP Board 3 มิล ติดสติกเกอร์ PVC ปริ้นกัน UV  -ตัดสี่เหลี่ยมธรรมดา",
+    "price_tiers": [],
+    "approved_price_per_unit": 180.0,
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%"
+  },
+  {
+    "id": "PRINT_RATE_119",
+    "category": "งานพิมพ์อัตราค่าบริการ",
+    "item_name": "PP Board 3 มิล ติดสติกเกอร์ PVC ปริ้นธรรมดา -ไดคัทตามแบบ",
+    "price_tiers": [],
+    "approved_price_per_unit": 145.0,
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%"
+  },
+  {
+    "id": "PRINT_RATE_120",
+    "category": "งานพิมพ์อัตราค่าบริการ",
+    "item_name": "PP Board 3 มิล ติดสติกเกอร์ PVC ปริ้นกัน UV  -ไดคัทตามแบบ",
+    "price_tiers": [],
+    "approved_price_per_unit": 185.0,
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%"
+  },
+  {
+    "id": "PRINT_RATE_121",
+    "category": "งานพิมพ์อัตราค่าบริการ",
+    "item_name": "PP Board 4 มิล ติดสติกเกอร์ PVC ปริ้นธรรมดา -ตัดสี่เหลี่ยมธรรมดา",
+    "price_tiers": [],
+    "approved_price_per_unit": 160.0,
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%"
+  },
+  {
+    "id": "PRINT_RATE_122",
+    "category": "งานพิมพ์อัตราค่าบริการ",
+    "item_name": "PP Board 4 มิล ติดสติกเกอร์ PVC ปริ้นกัน UV  -ตัดสี่เหลี่ยมธรรมดา",
+    "price_tiers": [],
+    "approved_price_per_unit": 200.0,
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%"
+  },
+  {
+    "id": "PRINT_RATE_123",
+    "category": "งานพิมพ์อัตราค่าบริการ",
+    "item_name": "PP Board 4 มิล ติดสติกเกอร์ PVC ปริ้นธรรมดา -ไดคัทตามแบบ",
+    "price_tiers": [],
+    "approved_price_per_unit": 165.0,
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%"
+  },
+  {
+    "id": "PRINT_RATE_124",
+    "category": "งานพิมพ์อัตราค่าบริการ",
+    "item_name": "PP Board 4 มิล ติดสติกเกอร์ PVC ปริ้นกัน UV  -ไดคัทตามแบบ",
+    "price_tiers": [],
+    "approved_price_per_unit": 205.0,
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%"
+  },
+  {
+    "id": "PRINT_RATE_125",
+    "category": "งานพิมพ์อัตราค่าบริการ",
+    "item_name": "PP Board 5 มิล ติดสติกเกอร์ PVC ปริ้นธรรมดา -ตัดสี่เหลี่ยมธรรมดา",
+    "price_tiers": [],
+    "approved_price_per_unit": 180.0,
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%"
+  },
+  {
+    "id": "PRINT_RATE_126",
+    "category": "งานพิมพ์อัตราค่าบริการ",
+    "item_name": "PP Board 5 มิล ติดสติกเกอร์ PVC ปริ้นกัน UV  -ตัดสี่เหลี่ยมธรรมดา",
+    "price_tiers": [],
+    "approved_price_per_unit": 220.0,
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%"
+  },
+  {
+    "id": "PRINT_RATE_127",
+    "category": "งานพิมพ์อัตราค่าบริการ",
+    "item_name": "PP Board 5 มิล ติดสติกเกอร์ PVC ปริ้นธรรมดา -ไดคัทตามแบบ",
+    "price_tiers": [],
+    "approved_price_per_unit": 185.0,
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%"
+  },
+  {
+    "id": "PRINT_RATE_128",
+    "category": "งานพิมพ์อัตราค่าบริการ",
+    "item_name": "PP Board 5 มิล ติดสติกเกอร์ PVC ปริ้นกัน UV  -ไดคัทตามแบบ",
+    "price_tiers": [],
+    "approved_price_per_unit": 225.0,
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%"
+  },
+  {
+    "id": "PRINT_RATE_129",
+    "category": "งานพิมพ์อัตราค่าบริการ",
+    "item_name": "สติ๊กเกอร์ PVC พิมพ์ละเอียด กัน UV  พิมพ์ 1 สี -ตัดสี่เหลี่ยมธรรมดา",
+    "price_tiers": [],
+    "approved_price_per_unit": 120.0,
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%"
+  },
+  {
+    "id": "PRINT_RATE_130",
+    "category": "งานพิมพ์อัตราค่าบริการ",
+    "item_name": "สติ๊กเกอร์ PVC พิมพ์ละเอียด กัน UV  พิมพ์ 2 สี -ตัดสี่เหลี่ยมธรรมดา",
+    "price_tiers": [],
+    "approved_price_per_unit": 120.0,
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%"
+  },
+  {
+    "id": "PRINT_RATE_131",
+    "category": "งานพิมพ์อัตราค่าบริการ",
+    "item_name": "สติ๊กเกอร์ PVC พิมพ์ละเอียด กัน UV  พิมพ์ 3 สี -ตัดสี่เหลี่ยมธรรมดา",
+    "price_tiers": [],
+    "approved_price_per_unit": 120.0,
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%"
+  },
+  {
+    "id": "PRINT_RATE_132",
+    "category": "งานพิมพ์อัตราค่าบริการ",
+    "item_name": "สติ๊กเกอร์ PVC พิมพ์ละเอียด กัน UV  พิมพ์ 4 สี -ตัดสี่เหลี่ยมธรรมดา",
+    "price_tiers": [],
+    "approved_price_per_unit": 120.0,
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%"
+  },
+  {
+    "id": "PRINT_RATE_133",
+    "category": "งานพิมพ์อัตราค่าบริการ",
+    "item_name": "สติ๊กเกอร์ PVC พิมพ์ละเอียด กัน UV  พิมพ์ 1 สี -ไดคัทตามแบบ",
+    "price_tiers": [],
+    "approved_price_per_unit": 125.0,
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%"
+  },
+  {
+    "id": "PRINT_RATE_134",
+    "category": "งานพิมพ์อัตราค่าบริการ",
+    "item_name": "สติ๊กเกอร์ PVC พิมพ์ละเอียด กัน UV  พิมพ์ 2 สี -ไดคัทตามแบบ",
+    "price_tiers": [],
+    "approved_price_per_unit": 125.0,
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%"
+  },
+  {
+    "id": "PRINT_RATE_135",
+    "category": "งานพิมพ์อัตราค่าบริการ",
+    "item_name": "สติ๊กเกอร์ PVC พิมพ์ละเอียด กัน UV  พิมพ์ 3 สี -ไดคัทตามแบบ",
+    "price_tiers": [],
+    "approved_price_per_unit": 125.0,
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%"
+  },
+  {
+    "id": "PRINT_RATE_136",
+    "category": "งานพิมพ์อัตราค่าบริการ",
+    "item_name": "สติ๊กเกอร์ PVC พิมพ์ละเอียด กัน UV  พิมพ์ 4 สี -ไดคัทตามแบบ",
+    "price_tiers": [],
+    "approved_price_per_unit": 125.0,
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%"
+  },
+  {
+    "id": "PRINT_RATE_137",
+    "category": "งานพิมพ์อัตราค่าบริการ",
+    "item_name": "สติ๊กเกอร์ใส PVC พิมพ์ละเอียด กัน UV  พิมพ์ 1 สี -ตัดสี่เหลี่ยมธรรมดา",
+    "price_tiers": [],
+    "approved_price_per_unit": 120.0,
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%"
+  },
+  {
+    "id": "PRINT_RATE_138",
+    "category": "งานพิมพ์อัตราค่าบริการ",
+    "item_name": "สติ๊กเกอร์ใส PVC พิมพ์ละเอียด กัน UV  พิมพ์ 2 สี -ตัดสี่เหลี่ยมธรรมดา",
+    "price_tiers": [],
+    "approved_price_per_unit": 120.0,
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%"
+  },
+  {
+    "id": "PRINT_RATE_139",
+    "category": "งานพิมพ์อัตราค่าบริการ",
+    "item_name": "สติ๊กเกอร์ใส PVC พิมพ์ละเอียด กัน UV  พิมพ์ 3 สี -ตัดสี่เหลี่ยมธรรมดา",
+    "price_tiers": [],
+    "approved_price_per_unit": 120.0,
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%"
+  },
+  {
+    "id": "PRINT_RATE_140",
+    "category": "งานพิมพ์อัตราค่าบริการ",
+    "item_name": "สติ๊กเกอร์ใส PVC พิมพ์ละเอียด กัน UV  พิมพ์ 4 สี -ตัดสี่เหลี่ยมธรรมดา",
+    "price_tiers": [],
+    "approved_price_per_unit": 120.0,
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%"
+  },
+  {
+    "id": "PRINT_RATE_141",
+    "category": "งานพิมพ์อัตราค่าบริการ",
+    "item_name": "สติ๊กเกอร์ใส PVC พิมพ์ละเอียด กัน UV  พิมพ์ 1 สี -ไดคัทตามแบบ",
+    "price_tiers": [],
+    "approved_price_per_unit": 125.0,
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%"
+  },
+  {
+    "id": "PRINT_RATE_142",
+    "category": "งานพิมพ์อัตราค่าบริการ",
+    "item_name": "สติ๊กเกอร์ใส PVC พิมพ์ละเอียด กัน UV  พิมพ์ 2 สี -ไดคัทตามแบบ",
+    "price_tiers": [],
+    "approved_price_per_unit": 125.0,
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%"
+  },
+  {
+    "id": "PRINT_RATE_143",
+    "category": "งานพิมพ์อัตราค่าบริการ",
+    "item_name": "สติ๊กเกอร์ใส PVC พิมพ์ละเอียด กัน UV  พิมพ์ 3 สี -ไดคัทตามแบบ",
+    "price_tiers": [],
+    "approved_price_per_unit": 125.0,
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%"
+  },
+  {
+    "id": "PRINT_RATE_144",
+    "category": "งานพิมพ์อัตราค่าบริการ",
+    "item_name": "สติ๊กเกอร์ใส PVC พิมพ์ละเอียด กัน UV  พิมพ์ 4 สี -ไดคัทตามแบบ",
+    "price_tiers": [],
+    "approved_price_per_unit": 125.0,
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%"
+  },
+  {
+    "id": "PRINT_RATE_145",
+    "category": "งานพิมพ์อัตราค่าบริการ",
+    "item_name": "ราคาค่าเคลือบลามิเนต",
+    "price_tiers": [],
+    "approved_price_per_unit": 33.0,
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%"
+  },
+  {
+    "id": "PRINT_RATE_146",
+    "category": "งานพิมพ์อัตราค่าบริการ",
+    "item_name": "ราคาค่าเคลือบด้าน",
+    "price_tiers": [],
+    "approved_price_per_unit": 25.0,
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%"
+  },
+  {
+    "id": "PRINT_RATE_147",
+    "category": "งานพิมพ์อัตราค่าบริการ",
+    "item_name": "ราคาค่าเคลือบมัน",
+    "price_tiers": [],
+    "approved_price_per_unit": 25.0,
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%"
+  },
+  {
+    "id": "PRINT_RATE_148",
+    "category": "งานพิมพ์อัตราค่าบริการ",
+    "item_name": "Sticker Remover  8 x 10 cm.",
+    "price_tiers": [
+      {
+        "qty": "1 - 500",
+        "unit_price": 2.5,
+        "vendor_prices": {
+          "vendor_6": 5.75,
+          "vendor_8": 5.0,
+          "vendor_9": 4.85,
+          "vendor_10": 3.0,
+          "vendor_11": 2.5,
+          "vendor_13": 6.0,
+          "vendor_14": 15.0,
+          "vendor_16": 2.5
+        }
+      },
+      {
+        "qty": "501 - 1,000",
+        "unit_price": 2.0,
+        "vendor_prices": {
+          "vendor_5": 2.7,
+          "vendor_6": 4.6,
+          "vendor_8": 2.5,
+          "vendor_9": 3.94,
+          "vendor_10": 2.0,
+          "vendor_11": 2.2,
+          "vendor_13": 5.0,
+          "vendor_14": 9.0,
+          "vendor_16": 2.0
+        }
+      }
+    ],
+    "approved_price_per_unit": 2.0,
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%"
+  },
+  {
+    "id": "PRINT_RATE_149",
+    "category": "งานพิมพ์อัตราค่าบริการ",
+    "item_name": "Sticker PVC กัน UV ขนาดไม่เกิน A4",
+    "price_tiers": [
+      {
+        "qty": "1 - 100",
+        "unit_price": 20.0,
+        "vendor_prices": {
+          "vendor_6": 23.0,
+          "vendor_8": 20.0,
+          "vendor_9": 25.5,
+          "vendor_10": 20.0,
+          "vendor_11": 25.0,
+          "vendor_13": 23.0,
+          "vendor_14": 35.0,
+          "vendor_16": 20.0
+        }
+      }
+    ],
+    "approved_price_per_unit": 20.0,
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%"
+  },
+  {
+    "id": "PRINT_RATE_150",
+    "category": "งานพิมพ์อัตราค่าบริการ",
+    "item_name": "พิมพ์ 4 สี 1 ด้าน ตัดเหลี่ยม",
+    "price_tiers": [
+      {
+        "qty": "101 - 500",
+        "unit_price": 19.55,
+        "vendor_prices": {
+          "vendor_6": 23.0,
+          "vendor_8": 20.0,
+          "vendor_9": 23.0,
+          "vendor_10": 20.0,
+          "vendor_11": 23.0,
+          "vendor_13": 19.55,
+          "vendor_14": 30.0,
+          "vendor_16": 19.55
+        }
+      },
+      {
+        "qty": "501 - 1,000",
+        "unit_price": 14.6,
+        "vendor_prices": {
+          "vendor_6": 19.55,
+          "vendor_8": 20.0,
+          "vendor_9": 14.6,
+          "vendor_10": 15.0,
+          "vendor_11": 21.0,
+          "vendor_13": 19.0,
+          "vendor_14": 26.0,
+          "vendor_16": 14.6
+        }
+      },
+      {
+        "qty": "1,001 - 1,500",
+        "unit_price": 11.45,
+        "vendor_prices": {
+          "vendor_6": 18.4,
+          "vendor_8": 15.0,
+          "vendor_9": 11.45,
+          "vendor_10": 12.0,
+          "vendor_11": 20.0,
+          "vendor_13": 18.0,
+          "vendor_14": 24.0,
+          "vendor_16": 11.45
+        }
+      },
+      {
+        "qty": "1,501 - 2,000",
+        "unit_price": 9.68,
+        "vendor_prices": {
+          "vendor_6": 17.25,
+          "vendor_8": 15.0,
+          "vendor_9": 9.68,
+          "vendor_10": 12.0,
+          "vendor_11": 18.0,
+          "vendor_13": 17.0,
+          "vendor_14": 22.0,
+          "vendor_16": 9.68
+        }
+      }
+    ],
+    "approved_price_per_unit": 9.68,
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%"
+  },
+  {
+    "id": "PRINT_RATE_151",
+    "category": "งานพิมพ์อัตราค่าบริการ",
+    "item_name": "Sticker PVC กัน UV ขนาดไม่เกิน A5",
+    "price_tiers": [
+      {
+        "qty": "1 - 100",
+        "unit_price": 8.0,
+        "vendor_prices": {
+          "vendor_6": 12.65,
+          "vendor_8": 15.0,
+          "vendor_9": 15.94,
+          "vendor_10": 8.0,
+          "vendor_11": 12.5,
+          "vendor_13": 12.65,
+          "vendor_14": 25.0,
+          "vendor_16": 8.0
+        }
+      }
+    ],
+    "approved_price_per_unit": 8.0,
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%"
+  },
+  {
+    "id": "PRINT_RATE_152",
+    "category": "งานพิมพ์อัตราค่าบริการ",
+    "item_name": "พิมพ์ 4 สี 1 ด้าน ตัดเหลี่ยม",
+    "price_tiers": [
+      {
+        "qty": "101 - 500",
+        "unit_price": 8.0,
+        "vendor_prices": {
+          "vendor_6": 12.65,
+          "vendor_8": 15.0,
+          "vendor_9": 14.8,
+          "vendor_10": 8.0,
+          "vendor_11": 11.5,
+          "vendor_13": 12.0,
+          "vendor_14": 22.0,
+          "vendor_16": 8.0
+        }
+      },
+      {
+        "qty": "501 - 1,000",
+        "unit_price": 6.0,
+        "vendor_prices": {
+          "vendor_6": 12.65,
+          "vendor_8": 15.0,
+          "vendor_9": 10.24,
+          "vendor_10": 6.0,
+          "vendor_11": 10.5,
+          "vendor_13": 11.5,
+          "vendor_14": 20.0,
+          "vendor_16": 6.0
+        }
+      },
+      {
+        "qty": "1,001 - 1,500",
+        "unit_price": 6.0,
+        "vendor_prices": {
+          "vendor_6": 11.5,
+          "vendor_8": 10.0,
+          "vendor_9": 9.58,
+          "vendor_10": 6.0,
+          "vendor_11": 10.0,
+          "vendor_13": 11.5,
+          "vendor_14": 18.0,
+          "vendor_16": 6.0
+        }
+      },
+      {
+        "qty": "1,501 - 2,000",
+        "unit_price": 6.0,
+        "vendor_prices": {
+          "vendor_6": 10.35,
+          "vendor_8": 10.0,
+          "vendor_9": 7.82,
+          "vendor_10": 6.0,
+          "vendor_11": 9.0,
+          "vendor_13": 10.5,
+          "vendor_14": 15.0,
+          "vendor_16": 6.0
+        }
+      }
+    ],
+    "approved_price_per_unit": 6.0,
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%"
+  },
+  {
+    "id": "PRINT_RATE_153",
+    "category": "งานพิมพ์อัตราค่าบริการ",
+    "item_name": "Sticker PVC กัน UV ขนาดไม่เกิน A3",
+    "price_tiers": [
+      {
+        "qty": "1 - 100",
+        "unit_price": 24.0,
+        "vendor_prices": {
+          "vendor_6": 46.0,
+          "vendor_8": 30.0,
+          "vendor_9": 36.4,
+          "vendor_10": 24.0,
+          "vendor_11": 50.0,
+          "vendor_13": 46.0,
+          "vendor_14": 55.0,
+          "vendor_16": 24.0
+        }
+      }
+    ],
+    "approved_price_per_unit": 24.0,
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%"
+  },
+  {
+    "id": "PRINT_RATE_154",
+    "category": "งานพิมพ์อัตราค่าบริการ",
+    "item_name": "พิมพ์ 4 สี 1 ด้าน ตัดเหลี่ยม",
+    "price_tiers": [
+      {
+        "qty": "101 - 500",
+        "unit_price": 24.0,
+        "vendor_prices": {
+          "vendor_6": 46.0,
+          "vendor_8": 30.0,
+          "vendor_9": 34.0,
+          "vendor_10": 24.0,
+          "vendor_11": 46.0,
+          "vendor_13": 41.0,
+          "vendor_14": 50.0,
+          "vendor_16": 24.0
+        }
+      },
+      {
+        "qty": "501 - 1,000",
+        "unit_price": 19.22,
+        "vendor_prices": {
+          "vendor_6": 40.25,
+          "vendor_8": 30.0,
+          "vendor_9": 19.22,
+          "vendor_10": 24.0,
+          "vendor_11": 42.0,
+          "vendor_13": 40.0,
+          "vendor_14": 45.0,
+          "vendor_16": 19.22
+        }
+      },
+      {
+        "qty": "1,001 - 1,500",
+        "unit_price": 17.45,
+        "vendor_prices": {
+          "vendor_6": 36.8,
+          "vendor_8": 25.0,
+          "vendor_9": 17.45,
+          "vendor_10": 24.0,
+          "vendor_11": 40.0,
+          "vendor_13": 37.0,
+          "vendor_14": 42.0,
+          "vendor_16": 17.45
+        }
+      },
+      {
+        "qty": "1,501 - 2,000",
+        "unit_price": 16.34,
+        "vendor_prices": {
+          "vendor_6": 34.5,
+          "vendor_8": 25.0,
+          "vendor_9": 16.34,
+          "vendor_10": 24.0,
+          "vendor_11": 36.0,
+          "vendor_13": 35.0,
+          "vendor_14": 38.0,
+          "vendor_16": 16.34
+        }
+      }
+    ],
+    "approved_price_per_unit": 16.34,
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%"
+  },
+  {
+    "id": "PRINT_RATE_155",
+    "category": "งานพิมพ์อัตราค่าบริการ",
+    "item_name": "Sale kit A4 กระดาษอาร์ตมัน 230gขนาดA4 พิมพ์ 4สี 1หน้า",
+    "price_tiers": [
+      {
+        "qty": "น้อยกว่า 50",
+        "unit_price": 15.0,
+        "vendor_prices": {
+          "vendor_6": 17.25,
+          "vendor_8": 18.0,
+          "vendor_9": 27.6,
+          "vendor_11": 20.0,
+          "vendor_13": 17.25,
+          "vendor_14": 35.0,
+          "vendor_15": 15.0,
+          "vendor_16": 15.0
+        }
+      },
+      {
+        "qty": "51 - 500",
+        "unit_price": 10.35,
+        "vendor_prices": {
+          "vendor_6": 10.35,
+          "vendor_8": 18.0,
+          "vendor_9": 18.9,
+          "vendor_11": 17.5,
+          "vendor_13": 10.5,
+          "vendor_14": 20.0,
+          "vendor_16": 10.35
+        }
+      }
+    ],
+    "approved_price_per_unit": 10.35,
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%"
+  },
+  {
+    "id": "PRINT_RATE_156",
+    "category": "งานพิมพ์อัตราค่าบริการ",
+    "item_name": "Couponขนาด 8x7 cm  (50ใบ/เล่ม)\nกระดาษปอนด์ 80g พิมพ์ 2 ด้าน\nด้านหน้า พิมพ์4สี  ด้านหลัง พิมพ์1สี  ติดกาวเข้าเล่ม",
+    "price_tiers": [
+      {
+        "qty": "1-50",
+        "unit_price": 40.0,
+        "vendor_prices": {
+          "vendor_6": 92.0,
+          "vendor_8": 40.0,
+          "vendor_9": 84.0,
+          "vendor_11": 150.0,
+          "vendor_13": 95.0,
+          "vendor_14": 110.0,
+          "vendor_16": 40.0
+        }
+      },
+      {
+        "qty": "51 - 100",
+        "unit_price": 40.0,
+        "vendor_prices": {
+          "vendor_8": 40.0,
+          "vendor_9": 63.9,
+          "vendor_11": 100.0,
+          "vendor_13": 85.0,
+          "vendor_14": 100.0,
+          "vendor_16": 40.0
+        }
+      },
+      {
+        "qty": "101 - 200",
+        "unit_price": 40.0,
+        "vendor_prices": {
+          "vendor_6": 69.0,
+          "vendor_8": 40.0,
+          "vendor_9": 50.95,
+          "vendor_11": 85.0,
+          "vendor_13": 75.0,
+          "vendor_14": 90.0,
+          "vendor_16": 40.0
+        }
+      }
+    ],
+    "approved_price_per_unit": 40.0,
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%"
+  },
+  {
+    "id": "PRINT_RATE_157",
+    "category": "งานพิมพ์อัตราค่าบริการ",
+    "item_name": "Couponขนาด 8x7 cm  (100ใบ/เล่ม)\nกระดาษปอนด์ 80g พิมพ์ 2 ด้าน\nด้านหน้า พิมพ์4สี  ด้านหลัง พิมพ์1สี  ติดกาวเข้าเล่ม",
+    "price_tiers": [
+      {
+        "qty": "1-50",
+        "unit_price": 80.0,
+        "vendor_prices": {
+          "vendor_6": 172.5,
+          "vendor_8": 80.0,
+          "vendor_9": 113.4,
+          "vendor_11": 150.0,
+          "vendor_13": 175.0,
+          "vendor_14": 220.0,
+          "vendor_16": 80.0
+        }
+      },
+      {
+        "qty": "51 - 100",
+        "unit_price": 80.0,
+        "vendor_prices": {
+          "vendor_6": 149.5,
+          "vendor_8": 80.0,
+          "vendor_9": 86.27,
+          "vendor_11": 100.0,
+          "vendor_13": 170.0,
+          "vendor_14": 200.0,
+          "vendor_16": 80.0
+        }
+      },
+      {
+        "qty": "101 - 200",
+        "unit_price": 68.78,
+        "vendor_prices": {
+          "vendor_6": 126.5,
+          "vendor_8": 80.0,
+          "vendor_9": 68.78,
+          "vendor_11": 85.0,
+          "vendor_13": 150.0,
+          "vendor_14": 180.0,
+          "vendor_16": 68.78
+        }
+      }
+    ],
+    "approved_price_per_unit": 68.78,
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%"
+  },
+  {
+    "id": "PRINT_RATE_158",
+    "category": "งานพิมพ์อัตราค่าบริการ",
+    "item_name": "Couponขนาด 3*7 นิ้ว หรืv 10.5*7.5 cm  (50ใบ/เล่ม)\nกระดาษปอนด์ 80g พิมพ์ 2 ด้าน\nด้านหน้า พิมพ์4สี  ด้านหลัง พิมพ์1สี  ติดกาวเข้าเล่ม",
+    "price_tiers": [
+      {
+        "qty": "1-50",
+        "unit_price": 40.0,
+        "vendor_prices": {
+          "vendor_6": 97.75,
+          "vendor_8": 40.0,
+          "vendor_9": 92.4,
+          "vendor_11": 400.0,
+          "vendor_13": 180.0,
+          "vendor_14": 120.0,
+          "vendor_16": 40.0
+        }
+      },
+      {
+        "qty": "51 - 100",
+        "unit_price": 40.0,
+        "vendor_prices": {
+          "vendor_6": 86.25,
+          "vendor_8": 40.0,
+          "vendor_9": 70.29,
+          "vendor_11": 120.0,
+          "vendor_13": 165.0,
+          "vendor_14": 110.0,
+          "vendor_16": 40.0
+        }
+      },
+      {
+        "qty": "101 - 200",
+        "unit_price": 40.0,
+        "vendor_prices": {
+          "vendor_6": 74.75,
+          "vendor_8": 40.0,
+          "vendor_9": 56.05,
+          "vendor_11": 90.0,
+          "vendor_13": 156.0,
+          "vendor_14": 100.0,
+          "vendor_16": 40.0
+        }
+      }
+    ],
+    "approved_price_per_unit": 40.0,
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%"
+  },
+  {
+    "id": "PRINT_RATE_159",
+    "category": "งานพิมพ์อัตราค่าบริการ",
+    "item_name": "Couponขนาด 3*7 นิ้ว หรืv 10.5*7.5 cm  (100ใบ/เล่ม)\nกระดาษปอนด์ 80g พิมพ์ 2 ด้าน\nด้านหน้า พิมพ์4สี  ด้านหลัง พิมพ์1สี  ติดกาวเข้าเล่ม",
+    "price_tiers": [
+      {
+        "qty": "1-50",
+        "unit_price": 80.0,
+        "vendor_prices": {
+          "vendor_6": 178.25,
+          "vendor_8": 80.0,
+          "vendor_9": 121.34,
+          "vendor_11": 400.0,
+          "vendor_13": 180.0,
+          "vendor_14": 240.0,
+          "vendor_16": 80.0
+        }
+      },
+      {
+        "qty": "51 - 100",
+        "unit_price": 80.0,
+        "vendor_prices": {
+          "vendor_6": 155.25,
+          "vendor_8": 80.0,
+          "vendor_9": 92.3,
+          "vendor_11": 120.0,
+          "vendor_13": 165.0,
+          "vendor_14": 220.0,
+          "vendor_16": 80.0
+        }
+      },
+      {
+        "qty": "101 - 200",
+        "unit_price": 73.6,
+        "vendor_prices": {
+          "vendor_6": 132.25,
+          "vendor_8": 80.0,
+          "vendor_9": 73.6,
+          "vendor_11": 90.0,
+          "vendor_13": 156.0,
+          "vendor_14": 200.0,
+          "vendor_16": 73.6
+        }
+      }
+    ],
+    "approved_price_per_unit": 73.6,
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%"
+  },
+  {
+    "id": "PRINT_RATE_160",
+    "category": "งานพิมพ์อัตราค่าบริการ",
+    "item_name": "หนังสือคู่มือขนาดA4 อาร์ตมัน120g",
+    "price_tiers": [
+      {
+        "qty": "100",
+        "unit_price": 76.7,
+        "vendor_prices": {
+          "vendor_8": 130.0,
+          "vendor_9": 76.7,
+          "vendor_11": 25000.0,
+          "vendor_15": 180.0,
+          "vendor_16": 76.7
+        }
+      }
+    ],
+    "approved_price_per_unit": 76.7,
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%"
+  },
+  {
+    "id": "PRINT_RATE_161",
+    "category": "งานพิมพ์อัตราค่าบริการ",
+    "item_name": "ทั้งเล่มละ 20หน้า พิมพ์ 4สี",
+    "price_tiers": [
+      {
+        "qty": "200",
+        "unit_price": 71.0,
+        "vendor_prices": {
+          "vendor_8": 125.0,
+          "vendor_9": 71.0,
+          "vendor_11": 40000.0,
+          "vendor_15": 160.0,
+          "vendor_16": 71.0
+        }
+      }
+    ],
+    "approved_price_per_unit": 71.0,
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%"
+  },
+  {
+    "id": "PRINT_RATE_162",
+    "category": "งานพิมพ์อัตราค่าบริการ",
+    "item_name": "เคลือบลามิเนทเข้าเล่ม มุงหลังคา",
+    "price_tiers": [
+      {
+        "qty": "300",
+        "unit_price": 66.9,
+        "vendor_prices": {
+          "vendor_8": 120.0,
+          "vendor_9": 66.9,
+          "vendor_11": 45000.0,
+          "vendor_15": 150.0,
+          "vendor_16": 66.9
+        }
+      }
+    ],
+    "approved_price_per_unit": 66.9,
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%"
+  },
+  {
+    "id": "PRINT_RATE_163",
+    "category": "งานพิมพ์อัตราค่าบริการ",
+    "item_name": "โปสเตอร์  ขนาด 16 x 24 นิ้ว  พิมพ์ 4 สี 1 หน้า",
+    "price_tiers": [
+      {
+        "qty": "100 - 500",
+        "unit_price": 8.0,
+        "vendor_prices": {
+          "vendor_6": 32.2,
+          "vendor_9": 19.64,
+          "vendor_10": 8.0,
+          "vendor_11": 72.0,
+          "vendor_13": 33.0,
+          "vendor_14": 35.0,
+          "vendor_16": 8.0
+        }
+      },
+      {
+        "qty": "501 - 1,000",
+        "unit_price": 6.0,
+        "vendor_prices": {
+          "vendor_6": 28.75,
+          "vendor_8": 8.0,
+          "vendor_9": 12.74,
+          "vendor_10": 6.0,
+          "vendor_11": 30.0,
+          "vendor_13": 29.0,
+          "vendor_14": 32.0,
+          "vendor_16": 6.0
+        }
+      },
+      {
+        "qty": "1,001 - 2,000",
+        "unit_price": 5.0,
+        "vendor_prices": {
+          "vendor_6": 27.6,
+          "vendor_8": 6.0,
+          "vendor_9": 9.24,
+          "vendor_10": 5.0,
+          "vendor_11": 18.0,
+          "vendor_13": 28.0,
+          "vendor_14": 30.0,
+          "vendor_16": 5.0
+        }
+      }
+    ],
+    "approved_price_per_unit": 5.0,
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%"
+  },
+  {
+    "id": "PRINT_RATE_164",
+    "category": "งานพิมพ์อัตราค่าบริการ",
+    "item_name": "Vacuum ขนาด 13x15 cm.",
+    "price_tiers": [
+      {
+        "qty": "1,000 - 5,000",
+        "unit_price": 2.8,
+        "vendor_prices": {
+          "vendor_2": 7.0,
+          "vendor_6": 5.52,
+          "vendor_8": 2.8,
+          "vendor_9": 5.52,
+          "vendor_10": 5.0,
+          "vendor_11": 6.0,
+          "vendor_13": 6.0,
+          "vendor_14": 10.0,
+          "vendor_15": 22.0,
+          "vendor_16": 2.8
+        }
+      }
+    ],
+    "approved_price_per_unit": 2.8,
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%"
+  },
+  {
+    "id": "PRINT_RATE_165",
+    "category": "งานพิมพ์อัตราค่าบริการ",
+    "item_name": "สติ๊กเกอร์PVC ขาวกาวรีมูฟ",
+    "price_tiers": [
+      {
+        "qty": "5,001 - 8,000",
+        "unit_price": 2.5,
+        "vendor_prices": {
+          "vendor_2": 6.5,
+          "vendor_6": 4.6,
+          "vendor_8": 2.5,
+          "vendor_9": 3.74,
+          "vendor_10": 4.0,
+          "vendor_11": 5.5,
+          "vendor_13": 4.8,
+          "vendor_14": 7.0,
+          "vendor_15": 22.0,
+          "vendor_16": 2.5
+        }
+      }
+    ],
+    "approved_price_per_unit": 2.5,
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%"
+  },
+  {
+    "id": "PRINT_RATE_166",
+    "category": "งานพิมพ์อัตราค่าบริการ",
+    "item_name": "Head PM Rack",
+    "price_tiers": [
+      {
+        "qty": "1,000 - 3,000",
+        "unit_price": 18.0,
+        "vendor_prices": {
+          "vendor_2": 18.0,
+          "vendor_5": 35.0,
+          "vendor_6": 25.3,
+          "vendor_9": 19.0,
+          "vendor_10": 25.0,
+          "vendor_11": 38.0,
+          "vendor_13": 25.5,
+          "vendor_14": 25.0,
+          "vendor_15": 45.0,
+          "vendor_16": 18.0
+        }
+      }
+    ],
+    "approved_price_per_unit": 18.0,
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%"
+  },
+  {
+    "id": "PRINT_RATE_167",
+    "category": "งานพิมพ์อัตราค่าบริการ",
+    "item_name": "ขนาด 42x23.8 cm. PP Board 3mm  สติ๊กเกอร์ PVC",
+    "price_tiers": [
+      {
+        "qty": "3,001 - 5,000",
+        "unit_price": 17.0,
+        "vendor_prices": {
+          "vendor_2": 17.0,
+          "vendor_6": 25.3,
+          "vendor_9": 18.0,
+          "vendor_10": 25.0,
+          "vendor_11": 35.0,
+          "vendor_13": 25.5,
+          "vendor_14": 24.0,
+          "vendor_15": 42.0,
+          "vendor_16": 17.0
+        }
+      },
+      {
+        "qty": "5,001 - 8,000",
+        "unit_price": 16.0,
+        "vendor_prices": {
+          "vendor_2": 16.0,
+          "vendor_6": 23.0,
+          "vendor_9": 17.0,
+          "vendor_10": 2525.0,
+          "vendor_11": 33.0,
+          "vendor_13": 24.0,
+          "vendor_14": 23.0,
+          "vendor_15": 40.0,
+          "vendor_16": 16.0
+        }
+      },
+      {
+        "qty": "8,001 - 10,000",
+        "unit_price": 15.0,
+        "vendor_prices": {
+          "vendor_2": 15.0,
+          "vendor_6": 23.0,
+          "vendor_9": 16.0,
+          "vendor_10": 25.0,
+          "vendor_11": 32.0,
+          "vendor_13": 23.0,
+          "vendor_14": 22.0,
+          "vendor_15": 38.0,
+          "vendor_16": 15.0
+        }
+      }
+    ],
+    "approved_price_per_unit": 15.0,
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%"
+  },
+  {
+    "id": "PRINT_RATE_168",
+    "category": "งานพิมพ์อัตราค่าบริการ",
+    "item_name": "Hand prop PP board มิล ไดคัท พร้อมด้ามจับท่อ PVC",
+    "price_tiers": [],
+    "approved_price_per_unit": 150.0,
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%"
+  },
+  {
+    "id": "PRINT_RATE_169",
+    "category": "งานพิมพ์อัตราค่าบริการ",
+    "item_name": "Sticker Cool Zone ขนาด 20x4cm",
+    "price_tiers": [
+      {
+        "qty": "1 - 5,000",
+        "unit_price": 3.2,
+        "vendor_prices": {
+          "vendor_6": 4.6,
+          "vendor_9": 6.0,
+          "vendor_11": 3.2,
+          "vendor_13": 4.6,
+          "vendor_14": 15.0,
+          "vendor_15": 28.0,
+          "vendor_16": 3.2
+        }
+      }
+    ],
+    "approved_price_per_unit": 3.2,
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%"
+  },
+  {
+    "id": "PRINT_RATE_170",
+    "category": "งานพิมพ์อัตราค่าบริการ",
+    "item_name": "วัสดุสติกเกอร์พีวีซีขาวเงากาวรีมูฟ พิมพ์",
+    "price_tiers": [
+      {
+        "qty": "5,001 - 10,000",
+        "unit_price": 3.0,
+        "vendor_prices": {
+          "vendor_6": 3.75,
+          "vendor_9": 3.3,
+          "vendor_11": 3.0,
+          "vendor_13": 4.4,
+          "vendor_14": 8.0,
+          "vendor_15": 24.0,
+          "vendor_16": 3.0
+        }
+      }
+    ],
+    "approved_price_per_unit": 3.0,
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%"
+  },
+  {
+    "id": "PRINT_RATE_171",
+    "category": "งานพิมพ์อัตราค่าบริการ",
+    "item_name": "4/0 จำนวน 1หน้า ตัดสี่เหลี่ยม",
+    "price_tiers": [
+      {
+        "qty": "10,001 - 15,000",
+        "unit_price": 1.92,
+        "vendor_prices": {
+          "vendor_6": 3.45,
+          "vendor_9": 1.92,
+          "vendor_11": 2.8,
+          "vendor_13": 3.5,
+          "vendor_14": 7.0,
+          "vendor_15": 22.5,
+          "vendor_16": 1.92
+        }
+      },
+      {
+        "qty": "15,001 -  20,000",
+        "unit_price": 1.36,
+        "vendor_prices": {
+          "vendor_6": 2.88,
+          "vendor_9": 1.36,
+          "vendor_11": 2.6,
+          "vendor_13": 3.0,
+          "vendor_14": 5.0,
+          "vendor_15": 21.0,
+          "vendor_16": 1.36
+        }
+      }
+    ],
+    "approved_price_per_unit": 1.36,
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%"
+  },
+  {
+    "id": "PRINT_RATE_172",
+    "category": "งานพิมพ์อัตราค่าบริการ",
+    "item_name": "ประกาศนียบัตรยุวชน A4 การ์ดขาว210g",
+    "price_tiers": [
+      {
+        "qty": "1 - 50",
+        "unit_price": 16.2,
+        "vendor_prices": {
+          "vendor_6": 23.0,
+          "vendor_8": 18.0,
+          "vendor_9": 16.2,
+          "vendor_11": 20.0,
+          "vendor_13": 23.0,
+          "vendor_15": 18.0,
+          "vendor_16": 16.2
+        }
+      }
+    ],
+    "approved_price_per_unit": 16.2,
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%"
+  },
+  {
+    "id": "PRINT_RATE_173",
+    "category": "งานพิมพ์อัตราค่าบริการ",
+    "item_name": "4สี 1ด้าน",
+    "price_tiers": [
+      {
+        "qty": "51 - 100",
+        "unit_price": 11.5,
+        "vendor_prices": {
+          "vendor_6": 11.5,
+          "vendor_8": 18.0,
+          "vendor_9": 12.4,
+          "vendor_11": 18.0,
+          "vendor_13": 12.0,
+          "vendor_15": 15.0,
+          "vendor_16": 11.5
+        }
+      },
+      {
+        "qty": "101 - 200",
+        "unit_price": 9.2,
+        "vendor_prices": {
+          "vendor_5": 20.0,
+          "vendor_6": 11.5,
+          "vendor_8": 18.0,
+          "vendor_9": 9.2,
+          "vendor_11": 16.5,
+          "vendor_13": 12.0,
+          "vendor_15": 13.0,
+          "vendor_16": 9.2
+        }
+      },
+      {
+        "qty": "201 - 500",
+        "unit_price": 7.5,
+        "vendor_prices": {
+          "vendor_6": 9.2,
+          "vendor_8": 18.0,
+          "vendor_9": 7.5,
+          "vendor_11": 15.0,
+          "vendor_13": 9.2,
+          "vendor_15": 12.0,
+          "vendor_16": 7.5
+        }
+      },
+      {
+        "qty": "501 - 1,000",
+        "unit_price": 6.9,
+        "vendor_prices": {
+          "vendor_6": 8.05,
+          "vendor_8": 18.0,
+          "vendor_9": 6.9,
+          "vendor_11": 10.0,
+          "vendor_13": 9.0,
+          "vendor_15": 10.0,
+          "vendor_16": 6.9
+        }
+      }
+    ],
+    "approved_price_per_unit": 6.9,
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%"
+  },
+  {
+    "id": "PRINT_RATE_174",
+    "category": "งานพิมพ์อัตราค่าบริการ",
+    "item_name": "AD CARD  ขนาด9x13 cm คนละ Aw",
+    "price_tiers": [
+      {
+        "qty": "1-50",
+        "unit_price": 2.5,
+        "vendor_prices": {
+          "vendor_6": 11.5,
+          "vendor_8": 2.5,
+          "vendor_9": 9.0,
+          "vendor_11": 4.5,
+          "vendor_13": 12.0,
+          "vendor_15": 16.0,
+          "vendor_16": 2.5
+        }
+      }
+    ],
+    "approved_price_per_unit": 2.5,
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%"
+  },
+  {
+    "id": "PRINT_RATE_175",
+    "category": "งานพิมพ์อัตราค่าบริการ",
+    "item_name": "การ์ดขาว 210 g4สี 1ด้าน",
+    "price_tiers": [
+      {
+        "qty": "51 - 100",
+        "unit_price": 2.5,
+        "vendor_prices": {
+          "vendor_6": 11.5,
+          "vendor_8": 2.5,
+          "vendor_9": 5.24,
+          "vendor_11": 4.0,
+          "vendor_13": 12.0,
+          "vendor_15": 14.0,
+          "vendor_16": 2.5
+        }
+      },
+      {
+        "qty": "101 - 200",
+        "unit_price": 2.5,
+        "vendor_prices": {
+          "vendor_6": 9.2,
+          "vendor_8": 2.5,
+          "vendor_9": 3.4,
+          "vendor_11": 3.4,
+          "vendor_13": 10.0,
+          "vendor_15": 13.0,
+          "vendor_16": 2.5
+        }
+      },
+      {
+        "qty": "201 - 500",
+        "unit_price": 2.2,
+        "vendor_prices": {
+          "vendor_6": 6.9,
+          "vendor_8": 2.5,
+          "vendor_9": 2.2,
+          "vendor_11": 3.2,
+          "vendor_13": 7.5,
+          "vendor_15": 10.0,
+          "vendor_16": 2.2
+        }
+      },
+      {
+        "qty": "501 - 1,000",
+        "unit_price": 1.98,
+        "vendor_prices": {
+          "vendor_6": 5.75,
+          "vendor_8": 2.5,
+          "vendor_9": 1.98,
+          "vendor_11": 3.0,
+          "vendor_13": 6.0,
+          "vendor_15": 9.0,
+          "vendor_16": 1.98
+        }
+      }
+    ],
+    "approved_price_per_unit": 1.98,
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%"
+  },
+  {
+    "id": "PRINT_RATE_176",
+    "category": "งานพิมพ์อัตราค่าบริการ",
+    "item_name": "สติ๊กเกอร์ PVC วงกลม 3 cm พิมพ์ 4สี",
+    "price_tiers": [
+      {
+        "qty": "100 - 500",
+        "unit_price": 0.36,
+        "vendor_prices": {
+          "vendor_6": 5.75,
+          "vendor_8": 1.0,
+          "vendor_9": 1.3,
+          "vendor_11": 0.36,
+          "vendor_13": 6.0,
+          "vendor_14": 8.0,
+          "vendor_16": 0.36
+        }
+      },
+      {
+        "qty": "501 - 1,000",
+        "unit_price": 0.33,
+        "vendor_prices": {
+          "vendor_6": 4.6,
+          "vendor_8": 0.7,
+          "vendor_9": 0.95,
+          "vendor_11": 0.33,
+          "vendor_13": 5.0,
+          "vendor_14": 7.0,
+          "vendor_16": 0.33
+        }
+      },
+      {
+        "qty": "1,001 - 2,000",
+        "unit_price": 0.29,
+        "vendor_prices": {
+          "vendor_6": 3.45,
+          "vendor_8": 0.6,
+          "vendor_9": 0.68,
+          "vendor_11": 0.29,
+          "vendor_13": 3.5,
+          "vendor_14": 6.0,
+          "vendor_16": 0.29
+        }
+      }
+    ],
+    "approved_price_per_unit": 0.29,
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%"
+  },
+  {
+    "id": "PRINT_RATE_177",
+    "category": "งานพิมพ์อัตราค่าบริการ",
+    "item_name": "Brand menu รูปใบเรือ  ขนาด 9x18 cm.",
+    "price_tiers": [
+      {
+        "qty": "1-50",
+        "unit_price": 8.0,
+        "vendor_prices": {
+          "vendor_6": 11.5,
+          "vendor_8": 8.0,
+          "vendor_9": 18.4,
+          "vendor_11": 25.0,
+          "vendor_13": 12.0,
+          "vendor_15": 45.0,
+          "vendor_16": 8.0
+        }
+      }
+    ],
+    "approved_price_per_unit": 8.0,
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%"
+  },
+  {
+    "id": "PRINT_RATE_178",
+    "category": "งานพิมพ์อัตราค่าบริการ",
+    "item_name": "กระดาษอาร์ตมัน 260 แกรม",
+    "price_tiers": [
+      {
+        "qty": "51 - 100",
+        "unit_price": 8.0,
+        "vendor_prices": {
+          "vendor_6": 9.2,
+          "vendor_8": 8.0,
+          "vendor_9": 12.6,
+          "vendor_11": 22.0,
+          "vendor_13": 10.0,
+          "vendor_15": 42.0,
+          "vendor_16": 8.0
+        }
+      }
+    ],
+    "approved_price_per_unit": 8.0,
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%"
+  },
+  {
+    "id": "PRINT_RATE_179",
+    "category": "งานพิมพ์อัตราค่าบริการ",
+    "item_name": "เคลือมลามิเนตหน้า-หลัง",
+    "price_tiers": [
+      {
+        "qty": "101 - 200",
+        "unit_price": 7.62,
+        "vendor_prices": {
+          "vendor_6": 9.2,
+          "vendor_8": 8.0,
+          "vendor_9": 7.62,
+          "vendor_11": 20.0,
+          "vendor_13": 12.0,
+          "vendor_15": 38.0,
+          "vendor_16": 7.62
+        }
+      }
+    ],
+    "approved_price_per_unit": 7.62,
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%"
+  },
+  {
+    "id": "PRINT_RATE_180",
+    "category": "งานพิมพ์อัตราค่าบริการ",
+    "item_name": "พิมพ์ 4 สี ,ไดคัทตามแบบ",
+    "price_tiers": [
+      {
+        "qty": "201 - 500",
+        "unit_price": 4.6,
+        "vendor_prices": {
+          "vendor_6": 8.05,
+          "vendor_8": 8.0,
+          "vendor_9": 4.6,
+          "vendor_11": 18.0,
+          "vendor_13": 10.0,
+          "vendor_15": 33.0,
+          "vendor_16": 4.6
+        }
+      },
+      {
+        "qty": "501 - 1,000",
+        "unit_price": 3.86,
+        "vendor_prices": {
+          "vendor_6": 7.48,
+          "vendor_8": 7.0,
+          "vendor_9": 3.86,
+          "vendor_11": 16.0,
+          "vendor_13": 8.0,
+          "vendor_15": 29.0,
+          "vendor_16": 3.86
+        }
+      }
+    ],
+    "approved_price_per_unit": 3.86,
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%"
+  },
+  {
+    "id": "PRINT_RATE_181",
+    "category": "งานพิมพ์อัตราค่าบริการ",
+    "item_name": "*หมายเหตุ  1.พิจารณาลำดับแรกจากราคาต่ำสุด(ระยะเวลาผลิต 15 วัน)หากเป็นความต้องการเร่งด่วนภายใน5-7 วัน พิจารณาซัพพลายเออร์ในท้องถิ่น",
+    "price_tiers": [],
+    "approved_price_per_unit": 0,
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%"
+  },
+  {
+    "id": "PRINT_RATE_182",
+    "category": "งานพิมพ์อัตราค่าบริการ",
+    "item_name": "*หมายเหตุ  2.เนื่องจากงาน Print rate ไม่มีจำนวนและระยะเวลาที่แน่นอน ในกรณีซัพพลายเออร์รายแรก ไม่สามารถผลิตได้ทันในระยะเวลาที่ต้องการ ให้พิจารณาซัพพลายเออร์รายถัดไป",
+    "price_tiers": [],
+    "approved_price_per_unit": 0,
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%"
+  }
+]

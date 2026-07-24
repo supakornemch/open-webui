@@ -1,0 +1,402 @@
+[
+  {
+    "id": "POSM_1",
+    "category": "POSM",
+    "item_name": "ถังใส่น้ำแข็ง-โค้ก(ทรงสี่เหลี่ยม)",
+    "qty_y2026": 5000,
+    "approved_price_per_unit": 42.5,
+    "approved_vendor": "Vendor 7",
+    "total_price": 212500.0,
+    "vendor_prices": {
+      "vendor_7": 42.5,
+      "vendor_12": 87.0,
+      "vendor_13": 145.0
+    },
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%",
+    "lead_time": "10-15 วันทำการหลังยืนยัน AW"
+  },
+  {
+    "id": "POSM_2",
+    "category": "POSM",
+    "item_name": "กล่องทิชชู-โค้ก",
+    "qty_y2026": 5000,
+    "approved_price_per_unit": 28.5,
+    "approved_vendor": "Vendor 7",
+    "total_price": 142500.0,
+    "vendor_prices": {
+      "vendor_7": 28.5,
+      "vendor_13": 55.0
+    },
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%",
+    "lead_time": "10-15 วันทำการหลังยืนยัน AW"
+  },
+  {
+    "id": "POSM_3",
+    "category": "POSM",
+    "item_name": "ผ้ากันเปื้อนโคคา-โคล่าแบบเอี้ยม(เต็มตัว) ไขว้หลัง ขนาดสกรีน ไม่เกิน A4",
+    "qty_y2026": 6000,
+    "approved_price_per_unit": 75.0,
+    "approved_vendor": "Vendor 9",
+    "total_price": 450000.0,
+    "vendor_prices": {
+      "vendor_3": 112.0,
+      "vendor_5": 86.0,
+      "vendor_6": 87.5,
+      "vendor_8": 90.0,
+      "vendor_9": 75.0,
+      "vendor_10": 75.0,
+      "vendor_12": 85.0,
+      "vendor_13": 150.0
+    },
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%",
+    "lead_time": "10-15 วันทำการหลังยืนยัน AW"
+  },
+  {
+    "id": "POSM_4",
+    "category": "POSM",
+    "item_name": "ผ้ากันเปื้อนโคคา-โคล่าแบบ(ครึ่งตัว)",
+    "qty_y2026": 2000,
+    "approved_price_per_unit": 55.0,
+    "approved_vendor": "Vendor 9",
+    "total_price": 110000.0,
+    "vendor_prices": {
+      "vendor_3": 98.0,
+      "vendor_5": 71.0,
+      "vendor_6": 74.0,
+      "vendor_8": 70.0,
+      "vendor_9": 55.0,
+      "vendor_10": 69.5,
+      "vendor_12": 70.0,
+      "vendor_13": 100.0
+    },
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%",
+    "lead_time": "10-15 วันทำการหลังยืนยัน AW"
+  },
+  {
+    "id": "POSM_5",
+    "category": "POSM",
+    "item_name": "ร่มโค้ก 36 นิ้ว - โครงเหล็ก สีตาย (ไม่เกิน 4 สี)",
+    "qty_y2026": 700,
+    "approved_price_per_unit": 523.0,
+    "approved_vendor": "Vendor 10",
+    "total_price": 366100.0,
+    "vendor_prices": {
+      "vendor_1": 565.0,
+      "vendor_10": 523.0,
+      "vendor_12": 1080.0,
+      "vendor_13": 1950.0
+    },
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%",
+    "lead_time": "10-15 วันทำการหลังยืนยัน AW"
+  },
+  {
+    "id": "POSM_5.1",
+    "category": "POSM",
+    "item_name": "ร่มโค้ก 36 นิ้ว  - โครงเหล็ก ไล่ระดับสี (ไม่เกิน 8 เฉด)",
+    "qty_y2026": 700,
+    "approved_price_per_unit": 570.0,
+    "approved_vendor": "Vendor 1",
+    "total_price": 399000.0,
+    "vendor_prices": {
+      "vendor_1": 570.0,
+      "vendor_10": 658.0,
+      "vendor_13": 2050.0
+    },
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%",
+    "lead_time": "10-15 วันทำการหลังยืนยัน AW"
+  },
+  {
+    "id": "POSM_5.2",
+    "category": "POSM",
+    "item_name": "ร่มโค้ก 36 นิ้ว  - โครงไฟเบอร์ สีตาย (ไม่เกิน 4 สี)",
+    "qty_y2026": 700,
+    "approved_price_per_unit": 523.0,
+    "approved_vendor": "Vendor 10",
+    "total_price": 366100.0,
+    "vendor_prices": {
+      "vendor_1": 565.0,
+      "vendor_10": 523.0,
+      "vendor_13": 1950.0
+    },
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%",
+    "lead_time": "10-15 วันทำการหลังยืนยัน AW"
+  },
+  {
+    "id": "POSM_5.3",
+    "category": "POSM",
+    "item_name": "ร่มโค้ก 36 นิ้ว  - โครงไฟเบอร์ ไล่ระดับสี (ไม่เกิน 8 เฉด)",
+    "qty_y2026": 700,
+    "approved_price_per_unit": 570.0,
+    "approved_vendor": "Vendor 1",
+    "total_price": 399000.0,
+    "vendor_prices": {
+      "vendor_1": 570.0,
+      "vendor_10": 658.0,
+      "vendor_13": 1950.0
+    },
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%",
+    "lead_time": "10-15 วันทำการหลังยืนยัน AW"
+  },
+  {
+    "id": "POSM_5.4",
+    "category": "POSM",
+    "item_name": "ร่มโค้ก 40 นิ้ว - โครงเหล็ก สีตาย (ไม่เกิน 4 สี)",
+    "qty_y2026": 700,
+    "approved_price_per_unit": 570.0,
+    "approved_vendor": "Vendor 1",
+    "total_price": 399000.0,
+    "vendor_prices": {
+      "vendor_1": 570.0,
+      "vendor_4": 800.0,
+      "vendor_10": 583.0,
+      "vendor_13": 2300.0
+    },
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%",
+    "lead_time": "10-15 วันทำการหลังยืนยัน AW"
+  },
+  {
+    "id": "POSM_5.5",
+    "category": "POSM",
+    "item_name": "ร่มโค้ก 40 นิ้ว  - โครงเหล็ก ไล่ระดับสี (ไม่เกิน 8 เฉด)",
+    "qty_y2026": 700,
+    "approved_price_per_unit": 585.0,
+    "approved_vendor": "Vendor 1",
+    "total_price": 409500.0,
+    "vendor_prices": {
+      "vendor_1": 585.0,
+      "vendor_4": 1050.0,
+      "vendor_10": 716.0,
+      "vendor_13": 2400.0
+    },
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%",
+    "lead_time": "10-15 วันทำการหลังยืนยัน AW"
+  },
+  {
+    "id": "POSM_5.6",
+    "category": "POSM",
+    "item_name": "ร่มโค้ก 40 นิ้ว  - โครงไฟเบอร์ สีตาย (ไม่เกิน 4 สี)",
+    "qty_y2026": 700,
+    "approved_price_per_unit": 570.0,
+    "approved_vendor": "Vendor 1",
+    "total_price": 399000.0,
+    "vendor_prices": {
+      "vendor_1": 570.0,
+      "vendor_10": 583.0,
+      "vendor_13": 2300.0
+    },
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%",
+    "lead_time": "10-15 วันทำการหลังยืนยัน AW"
+  },
+  {
+    "id": "POSM_5.7",
+    "category": "POSM",
+    "item_name": "ร่มโค้ก 40 นิ้ว  - โครงไฟเบอร์ ไล่ระดับสี (ไม่เกิน 8 เฉด)",
+    "qty_y2026": 700,
+    "approved_price_per_unit": 585.0,
+    "approved_vendor": "Vendor 1",
+    "total_price": 409500.0,
+    "vendor_prices": {
+      "vendor_1": 585.0,
+      "vendor_10": 716.0,
+      "vendor_13": 2400.0
+    },
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%",
+    "lead_time": "10-15 วันทำการหลังยืนยัน AW"
+  },
+  {
+    "id": "POSM_6",
+    "category": "POSM",
+    "item_name": "กล่องใส่ช้อน/ตะเกียบ(แบบแนวตั้ง)",
+    "qty_y2026": 5000,
+    "approved_price_per_unit": 58.0,
+    "approved_vendor": "Vendor 2",
+    "total_price": 290000.0,
+    "vendor_prices": {
+      "vendor_2": 58.0,
+      "vendor_12": 70.0,
+      "vendor_13": 130.35
+    },
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%",
+    "lead_time": "10-15 วันทำการหลังยืนยัน AW"
+  },
+  {
+    "id": "POSM_7",
+    "category": "POSM",
+    "item_name": "หมวกกุ๊ก",
+    "qty_y2026": 2500,
+    "approved_price_per_unit": 85.0,
+    "approved_vendor": "Vendor 5",
+    "total_price": 212500.0,
+    "vendor_prices": {
+      "vendor_3": 115.0,
+      "vendor_5": 59.0,
+      "vendor_8": 85.0,
+      "vendor_10": 73.5,
+      "vendor_12": 95.0,
+      "vendor_13": 350.0
+    },
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%",
+    "lead_time": "10-15 วันทำการหลังยืนยัน AW"
+  },
+  {
+    "id": "POSM_8",
+    "category": "POSM",
+    "item_name": "R-4",
+    "qty_y2026": 10000,
+    "approved_price_per_unit": 160.0,
+    "approved_vendor": "Vendor 14",
+    "total_price": 1600000.0,
+    "vendor_prices": {
+      "vendor_11": 180.0,
+      "vendor_14": 160.0
+    },
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%",
+    "lead_time": "10-15 วันทำการหลังยืนยัน AW"
+  },
+  {
+    "id": "POSM_9",
+    "category": "POSM",
+    "item_name": "PM Rack  4 ชั้น",
+    "qty_y2026": 2500,
+    "approved_price_per_unit": 750.0,
+    "approved_vendor": "Vendor 12",
+    "total_price": 1875000.0,
+    "vendor_prices": {
+      "vendor_11": 750.0,
+      "vendor_12": 680.0
+    },
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%",
+    "lead_time": "10-15 วันทำการหลังยืนยัน AW"
+  },
+  {
+    "id": "POSM_10",
+    "category": "POSM",
+    "item_name": "Station 2 ชั้น (สีแดง)",
+    "qty_y2026": 4000,
+    "approved_price_per_unit": 565.0,
+    "approved_vendor": "Vendor 14",
+    "total_price": 2260000.0,
+    "vendor_prices": {
+      "vendor_11": 630.0,
+      "vendor_14": 565.0
+    },
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%",
+    "lead_time": "10-15 วันทำการหลังยืนยัน AW"
+  },
+  {
+    "id": "POSM_10.1",
+    "category": "POSM",
+    "item_name": "Station 2 ชั้น (สีแดง)",
+    "qty_y2026": 5000,
+    "approved_price_per_unit": 565.0,
+    "approved_vendor": "Vendor 14",
+    "total_price": 2825000.0,
+    "vendor_prices": {
+      "vendor_11": 620.0,
+      "vendor_14": 565.0
+    },
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%",
+    "lead_time": "10-15 วันทำการหลังยืนยัน AW"
+  },
+  {
+    "id": "POSM_11",
+    "category": "POSM",
+    "item_name": "RGB",
+    "qty_y2026": 500,
+    "approved_price_per_unit": 1700.0,
+    "approved_vendor": "Vendor 14",
+    "total_price": 850000.0,
+    "vendor_prices": {
+      "vendor_11": 1700.0,
+      "vendor_14": 1500.0
+    },
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%",
+    "lead_time": "10-15 วันทำการหลังยืนยัน AW"
+  },
+  {
+    "id": "POSM_11.1",
+    "category": "POSM",
+    "item_name": "RGB",
+    "qty_y2026": 1000,
+    "approved_price_per_unit": 1600.0,
+    "approved_vendor": "Vendor 14",
+    "total_price": 1600000.0,
+    "vendor_prices": {
+      "vendor_11": 1600.0,
+      "vendor_14": 1500.0
+    },
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%",
+    "lead_time": "10-15 วันทำการหลังยืนยัน AW"
+  },
+  {
+    "id": "POSM_12",
+    "category": "POSM",
+    "item_name": "Mega Rack  ขนาด 120x40x150 ซม. TT-DSD",
+    "qty_y2026": 50,
+    "approved_price_per_unit": 5600.0,
+    "approved_vendor": "Vendor 14",
+    "total_price": 280000.0,
+    "vendor_prices": {
+      "vendor_14": 5600.0
+    },
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%",
+    "lead_time": "10-15 วันทำการหลังยืนยัน AW"
+  },
+  {
+    "id": "POSM_12.1",
+    "category": "POSM",
+    "item_name": "Mega Rack  ขนาด 120x40x150 ซม. TT-DSD",
+    "qty_y2026": 100,
+    "approved_price_per_unit": 5600.0,
+    "approved_vendor": "Vendor 14",
+    "total_price": 560000.0,
+    "vendor_prices": {
+      "vendor_14": 5600.0
+    },
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%",
+    "lead_time": "10-15 วันทำการหลังยืนยัน AW"
+  },
+  {
+    "id": "POSM_13",
+    "category": "POSM",
+    "item_name": "Mega Rack ขนาด 150x60x150 ซม. WS",
+    "qty_y2026": 50,
+    "approved_price_per_unit": 5600.0,
+    "approved_vendor": "Vendor 14",
+    "total_price": 280000.0,
+    "vendor_prices": {
+      "vendor_14": 5600.0
+    },
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%",
+    "lead_time": "10-15 วันทำการหลังยืนยัน AW"
+  },
+  {
+    "id": "POSM_13.1",
+    "category": "POSM",
+    "item_name": "Mega Rack ขนาด 150x60x150 ซม. WS",
+    "qty_y2026": 100,
+    "approved_price_per_unit": 5600.0,
+    "approved_vendor": "Vendor 14",
+    "total_price": 560000.0,
+    "vendor_prices": {
+      "vendor_14": 5600.0
+    },
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%",
+    "lead_time": "10-15 วันทำการหลังยืนยัน AW"
+  },
+  {
+    "id": "POSM_14",
+    "category": "POSM",
+    "item_name": "Table",
+    "qty_y2026": 100,
+    "approved_price_per_unit": 1200.0,
+    "approved_vendor": "Vendor 13",
+    "total_price": 120000.0,
+    "vendor_prices": {
+      "vendor_11": 1200.0,
+      "vendor_13": 1050.0
+    },
+    "note": "ราคาไม่รวมภาษีมูลค่าเพิ่ม 7%",
+    "lead_time": "10-15 วันทำการหลังยืนยัน AW"
+  }
+]

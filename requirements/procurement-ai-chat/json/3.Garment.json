@@ -1,0 +1,816 @@
+[
+  {
+    "id": "GARMENT_1",
+    "category": "เสื้อและสิ่งทอ",
+    "item_name": "เสื้อยืดสีขาว และเสื้อเทศกาลกินเจ\n - คอกลม/คอวีแขนสั้น\n - ผ้าCotton100% #32\n - แขนสั้น\n เสื้อยืดสีอื่นๆ\n *สีอ่อน เพิ่ม 5 บาท\n *สีกลาง เพิ่ม 10 บาท\n *สีเข้ม เพิ่ม 20 บาท\n เสื้อ 5 ไซด์ และไซด์พิเศษ 1 ไซด์",
+    "price_tiers": [
+      {
+        "qty_range": "50-100",
+        "unit_price": 90.0,
+        "vendor_prices": {
+          "vendor_1": 85.0,
+          "vendor_2": 100.0,
+          "vendor_3": 80.0,
+          "vendor_4": 98.0,
+          "vendor_5": 85.0,
+          "vendor_6": 90.0,
+          "vendor_7": 95.0,
+          "vendor_9": 95.0
+        }
+      },
+      {
+        "qty_range": "101-500",
+        "unit_price": 90.0,
+        "vendor_prices": {
+          "vendor_1": 85.0,
+          "vendor_2": 95.0,
+          "vendor_3": 75.0,
+          "vendor_4": 95.0,
+          "vendor_5": 85.0,
+          "vendor_6": 90.0,
+          "vendor_7": 90.0,
+          "vendor_9": 95.0
+        }
+      },
+      {
+        "qty_range": "501-1,000",
+        "unit_price": 90.0,
+        "vendor_prices": {
+          "vendor_1": 80.0,
+          "vendor_2": 90.0,
+          "vendor_3": 75.0,
+          "vendor_4": 90.0,
+          "vendor_5": 80.0,
+          "vendor_6": 90.0,
+          "vendor_7": 87.5,
+          "vendor_9": 85.0
+        }
+      },
+      {
+        "qty_range": "1001-1,500",
+        "unit_price": 80.0,
+        "vendor_prices": {
+          "vendor_1": 80.0,
+          "vendor_2": 85.0,
+          "vendor_3": 75.0,
+          "vendor_4": 85.0,
+          "vendor_5": 75.0,
+          "vendor_6": 80.0,
+          "vendor_7": 85.0,
+          "vendor_9": 85.0
+        }
+      },
+      {
+        "qty_range": "1,501-2,000",
+        "unit_price": 80.0,
+        "vendor_prices": {
+          "vendor_1": 80.0,
+          "vendor_2": 80.0,
+          "vendor_3": 75.0,
+          "vendor_4": 80.0,
+          "vendor_5": 75.0,
+          "vendor_6": 80.0,
+          "vendor_7": 83.0,
+          "vendor_9": 80.0
+        }
+      },
+      {
+        "qty_range": "2,001-3,000",
+        "unit_price": 70.0,
+        "vendor_prices": {
+          "vendor_1": 78.0,
+          "vendor_2": 75.0,
+          "vendor_3": 75.0,
+          "vendor_4": 75.0,
+          "vendor_5": 69.0,
+          "vendor_6": 70.0,
+          "vendor_7": 82.0,
+          "vendor_9": 80.0
+        }
+      },
+      {
+        "qty_range": "3,001-5,000",
+        "unit_price": 70.0,
+        "vendor_prices": {
+          "vendor_1": 78.0,
+          "vendor_2": 70.0,
+          "vendor_3": 70.0,
+          "vendor_4": 69.0,
+          "vendor_5": 69.0,
+          "vendor_6": 70.0,
+          "vendor_7": 80.0,
+          "vendor_8": 135.0,
+          "vendor_9": 80.0
+        }
+      }
+    ],
+    "note": "สีอ่อน +5, สีกลาง +10, สีเข้ม +20 บาท",
+    "lead_time": "15 วันทำการหลังยืนยัน AW",
+    "approved_price_per_unit": 70.0,
+    "approved_vendor": "Vendor 9"
+  },
+  {
+    "id": "GARMENT_2",
+    "category": "เสื้อและสิ่งทอ",
+    "item_name": "เสื้อโปโล\n - ผ้า TC (เสื้อสีขาวไม่รวมปัก)\n - เสื้อแขนปล่อย ไม่จั้ม ไม่ทอแถบสีเพิ่ม\n - ปกเสื้อสีพื้นปกติไม่ทอแถบสีเพิ่ม\n เสื้อสีอื่นๆ\n *สีอ่อน เพิ่ม 5 บาท\n *สีกลาง เพิ่ม 10 บาท\n *สีเข้ม เพิ่ม 20 บาท\n เสื้อ 5 ไซด์ และไซด์พิเศษ 1 ไซด์",
+    "price_tiers": [
+      {
+        "qty_range": "50-100",
+        "unit_price": 155.0,
+        "vendor_prices": {
+          "vendor_1": 160.0,
+          "vendor_2": 190.0,
+          "vendor_3": 160.0,
+          "vendor_4": 190.0,
+          "vendor_5": 155.0,
+          "vendor_6": 170.0,
+          "vendor_7": 175.0
+        }
+      },
+      {
+        "qty_range": "101-500",
+        "unit_price": 140.0,
+        "vendor_prices": {
+          "vendor_1": 155.0,
+          "vendor_2": 180.0,
+          "vendor_3": 155.0,
+          "vendor_4": 180.0,
+          "vendor_5": 150.0,
+          "vendor_6": 165.0,
+          "vendor_7": 170.0,
+          "vendor_9": 140.0
+        }
+      },
+      {
+        "qty_range": "501-1,000",
+        "unit_price": 140.0,
+        "vendor_prices": {
+          "vendor_1": 155.0,
+          "vendor_2": 170.0,
+          "vendor_3": 150.0,
+          "vendor_4": 175.0,
+          "vendor_5": 145.0,
+          "vendor_6": 155.0,
+          "vendor_7": 165.0,
+          "vendor_9": 140.0
+        }
+      },
+      {
+        "qty_range": "1001-1,500",
+        "unit_price": 130.0,
+        "vendor_prices": {
+          "vendor_1": 150.0,
+          "vendor_2": 160.0,
+          "vendor_3": 150.0,
+          "vendor_4": 170.0,
+          "vendor_5": 140.0,
+          "vendor_6": 150.0,
+          "vendor_7": 163.0,
+          "vendor_8": 310.0,
+          "vendor_9": 130.0
+        }
+      },
+      {
+        "qty_range": "1,501-2,000",
+        "unit_price": 130.0,
+        "vendor_prices": {
+          "vendor_1": 150.0,
+          "vendor_2": 150.0,
+          "vendor_3": 150.0,
+          "vendor_4": 165.0,
+          "vendor_5": 140.0,
+          "vendor_6": 150.0,
+          "vendor_7": 160.0,
+          "vendor_9": 130.0
+        }
+      },
+      {
+        "qty_range": "2,001-3,000",
+        "unit_price": 130.0,
+        "vendor_prices": {
+          "vendor_1": 145.0,
+          "vendor_2": 140.0,
+          "vendor_3": 145.0,
+          "vendor_4": 160.0,
+          "vendor_5": 135.0,
+          "vendor_6": 140.0,
+          "vendor_7": 157.0,
+          "vendor_9": 130.0
+        }
+      },
+      {
+        "qty_range": "3,001-5,000",
+        "unit_price": 133.0,
+        "vendor_prices": {
+          "vendor_1": 140.0,
+          "vendor_2": 130.0,
+          "vendor_3": 140.0,
+          "vendor_4": 155.0,
+          "vendor_5": 133.0,
+          "vendor_6": 135.0,
+          "vendor_7": 156.0,
+          "vendor_9": 130.0
+        }
+      }
+    ],
+    "note": "สีอ่อน +5, สีกลาง +10, สีเข้ม +20 บาท",
+    "lead_time": "15 วันทำการหลังยืนยัน AW",
+    "approved_price_per_unit": 133.0,
+    "approved_vendor": "Vendor 6"
+  },
+  {
+    "id": "GARMENT_3.1",
+    "category": "เสื้อและสิ่งทอ",
+    "item_name": "เสื้อแจ็คเก็ต \n - ผ้าไมโครพีชบาง (ผ้าร่มซับใน)\n - แขนยาว (เสื้อสีขาวไม่รวมปัก)\nเสื้อยืดสีอื่นๆ\n *สีอ่อน เพิ่ม 5 บาท\n *สีกลาง เพิ่ม 10 บาท\n *สีเข้ม เพิ่ม 20 บาท\n เสื้อ 5 ไซด์ และไซด์พิเศษ 1 ไซด์",
+    "price_tiers": [
+      {
+        "qty_range": "100",
+        "unit_price": 350.0,
+        "vendor_prices": {
+          "vendor_1": 500.0,
+          "vendor_3": 450.0,
+          "vendor_4": 350.0,
+          "vendor_5": 300.0,
+          "vendor_6": 350.0,
+          "vendor_7": 500.0,
+          "vendor_9": 500.0
+        }
+      },
+      {
+        "qty_range": "200",
+        "unit_price": 330.0,
+        "vendor_prices": {
+          "vendor_1": 480.0,
+          "vendor_3": 450.0,
+          "vendor_4": 345.0,
+          "vendor_5": 285.0,
+          "vendor_6": 330.0,
+          "vendor_7": 480.0,
+          "vendor_9": 480.0
+        }
+      },
+      {
+        "qty_range": "300",
+        "unit_price": 280.0,
+        "vendor_prices": {
+          "vendor_1": 475.0,
+          "vendor_3": 420.0,
+          "vendor_4": 335.0,
+          "vendor_5": 270.0,
+          "vendor_6": 280.0,
+          "vendor_7": 480.0,
+          "vendor_9": 460.0
+        }
+      },
+      {
+        "qty_range": "301-500",
+        "unit_price": 280.0,
+        "vendor_prices": {
+          "vendor_1": 465.0,
+          "vendor_3": 400.0,
+          "vendor_4": 310.0,
+          "vendor_5": 270.0,
+          "vendor_6": 280.0,
+          "vendor_7": 480.0,
+          "vendor_8": 230.0,
+          "vendor_9": 440.0
+        }
+      }
+    ],
+    "note": "สีอ่อน +5, สีกลาง +10, สีเข้ม +20 บาท",
+    "lead_time": "15 วันทำการหลังยืนยัน AW",
+    "approved_price_per_unit": 280.0,
+    "approved_vendor": "Vendor 8"
+  },
+  {
+    "id": "GARMENT_4",
+    "category": "เสื้อและสิ่งทอ",
+    "item_name": "เสื้อคอกลมพิมพ์ลาย \n - พิมพ์ลายในตัว/ซับลิเมชั่น \n - ผ้าไมโคร \n เสื้อยืดสีอื่นๆ\n *สีอ่อน เพิ่ม 5 บาท\n *สีกลาง เพิ่ม 10 บาท\n *สีเข้ม เพิ่ม 20 บาท\n เสื้อ 5 ไซด์ และไซด์พิเศษ 1 ไซด์",
+    "price_tiers": [
+      {
+        "qty_range": "50-100",
+        "unit_price": 120.0,
+        "vendor_prices": {
+          "vendor_1": 100.0,
+          "vendor_2": 95.0,
+          "vendor_3": 150.0,
+          "vendor_4": 99.0,
+          "vendor_5": 120.0,
+          "vendor_7": 125.0
+        }
+      },
+      {
+        "qty_range": "101-500",
+        "unit_price": 100.0,
+        "vendor_prices": {
+          "vendor_1": 95.0,
+          "vendor_2": 90.0,
+          "vendor_3": 140.0,
+          "vendor_4": 95.0,
+          "vendor_5": 100.0,
+          "vendor_7": 118.75,
+          "vendor_9": 115.0
+        }
+      },
+      {
+        "qty_range": "501-1,000",
+        "unit_price": 96.0,
+        "vendor_prices": {
+          "vendor_1": 90.0,
+          "vendor_2": 85.0,
+          "vendor_3": 130.0,
+          "vendor_4": 93.0,
+          "vendor_5": 96.0,
+          "vendor_7": 117.0,
+          "vendor_9": 110.0
+        }
+      },
+      {
+        "qty_range": "1001-1,500",
+        "unit_price": 93.0,
+        "vendor_prices": {
+          "vendor_1": 86.0,
+          "vendor_2": 80.0,
+          "vendor_3": 110.0,
+          "vendor_4": 90.0,
+          "vendor_5": 93.0,
+          "vendor_7": 116.0,
+          "vendor_9": 110.0
+        }
+      },
+      {
+        "qty_range": "1,501-2,000",
+        "unit_price": 93.0,
+        "vendor_prices": {
+          "vendor_1": 84.0,
+          "vendor_2": 75.0,
+          "vendor_3": 100.0,
+          "vendor_4": 89.0,
+          "vendor_5": 93.0,
+          "vendor_7": 116.0,
+          "vendor_9": 100.0
+        }
+      },
+      {
+        "qty_range": "2,001-3,000",
+        "unit_price": 90.0,
+        "vendor_prices": {
+          "vendor_1": 82.0,
+          "vendor_2": 70.0,
+          "vendor_3": 95.0,
+          "vendor_4": 88.0,
+          "vendor_5": 90.0,
+          "vendor_7": 115.0,
+          "vendor_9": 100.0
+        }
+      },
+      {
+        "qty_range": "3,001-5,000",
+        "unit_price": 90.0,
+        "vendor_prices": {
+          "vendor_1": 75.0,
+          "vendor_2": 65.0,
+          "vendor_3": 90.0,
+          "vendor_4": 85.0,
+          "vendor_5": 90.0,
+          "vendor_7": 115.0,
+          "vendor_8": 130.0,
+          "vendor_9": 100.0
+        }
+      }
+    ],
+    "note": "สีอ่อน +5, สีกลาง +10, สีเข้ม +20 บาท",
+    "lead_time": "15 วันทำการหลังยืนยัน AW",
+    "approved_price_per_unit": 90.0,
+    "approved_vendor": "Vendor 2"
+  },
+  {
+    "id": "GARMENT_5",
+    "category": "เสื้อและสิ่งทอ",
+    "item_name": "เสื้อโปโล ผ้าไมโคร",
+    "price_tiers": [
+      {
+        "qty_range": "50-100",
+        "unit_price": 195.0,
+        "vendor_prices": {
+          "vendor_1": 160.0,
+          "vendor_2": 130.0,
+          "vendor_3": 220.0,
+          "vendor_4": 165.0,
+          "vendor_5": 195.0,
+          "vendor_7": 175.0
+        }
+      },
+      {
+        "qty_range": "101-500",
+        "unit_price": 185.0,
+        "vendor_prices": {
+          "vendor_1": 155.0,
+          "vendor_2": 120.0,
+          "vendor_3": 200.0,
+          "vendor_4": 155.0,
+          "vendor_5": 185.0,
+          "vendor_7": 156.0,
+          "vendor_9": 125.0
+        }
+      },
+      {
+        "qty_range": "501-1,000",
+        "unit_price": 173.0,
+        "vendor_prices": {
+          "vendor_1": 150.0,
+          "vendor_2": 110.0,
+          "vendor_3": 190.0,
+          "vendor_4": 150.0,
+          "vendor_5": 173.0,
+          "vendor_7": 153.0,
+          "vendor_9": 120.0
+        }
+      },
+      {
+        "qty_range": "1001-1,500",
+        "unit_price": 167.0,
+        "vendor_prices": {
+          "vendor_1": 145.0,
+          "vendor_2": 105.0,
+          "vendor_3": 180.0,
+          "vendor_4": 148.0,
+          "vendor_5": 167.0,
+          "vendor_7": 153.0,
+          "vendor_9": 120.0
+        }
+      },
+      {
+        "qty_range": "1,501-2,000",
+        "unit_price": 160.0,
+        "vendor_prices": {
+          "vendor_1": 140.0,
+          "vendor_2": 100.0,
+          "vendor_3": 170.0,
+          "vendor_4": 146.0,
+          "vendor_5": 160.0,
+          "vendor_7": 150.0,
+          "vendor_8": 260.0,
+          "vendor_9": 115.0
+        }
+      },
+      {
+        "qty_range": "2,001-3,000",
+        "unit_price": 157.0,
+        "vendor_prices": {
+          "vendor_1": 130.0,
+          "vendor_2": 95.0,
+          "vendor_3": 160.0,
+          "vendor_4": 144.0,
+          "vendor_5": 157.0,
+          "vendor_7": 150.0,
+          "vendor_9": 115.0
+        }
+      },
+      {
+        "qty_range": "3,001-5,000",
+        "unit_price": 157.0,
+        "vendor_prices": {
+          "vendor_1": 130.0,
+          "vendor_2": 90.0,
+          "vendor_3": 150.0,
+          "vendor_4": 142.0,
+          "vendor_5": 157.0,
+          "vendor_7": 150.0,
+          "vendor_9": 115.0
+        }
+      }
+    ],
+    "note": "สีอ่อน +5, สีกลาง +10, สีเข้ม +20 บาท",
+    "lead_time": "15 วันทำการหลังยืนยัน AW",
+    "approved_price_per_unit": 157.0,
+    "approved_vendor": "Vendor 2"
+  },
+  {
+    "id": "GARMENT_6",
+    "category": "เสื้อและสิ่งทอ",
+    "item_name": "เสื้อคอปก พิมพ์ลาย 4 สี CMYK +ผ้าดรายเทค\n - เนื้อผ้าไมโคร 130-140 กรัม\n - พิมพ์ลายในตัว/ซับลิเมชั่น \n - ผ้าไมโคร \n - เสื้อ 5 ไซด์ และไซด์พิเศษ 1 ไซด์\n เสื้อยืดสีอื่นๆ\n *สีอ่อน เพิ่ม 5 บาท\n *สีกลาง เพิ่ม 10 บาท\n *สีเข้ม เพิ่ม 20 บาท\n เสื้อ 5 ไซด์ และไซด์พิเศษ 1 ไซด์",
+    "price_tiers": [
+      {
+        "qty_range": "50-100",
+        "unit_price": 130.0,
+        "vendor_prices": {
+          "vendor_1": 160.0,
+          "vendor_2": 130.0,
+          "vendor_3": 220.0,
+          "vendor_5": 195.0,
+          "vendor_7": 175.0
+        }
+      },
+      {
+        "qty_range": "101-500",
+        "unit_price": 120.0,
+        "vendor_prices": {
+          "vendor_1": 155.0,
+          "vendor_2": 120.0,
+          "vendor_3": 200.0,
+          "vendor_4": 198.0,
+          "vendor_5": 185.0,
+          "vendor_7": 170.0,
+          "vendor_9": 125.0
+        }
+      },
+      {
+        "qty_range": "501-1,000",
+        "unit_price": 110.0,
+        "vendor_prices": {
+          "vendor_1": 155.0,
+          "vendor_2": 110.0,
+          "vendor_3": 190.0,
+          "vendor_4": 195.0,
+          "vendor_5": 173.0,
+          "vendor_7": 170.0,
+          "vendor_9": 120.0
+        }
+      },
+      {
+        "qty_range": "1001-1,500",
+        "unit_price": 105.0,
+        "vendor_prices": {
+          "vendor_1": 150.0,
+          "vendor_2": 105.0,
+          "vendor_3": 180.0,
+          "vendor_4": 189.0,
+          "vendor_5": 167.0,
+          "vendor_7": 168.0,
+          "vendor_9": 120.0
+        }
+      },
+      {
+        "qty_range": "1,501-2,000",
+        "unit_price": 100.0,
+        "vendor_prices": {
+          "vendor_1": 145.0,
+          "vendor_2": 100.0,
+          "vendor_3": 170.0,
+          "vendor_4": 187.0,
+          "vendor_5": 160.0,
+          "vendor_7": 168.0,
+          "vendor_9": 115.0
+        }
+      },
+      {
+        "qty_range": "2,001-3,000",
+        "unit_price": 95.0,
+        "vendor_prices": {
+          "vendor_1": 140.0,
+          "vendor_2": 95.0,
+          "vendor_3": 160.0,
+          "vendor_4": 185.0,
+          "vendor_5": 157.0,
+          "vendor_7": 165.0,
+          "vendor_9": 115.0
+        }
+      },
+      {
+        "qty_range": "3,001-5,000",
+        "unit_price": 90.0,
+        "vendor_prices": {
+          "vendor_1": 135.0,
+          "vendor_2": 90.0,
+          "vendor_3": 150.0,
+          "vendor_4": 182.0,
+          "vendor_5": 157.0,
+          "vendor_7": 165.0,
+          "vendor_8": 260.0,
+          "vendor_9": 115.0
+        }
+      }
+    ],
+    "note": "สีอ่อน +5, สีกลาง +10, สีเข้ม +20 บาท",
+    "lead_time": "15 วันทำการหลังยืนยัน AW",
+    "approved_price_per_unit": 90.0,
+    "approved_vendor": "Vendor 2"
+  },
+  {
+    "id": "GARMENT_7",
+    "category": "เสื้อและสิ่งทอ",
+    "item_name": "เสื้อโปโล ผ้าดรายเทค 201\n - ผ้าดรายเทค 201 (เสื้อสีขาวไม่รวมปัก)\n - เสื้อแขนปล่อย ไม่จั้ม ไม่ทอแถบสีเพิ่ม\n - ปกเสื้อสีพื้นปกติไม่ทอแถบสีเพิ่ม\n เสื้อสีอื่นๆ\n *สีอ่อน เพิ่ม 5 บาท\n *สีกลาง เพิ่ม 10 บาท\n *สีเข้ม เพิ่ม 20 บาท\n เสื้อ 5 ไซด์ และไซด์พิเศษ 1 ไซด์",
+    "price_tiers": [
+      {
+        "qty_range": "50-100",
+        "unit_price": 225.0,
+        "vendor_prices": {
+          "vendor_1": 170.0,
+          "vendor_2": 220.0,
+          "vendor_3": 230.0,
+          "vendor_4": 275.0,
+          "vendor_5": 225.0,
+          "vendor_7": 275.0
+        }
+      },
+      {
+        "qty_range": "101-500",
+        "unit_price": 210.0,
+        "vendor_prices": {
+          "vendor_1": 165.0,
+          "vendor_2": 200.0,
+          "vendor_3": 220.0,
+          "vendor_4": 235.0,
+          "vendor_5": 210.0,
+          "vendor_6": 190.0,
+          "vendor_7": 270.0
+        }
+      },
+      {
+        "qty_range": "501-1,000",
+        "unit_price": 200.0,
+        "vendor_prices": {
+          "vendor_1": 160.0,
+          "vendor_2": 190.0,
+          "vendor_3": 210.0,
+          "vendor_4": 225.0,
+          "vendor_5": 200.0,
+          "vendor_6": 190.0,
+          "vendor_7": 270.0
+        }
+      },
+      {
+        "qty_range": "1001-1,500",
+        "unit_price": 200.0,
+        "vendor_prices": {
+          "vendor_1": 155.0,
+          "vendor_2": 180.0,
+          "vendor_3": 200.0,
+          "vendor_4": 218.0,
+          "vendor_5": 200.0,
+          "vendor_6": 180.0,
+          "vendor_7": 265.0
+        }
+      },
+      {
+        "qty_range": "1,501-2,000",
+        "unit_price": 195.0,
+        "vendor_prices": {
+          "vendor_1": 150.0,
+          "vendor_2": 170.0,
+          "vendor_3": 200.0,
+          "vendor_4": 213.0,
+          "vendor_5": 195.0,
+          "vendor_6": 180.0,
+          "vendor_7": 265.0
+        }
+      },
+      {
+        "qty_range": "2,001-3,000",
+        "unit_price": 195.0,
+        "vendor_prices": {
+          "vendor_1": 145.0,
+          "vendor_2": 160.0,
+          "vendor_3": 190.0,
+          "vendor_4": 204.0,
+          "vendor_5": 195.0,
+          "vendor_6": 180.0,
+          "vendor_7": 262.5
+        }
+      },
+      {
+        "qty_range": "3,001-5,000",
+        "unit_price": 195.0,
+        "vendor_prices": {
+          "vendor_1": 140.0,
+          "vendor_2": 150.0,
+          "vendor_3": 190.0,
+          "vendor_4": 199.0,
+          "vendor_5": 195.0,
+          "vendor_6": 170.0,
+          "vendor_7": 262.5,
+          "vendor_8": 260.0
+        }
+      }
+    ],
+    "note": "สีอ่อน +5, สีกลาง +10, สีเข้ม +20 บาท",
+    "lead_time": "15 วันทำการหลังยืนยัน AW",
+    "approved_price_per_unit": 195.0,
+    "approved_vendor": "Vendor 1"
+  },
+  {
+    "id": "GARMENT_8",
+    "category": "เสื้อและสิ่งทอ",
+    "item_name": "เสื้อโปโล ผ้า Dry-Touch MP48  (เพิ่มเฉพาะกิจแจ้งคณะกรรมการแล้ว เนื่องจากเสื้อสเปคใหม่ราคาเหมาะสม ไว้เป็นทางเลือก\n - ผ้า Dry-Touch MP48 (เสื้อสีขาวไม่รวมปัก)\n - เสื้อแขนปล่อย ไม่จั้ม ไม่ทอแถบสีเพิ่ม\n - ปกเสื้อสีพื้นปกติไม่ทอแถบสีเพิ่ม\n เสื้อสีอื่นๆ\n *สีอ่อน เพิ่ม 5 บาท\n *สีกลาง เพิ่ม 10 บาท\n *สีเข้ม เพิ่ม 20 บาท\n เสื้อ 5 ไซด์ และไซด์พิเศษ 1 ไซด์",
+    "price_tiers": [
+      {
+        "qty_range": "50-100",
+        "unit_price": 155.0,
+        "vendor_prices": {
+          "vendor_9": 155.0
+        }
+      },
+      {
+        "qty_range": "101-500",
+        "unit_price": 145.0,
+        "vendor_prices": {
+          "vendor_9": 145.0
+        }
+      },
+      {
+        "qty_range": "501-1,000",
+        "unit_price": 135.0,
+        "vendor_prices": {
+          "vendor_9": 135.0
+        }
+      },
+      {
+        "qty_range": "1001-1,500",
+        "unit_price": 135.0,
+        "vendor_prices": {
+          "vendor_9": 135.0
+        }
+      },
+      {
+        "qty_range": "1,501-2,000",
+        "unit_price": 130.0,
+        "vendor_prices": {
+          "vendor_9": 130.0
+        }
+      },
+      {
+        "qty_range": "2,001-3,000",
+        "unit_price": 130.0,
+        "vendor_prices": {
+          "vendor_9": 130.0
+        }
+      },
+      {
+        "qty_range": "3,001-5,000",
+        "unit_price": 130.0,
+        "vendor_prices": {
+          "vendor_9": 130.0
+        }
+      }
+    ],
+    "note": "สีอ่อน +5, สีกลาง +10, สีเข้ม +20 บาท",
+    "lead_time": "15 วันทำการหลังยืนยัน AW",
+    "approved_price_per_unit": 130.0,
+    "approved_vendor": "Vendor 9"
+  },
+  {
+    "id": "GARMENT_9",
+    "category": "เสื้อและสิ่งทอ",
+    "item_name": "สกรีน 1 สี 1 จุด ขนาดไม่เกิน A4",
+    "price_tiers": [],
+    "note": "สีอ่อน +5, สีกลาง +10, สีเข้ม +20 บาท",
+    "lead_time": "15 วันทำการหลังยืนยัน AW"
+  },
+  {
+    "id": "GARMENT_10",
+    "category": "เสื้อและสิ่งทอ",
+    "item_name": "สกรีน 2 สี 1 จุด ขนาดไม่เกิน A4",
+    "price_tiers": [],
+    "note": "สีอ่อน +5, สีกลาง +10, สีเข้ม +20 บาท",
+    "lead_time": "15 วันทำการหลังยืนยัน AW"
+  },
+  {
+    "id": "GARMENT_11",
+    "category": "เสื้อและสิ่งทอ",
+    "item_name": "สกรีน 3 สี 1 จุด ขนาดไม่เกิน A4",
+    "price_tiers": [],
+    "note": "สีอ่อน +5, สีกลาง +10, สีเข้ม +20 บาท",
+    "lead_time": "15 วันทำการหลังยืนยัน AW"
+  },
+  {
+    "id": "GARMENT_12",
+    "category": "เสื้อและสิ่งทอ",
+    "item_name": "สกรีน 4 สี 1 จุด ขนาดไม่เกิน A4",
+    "price_tiers": [],
+    "note": "สีอ่อน +5, สีกลาง +10, สีเข้ม +20 บาท",
+    "lead_time": "15 วันทำการหลังยืนยัน AW"
+  },
+  {
+    "id": "GARMENT_13",
+    "category": "เสื้อและสิ่งทอ",
+    "item_name": "ค่าปัก ขนาดปัก ไม่เกิน 10 cm 1 สี 1 จุด ตัวอักษรไม่เทพื้น",
+    "price_tiers": [],
+    "note": "สีอ่อน +5, สีกลาง +10, สีเข้ม +20 บาท",
+    "lead_time": "15 วันทำการหลังยืนยัน AW"
+  },
+  {
+    "id": "GARMENT_14",
+    "category": "เสื้อและสิ่งทอ",
+    "item_name": "ค่าปัก ขนาดปัก ไม่เกิน 10 cm 2 สี 1 จุด ตัวอักษรไม่เทพื้น",
+    "price_tiers": [],
+    "note": "สีอ่อน +5, สีกลาง +10, สีเข้ม +20 บาท",
+    "lead_time": "15 วันทำการหลังยืนยัน AW"
+  },
+  {
+    "id": "GARMENT_15",
+    "category": "เสื้อและสิ่งทอ",
+    "item_name": "ค่าปัก ขนาดปัก ไม่เกิน 10 cm 3 สี 1 จุด ตัวอักษรไม่เทพื้น",
+    "price_tiers": [],
+    "note": "สีอ่อน +5, สีกลาง +10, สีเข้ม +20 บาท",
+    "lead_time": "15 วันทำการหลังยืนยัน AW"
+  },
+  {
+    "id": "GARMENT_16",
+    "category": "เสื้อและสิ่งทอ",
+    "item_name": "ค่าปัก ขนาดปัก ไม่เกิน 10 cm 4 สี 1 จุด ตัวอักษรไม่เทพื้น",
+    "price_tiers": [],
+    "note": "สีอ่อน +5, สีกลาง +10, สีเข้ม +20 บาท",
+    "lead_time": "15 วันทำการหลังยืนยัน AW"
+  }
+]
