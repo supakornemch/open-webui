@@ -1,0 +1,428 @@
+{
+	"info": {
+		"name": "OWUI — Haadthip Genie API",
+		"description": "Open WebUI REST API collection for genie.haadthip.com\nIncludes: Models, Tools, Skills, Prompts, Knowledge, Chat Completions\n\nSetup:\n  1. Set {{base_url}} = https://genie.haadthip.com\n  2. Set {{token}} = sk-your-api-key",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{token}}",
+				"type": "string"
+			}
+		]
+	},
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "https://genie.haadthip.com",
+			"type": "string"
+		},
+		{
+			"key": "token",
+			"value": "sk-5ef8fdfafc824bf1bf582a6049bbd56c",
+			"type": "string"
+		},
+		{
+			"key": "model_id",
+			"value": "procurement-ai-v1",
+			"type": "string"
+		},
+		{
+			"key": "tool_id",
+			"value": "procurement_price_lookup",
+			"type": "string"
+		},
+		{
+			"key": "skill_id",
+			"value": "procurement-agent",
+			"type": "string"
+		}
+	],
+	"item": [
+		{
+			"name": "🏥 Health",
+			"item": [
+				{
+					"name": "Health Check",
+					"request": {
+						"method": "GET",
+						"url": {
+							"raw": "{{base_url}}/api/v1/",
+							"host": ["{{base_url}}"],
+							"path": ["api", "v1", ""]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "🤖 Models",
+			"item": [
+				{
+					"name": "List All Models",
+					"request": {
+						"method": "GET",
+						"url": {
+							"raw": "{{base_url}}/api/models",
+							"host": ["{{base_url}}"],
+							"path": ["api", "models"]
+						},
+						"description": "Get all models. Response: { data: [ { id, name, info: { ... }, ... } ] }"
+					}
+				},
+				{
+					"name": "Update Model (System Prompt / Params)",
+					"request": {
+						"method": "POST",
+						"url": {
+							"raw": "{{base_url}}/api/v1/models/model/update",
+							"host": ["{{base_url}}"],
+							"path": ["api", "v1", "models", "model", "update"]
+						},
+						"header": [
+							{ "key": "Content-Type", "value": "application/json" }
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"id\": \"{{model_id}}\",\n  \"name\": \"Procurement AI Chat\",\n  \"base_model_id\": \"gpt-5.4-nano\",\n  \"params\": {\n    \"system\": \"You are Procurement AI for Haadthip Y2026. Follow the procurement-agent skill instructions.\"\n  },\n  \"meta\": {\n    \"description\": \"Chatbot สอบถามราคาสื่อการตลาด Haadthip 2026\",\n    \"toolIds\": [\"procurement_price_lookup\", \"calculator\"],\n    \"skillIds\": [\"procurement-agent\"]\n  }\n}"
+						},
+						"description": "Update model config. IMPORTANT: Must include ALL fields from info dict (user_id, access_grants, updated_at, created_at, etc.) or API returns 500. Best practice: GET model first, modify, POST back full dict."
+					}
+				},
+				{
+					"name": "Export All Models",
+					"request": {
+						"method": "GET",
+						"url": {
+							"raw": "{{base_url}}/api/v1/models/export",
+							"host": ["{{base_url}}"],
+							"path": ["api", "v1", "models", "export"]
+						},
+						"description": "Export all custom models as JSON array (backup/migration)."
+					}
+				},
+				{
+					"name": "Import Models (Bulk Upsert)",
+					"request": {
+						"method": "POST",
+						"url": {
+							"raw": "{{base_url}}/api/v1/models/import",
+							"host": ["{{base_url}}"],
+							"path": ["api", "v1", "models", "import"]
+						},
+						"header": [
+							{ "key": "Content-Type", "value": "application/json" }
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[]"
+						},
+						"description": "Bulk create/update models. Matched by id."
+					}
+				}
+			]
+		},
+		{
+			"name": "🛠️ Tools",
+			"item": [
+				{
+					"name": "List All Tools",
+					"request": {
+						"method": "GET",
+						"url": {
+							"raw": "{{base_url}}/api/v1/tools/",
+							"host": ["{{base_url}}"],
+							"path": ["api", "v1", "tools", ""]
+						},
+						"description": "Get all tools. Response: array of tool objects with id, name, content, meta, specs."
+					}
+				},
+				{
+					"name": "Get Tool by ID",
+					"request": {
+						"method": "GET",
+						"url": {
+							"raw": "{{base_url}}/api/v1/tools/id/{{tool_id}}",
+							"host": ["{{base_url}}"],
+							"path": ["api", "v1", "tools", "id", "{{tool_id}}"]
+						}
+					}
+				},
+				{
+					"name": "Create Tool",
+					"request": {
+						"method": "POST",
+						"url": {
+							"raw": "{{base_url}}/api/v1/tools/create",
+							"host": ["{{base_url}}"],
+							"path": ["api", "v1", "tools", "create"]
+						},
+						"header": [
+							{ "key": "Content-Type", "value": "application/json" }
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"id\": \"my-tool\",\n  \"name\": \"My Tool\",\n  \"content\": \"import json\\nfrom pydantic import BaseModel\\n\\nclass Tools:\\n    class Valves(BaseModel):\\n        pass\\n\\n    def __init__(self):\\n        self.valves = self.Valves()\\n\\n    async def hello(self, name: str) -> str:\\n        return json.dumps({'greeting': f'Hello {name}'})\\n\",\n  \"meta\": {\n    \"description\": \"Example tool\",\n    \"has_user_valves\": false\n  }\n}"
+						},
+						"description": "Create a new tool. content must be valid Python with a Tools class."
+					}
+				},
+				{
+					"name": "Update Tool",
+					"request": {
+						"method": "POST",
+						"url": {
+							"raw": "{{base_url}}/api/v1/tools/id/{{tool_id}}/update",
+							"host": ["{{base_url}}"],
+							"path": ["api", "v1", "tools", "id", "{{tool_id}}", "update"]
+						},
+						"header": [
+							{ "key": "Content-Type", "value": "application/json" }
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"id\": \"{{tool_id}}\",\n  \"name\": \"Procurement Price Lookup\",\n  \"content\": \"...updated Python code...\",\n  \"meta\": {\n    \"description\": \"Updated description\"\n  }\n}"
+						},
+						"description": "Update an existing tool's code and/or metadata."
+					}
+				},
+				{
+					"name": "Make Tool Public",
+					"request": {
+						"method": "POST",
+						"url": {
+							"raw": "{{base_url}}/api/v1/tools/id/{{tool_id}}/access/update",
+							"host": ["{{base_url}}"],
+							"path": ["api", "v1", "tools", "id", "{{tool_id}}", "access", "update"]
+						},
+						"header": [
+							{ "key": "Content-Type", "value": "application/json" }
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"access_grants\": [\n    { \"principal_type\": \"user\", \"principal_id\": \"*\", \"permission\": \"read\" }\n  ]\n}"
+						},
+						"description": "Set tool access to public (principal_id: *)."
+					}
+				},
+				{
+					"name": "Delete Tool",
+					"request": {
+						"method": "POST",
+						"url": {
+							"raw": "{{base_url}}/api/v1/tools/id/{{tool_id}}/delete",
+							"host": ["{{base_url}}"],
+							"path": ["api", "v1", "tools", "id", "{{tool_id}}", "delete"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "📚 Skills",
+			"item": [
+				{
+					"name": "List All Skills",
+					"request": {
+						"method": "GET",
+						"url": {
+							"raw": "{{base_url}}/api/v1/skills/list?page=1",
+							"host": ["{{base_url}}"],
+							"path": ["api", "v1", "skills", "list"],
+							"query": [{ "key": "page", "value": "1" }]
+						},
+						"description": "Paginated skill list. Response: { total, items: [ { id, name, content, is_active, ... } ] }"
+					}
+				},
+				{
+					"name": "Create Skill",
+					"request": {
+						"method": "POST",
+						"url": {
+							"raw": "{{base_url}}/api/v1/skills/create",
+							"host": ["{{base_url}}"],
+							"path": ["api", "v1", "skills", "create"]
+						},
+						"header": [
+							{ "key": "Content-Type", "value": "application/json" }
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"id\": \"procurement-agent\",\n  \"name\": \"Procurement AI Agent Instruction\",\n  \"description\": \"Agent instruction for procurement price lookup.\",\n  \"content\": \"# Procurement AI\\nคุณคือ Procurement AI ผู้ช่วยจัดซื้อ...\",\n  \"is_active\": true,\n  \"meta\": { \"tags\": [\"procurement\", \"pricing\"] },\n  \"access_grants\": [\n    { \"principal_type\": \"user\", \"principal_id\": \"*\", \"permission\": \"read\" }\n  ]\n}"
+						}
+					}
+				},
+				{
+					"name": "Update Skill",
+					"request": {
+						"method": "POST",
+						"url": {
+							"raw": "{{base_url}}/api/v1/skills/id/{{skill_id}}/update",
+							"host": ["{{base_url}}"],
+							"path": ["api", "v1", "skills", "id", "{{skill_id}}", "update"]
+						},
+						"header": [
+							{ "key": "Content-Type", "value": "application/json" }
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"id\": \"{{skill_id}}\",\n  \"name\": \"Procurement AI Agent Instruction\",\n  \"content\": \"# Updated instruction...\",\n  \"is_active\": true\n}"
+						},
+						"description": "Push updated agent instruction. This is the single source of truth for the procurement agent."
+					}
+				},
+				{
+					"name": "Make Skill Public",
+					"request": {
+						"method": "POST",
+						"url": {
+							"raw": "{{base_url}}/api/v1/skills/id/{{skill_id}}/access/update",
+							"host": ["{{base_url}}"],
+							"path": ["api", "v1", "skills", "id", "{{skill_id}}", "access", "update"]
+						},
+						"header": [
+							{ "key": "Content-Type", "value": "application/json" }
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"access_grants\": [\n    { \"principal_type\": \"user\", \"principal_id\": \"*\", \"permission\": \"read\" }\n  ]\n}"
+						}
+					}
+				},
+				{
+					"name": "Delete Skill",
+					"request": {
+						"method": "POST",
+						"url": {
+							"raw": "{{base_url}}/api/v1/skills/id/{{skill_id}}/delete",
+							"host": ["{{base_url}}"],
+							"path": ["api", "v1", "skills", "id", "{{skill_id}}", "delete"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "💬 Chat Completions",
+			"item": [
+				{
+					"name": "Chat (Non-Streaming)",
+					"request": {
+						"method": "POST",
+						"url": {
+							"raw": "{{base_url}}/api/chat/completions",
+							"host": ["{{base_url}}"],
+							"path": ["api", "chat", "completions"]
+						},
+						"header": [
+							{ "key": "Content-Type", "value": "application/json" }
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"model\": \"{{model_id}}\",\n  \"messages\": [\n    { \"role\": \"user\", \"content\": \"ขอราคาร่มโค้ก 36 นิ้ว 100 อัน\" }\n  ],\n  \"stream\": false,\n  \"tool_ids\": [\"procurement_price_lookup\"]\n}"
+						},
+						"description": "OpenAI-compatible chat completion. With tool_ids, model will call tools.\nNOTE: Non-streaming returns only 1 turn - tool calls need to be handled in a loop client-side."
+					}
+				},
+				{
+					"name": "Chat (Streaming)",
+					"request": {
+						"method": "POST",
+						"url": {
+							"raw": "{{base_url}}/api/chat/completions",
+							"host": ["{{base_url}}"],
+							"path": ["api", "chat", "completions"]
+						},
+						"header": [
+							{ "key": "Content-Type", "value": "application/json" }
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"model\": \"{{model_id}}\",\n  \"messages\": [\n    { \"role\": \"user\", \"content\": \"ขอราคา Sale Kit A4 10 ชุด + เข้าเล่ม + เคลือบลามิเนต\" }\n  ],\n  \"stream\": true,\n  \"tool_ids\": [\"procurement_price_lookup\"]\n}"
+						},
+						"description": "Streaming mode. Returns SSE events. OWUI handles tool execution loop server-side in streaming mode (model calls tool, OWUI executes, feeds result back, repeats until final answer).\nResponse format: data: { choices: [{ delta: { content: \"...\" } }] }"
+					}
+				},
+				{
+					"name": "Chat with Knowledge Search",
+					"request": {
+						"method": "POST",
+						"url": {
+							"raw": "{{base_url}}/api/chat/completions",
+							"host": ["{{base_url}}"],
+							"path": ["api", "chat", "completions"]
+						},
+						"header": [
+							{ "key": "Content-Type", "value": "application/json" }
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"model\": \"{{model_id}}\",\n  \"messages\": [\n    { \"role\": \"user\", \"content\": \"ธงปีกนก ไซด์ XL มีกี่ขนาด\" }\n  ],\n  \"stream\": false,\n  \"tool_ids\": [\"procurement_price_lookup\"]\n}"
+						},
+						"description": "When knowledge base is linked to model, OWUI auto-injects RAG context."
+					}
+				}
+			]
+		},
+		{
+			"name": "📝 Prompts",
+			"item": [
+				{
+					"name": "List All Prompts",
+					"request": {
+						"method": "GET",
+						"url": {
+							"raw": "{{base_url}}/api/v1/prompts/list?page=1",
+							"host": ["{{base_url}}"],
+							"path": ["api", "v1", "prompts", "list"],
+							"query": [{ "key": "page", "value": "1" }]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "📖 Knowledge",
+			"item": [
+				{
+					"name": "List Knowledge Bases",
+					"request": {
+						"method": "GET",
+						"url": {
+							"raw": "{{base_url}}/api/v1/knowledge/",
+							"host": ["{{base_url}}"],
+							"path": ["api", "v1", "knowledge", ""]
+						},
+						"description": "List all knowledge bases/collections."
+					}
+				},
+				{
+					"name": "Upload File to Knowledge",
+					"request": {
+						"method": "POST",
+						"url": {
+							"raw": "{{base_url}}/api/v1/files/?process=true",
+							"host": ["{{base_url}}"],
+							"path": ["api", "v1", "files", ""],
+							"query": [{ "key": "process", "value": "true" }]
+						},
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "requirements/procurement-ai-chat/procurement-context.md"
+								}
+							]
+						},
+						"description": "Upload a file for RAG processing. Query params: process=true (auto chunk+embed), process_in_background=true (async)."
+					}
+				}
+			]
+		}
+	]
+}
