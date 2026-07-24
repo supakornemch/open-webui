@@ -1,0 +1,11 @@
+{
+  "product": "สติกเกอร์ขนาด A3",
+  "quantity": 100,
+  "unit": "แผ่น",
+  "dimensions": "A3",
+  "material": null,
+  "specs": [
+    "รูปแบบ AW"
+  ],
+  "dueDate": "30/01/69"
+}
