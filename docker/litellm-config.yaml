@@ -18,7 +18,7 @@ general_settings:
   master_key: os.environ/LITELLM_MASTER_KEY
   database_url: os.environ/DATABASE_URL
   sso_settings:
-    - sso_type: "microsoft"
+    - sso_type: 'microsoft'
       client_id: os.environ/MICROSOFT_CLIENT_ID
       client_secret: os.environ/MICROSOFT_CLIENT_SECRET
       tenant: os.environ/MICROSOFT_TENANT
@@ -27,6 +27,7 @@ litellm_settings:
   set_verbose: true
   drop_params: true
   request_timeout: 120
+  timezone: 'Asia/Bangkok'
   cache: True
   cache_params:
     type: local
@@ -42,34 +43,34 @@ litellm_settings:
   mcp_servers:
     # ── PostgreSQL: query the LiteLLM/Open WebUI DBs ──
     postgres:
-      transport: "stdio"
-      command: "npx"
+      transport: 'stdio'
+      command: 'npx'
       args:
-        - "-y"
-        - "@modelcontextprotocol/server-postgres"
-        - "postgresql://entchatadm:DocWiseP%40ssw0rd2026%21@psql-entchat-poc-sand.postgres.database.azure.com:5432/litellm?sslmode=require"
+        - '-y'
+        - '@modelcontextprotocol/server-postgres'
+        - 'postgresql://entchatadm:DocWiseP%40ssw0rd2026%21@psql-entchat-poc-sand.postgres.database.azure.com:5432/litellm?sslmode=require'
 
     # ── Filesystem: read project docs ──
     filesystem:
-      transport: "stdio"
-      command: "npx"
+      transport: 'stdio'
+      command: 'npx'
       args:
-        - "-y"
-        - "@modelcontextprotocol/server-filesystem"
-        - "/app/workspace"
+        - '-y'
+        - '@modelcontextprotocol/server-filesystem'
+        - '/app/workspace'
       # ponytail: mount project docs at /app/workspace in the container
 
     # ── Time: current time / timezone ──
     time:
-      transport: "stdio"
-      command: "npx"
-      args: ["-y", "@guanxiong/mcp-server-time"]
+      transport: 'stdio'
+      command: 'npx'
+      args: ['-y', '@guanxiong/mcp-server-time']
 
     # ── Context7: up-to-date library docs ──
     context7:
-      transport: "stdio"
-      command: "npx"
-      args: ["-y", "@upstash/context7-mcp"]
+      transport: 'stdio'
+      command: 'npx'
+      args: ['-y', '@upstash/context7-mcp']
 
 # ponytail: vector_store_registry disabled — LiteLLM v1.83.3 doesn't route
 # /v1/vector_stores/{name}/search to registered azure_ai stores (defaults to OpenAI).
@@ -89,4 +90,4 @@ litellm_settings:
 #         api_base: "https://aif-entchat-poc-sand.cognitiveservices.azure.com/"
 #         api_version: "2025-09-01"
 
-model_list: []  # ponytail: models via DB, add via /model/new
+model_list: [] # ponytail: models via DB, add via /model/new

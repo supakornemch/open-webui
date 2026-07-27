@@ -8,7 +8,7 @@
 > - **Search types**: รองรับ 4 โหมด — vector, fulltext, hybrid, semantic (ตั้งค่าผ่าน `AZURE_SEARCH_TYPE`)
 > - **Namespace consolidation** (`AZURE_SEARCH_NAMESPACE_MODE=true`): รวม KBs/files/memories ลง shared indexes แค่ 3 ตัว (`owui-knowledge`, `owui-files`, `owui-memory`) — หลีกเลี่ยง 200-index limit
 > - **Semantic search**: optional (`AZURE_ENABLE_SEMANTIC_SEARCH=true`) — auto-create semantic config บน index
-> - **Implementation**: `src/vector/azure_ai_search.py` (+ patches `type.py`, `factory.py`)
+> - **Implementation**: `app/patches/client.py` (+ `type.py`, `factory.py`)
 >
 > ### ✅ Teams Auth v5 — notifySuccess + open browser + signin loop fix
 > - **notifySuccess**: เรียก `appInitialization.notifySuccess()` หลัง `initialize()` — กัน "There was a problem reaching this app" timeout
@@ -56,6 +56,23 @@
 | Web App — Open WebUI | `app-entchat-owui-poc-sand` | Container Linux | ❌ |
 | Web App — LiteLLM | `app-litellm-poc-sand` | Container Linux | ❌ |
 | ACR | `acrentchatpocsand` | Basic | ❌ |
+
+### VNet Integration
+
+| Item | Value |
+|------|-------|
+| VNet | `VNET-HTC-SANBOX-SEA` (in `RG-HTC-SANDBOX-SEA`) |
+| Subnet | `SNET-HTC-SANDBOX-APP-SEA` |
+| OWUI | ✅ VNet-integrated (`app-entchat-owui-poc-sand`) |
+| LiteLLM | ✅ VNet-integrated (`app-litellm-poc-sand`) |
+| DocWise | ✅ VNet-integrated (`app-docwise-poc-sea`) |
+
+**⚠️ VNet blocks all outbound internet.** This means:
+- OAuth/OIDC flows (SSO to `login.microsoftonline.com`) → **fail** unless NSG outbound rule allows it
+- Both OWUI `/oauth/microsoft/login` and LiteLLM `/sso/callback` need outbound HTTPS to `login.microsoftonline.com`
+- Infra team must add NSG outbound rule for `login.microsoftonline.com` (Azure service tag or FQDN)
+- PostgreSQL and AI Search use `publicAccess: Disabled` → accessible only via VNet private endpoints
+- Direct Azure AI Foundry API calls from OWUI/LiteLLM are unaffected (Azure service endpoints)
 
 ### PostgreSQL
 - **Host**: `psql-entchat-poc-sand.postgres.database.azure.com`
@@ -126,10 +143,23 @@ srch-entchat-poc-sand  (Azure AI Search, Standard tier)
 └── docwise-docs-v2    ← DocWise
 ```
 
-**Custom client**: `src/vector/azure_ai_search.py` — implement `VectorDBBase` 10 methods
+**Custom client**: `app/patches/client.py` — implement `VectorDBBase` 10 methods
 - Auto-create index schema with HNSW vector profile
 - `collection_key` field สำหรับ OData server-side filter ใน namespace mode
 - Schema auto-heal: ตรวจจับ index ที่ไม่มี `collection_key` แล้ว recreate
+
+### Chunk Strategy & RAG Config
+
+| Setting | Value |
+|---------|-------|
+| `CHUNK_SIZE` | `1000` (default) |
+| `CHUNK_OVERLAP` | `100` (default) |
+| Splitter | `RecursiveCharacterTextSplitter` |
+| Tokenizer | `tiktoken` / `cl100k_base` |
+| `RAG_TOP_K` | `3` (default) |
+| Markdown header split | Enabled (by OWUI default) |
+| PDF extraction | Azure Document Intelligence `prebuilt-read` |
+| Embedding model | `text-embedding-3-large` (3072d) via Azure AI Foundry |
 
 ### Tools in System
 | Tool | Purpose |
@@ -150,6 +180,7 @@ srch-entchat-poc-sand  (Azure AI Search, Standard tier)
 | DB | `postgresql://entchatadm:***@psql-...:5432/litellm?sslmode=require` |
 | Cache | `type: local`, `ttl: 3600` — `cache_hit=True` ✅ |
 | API Version | `AZURE_API_VERSION=2024-10-21` (GA) |
+| SSO | Microsoft Entra ID — config ใน `litellm-config.yaml` |
 
 ### Cache Pricing (90% off input)
 
@@ -159,6 +190,18 @@ srch-entchat-poc-sand  (Azure AI Search, Standard tier)
 | gpt-5.4-mini | $0.75 | **$0.08** |
 | gpt-5.4 | $2.50 | **$0.25** |
 | gpt-5.2 | $1.75 | **$0.18** |
+
+### SSO Settings (in `litellm-config.yaml`)
+```yaml
+general_settings:
+  sso_settings:
+    - sso_type: "microsoft"
+      client_id: os.environ/MICROSOFT_CLIENT_ID
+      client_secret: os.environ/MICROSOFT_CLIENT_SECRET
+      tenant: os.environ/MICROSOFT_TENANT
+```
+- SSO login initiated from admin UI (`/ui`) — no standalone `/sso` endpoint
+- Callback: `/sso/callback` — token exchange requires outbound HTTPS to `login.microsoftonline.com` (VNet must allow)
 
 ### MCP Servers (baked in)
 - PostgreSQL (`@modelcontextprotocol/server-postgres`)
@@ -224,23 +267,21 @@ Teams iframe → teams-auth.html → Teams SDK init
 | 10 | Azure AI Search index schema missing `collection_key` | Client auto-heals: ตรวจจับ schema mismatch → delete + recreate index |
 | 11 | Azure AI Search propagation delay (new field) | `insert()` sleeps 3s after creating shared index with `collection_key` |
 | 12 | OWUI v0.10.2 internal API is async | ใช้ `SessionLocal()` + raw SQL แทน `get_db()` + ORM สำหรับ bulk operations |
+| 13 | VNet blocks outbound → SSO/OAuth fails | Infra team ต้อง add NSG outbound rule ให้ `login.microsoftonline.com` (Azure service tag `AzureActiveDirectory` หรือ FQDN) |
+| 14 | DocWise 500/502 — `IndentationError` in `admin_views.py:302` | Python syntax error ป้องกัน Django app load — ต้อง fix source + rebuild Docker image |
+| 15 | ASP B2 overload (92% CPU, 91% mem, 3 apps) | Scale up เป็น B3 หรือแยก ASP ต่อ app |
+| 16 | OWUI alembic_version ตารางว่าง → migrations พัง | INSERT 48 migration version IDs ด้วยตนเอง (ไม่งั้น OWUI พยายามรัน migration ซ้ำบน tables ที่มีอยู่แล้ว) |
 
 ## Docker Compose Files
 
 | File | What | When to use |
 |------|------|-------------|
-| **`docker-compose.local.yml`** | ✅ **Custom OWUI** (teams-auth) + LiteLLM (SQLite) | **Local dev — default** |
-| `docker-compose.litellm.yml` | LiteLLM standalone (Azure PG) | Run LiteLLM separately |
-| `docker-compose.openwebui.yml` | OWUI stock standalone | LiteLLM already running elsewhere |
-| `docker-compose.full.yml` | ⚠️ Deprecated → ใช้ local.yml แทน | ❌ |
+| **`docker/compose.yml`** | ✅ **Custom OWUI** (teams-auth) + LiteLLM (SQLite) | **Local dev — default** |
 
-**Secrets:** ทั้งหมดใช้ `docker.env` (ยกเว้นที่ override ด้วย env vars)
+**Secrets:** ทั้งหมดใช้ `docker/.env` (gitignored, เทียบกับ `docker/.env.example`)
 ```bash
-# 🚀 Local dev (recommended)
-docker compose -f config/docker-compose.local.yml up -d --build
-
-# LiteLLM แยก (ถ้าต้องการ)
-docker compose -f config/docker-compose.litellm.yml up -d
+# 🚀 Local dev
+docker compose -f docker/compose.yml up -d --build
 ```
 
 ## Folder Guide
@@ -285,10 +326,7 @@ EnterpriseChat/
 ├── knowledge/             ← Source documents
 │   ├── corporate/
 │   └── hr-policies/
-├── data/                  ← JSONL, exports, OWUI local data
-└── assets/
-    ├── screenshots/       ← UI screenshots (105+ files)
-    └── icons/             ← Azure SVG icons
+└── data/                  ← JSONL, exports, OWUI local data
 ```
 
 ## Architecture Flow
@@ -301,6 +339,18 @@ User → genie.haadthip.com (App Gateway)
       → srch-entchat-poc-sand (Azure AI Search — enterprise-docs-idx)
     → psql-entchat-poc-sand (PostgreSQL — open_webui / litellm)
 ```
+
+## OWUI Knowledge Bases (on Azure AI Search)
+
+| Index | Docs | Type | Source |
+|-------|:----:|------|--------|
+| `owui-knowledge` | 231 | HNSW vector (3072d) | All KBs consolidated (filtered by `collection_key`) |
+| `owui-files` | 251 | HNSW vector (3072d) | Chat file attachments |
+| `owui-memory` | 0 | HNSW vector (3072d) | User memory (not yet used) |
+| `enterprise-docs-idx` | 792 | HNSW + Semantic | Enterprise Search Tool index |
+| `docwise-docs-v2` | — | HNSW | DocWise document index |
+
+**KB `2187df46` (Corporate Public Disclosure)**: มี 2 ไฟล์ — `README.md` + `htc-agm2024-minutes-en.pdf`
 
 ## Estimated Monthly Cost
 

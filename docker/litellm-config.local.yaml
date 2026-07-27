@@ -7,6 +7,7 @@ litellm_settings:
   set_verbose: true
   drop_params: true
   request_timeout: 120
+  timezone: 'Asia/Bangkok'
   cache: True
   cache_params:
     type: local
