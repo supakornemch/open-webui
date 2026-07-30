@@ -11,6 +11,9 @@ RUN pip install --no-cache-dir azure-search-documents>=11.4.0
 # ── Install pandas + openpyxl + httpx for Procurement Price Lookup Tool ──
 RUN pip install --no-cache-dir pandas openpyxl httpx
 
+# ── Install black + click for code formatting ──
+RUN pip install --no-cache-dir black click
+
 # ── Pre-download sentence-transformers model to avoid runtime HF download ──
 # VNet blocks outbound internet → model must be baked into the image
 RUN python3 -c "from sentence_transformers import SentenceTransformer; SentenceTransformer('all-MiniLM-L6-v2')"
@@ -31,6 +34,17 @@ COPY docker/nginx.conf /etc/nginx/sites-enabled/default
 COPY app/patches/type.py /app/backend/open_webui/retrieval/vector/type.py
 COPY app/patches/factory.py /app/backend/open_webui/retrieval/vector/factory.py
 COPY app/patches/client.py /app/backend/open_webui/retrieval/vector/dbs/azure_ai_search.py
+
+# ── Per-file embedding skip (SKIP_EMBEDDING_EXTENSIONS) ──
+# In-place edit rather than COPY: retrieval.py is 3000+ lines of upstream code we
+# don't want to vendor. Fails the build if the anchor moves on an OWUI upgrade.
+COPY app/patches/skip_embedding.py /app/backend/open_webui/retrieval/skip_embedding.py
+RUN RETRIEVAL=/app/backend/open_webui/routers/retrieval.py && \
+    test "$(grep -c '^            if config.BYPASS_EMBEDDING_AND_RETRIEVAL:$' $RETRIEVAL)" = "1" && \
+    sed -i 's|^            if config.BYPASS_EMBEDDING_AND_RETRIEVAL:$|            from open_webui.retrieval.skip_embedding import should_skip_embedding\n            if config.BYPASS_EMBEDDING_AND_RETRIEVAL or should_skip_embedding(file.filename):|' $RETRIEVAL && \
+    grep -q 'should_skip_embedding(file.filename)' $RETRIEVAL && \
+    python3 -c "import ast,sys; ast.parse(open('$RETRIEVAL').read())" && \
+    echo "skip_embedding patch applied"
 
 # ── Start nginx + Open WebUI (nginx on 8080 proxies to OWUI on 8081) ──
 CMD bash -c "nginx && PORT=8081 bash /app/backend/start.sh"
