@@ -1,0 +1,1 @@
+{"error":{"code":"","message":"Invalid expression: Could not find a property named 'collection_key' on type 'search.document'.\r\nParameter name: $select"}}
