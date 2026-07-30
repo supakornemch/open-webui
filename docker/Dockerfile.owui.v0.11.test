@@ -1,5 +1,5 @@
+# ── TEST: Upgrade OWUI to v0.11.0 ──
 # ponytail: hardcode --platform because Azure App Service is Linux/AMD64.
-# Local ARM Mac builds via docker buildx --platform linux/amd64 (Docker Desktop emulates).
 FROM --platform=linux/amd64 ghcr.io/open-webui/open-webui:v0.11.0
 
 # ── Install nginx for CSP headers (frame-ancestors for Teams/SharePoint) ──
@@ -10,10 +10,6 @@ RUN pip install --no-cache-dir azure-search-documents>=11.4.0
 
 # ── Install pandas + openpyxl + httpx for Procurement Price Lookup Tool ──
 RUN pip install --no-cache-dir pandas openpyxl httpx
-
-# ── Pre-download sentence-transformers model to avoid runtime HF download ──
-# VNet blocks outbound internet → model must be baked into the image
-RUN python3 -c "from sentence_transformers import SentenceTransformer; SentenceTransformer('all-MiniLM-L6-v2')"
 
 # ── Teams SSO static files ──
 COPY app/auth/teams-auth.html /app/build/teams-auth.html
@@ -27,7 +23,8 @@ COPY screenshots/ /app/build/screenshots/
 COPY docker/nginx.conf /etc/nginx/sites-enabled/default
 
 # ── Custom Azure AI Search vector DB backend ──
-# Patches OWUI type.py + factory.py to register azure-ai-search
+# v0.11 factory.py uses match/case — we just add the azure_ai_search case.
+# type.py is identical except we add AZURE_AI_SEARCH to enum.
 COPY app/patches/type.py /app/backend/open_webui/retrieval/vector/type.py
 COPY app/patches/factory.py /app/backend/open_webui/retrieval/vector/factory.py
 COPY app/patches/client.py /app/backend/open_webui/retrieval/vector/dbs/azure_ai_search.py

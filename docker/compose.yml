@@ -29,38 +29,22 @@ services:
     env_file:
       - .env
     environment:
-      # ---- Vector DB: Azure AI Search (custom backend) ----
+      # ── Local overrides (different from production) ──
+      - WEBUI_URL=http://localhost:3000
+      - MICROSOFT_REDIRECT_URI=http://localhost:3000/oauth/microsoft/callback
+      # ── Vector DB: Azure AI Search (from .env) ──
       - VECTOR_DB=azure-ai-search
       - AZURE_SEARCH_ENDPOINT=https://srch-entchat-poc-sand.search.windows.net
-      - AZURE_SEARCH_ADMIN_KEY=${AZURE_SEARCH_ADMIN_KEY}
       - AZURE_SEARCH_TYPE=hybrid
       - AZURE_ENABLE_SEMANTIC_SEARCH=false
       - AZURE_SEARCH_NAMESPACE_MODE=true
-      # ---- LLM ----
-      - OPENAI_API_BASE_URL=http://litellm:4000/v1
-      # ---- OWUI general ----
-      - WEBUI_URL=http://localhost:3000
-      - WEBUI_SECRET_KEY=${WEBUI_SECRET_KEY:-local-dev-secret-key}
-      - ENABLE_OAUTH_SIGNUP=true
-      - OAUTH_MERGE_ACCOUNTS_BY_EMAIL=true
-      # ---- Microsoft Entra ID SSO ----
-      - MICROSOFT_CLIENT_ID=${MICROSOFT_CLIENT_ID:-4881351e-d1a0-4228-a084-a0d6ef717740}
-      - MICROSOFT_CLIENT_SECRET=${MICROSOFT_CLIENT_SECRET}
-      - MICROSOFT_CLIENT_TENANT_ID=${MICROSOFT_CLIENT_TENANT_ID:-5045d9c3-3b0b-4315-8594-64118bbd7495}
-      - MICROSOFT_REDIRECT_URI=${MICROSOFT_REDIRECT_URI:-http://localhost:3000/oauth/microsoft/callback}
-      - MICROSOFT_OAUTH_SCOPE=${MICROSOFT_OAUTH_SCOPE:-openid email profile offline_access}
-      - OPENID_PROVIDER_URL=${OPENID_PROVIDER_URL:-https://login.microsoftonline.com/5045d9c3-3b0b-4315-8594-64118bbd7495/v2.0/.well-known/openid-configuration}
-      # ---- Document Intelligence (PDF extraction) ----
+      # ── Document Intelligence (from .env) ──
       - CONTENT_EXTRACTION_ENGINE=${CONTENT_EXTRACTION_ENGINE:-document_intelligence}
       - DOCUMENT_INTELLIGENCE_ENDPOINT=${DOCUMENT_INTELLIGENCE_ENDPOINT:-https://aif-entchat-poc-sand.cognitiveservices.azure.com/}
-      - DOCUMENT_INTELLIGENCE_KEY=${DOCUMENT_INTELLIGENCE_KEY}
       - DOCUMENT_INTELLIGENCE_MODEL=${DOCUMENT_INTELLIGENCE_MODEL:-prebuilt-read}
-    depends_on:
-      litellm:
-        condition: service_started
-    restart: unless-stopped
-    networks:
-      - entchat-net
+      # ── LLM: Azure AI Foundry directly (from .env) ──
+      - OPENAI_API_BASE_URL=${OPENAI_API_BASE_URL:-https://aif-entchat-poc-sand.cognitiveservices.azure.com}
+      # ── All other vars loaded from docker/.env ──
 
   # ============================================================
   # LiteLLM — LLM Proxy for Token Tracking & Cost Monitoring
