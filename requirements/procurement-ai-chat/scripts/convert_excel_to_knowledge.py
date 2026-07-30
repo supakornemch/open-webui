@@ -15,8 +15,11 @@ Output:
 import pandas as pd
 import json
 import math
+from pathlib import Path
 
-XLSX_PATH = "Trade Marketing Materials price for Y2026.final.xlsx"
+ROOT = Path(__file__).resolve().parents[1]
+XLSX_PATH = ROOT / "data" / "source" / "Trade Marketing Materials price for Y2026.final.xlsx"
+GEN_DIR = ROOT / "data" / "generated"
 
 
 def safe_float(val):
@@ -288,12 +291,15 @@ def main():
     print(f"Premium: {len([i for i in all_items if i['sheet']=='4.สรุปPremium'])} items")
 
     # === Export JSON ===
-    with open("procurement_knowledge.json", "w", encoding="utf-8") as f:
+    GEN_DIR.mkdir(parents=True, exist_ok=True)
+    json_out = GEN_DIR / "procurement_knowledge.json"
+    with open(json_out, "w", encoding="utf-8") as f:
         json.dump(all_items, f, ensure_ascii=False, indent=2)
-    print(f"\n✅ JSON: procurement_knowledge.json ({len(all_items)} items)")
+    print(f"\n✅ JSON: {json_out} ({len(all_items)} items)")
 
     # === Export Markdown (LLM-friendly) ===
-    with open("procurement_knowledge.md", "w", encoding="utf-8") as f:
+    md_out = GEN_DIR / "procurement_knowledge.md"
+    with open(md_out, "w", encoding="utf-8") as f:
         f.write("# Procurement Master Price Y2026\n\n")
         f.write(f"จำนวน {len(all_items)} รายการ จาก 5 หมวดหมู่\n\n")
 
@@ -330,7 +336,7 @@ def main():
                 f.write(f"\n- **หมายเหตุ**: {item.get('note', '')}\n")
                 f.write(f"\n")
 
-    print(f"✅ Markdown: procurement_knowledge.md")
+    print(f"✅ Markdown: {md_out}")
     print("\n🎉 พร้อมนำไปใช้งาน!")
     print("   → Upload procurement_knowledge.json เข้า OWUI Knowledge")
     print("   → หรือใช้ procurement_knowledge.md เป็นเอกสารอ้างอิง")
