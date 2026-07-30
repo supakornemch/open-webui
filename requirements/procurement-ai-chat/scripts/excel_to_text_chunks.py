@@ -15,9 +15,9 @@ Output:
 import json
 from pathlib import Path
 
-BASE_DIR = Path(__file__).parent
-JSON_DIR = BASE_DIR / "json"
-OUT_DIR = BASE_DIR / ".." / ".." / "knowledge" / "procurement"
+ROOT = Path(__file__).resolve().parents[1]
+JSON_DIR = ROOT / "data" / "generated" / "json"
+OUT_DIR = ROOT / ".." / ".." / "knowledge" / "procurement"
 
 SHEETS = [
     ("1.POSM(MKT).json", "POSM", "อุปกรณ์สื่อการตลาด ณ จุดขาย"),

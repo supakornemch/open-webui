@@ -18,7 +18,8 @@ BASE_URL = "https://genie.haadthip.com"
 API_KEY = "sk-5ef8fdfafc824bf1bf582a6049bbd56c"
 TOOL_ID = "procurement_price_lookup"
 MODEL_ID = "procurement-ai-v1"
-JSON_DIR = Path(__file__).parent / "json"
+ROOT = Path(__file__).resolve().parents[1]
+JSON_DIR = ROOT / "data" / "generated" / "json"
 
 
 def api(method, path, body=None):
@@ -516,10 +517,10 @@ def main():
     print("---")
     # Test with Python
     import subprocess
-    test_script = """
+    rate_json = JSON_DIR / "5.Printing-Rate.json"
+    test_script = "price_json = r'" + str(rate_json) + "'\n" + """
 import json, sys
-sys.path.insert(0, '.')
-price_data = json.loads(open('json/5.Printing-Rate.json').read())
+price_data = json.loads(open(price_json).read())
 
 # Simulate token-based match for "Sale kit A4"
 def tokenize(text):
