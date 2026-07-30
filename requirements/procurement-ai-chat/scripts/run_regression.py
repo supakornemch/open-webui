@@ -17,7 +17,7 @@ import re
 import sys
 from pathlib import Path
 
-JSON_DIR = Path(__file__).parent / "json"
+JSON_DIR = Path(__file__).resolve().parents[1] / "data" / "generated" / "json"
 CSV_PATH = Path(__file__).parent / "regression-tests.csv"
 
 # ── Replicate tool logic ────────────────────────────────────────────

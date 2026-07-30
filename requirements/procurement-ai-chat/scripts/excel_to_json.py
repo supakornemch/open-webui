@@ -20,10 +20,10 @@ from pathlib import Path
 
 import pandas as pd
 
-BASE_DIR = Path(__file__).parent
-XLSX_PATH = BASE_DIR / "Trade Marketing Materials price for Y2026.final.xlsx"
-JSON_DIR = BASE_DIR / "json"
-KNOWLEDGE_DIR = BASE_DIR / ".." / ".." / "knowledge" / "procurement"
+ROOT = Path(__file__).resolve().parents[1]
+XLSX_PATH = ROOT / "data" / "source" / "Trade Marketing Materials price for Y2026.final.xlsx"
+JSON_DIR = ROOT / "data" / "generated" / "json"
+KNOWLEDGE_DIR = ROOT / ".." / ".." / "knowledge" / "procurement"
 
 
 def safe_float(val):
