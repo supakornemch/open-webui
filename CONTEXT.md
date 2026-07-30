@@ -63,7 +63,7 @@
 
 | Item | Value |
 |------|-------|
-| VNet | `VNET-HTC-SANBOX-SEA` (in `RG-HTC-SANDBOX-SEA`) |
+| VNet | `VNET-HTC-SANBOX-SEA` (in `RG-ENTCHAT-POC-SAND-SEA`) |
 | Subnet | `SNET-HTC-SANDBOX-APP-SEA` |
 | OWUI | ✅ VNet-integrated (`app-entchat-owui-poc-sand`) |
 | LiteLLM | ✅ VNet-integrated (`app-litellm-poc-sand`) |
@@ -78,7 +78,7 @@
 
 ### PostgreSQL
 - **Host**: `psql-entchat-poc-sand.postgres.database.azure.com`
-- **Admin**: `entchatadm` / `<in docker/.env — PG admin password>`
+- **Admin**: `entchatadm` / `<in docker/.env.owui — PG admin password>`
 - **DBs**: `open_webui` (OWUI), `docwise`, `litellm`
 
 ### Model Deployments (AI Foundry)
@@ -95,15 +95,15 @@
 
 | Index | Docs | Type | Status |
 |-------|:----:|------|--------|
-| `enterprise-docs-idx` | 792 | Vector HNSW + Semantic | ✅ Main |
-| `eexpense-faq-idx` | 42 | Vector HNSW + Semantic | ✅ E-Expense |
+| `enterprise-docs-idx` | 1163 | Vector HNSW + Semantic | ✅ Main |
+| `docwise-docs-v2` | 97 | Vector HNSW | DocWise |
 
 ### Blob Containers (`staentchatdoc`)
 - **Active**: `open-webui-files`, `cost-reports`, `documents`, `uploads`, `vhds`
 - **Deleted**: `haadthip-ir`, `haadthip-public`, `mihcm-hr`, `sap-docs`
 
 ### Container Registry (`acrentchatpocsand`)
-- **Images**: `owui-entchat-teams` (Open WebUI + teams-auth.html), `litellm-entchat` (LiteLLM + MCP packages)
+- **Images**: `entchat-owui` (Open WebUI + teams-auth.html, v0.11.0), `litellm-entchat` (LiteLLM + MCP packages)
 - ⚠️ ARM64 build → OCI index → ต้องใช้ AMD64 sub-manifest digest เสมอ
 
 ## Open WebUI (Genie)
@@ -111,7 +111,7 @@
 | Field | Value |
 |-------|-------|
 | URL | `genie.haadthip.com` / `app-entchat-owui-poc-sand.azurewebsites.net` |
-| Image | `owui-entchat-teams@sha256:...` (v0.10.2 + teams-auth.html + screenshots + Azure AI Search backend) |
+| Image | `entchat-owui@sha256:...` (v0.11.0 + teams-auth.html + screenshots + Azure AI Search backend) |
 | Auth | Microsoft Entra ID SSO (OIDC) — auto signup enabled |
 | DB | `postgresql://entchatadm:***@psql-...:5432/open_webui?sslmode=require` |
 | LiteLLM | OpenAI API: `https://app-litellm-poc-sand.azurewebsites.net` |
@@ -178,7 +178,7 @@ srch-entchat-poc-sand  (Azure AI Search, Standard tier)
 |-------|-------|
 | URL | `https://app-litellm-poc-sand.azurewebsites.net` |
 | Image | `litellm-entchat@sha256:...` (v1.83.3-stable + MCP packages) |
-| Dashboard | `/ui` (login: `admin` / `<LITELLM_MASTER_KEY — see docker/.env>`) |
+| Dashboard | `/ui` (login: `admin` / `<LITELLM_MASTER_KEY — see docker/.env.litellm>`) |
 | DB | `postgresql://entchatadm:***@psql-...:5432/litellm?sslmode=require` |
 | Cache | `type: local`, `ttl: 3600` — `cache_hit=True` ✅ |
 | API Version | `AZURE_API_VERSION=2024-10-21` (GA) |
@@ -217,7 +217,7 @@ general_settings:
 |------|-------|
 | Display Name | `appreg-entchat-owui-poc` |
 | Client ID | `4881351e-d1a0-4228-a084-a0d6ef717740` |
-| Client Secret | `<MICROSOFT_CLIENT_SECRET — see docker/.env>` (exp. 2027-01-01) |
+| Client Secret | `<MICROSOFT_CLIENT_SECRET — see docker/.env.owui>` (exp. 2027-01-01) |
 | Tenant ID | `5045d9c3-3b0b-4315-8594-64118bbd7495` |
 | App ID URI | `api://genie.haadthip.com/4881351e-...` |
 | Scope | `access_as_user` |
@@ -280,9 +280,12 @@ Teams iframe → teams-auth.html → Teams SDK init
 |------|------|-------------|
 | **`docker/compose.yml`** | ✅ **Custom OWUI** (teams-auth) + LiteLLM (SQLite) | **Local dev — default** |
 
-**Secrets:** ทั้งหมดใช้ `docker/.env` (gitignored, เทียบกับ `docker/.env.example`)
-```bash
+**Secrets:** แยก per-service (ทั้งคู่ gitignored, เทียบกับ `.example`)
+```
+bash
 # 🚀 Local dev
+cp docker/.env.owui.example docker/.env.owui
+cp docker/.env.litellm.example docker/.env.litellm
 docker compose -f docker/compose.yml up -d --build
 ```
 
@@ -309,7 +312,11 @@ EnterpriseChat/
 │   ├── nginx.conf          ← nginx reverse proxy config
 │   ├── litellm-config.yaml
 │   ├── litellm-config.local.yaml
-│   └── .env                ← Secrets (gitignored)
+│   ├── .env.owui                ← Secrets (gitignored)
+│   ├── .env.litellm             ← Secrets (gitignored)
+│   ├── .env.owui.example        ← Template
+│   ├── .env.litellm.example     ← Template
+│   └── initdb/                  ← Init scripts (01-litellm-db.sql)
 │
 ├── functions/              ← Open WebUI functions (paste into admin panel)
 │   ├── tools/              ← Enterprise Search, Calculator, etc.
@@ -346,11 +353,8 @@ User → genie.haadthip.com (App Gateway)
 
 | Index | Docs | Type | Source |
 |-------|:----:|------|--------|
-| `owui-knowledge` | 231 | HNSW vector (3072d) | All KBs consolidated (filtered by `collection_key`) |
-| `owui-files` | 251 | HNSW vector (3072d) | Chat file attachments |
-| `owui-memory` | 0 | HNSW vector (3072d) | User memory (not yet used) |
-| `enterprise-docs-idx` | 792 | HNSW + Semantic | Enterprise Search Tool index |
-| `docwise-docs-v2` | — | HNSW | DocWise document index |
+| `enterprise-docs-idx` | 1163 | HNSW + Semantic | Enterprise Search Tool index |
+| `docwise-docs-v2` | 97 | HNSW | DocWise document index |
 
 **KB `2187df46` (Corporate Public Disclosure)**: มี 2 ไฟล์ — `README.md` + `htc-agm2024-minutes-en.pdf`
 

@@ -1,0 +1,42 @@
+{
+  "name": "procurement_price_lookup",
+  "functions": [
+    {
+      "name": "lookup_price",
+      "description": "ค้นหาราคาสินค้า",
+      "params": [
+        {
+          "name": "item_name",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "quantity",
+          "type": "number",
+          "required": false
+        },
+        {
+          "name": "category",
+          "type": "string",
+          "required": false
+        }
+      ]
+    },
+    {
+      "name": "get_item_details",
+      "description": "ดูรายละเอียดสินค้า",
+      "params": [
+        {
+          "name": "item_id",
+          "type": "string",
+          "required": true
+        }
+      ]
+    },
+    {
+      "name": "list_categories",
+      "description": "แสดงหมวดหมู่สินค้า",
+      "params": []
+    }
+  ]
+}

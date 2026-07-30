@@ -7,9 +7,11 @@ Customized **Open WebUI** (v0.11.0) + **LiteLLM** proxy + **Azure AI Search** ve
 ## Build & Run
 
 ```bash
-cp docker/.env.example docker/.env   # fill in secrets first (gitignored)
+cp docker/.env.owui.example docker/.env.owui         # fill in secrets first (gitignored)
+cp docker/.env.litellm.example docker/.env.litellm   # fill in secrets first (gitignored)
 docker compose -f docker/compose.yml up -d --build
 ```
+Local compose runs its own Postgres; `open_webui` and `litellm` are separate databases.
 - Open WebUI → http://localhost:3000 · LiteLLM → http://localhost:4000 · LiteLLM UI → http://localhost:4000/ui
 - There is no unit-test suite. Verify search changes with [scripts/test-search-regression.py](scripts/test-search-regression.py); verify caching with [scripts/test-prompt-cache.py](scripts/test-prompt-cache.py). Both need Azure env vars set.
 
@@ -25,11 +27,12 @@ The Docker image = **upstream OWUI base + our patches baked in** (see [docker/Do
 
 - **AMD64 only.** Azure App Service is Linux/AMD64. On ARM Macs, images MUST be built with `docker buildx --platform linux/amd64`. Multi-platform builds produce an OCI index — deploy the AMD64 sub-manifest digest (CONTEXT.md issue #3).
 - **VNet blocks all outbound internet.** Anything needing network at runtime (HF model downloads, etc.) must be **baked into the image** at build time — the Dockerfile pre-downloads `sentence-transformers`. SSO/OAuth needs an NSG outbound rule (CONTEXT.md issue #13).
-- **Never hardcode secrets.** Config/scripts read from env (`${VAR:?msg}` or `os.environ/VAR`); docs use `<placeholder>` referencing `docker/.env`. Real secrets live only in `docker/.env` (gitignored).
+- **Never hardcode secrets.** Config/scripts read from env (`${VAR:?msg}` or `os.environ/VAR`); docs use `<placeholder>` referencing the env files. Real secrets live only in `docker/.env.owui` and `docker/.env.litellm` (both gitignored).
+- **One env file per service — never a shared one.** LiteLLM runs `prisma migrate deploy` on whatever `DATABASE_URL` it sees; on a schema it doesn't own it auto-baselines into `DROP TABLE`. A shared `.env` let it wipe the OWUI schema on 2026-07-30. Anything that isn't LiteLLM's own DB must never reach that service.
 - **`screenshots/` is a build asset**, not junk — [docker/Dockerfile.owui](docker/Dockerfile.owui) copies it into the image and the served manual links into it. It is deliberately un-gitignored. Don't delete it.
 - **Served manual source of truth** is [app/static/genie-setup-manual.html](app/static/genie-setup-manual.html) (copied into the image). Do not resurrect a top-level `docs/` copy.
 - **OWUI internals are async** (v0.10.2+). For bulk DB work use `SessionLocal()` + raw SQL, not `get_db()` + ORM (CONTEXT.md issue #12).
 
 ## Git workflow
 
-Branch flow: `feature/*` → `release/mvp` → `qas` → `main`. Branch from latest `release/mvp`; use conventional-commit prefixes (`feat:`, `fix:`, `refactor:`, `chore:`, `docs:`). Full model in [CONTEXT.md](CONTEXT.md) "Git Strategy". Only commit when asked; never commit `docker/.env`.
+Branch flow: `feature/*` → `release/mvp` → `qas` → `main`. Branch from latest `release/mvp`; use conventional-commit prefixes (`feat:`, `fix:`, `refactor:`, `chore:`, `docs:`). Full model in [CONTEXT.md](CONTEXT.md) "Git Strategy". Only commit when asked; never commit `docker/.env*` (only the `.example` files).
