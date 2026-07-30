@@ -8,13 +8,13 @@
 
 ## ข้อมูลนำเข้า
 
-### 1. `Trade Marketing Materials price for Y2026.final.xlsx`
+### 1. `data/source/Trade Marketing Materials price for Y2026.final.xlsx`
 ไฟล์ Excel Master ราคาสื่อการตลาดประจำปี 2026
 
-### 2. `email_samples.zip`
+### 2. `data/source/email_samples.zip`
 ตัวอย่างอีเมลคำขอราคา 22 ไฟล์ สำหรับใช้อ้างอิงรูปแบบการสื่อสาร
 
-### 3. ✅ `requirement-confirmation.md` — ยืนยัน Requirement จากทีม DIO
+### 3. ✅ `docs/requirement-confirmation.md` — ยืนยัน Requirement จากทีม DIO
 เอกสารยืนยันความต้องการระบบ (Procurement System Requirements Discussion) ลงวันที่ 16 กรกฎาคม 2569
 
 **Key Requirements ที่เกี่ยวข้อง:**
@@ -25,7 +25,7 @@
 - **ความสามารถ**: คำนวณพื้นที่ (ตร.ม.), ราคาและ Supplier แบบเฉพาะเจาะจง
 - **Access Control**: Role-Based (RBAC)
 
-ดูรายละเอียดเต็มได้ที่ `requirement-confirmation.md`
+ดูรายละเอียดเต็มได้ที่ `docs/requirement-confirmation.md`
 
 ---
 
@@ -276,14 +276,47 @@ def find_price_tier(tiers, qty):
 
 ---
 
-## ไฟล์ในโฟลเดอร์นี้
+## โครงสร้างโฟลเดอร์
 
-| ไฟล์ | รายละเอียด |
-|---|---|
-| `Trade Marketing Materials price for Y2026.final.xlsx` | Excel Master ราคา Y2026 |
-| `email_samples.zip` | ตัวอย่างอีเมล 22 ไฟล์ |
-| `README.md` | เอกสารวิเคราะห์หลัก |
-| `requirement-confirmation.md` | ✅ ยืนยัน Requirement จากทีม DIO |
-| `sheet-analysis.md` | วิเคราะห์แต่ละ Sheet แบบเจาะลึก |
-| `owui-agent-guideline.md` | 🌟 Guideline การสร้าง Agent ใน OWUI |
-| `convert_excel_to_knowledge.py` | 🐍 Script แปลง Excel → JSON/MD สำหรับ Knowledge |
+```
+procurement-ai-chat/
+├── README.md                       เอกสารวิเคราะห์หลัก (ไฟล์นี้)
+├── docs/                           เอกสารประกอบทั้งหมด
+│   ├── requirement-confirmation.md      ✅ ยืนยัน Requirement จากทีม DIO
+│   ├── requirement-confirmation-email.pdf
+│   ├── sheet-analysis.md                วิเคราะห์แต่ละ Sheet แบบเจาะลึก
+│   ├── solution-comparison.md           เทียบแนวทาง RAG vs Tool
+│   ├── diagrams.md                      แผนภาพสถาปัตยกรรม
+│   ├── owui-agent-guideline.md          🌟 Guideline สร้าง Agent ใน OWUI
+│   ├── agent_skill_instruction.md       Skill instruction สำหรับ agent
+│   └── procurement_knowledge_for_rag.md
+├── data/
+│   ├── source/                     ไฟล์ต้นฉบับ (แก้ด้วยมือ/ได้รับมา)
+│   │   ├── Trade Marketing Materials price for Y2026.final.xlsx
+│   │   ├── master-price-template.xlsx   template คนกรอกง่าย (สร้างจาก build_friendly_template.py)
+│   │   ├── email_samples.zip
+│   │   ├── email_samples_extracted.txt
+│   │   └── emails-pdf/                   ตัวอย่างอีเมล PDF 22 ไฟล์
+│   └── generated/                  ผลลัพธ์จากสคริปต์ (สร้างใหม่ได้)
+│       ├── json/                        JSON ต่อ sheet + chunks
+│       ├── email-samples-md/            อีเมลแปลงเป็น Markdown
+│       └── email-samples-structured/    อีเมลแปลงเป็น JSON
+├── scripts/                        สคริปต์ Python (path อ้างอิง ROOT อัตโนมัติ)
+│   ├── build_friendly_template.py       สร้าง Excel template คนกรอกง่าย
+│   ├── load_master.py                   transformation: friendly xlsx → ตาราง normalized
+│   ├── convert_excel_to_knowledge.py    แปลง Excel → JSON/MD สำหรับ Knowledge
+│   ├── excel_to_json.py                 แปลง Excel → JSON ต่อ sheet
+│   ├── excel_to_text_chunks.py          แปลง → text chunks สำหรับ RAG
+│   ├── update_tool_data.py              อัปเดต tool + system prompt บน OWUI
+│   ├── run_regression.py                รัน regression tests
+│   └── regression-tests.csv
+├── tools/                          OWUI tool files
+│   ├── tool-procurement-price-lookup.py
+│   └── tool-procurement-excel-live.py
+└── owui/                           OWUI API + snapshots
+    ├── owui-api.postman_collection.json
+    └── snapshots/
+```
+
+> สคริปต์ทุกตัวใช้ `ROOT = Path(__file__).resolve().parents[1]` อ้าง path จึงรันจากที่ไหนก็ได้
+> เช่น `python scripts/load_master.py` หรือ `python scripts/build_friendly_template.py`
