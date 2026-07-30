@@ -22,6 +22,7 @@ import asyncio
 import io
 import json
 import os
+import re
 import urllib.request
 from typing import Optional
 from urllib.parse import quote
@@ -31,6 +32,29 @@ from pydantic import BaseModel, Field
 
 COLOR_RULE_PREFIX = "สี"
 SHEET = "price_book"
+PUNCT_RE = re.compile(r"[\s\-_.()\[\]/+,]")
+DIM_RE = re.compile(r"(\d+)\s*[x×]\s*(\d+)")
+
+
+def _norm_dims(text: str) -> str:
+    """'16 x 24' and '16x24' are the same size; the workbook spaces them freely."""
+    return DIM_RE.sub(lambda m: f"{m.group(1)}x{m.group(2)}", str(text).lower())
+
+
+def _squash(text: str) -> str:
+    """Drop punctuation and spacing so hyphenation stops blocking a match."""
+    return PUNCT_RE.sub("", _norm_dims(text))
+
+
+def _swap_dims(text: str) -> Optional[str]:
+    """'90x60' -> '60x90'. Users quote dimensions in either order."""
+    m = DIM_RE.search(text)
+    if not m:
+        return None
+    a, b = m.group(1), m.group(2)
+    if a == b:
+        return None
+    return text[: m.start()] + f"{b}x{a}" + text[m.end() :]
 
 
 class Tools:
@@ -130,8 +154,9 @@ class Tools:
             )
 
         df = pd.read_excel(io.BytesIO(data), sheet_name=SHEET)
-        df["_name_lower"] = df["item_name"].fillna("").str.lower()
-        df["_spec_lower"] = df["spec"].fillna("").str.lower()
+        df["_name_lower"] = df["item_name"].fillna("").str.lower().map(_norm_dims)
+        df["_spec_lower"] = df["spec"].fillna("").str.lower().map(_norm_dims)
+        df["_name_squashed"] = df["item_name"].fillna("").map(_squash)
 
         self._rules = (
             pd.read_excel(io.BytesIO(data), sheet_name="price_rules")
@@ -170,10 +195,35 @@ class Tools:
             return float(digits) if digits else 0.0
         return 0.0
 
-    def _candidates(self, df: pd.DataFrame, keyword: str) -> pd.DataFrame:
-        """Match on name, then spec, then require every keyword token in the name."""
-        term = self._synonyms.get(keyword.strip().lower(), keyword).lower()
+    def _synonym_terms(self, keyword: str) -> list[str]:
+        """Search terms to try, best first.
 
+        Users rarely type a bare glossary word — it arrives as "ป้ายโฟมบอร์ดไดคัด 45x45",
+        so a whole-keyword lookup alone never fires. Thai also runs words together
+        without spaces, so the canonical term is tried on its own too.
+        """
+        lowered = keyword.strip().lower()
+        terms = [lowered]
+
+        if lowered in self._synonyms:
+            terms.insert(0, self._synonyms[lowered].lower())
+            return terms
+
+        # Longest synonym first, so a specific phrase wins over a substring of it.
+        for syn in sorted(self._synonyms, key=len, reverse=True):
+            if syn not in lowered:
+                continue
+            canonical = self._synonyms[syn].lower()
+            # 'โปโล' is a synonym of 'เสื้อโปโล'; substituting inside it yields junk.
+            if canonical in lowered:
+                break
+            terms.insert(0, lowered.replace(syn, canonical))
+            terms.insert(1, canonical)
+            break
+        return terms
+
+    def _match_one(self, df: pd.DataFrame, term: str) -> pd.DataFrame:
+        """Name, then spec, then squashed name, then every token in the name."""
         hit = df[df["_name_lower"].str.contains(term, regex=False)]
         if not hit.empty:
             return hit
@@ -182,7 +232,20 @@ class Tools:
         if not hit.empty:
             return hit
 
-        tokens = [t for t in term.split() if len(t) > 1]
+        # 'กล่องทิชชูโค้ก' should reach 'กล่องทิชชู-โค้ก'; the workbook punctuates freely.
+        squashed = _squash(term)
+        if squashed:
+            hit = df[df["_name_squashed"].str.contains(squashed, regex=False)]
+            if not hit.empty:
+                return hit
+
+        # Keep only tokens some name actually contains, else one stray word
+        # ("สีอ่อน", which lives in spec) zeroes out the whole AND.
+        tokens = [
+            t
+            for t in term.split()
+            if len(t) > 1 and df["_name_lower"].str.contains(t, regex=False).any()
+        ]
         if tokens:
             mask = pd.Series(True, index=df.index)
             for t in tokens:
@@ -192,18 +255,36 @@ class Tools:
                 return hit
         return df.iloc[0:0]
 
+    def _candidates(self, df: pd.DataFrame, keyword: str) -> pd.DataFrame:
+        for term in self._synonym_terms(keyword):
+            term = _norm_dims(term)
+            hit = self._match_one(df, term)
+            if not hit.empty:
+                return hit
+            swapped = _swap_dims(term)
+            if swapped:
+                hit = self._match_one(df, swapped)
+                if not hit.empty:
+                    return hit
+        return df.iloc[0:0]
+
     @staticmethod
-    def _pick_tier(rows: pd.DataFrame, quantity: int) -> Optional[pd.Series]:
-        """Row whose tier contains the quantity; blank bounds mean unbounded."""
+    def _pick_tier(rows: pd.DataFrame, quantity: int) -> tuple[Optional[pd.Series], bool]:
+        """Row whose tier contains the quantity; blank bounds mean unbounded.
+
+        Second element is True when the quantity fell outside every tier and the
+        price is therefore a nearest-tier fallback, not a quoted price.
+        """
         lo = rows["qty_min"].fillna(0)
         hi = rows["qty_max"].fillna(float("inf"))
         band = rows[(lo <= quantity) & (hi >= quantity)]
         if not band.empty:
-            return band.iloc[0]
+            return band.iloc[0], False
         priced = rows[rows["unit_price_thb"].notna()]
         if priced.empty:
-            return rows.iloc[0] if not rows.empty else None
-        return priced.sort_values("qty_min").iloc[-1]
+            return (rows.iloc[0] if not rows.empty else None), False
+        nearest = priced.sort_values("qty_min").iloc[0 if quantity < lo.min() else -1]
+        return nearest, True
 
     @staticmethod
     def _clean(value):
@@ -261,7 +342,7 @@ class Tools:
         # Prefer the item with the most tiers, so a specific variant beats a stray match.
         best_id = rows["item_id"].value_counts().idxmax()
         item_rows = rows[rows["item_id"] == best_id]
-        tier = self._pick_tier(item_rows, quantity)
+        tier, out_of_range = self._pick_tier(item_rows, quantity)
         if tier is None:
             return json.dumps(
                 {"found": False, "message": f"ไม่พบช่วงจำนวนที่ตรงกับ {quantity}"},
@@ -309,6 +390,11 @@ class Tools:
         }
         if notes:
             result["note"] = notes
+        if out_of_range:
+            result["quantity_out_of_range"] = (
+                f"จำนวน {quantity:,} อยู่นอกช่วงที่ประมูลไว้ ราคานี้มาจากช่วง '{self._clean(tier.get('qty_label'))}' "
+                "ไม่ใช่ราคาที่ยืนยันได้ ต้องขอใบเสนอราคาจากฝ่ายจัดซื้อ"
+            )
         others = self._clean(tier.get("vendor_quotes_json"))
         if others:
             result["other_vendor_quotes"] = others

@@ -107,17 +107,24 @@ README_LINES = [
     ("  เพิ่มสินค้าใหม่ = เพิ่มแถวต่อท้าย ใส่ item_id ใหม่ แล้วรัน build_price_book.py --refresh-rag", False),
 ]
 
+# `term` must appear in item_name/spec verbatim — it is what the tool searches for.
+# Words users type go in `synonyms`. Getting these backwards makes the entry dead.
 GLOSSARY = [
     ("เสื้อยืด", "t-shirt;ทีเชิ้ต;เสื้อคอกลม", "Garment"),
     ("เสื้อโปโล", "polo;โปโล;เสื้อคอปก", "Garment"),
-    ("ธงปีกนก", "ธงญี่ปุ่น;feather flag;ธงชายธง", "Printing"),
+    ("ธงปีกนก", "ธงญี่ปุ่น;feather flag;ธงชายธง;beach flag", "PrintRate"),
     ("สติกเกอร์", "sticker;สติ๊กเกอร์;ฉลาก", "PrintRate"),
-    ("ป้ายราคา", "shelf talker;ป้ายชั้นวาง;price card", "PrintRate"),
-    ("โฟมบอร์ด", "foam board;ป้ายโฟม", "PrintRate"),
-    ("พลาสวูด", "plaswood;ป้ายพลาสวูด", "PrintRate"),
+    ("PP Board", "โฟมบอร์ด;foam board;ป้ายโฟม;พีพีบอร์ด;พลาสวูด;plaswood", "PrintRate"),
+    ("Shelf Talker", "ป้ายราคา;ป้ายชั้นวาง;price card;ป้ายแขวน", "PrintRate"),
+    ("Vacuum", "ตู้เย็น;สติกเกอร์ตู้เย็น;cooler", "PrintRate"),
     ("ร่ม", "umbrella;ร่มสนาม;ร่มเสาข้าง", "POSM"),
     ("แก้วกระดาษ", "paper cup;แก้วน้ำ", "Premium"),
-    ("ตู้เย็น", "vacuum;สติกเกอร์ตู้เย็น;cooler", "PrintRate"),
+    ("ไดคัท", "ไดคัด;diecut;die cut", "PrintRate"),
+    ("Wrap Around", "ล้อมกอง;ป้ายล้อมกอง", "PrintRate"),
+    ("ประกาศนียบัตร", "เกียรติบัตร;certificate;วุฒิบัตร", "PrintRate"),
+    ("โปสเตอร์", "poster;ใบปิด", "PrintRate"),
+    ("ถังใส่น้ำแข็ง", "ถังน้ำแข็ง;ice bucket;ถังแช่", "POSM"),
+    ("หนังสือคู่มือ", "คู่มือ;booklet", "PrintRate"),
 ]
 
 
