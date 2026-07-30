@@ -268,6 +268,27 @@ class Tools:
                     return hit
         return df.iloc[0:0]
 
+    def _nearby(self, df: pd.DataFrame, keyword: str, limit: int = 8) -> list[str]:
+        """Names ranked by how many keyword words they contain, best first.
+
+        A model that pastes the user's whole request gets 0 hits and tends to give up
+        rather than retry shorter, so an empty result carries suggestions instead.
+        """
+        tokens = {t for t in _norm_dims(keyword).split() if len(t) > 1}
+        if not tokens:
+            return []
+
+        names = df[["item_name", "_name_lower"]].drop_duplicates("item_name")
+        score = pd.Series(0, index=names.index)
+        for token in tokens:
+            score += names["_name_lower"].str.contains(token, regex=False).astype(int)
+
+        ranked = names.assign(_score=score)
+        ranked = ranked[ranked._score > 0].sort_values(
+            ["_score", "item_name"], ascending=[False, True]
+        )
+        return [str(n) for n in ranked["item_name"].head(limit)]
+
     @staticmethod
     def _pick_tier(rows: pd.DataFrame, quantity: int) -> tuple[Optional[pd.Series], bool]:
         """Row whose tier contains the quantity; blank bounds mean unbounded.
@@ -330,11 +351,16 @@ class Tools:
 
         rows = self._candidates(df, item_name)
         if rows.empty:
+            nearby = self._nearby(df, item_name)
             return json.dumps(
                 {
                     "found": False,
                     "message": f"ไม่พบรายการ '{item_name}' ในไฟล์ราคากลาง",
-                    "hint": "ลองใช้ search_items เพื่อดูชื่อที่ใกล้เคียง",
+                    "hint": (
+                        "คำค้นอาจยาวเกิน เรียกซ้ำด้วยชื่อสั้น ๆ จาก did_you_mean หรือตัดคำขยายออก "
+                        "อย่าตอบว่าไม่พบจนกว่าจะลองชื่อสั้นแล้ว"
+                    ),
+                    "did_you_mean": nearby,
                 },
                 ensure_ascii=False,
             )
@@ -414,7 +440,16 @@ class Tools:
 
         rows = self._candidates(df, keyword)
         if rows.empty:
-            return json.dumps({"count": 0, "items": []}, ensure_ascii=False)
+            nearby = self._nearby(df, keyword)
+            return json.dumps(
+                {
+                    "count": 0,
+                    "items": [],
+                    "hint": "คำค้นอาจยาวเกิน เรียกซ้ำด้วยชื่อจาก did_you_mean หรือคำสั้นกว่านี้",
+                    "did_you_mean": nearby,
+                },
+                ensure_ascii=False,
+            )
 
         out = []
         for item_id, grp in rows.groupby("item_id", sort=False):

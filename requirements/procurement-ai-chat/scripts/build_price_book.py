@@ -240,6 +240,64 @@ def map_sheet(ws) -> SheetMap | None:
     return None
 
 
+def reattach_orphan_tiers(rows: list[tuple], sm: "SheetMap") -> list[tuple]:
+    """Move a nameless priced tier that sits under a rule-only add-on past the next item.
+
+    The sheet states add-ons like 'ฐานกากบาทสำหรับธงปีกนก' as a name plus a pricing
+    rule, with no tier and no price of their own, and then puts the *next* item's first
+    tier on a nameless row. Read in order, that tier attaches to the add-on and quotes
+    the next item's price under the add-on's name.
+    """
+
+    def at(row, idx):
+        return row[idx] if idx is not None and idx < len(row) else None
+
+    def has(row, idx):
+        return bool(norm(at(row, idx)))
+
+    out = list(rows)
+    i = 1
+    while i < len(out) - 1:
+        row, nxt, prev = out[i], out[i + 1], out[i - 1]
+        nameless_priced_tier = (
+            not has(row, sm.name)
+            and not has(row, sm.item_no)
+            and has(row, sm.qty)
+            and to_num(at(row, sm.price)) is not None
+        )
+        prev_is_rule_only = (
+            has(prev, sm.name)
+            and not has(prev, sm.qty)
+            and to_num(at(prev, sm.price)) is None
+        )
+        if nameless_priced_tier and prev_is_rule_only and has(nxt, sm.item_no):
+            out[i], out[i + 1] = nxt, row
+            i += 2
+            continue
+        i += 1
+    return out
+
+
+def unmerge_notes(ws, min_col: int) -> None:
+    """Copy vertically merged note text down its range, for note columns only.
+
+    openpyxl reports only the top-left cell of a merge, so a rule spanning two rows
+    (one per add-on) reaches only the first and the second looks unexplained. Scoped to
+    note columns: filling a merged *name* block would repeat the name on every tier row,
+    which the row loop would read as a new variant.
+    """
+    for rng in list(ws.merged_cells.ranges):
+        if rng.max_row == rng.min_row or rng.min_col < min_col:
+            continue
+        value = ws.cell(rng.min_row, rng.min_col).value
+        if value is None:
+            continue
+        ws.unmerge_cells(str(rng))
+        for r in range(rng.min_row, rng.max_row + 1):
+            for c in range(rng.min_col, rng.max_col + 1):
+                ws.cell(r, c).value = value
+
+
 def read_rows(path: Path):
     wb = openpyxl.load_workbook(path, data_only=True)
     records: list[dict] = []
@@ -251,13 +309,18 @@ def read_rows(path: Path):
         sm = map_sheet(ws)
         if sm is None:
             continue
+        if sm.winner is not None:
+            unmerge_notes(ws, sm.winner + 1)  # sm.winner is 0-based, openpyxl is 1-based
 
         seq = 0
         sub = 0
         last_qty_min = None
         last_price_note = ""
         cur_no = cur_name = cur_spec = ""
-        for row in ws.iter_rows(min_row=sm.header_row + 1, values_only=True):
+        sheet_rows = reattach_orphan_tiers(
+            list(ws.iter_rows(min_row=sm.header_row + 1, values_only=True)), sm
+        )
+        for row in sheet_rows:
             def cell(idx):
                 return row[idx] if idx is not None and idx < len(row) else None
 
@@ -318,7 +381,9 @@ def read_rows(path: Path):
                     text = norm(value)
                     if not text or NUMERIC_RE.match(text):
                         continue
-                    if not winner:
+                    # Only 'vendor N' is a winner; anything else is a pricing rule that
+                    # belongs in notes, not in a field the agent quotes as the supplier.
+                    if not winner and VENDOR_RE.match(text):
                         winner = text
                     elif text not in notes_bits:
                         notes_bits.append(text)
