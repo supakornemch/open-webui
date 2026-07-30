@@ -64,7 +64,7 @@ services:
     environment:
       - AZURE_API_BASE=${AZURE_API_BASE:-https://aif-entchat-poc-sand.cognitiveservices.azure.com}
       - AZURE_API_KEY=${AZURE_API_KEY}
-      - LITELLM_MASTER_KEY=${LITELLM_MASTER_KEY:-sk-litellm-poc-master-key}
+      - LITELLM_MASTER_KEY=${LITELLM_MASTER_KEY:?set LITELLM_MASTER_KEY in docker/.env}
       # No DATABASE_URL = SQLite fallback for local testing
     command:
       - "--config"

@@ -12,9 +12,9 @@ set -euo pipefail
 # ── Config ───────────────────────────────────────────────────────────────────
 LOCATION="southeastasia"
 ADMIN_USER="entchatadm"
-# ⚠️ CHANGE THIS PASSWORD BEFORE RUNNING (and URL-encode @ as %40, ! as %21)
-RAW_PASSWORD='DocWiseP@ssw0rd2026!'
-URL_ENCODED_PASSWORD='DocWiseP%40ssw0rd2026%21'
+# ⚠️ Set PG_ADMIN_PASSWORD before running. URL_ENCODED must match (@ → %40, ! → %21).
+RAW_PASSWORD="${PG_ADMIN_PASSWORD:?set PG_ADMIN_PASSWORD}"
+URL_ENCODED_PASSWORD="${PG_ADMIN_PASSWORD_URLENC:?set PG_ADMIN_PASSWORD_URLENC (URL-encoded form)}"
 
 # ── Subscription ─────────────────────────────────────────────────────────────
 SUBSCRIPTION="82f65db7-e209-4eb1-98fe-3e56bc45607a"  # SUB-HTC-SANDBOX-DC
@@ -26,12 +26,12 @@ az account set --subscription "$SUBSCRIPTION"
 #   --sign-in-audience "AzureADMyOrg" \
 #   --web-redirect-uris "https://app-entchat-owui-poc-sand.azurewebsites.net/oauth/callback"
 OWUI_APP_REG_NAME="Open WebUI — Sandbox PoC"
-# ⚠️ REPLACE these with values from your Entra ID App Registration
-ENTRA_CLIENT_ID="4881351e-d1a0-4228-a084-a0d6ef717740"
-ENTRA_CLIENT_SECRET="u498Q~ve1ae4W0ERSwoeD5LIWywq6kD2GRPqVase"
-ENTRA_TENANT_ID="5045d9c3-3b0b-4315-8594-64118bbd7495"
+# ⚠️ Provide these via env from your Entra ID App Registration
+ENTRA_CLIENT_ID="${ENTRA_CLIENT_ID:?set ENTRA_CLIENT_ID}"
+ENTRA_CLIENT_SECRET="${ENTRA_CLIENT_SECRET:?set ENTRA_CLIENT_SECRET}"
+ENTRA_TENANT_ID="${ENTRA_TENANT_ID:-}"
 # Auto-detect tenant ID if not manually set
-if [ "$ENTRA_TENANT_ID" = "<REPLACE_WITH_TENANT_ID>" ]; then
+if [ -z "$ENTRA_TENANT_ID" ]; then
   ENTRA_TENANT_ID=$(az account show --query "tenantId" -o tsv 2>/dev/null || echo "")
 fi
 WEBUI_SECRET_KEY=$(openssl rand -hex 32)

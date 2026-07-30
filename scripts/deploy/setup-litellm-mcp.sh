@@ -12,7 +12,7 @@
 #
 # Usage:
 #   LITELLM_BASE_URL=http://localhost:4000 \
-#   LITELLM_MASTER_KEY=sk-litellm-poc-master-key \
+#   LITELLM_MASTER_KEY=<your-litellm-master-key> \
 #   ./scripts/setup-litellm-mcp.sh
 # ============================================================
 
@@ -22,8 +22,8 @@ set -euo pipefail
 : "${LITELLM_MASTER_KEY:?Set LITELLM_MASTER_KEY}"
 
 # ponytail: postgres MCP needs DB URL as CLI arg, not env var.
-# Default to Azure PG litellm DB; override with DATABASE_URL env.
-DATABASE_URL="${DATABASE_URL:-postgresql://entchatadm:DocWiseP%40ssw0rd2026%21@psql-entchat-poc-sand.postgres.database.azure.com:5432/litellm?sslmode=require}"
+# Provide the Azure PG litellm connection string via DATABASE_URL (URL-encode @ as %40, ! as %21).
+DATABASE_URL="${DATABASE_URL:?set DATABASE_URL (postgresql://USER:PASS@HOST:5432/litellm?sslmode=require)}"
 
 # ponytail: filesystem MCP needs paths that exist in the container.
 # /app always exists in LiteLLM image; add more paths if mounted.

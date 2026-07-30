@@ -1,12 +1,13 @@
 #!/usr/bin/env python3
 """Test Azure OpenAI prompt caching through LiteLLM proxy."""
+import os
 import time
 import json
 import sys
 from openai import OpenAI
 
-LITELLM_URL = "https://app-litellm-poc-sand.azurewebsites.net/v1"
-LITELLM_KEY = "sk-litellm-poc-master-key"
+LITELLM_URL = os.getenv("LITELLM_URL", "https://app-litellm-poc-sand.azurewebsites.net/v1")
+LITELLM_KEY = os.environ["LITELLM_KEY"]
 
 # Large system prompt (~2000 tokens) to trigger caching
 # Must be >= 1024 tokens for Azure prompt caching to activate

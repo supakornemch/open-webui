@@ -76,7 +76,7 @@
 
 ### PostgreSQL
 - **Host**: `psql-entchat-poc-sand.postgres.database.azure.com`
-- **Admin**: `entchatadm` / `DocWiseP@ssw0rd2026!`
+- **Admin**: `entchatadm` / `<in docker/.env — PG admin password>`
 - **DBs**: `open_webui` (OWUI), `docwise`, `litellm`
 
 ### Model Deployments (AI Foundry)
@@ -176,7 +176,7 @@ srch-entchat-poc-sand  (Azure AI Search, Standard tier)
 |-------|-------|
 | URL | `https://app-litellm-poc-sand.azurewebsites.net` |
 | Image | `litellm-entchat@sha256:...` (v1.83.3-stable + MCP packages) |
-| Dashboard | `/ui` (login: `admin` / `sk-litellm-poc-master-key`) |
+| Dashboard | `/ui` (login: `admin` / `<LITELLM_MASTER_KEY — see docker/.env>`) |
 | DB | `postgresql://entchatadm:***@psql-...:5432/litellm?sslmode=require` |
 | Cache | `type: local`, `ttl: 3600` — `cache_hit=True` ✅ |
 | API Version | `AZURE_API_VERSION=2024-10-21` (GA) |
@@ -215,7 +215,7 @@ general_settings:
 |------|-------|
 | Display Name | `appreg-entchat-owui-poc` |
 | Client ID | `4881351e-d1a0-4228-a084-a0d6ef717740` |
-| Client Secret | `u498Q~ve1ae4W0ERSwoeD5LIWywq6kD2GRPqVase` (exp. 2027-01-01) |
+| Client Secret | `<MICROSOFT_CLIENT_SECRET — see docker/.env>` (exp. 2027-01-01) |
 | Tenant ID | `5045d9c3-3b0b-4315-8594-64118bbd7495` |
 | App ID URI | `api://genie.haadthip.com/4881351e-...` |
 | Scope | `access_as_user` |
@@ -361,3 +361,25 @@ User → genie.haadthip.com (App Gateway)
 | AI Search Standard | ~$245 |
 | Others (Storage, PE, DNS) | <$5 |
 | **Total** | **~$290-310/mo** |
+
+## Git Strategy
+
+- **Branch model**
+  - `main`: production — branch ที่ deploy จริง
+  - `qas`: QA + UAT — branch สำหรับ QA testing และทดสอบก่อน deploy
+  - `release/mvp`: feature integration — branch รวมงานพัฒนาหลัก
+  - `feature/<topic>`: งานใหม่หรือ refactor ขนาดใหญ่
+  - `fix/<topic>` หรือ `hotfix/<topic>`: แก้ bug / urgent patch
+  - `chore/<topic>`: docs, dependency, maintenance ที่ไม่ใช่ feature
+
+- **Flow**
+  `feature/*` → `release/mvp` → `qas` → `main` (release)
+
+- **Workflow**
+  1. เริ่มจาก branch ล่าสุดของ `release/mvp` ก่อน: `git checkout release/mvp && git pull`
+  2. สร้าง branch ใหม่: `git checkout -b feature/<topic>`
+  3. Commit ให้เล็กและกระชับ โดยใช้ prefix แบบ `feat:`, `fix:`, `refactor:`, `test:`, `chore:`, `docs:`
+  4. Push branch และเปิด Pull Request ไปยัง `release/mvp`
+  5. Merge ด้วย squash สำหรับ branch เล็ก/ปานกลาง
+  6. `release/mvp` → merge เข้า `qas` (QA + UAT testing)
+  7. `qas` → merge เข้า `main` (release) + tag `vX.Y.Z`

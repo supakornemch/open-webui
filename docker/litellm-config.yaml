@@ -5,7 +5,7 @@
 #   1. Set env vars:
 #        export AZURE_API_KEY="your-key"
 #        export AZURE_API_BASE="https://aif-entchat-poc-sand.cognitiveservices.azure.com"
-#        export LITELLM_MASTER_KEY="sk-litellm-poc-master-key"
+#        export LITELLM_MASTER_KEY="<your-litellm-master-key>"
 #        export DATABASE_URL="postgresql://..."
 #        export AZURE_SEARCH_API_KEY="your-search-key"
 #        export AZURE_SEARCH_SERVICE_NAME="srch-entchat-poc-sand"
@@ -38,8 +38,7 @@ litellm_settings:
   mcp_semantic_tool_filter:
     enabled: false
   # MCP Gateway — expose MCP tools at fixed endpoint, access controlled by Key/Team
-  # ponytail: postgres MCP needs the DB URL as a CLI arg (not env var).
-  #           Hardcoded Azure PG connection string; password URL-encoded.
+  # ponytail: postgres MCP needs the DB URL as a CLI arg; LiteLLM substitutes os.environ/ refs.
   mcp_servers:
     # ── PostgreSQL: query the LiteLLM/Open WebUI DBs ──
     postgres:
@@ -48,7 +47,7 @@ litellm_settings:
       args:
         - '-y'
         - '@modelcontextprotocol/server-postgres'
-        - 'postgresql://entchatadm:DocWiseP%40ssw0rd2026%21@psql-entchat-poc-sand.postgres.database.azure.com:5432/litellm?sslmode=require'
+        - os.environ/DATABASE_URL
 
     # ── Filesystem: read project docs ──
     filesystem:
