@@ -1,5 +1,7 @@
 # EnterpriseChat — Domain Context
 
+> 🤖 **Agents:** see [AGENTS.md](AGENTS.md) for build/run commands and project-specific rules. This file is the authoritative domain reference.
+
 > ## 📝 Recent Changes (2026-07-21)
 >
 > ### ✅ Custom Azure AI Search Vector DB Backend
