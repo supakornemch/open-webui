@@ -58,6 +58,7 @@ services:
         condition: service_healthy
     environment:
       # ── Local overrides (different from production) ──
+      - ENV=dev
       - WEBUI_URL=http://localhost:3000
       - MICROSOFT_REDIRECT_URI=http://localhost:3000/oauth/microsoft/callback
       # ── DB: local Postgres — never the shared Azure sandbox DB ──

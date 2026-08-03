@@ -1,0 +1,213 @@
+{
+  "variants": {
+    "ผ้ากันเปื้อนโคคา": {
+      "base_name": "ผ้ากันเปื้อนโคคา",
+      "variant_type": "DISCRETE_OPTIONS",
+      "variant_count": 2,
+      "dimensions": {
+        "ผ้า": {
+          "type": "single_choice",
+          "options": [
+            "กันเปื้อนโคคา-โคล่าแบบ(ครึ่งตัว)",
+            "กันเปื้อนโคคา-โคล่าแบบเอี้ยม(เต็มตัว) ไขว้หลัง ขนาดสกรีน ไม่เกิน A4"
+          ],
+          "required": true,
+          "question": "ต้องการผ้าแบบไหน?"
+        }
+      },
+      "items": [
+        {
+          "item_id": "POSM-POSM",
+          "specs": {
+            "ผ้า": "กันเปื้อนโคคา-โคล่าแบบเอี้ยม(เต็มตัว) ไขว้หลัง ขนาดสกรีน ไม่เกิน A4"
+          },
+          "price": 75.0
+        },
+        {
+          "item_id": "POSM-POSM",
+          "specs": {
+            "ผ้า": "กันเปื้อนโคคา-โคล่าแบบ(ครึ่งตัว)"
+          },
+          "price": 55.0
+        }
+      ]
+    },
+    "ร่มโค้ก 36 นิ้ว": {
+      "base_name": "ร่มโค้ก 36 นิ้ว",
+      "variant_type": "DISCRETE_OPTIONS",
+      "variant_count": 4,
+      "dimensions": {
+        "โครง": {
+          "type": "single_choice",
+          "options": [
+            "เหล็ก",
+            "ไฟเบอร์"
+          ],
+          "required": true,
+          "question": "ต้องการโครงแบบไหน?"
+        },
+        "สี": {
+          "type": "single_choice",
+          "options": [
+            "สีตาย",
+            "ไล่ระดับสี"
+          ],
+          "required": true,
+          "question": "ต้องการสีแบบไหน?"
+        }
+      },
+      "items": [
+        {
+          "item_id": "POSM-POSM",
+          "specs": {
+            "ขนาด": "36 นิ้ว",
+            "โครง": "เหล็ก",
+            "สี": "สีตาย"
+          },
+          "price": 523.0
+        },
+        {
+          "item_id": "POSM-POSM",
+          "specs": {
+            "ขนาด": "36 นิ้ว",
+            "โครง": "เหล็ก",
+            "สี": "ไล่ระดับสี"
+          },
+          "price": 570.0
+        },
+        {
+          "item_id": "POSM-POSM",
+          "specs": {
+            "ขนาด": "36 นิ้ว",
+            "โครง": "ไฟเบอร์",
+            "สี": "สีตาย"
+          },
+          "price": 523.0
+        },
+        {
+          "item_id": "POSM-POSM",
+          "specs": {
+            "ขนาด": "36 นิ้ว",
+            "โครง": "ไฟเบอร์",
+            "สี": "ไล่ระดับสี"
+          },
+          "price": 570.0
+        }
+      ]
+    },
+    "ร่มโค้ก 40 นิ้ว": {
+      "base_name": "ร่มโค้ก 40 นิ้ว",
+      "variant_type": "DISCRETE_OPTIONS",
+      "variant_count": 4,
+      "dimensions": {
+        "โครง": {
+          "type": "single_choice",
+          "options": [
+            "เหล็ก",
+            "ไฟเบอร์"
+          ],
+          "required": true,
+          "question": "ต้องการโครงแบบไหน?"
+        },
+        "สี": {
+          "type": "single_choice",
+          "options": [
+            "สีตาย",
+            "ไล่ระดับสี"
+          ],
+          "required": true,
+          "question": "ต้องการสีแบบไหน?"
+        }
+      },
+      "items": [
+        {
+          "item_id": "POSM-POSM",
+          "specs": {
+            "ขนาด": "40 นิ้ว",
+            "โครง": "เหล็ก",
+            "สี": "สีตาย"
+          },
+          "price": 570.0
+        },
+        {
+          "item_id": "POSM-POSM",
+          "specs": {
+            "ขนาด": "40 นิ้ว",
+            "โครง": "เหล็ก",
+            "สี": "ไล่ระดับสี"
+          },
+          "price": 585.0
+        },
+        {
+          "item_id": "POSM-POSM",
+          "specs": {
+            "ขนาด": "40 นิ้ว",
+            "โครง": "ไฟเบอร์",
+            "สี": "สีตาย"
+          },
+          "price": 570.0
+        },
+        {
+          "item_id": "POSM-POSM",
+          "specs": {
+            "ขนาด": "40 นิ้ว",
+            "โครง": "ไฟเบอร์",
+            "สี": "ไล่ระดับสี"
+          },
+          "price": 585.0
+        }
+      ]
+    },
+    "แผ่นริจิ": {
+      "base_name": "แผ่นริจิ",
+      "variant_type": "DISCRETE_OPTIONS",
+      "variant_count": 2,
+      "dimensions": {
+        "ขนาด": {
+          "type": "single_choice",
+          "options": [
+            "24 นิ้ว",
+            "32 นิ้ว"
+          ],
+          "required": true,
+          "question": "ต้องการขนาดไหนครับ?"
+        }
+      },
+      "items": [
+        {
+          "item_id": "Printing-Printing-mkt",
+          "specs": {
+            "ขนาด": "24 นิ้ว"
+          },
+          "price": 42.0
+        },
+        {
+          "item_id": "Printing-Printing-mkt",
+          "specs": {
+            "ขนาด": "32 นิ้ว"
+          },
+          "price": 59.0
+        }
+      ]
+    },
+    "ธงปีกนก": {
+      "base_name": "ธงปีกนก",
+      "variant_type": "OPTIONAL_ADDON",
+      "dimensions": {
+        "ฐาน": {
+          "type": "yes_no",
+          "required": true,
+          "question": "ต้องการฐานด้วยหรือไม่?",
+          "price_impact": "separate_item"
+        }
+      },
+      "note": "ฐานเป็นรายการแยกต่างหาก ต้องหาในรายการ \"ฐานธงปีกนก\""
+    }
+  },
+  "metadata": {
+    "total_variants": 5,
+    "auto_detected": 4,
+    "manual_entries": 1,
+    "generated_at": "2026-07-31T13:53:28.508154"
+  }
+}
