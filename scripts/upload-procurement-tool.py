@@ -5,15 +5,13 @@ Upload procurement-search.py tool to Open WebUI via API.
 Usage:
     export OWUI_URL="https://genie.haadthip.com"
     export OWUI_TOKEN="sk-..."
-    export AZURE_SEARCH_ADMIN_KEY="..."
-    export AZURE_OPENAI_API_KEY="..."
     python3 scripts/upload-procurement-tool.py
 """
 
 import os
 import sys
 import requests
-import json
+from pathlib import Path
 
 # Configuration
 OWUI_URL = os.environ.get("OWUI_URL", "http://localhost:3000")
@@ -23,68 +21,51 @@ if not OWUI_TOKEN:
     print("Error: OWUI_TOKEN environment variable is required")
     sys.exit(1)
 
-# Read the tool file
-tool_path = "app/tools/procurement-search.py"
-with open(tool_path, "r", encoding="utf-8") as f:
+# Read the tool file relative to the repository root.
+ROOT = Path(__file__).resolve().parents[1]
+tool_path = ROOT / "app/tools/procurement-search.py"
+with tool_path.open(encoding="utf-8") as f:
     tool_code = f.read()
 
 # Create tool via API
 print(f"Uploading tool to {OWUI_URL}...")
 
+tool_id = "procurement_price_search"
 payload = {
-    "id": "procurement_price_search",
+    "id": tool_id,
     "name": "Procurement Price Search",
     "content": tool_code,
     "meta": {
-        "description": "Search procurement prices from Azure AI Search with hybrid search (keyword + vector)",
+        "description": "Search awarded, specification-compliant procurement prices using Azure AI Search.",
         "manifest": {}
     }
 }
 
-response = requests.post(
-    f"{OWUI_URL}/api/v1/tools/create",
+existing = requests.get(
+    f"{OWUI_URL}/api/v1/tools/id/{tool_id}",
     headers={
         "Authorization": f"Bearer {OWUI_TOKEN}",
-        "Content-Type": "application/json"
-    },
-    json=payload
+    }
+)
+endpoint = (
+    f"{OWUI_URL}/api/v1/tools/id/{tool_id}/update"
+    if existing.status_code == 200
+    else f"{OWUI_URL}/api/v1/tools/create"
+)
+response = requests.post(
+    endpoint,
+    headers={"Authorization": f"Bearer {OWUI_TOKEN}", "Content-Type": "application/json"},
+    json=payload,
 )
 
 if response.status_code == 200:
     result = response.json()
     tool_id = result.get("id")
-    print(f"✅ Tool created successfully!")
+    print(f"✅ Tool {'updated' if existing.status_code == 200 else 'created'} successfully!")
     print(f"   Tool ID: {tool_id}")
     print(f"   Name: {result.get('name')}")
     
-    # Update valves if env vars are set
-    azure_search_key = os.environ.get("AZURE_SEARCH_ADMIN_KEY")
-    azure_openai_key = os.environ.get("AZURE_OPENAI_API_KEY")
-    
-    if azure_search_key and azure_openai_key:
-        print(f"\n🔧 Updating tool valves...")
-        valves_payload = {
-            "AZURE_SEARCH_KEY": azure_search_key,
-            "AZURE_OPENAI_KEY": azure_openai_key
-        }
-        
-        valves_response = requests.post(
-            f"{OWUI_URL}/api/v1/tools/id/{tool_id}/valves/update",
-            headers={
-                "Authorization": f"Bearer {OWUI_TOKEN}",
-                "Content-Type": "application/json"
-            },
-            json=valves_payload
-        )
-        
-        if valves_response.status_code == 200:
-            print(f"✅ Valves updated successfully!")
-        else:
-            print(f"⚠️  Failed to update valves: {valves_response.status_code}")
-            print(f"   Response: {valves_response.text[:200]}")
-    else:
-        print(f"\n⚠️  AZURE_SEARCH_ADMIN_KEY or AZURE_OPENAI_API_KEY not set")
-        print(f"   Set valves manually at: {OWUI_URL}/workspace/tools")
+    print("   Credentials are read from the Open WebUI container environment.")
     
     print(f"""
 === Next Steps ===

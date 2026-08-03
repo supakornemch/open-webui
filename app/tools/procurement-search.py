@@ -4,7 +4,7 @@ author: Haadthip DIO
 version: 1.0
 required_open_webui_version: 0.5.0
 
-Search procurement prices from Azure AI Search index (procurement-prices-th-idx).
+Search awarded procurement prices from Azure AI Search index (procurement-prices-th-idx).
 Uses hybrid search (keyword + vector) with Thai analyzer for accurate results.
 
 Capabilities:
@@ -13,7 +13,7 @@ Capabilities:
 - Filter by category, vendor, year, price range
 - Sort by price (find cheapest options)
 - Supports wildcard search for compound Thai words
-- LLM summarization to hide vendor names
+- Returns only awarded quotes that meet the required specification
 
 Authorization: Tool is available to all users with access to the model.
 """
@@ -49,7 +49,7 @@ class Tools:
             description="Search index name"
         )
         AZURE_OPENAI_ENDPOINT: str = Field(
-            default="https://aif-entchat-poc-sand.openai.azure.com",
+            default="https://aif-entchat-poc-sand.cognitiveservices.azure.com",
             description="Azure OpenAI endpoint for embeddings"
         )
         AZURE_OPENAI_KEY: str = Field(
@@ -61,12 +61,12 @@ class Tools:
             description="Embedding model deployment name"
         )
         AZURE_OPENAI_API_VERSION: str = Field(
-            default="2024-12-01-preview",
+            default="2024-10-21",
             description="Azure OpenAI API version"
         )
         AZURE_SEARCH_API_VERSION: str = Field(
-            default="2026-04-01",
-            description="Azure AI Search API version (2026-04-01 for hybrid search)"
+            default="2024-07-01",
+            description="Azure AI Search API version"
         )
         max_results: int = Field(
             default=10,
@@ -80,7 +80,11 @@ class Tools:
         if not self.valves.AZURE_SEARCH_KEY:
             self.valves.AZURE_SEARCH_KEY = os.getenv("AZURE_SEARCH_ADMIN_KEY", "")
         if not self.valves.AZURE_OPENAI_KEY:
-            self.valves.AZURE_OPENAI_KEY = os.getenv("AZURE_OPENAI_API_KEY", "")
+            self.valves.AZURE_OPENAI_KEY = os.getenv("OPENAI_API_KEY", "")
+        if self.valves.AZURE_OPENAI_ENDPOINT == "https://aif-entchat-poc-sand.cognitiveservices.azure.com":
+            self.valves.AZURE_OPENAI_ENDPOINT = os.getenv(
+                "OPENAI_API_BASE_URL", self.valves.AZURE_OPENAI_ENDPOINT
+            )
 
     def _get_embedding(self, text: str) -> list[float]:
         """Generate embedding vector for text using Azure OpenAI"""
@@ -190,6 +194,7 @@ class Tools:
         """Build OData filter string"""
         filters = []
         
+        filters.extend(["is_winner eq true", "meets_spec eq true"])
         if category:
             filters.append(f"category eq '{category}'")
         if vendor:

@@ -57,13 +57,12 @@ A: "ร่มโค้ก มีให้เลือก 3 vendors ค่ะ:
 payload = {
     "id": "procurement-price-assistant",
     "name": "ผู้ช่วยตรวจสอบราคาสื่อการตลาด (Trade Marketing Materials) จากระบบจัดซื้อ HaadThip",
-    "base_model_id": "gpt-4o",  # Change to your actual base model
+    "base_model_id": "gpt-5.4-mini",
     "params": {
         "system": SYSTEM_PROMPT
     },
     "meta": {
         "description": "ผู้ช่วยค้นหาราคาสินค้าจากระบบจัดซื้อ พร้อมเปรียบเทียบ vendors และแนะนำราคาที่ดีที่สุด",
-        "profile_image_url": "/static/favicon.png",
         "capabilities": {
             "vision": False,
             "usage": True
@@ -72,21 +71,38 @@ payload = {
     }
 }
 
-print(f"Creating model at {OWUI_URL}...")
+print(f"Creating or updating model at {OWUI_URL}...")
 
-response = requests.post(
-    f"{OWUI_URL}/api/v1/models/create",
+existing = requests.get(
+    f"{OWUI_URL}/api/v1/models/model?id={payload['id']}",
     headers={
         "Authorization": f"Bearer {OWUI_TOKEN}",
-        "Content-Type": "application/json"
-    },
-    json=payload
+    }
+)
+if existing.status_code == 200:
+    existing_model = existing.json()
+    payload = {
+        **existing_model,
+        "base_model_id": payload["base_model_id"],
+        "name": payload["name"],
+        "params": payload["params"],
+        "meta": {**existing_model.get("meta", {}), **payload["meta"]},
+    }
+endpoint = (
+    f"{OWUI_URL}/api/v1/models/model/update"
+    if existing.status_code == 200
+    else f"{OWUI_URL}/api/v1/models/create"
+)
+response = requests.post(
+    endpoint,
+    headers={"Authorization": f"Bearer {OWUI_TOKEN}", "Content-Type": "application/json"},
+    json=payload,
 )
 
 if response.status_code == 200:
     result = response.json()
     model_id = result.get("id")
-    print(f"✅ Model created successfully!")
+    print(f"✅ Model {'updated' if existing.status_code == 200 else 'created'} successfully!")
     print(f"   Model ID: {model_id}")
     print(f"   Name: {result.get('name')}")
     print(f"   Tools: {result.get('meta', {}).get('toolIds', [])}")
