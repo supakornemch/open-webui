@@ -63,17 +63,6 @@ services:
       - MICROSOFT_REDIRECT_URI=http://localhost:3000/oauth/microsoft/callback
       # ── DB: local Postgres — never the shared Azure sandbox DB ──
       - DATABASE_URL=postgresql://owui:${LOCAL_PG_PASSWORD:-owui}@postgres:5432/open_webui
-      # ── Vector DB: Azure AI Search (key from .env.owui) ──
-      - VECTOR_DB=azure-ai-search
-      - AZURE_SEARCH_ENDPOINT=https://srch-entchat-poc-sand.search.windows.net
-      - AZURE_SEARCH_TYPE=hybrid
-      - AZURE_ENABLE_SEMANTIC_SEARCH=false
-      - AZURE_SEARCH_NAMESPACE_MODE=true
-      # Data files read by Tools (pandas), not by RAG. Text is still extracted;
-      # only the embedding + vector write is skipped. RAG for other files is unaffected.
-      - SKIP_EMBEDDING_EXTENSIONS=xlsx,xls,csv
-      # ── LLM: Azure AI Foundry direct (same as production) ──
-      - OPENAI_API_BASE_URL=https://aif-entchat-poc-sand.cognitiveservices.azure.com
       # ── Everything else comes from .env.owui ──
     restart: unless-stopped
 

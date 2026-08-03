@@ -5,6 +5,14 @@ FROM --platform=linux/amd64 ghcr.io/open-webui/open-webui:v0.11.0
 # ── Install nginx for CSP headers (frame-ancestors for Teams/SharePoint) ──
 RUN apt-get update && apt-get install -y nginx && rm -rf /var/lib/apt/lists/*
 
+# ── Install unixodbc + msodbcsql18 + pyodbc + azure-identity for Fabric DB tool ──
+RUN apt-get update && apt-get install -y curl gnupg && \
+    curl -fsSL https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor -o /usr/share/keyrings/microsoft-prod.gpg && \
+    curl -fsSL https://packages.microsoft.com/config/debian/12/prod.list > /etc/apt/sources.list.d/mssql-release.list && \
+    apt-get update && ACCEPT_EULA=Y apt-get install -y unixodbc unixodbc-dev msodbcsql18 && \
+    rm -rf /var/lib/apt/lists/*
+RUN pip install --no-cache-dir pyodbc azure-identity
+
 # ── Install Azure AI Search SDK for custom vector DB backend ──
 RUN pip install --no-cache-dir azure-search-documents>=11.4.0
 
