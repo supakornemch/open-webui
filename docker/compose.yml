@@ -4,8 +4,12 @@
 # Usage:
 #   docker compose -f docker/compose.yml up -d --build
 #
-# Secrets are in docker/.env (gitignored). Copy .env.example first:
-#   cp docker/.env.example docker/.env
+# Secrets live in one file per service (both gitignored):
+#   cp docker/.env.owui.example docker/.env.owui
+#   cp docker/.env.litellm.example docker/.env.litellm
+#
+# There is no shared .env. LiteLLM inheriting OWUI's DATABASE_URL is what let it
+# baseline the OWUI schema into DROP TABLE statements on 2026-07-30.
 #
 # Open WebUI:  http://localhost:3000
 # LiteLLM:     http://localhost:4000
@@ -14,37 +18,64 @@
 name: enterprisechat-local
 services:
   # ============================================================
+  # Postgres — local DB so local never touches the shared Azure DB
+  # ============================================================
+  postgres:
+    image: postgres:18-alpine
+    container_name: postgres-local
+    environment:
+      - POSTGRES_USER=owui
+      - POSTGRES_PASSWORD=${LOCAL_PG_PASSWORD:-owui}
+      - POSTGRES_DB=open_webui
+    volumes:
+      # pg18+ wants the mount one level up; data lands in a version subdir
+      - pgdata-local:/var/lib/postgresql
+      - ./initdb:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U owui -d open_webui"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    restart: unless-stopped
+
+  # ============================================================
   # Open WebUI — Chat Interface (custom image)
   # ============================================================
   open-webui:
     build:
       context: ..
       dockerfile: docker/Dockerfile.owui
-    image: owui-entchat-teams:local
+    image: owui-entchat:local
     container_name: open-webui-local
     ports:
       - "3000:8080"
     volumes:
       - ../data/open-webui:/app/backend/data
     env_file:
-      - .env
+      - .env.owui
+    depends_on:
+      postgres:
+        condition: service_healthy
     environment:
       # ── Local overrides (different from production) ──
+      - ENV=dev
       - WEBUI_URL=http://localhost:3000
       - MICROSOFT_REDIRECT_URI=http://localhost:3000/oauth/microsoft/callback
-      # ── Vector DB: Azure AI Search (from .env) ──
+      # ── DB: local Postgres — never the shared Azure sandbox DB ──
+      - DATABASE_URL=postgresql://owui:${LOCAL_PG_PASSWORD:-owui}@postgres:5432/open_webui
+      # ── Vector DB: Azure AI Search (key from .env.owui) ──
       - VECTOR_DB=azure-ai-search
       - AZURE_SEARCH_ENDPOINT=https://srch-entchat-poc-sand.search.windows.net
       - AZURE_SEARCH_TYPE=hybrid
       - AZURE_ENABLE_SEMANTIC_SEARCH=false
       - AZURE_SEARCH_NAMESPACE_MODE=true
-      # ── Document Intelligence (from .env) ──
-      - CONTENT_EXTRACTION_ENGINE=${CONTENT_EXTRACTION_ENGINE:-document_intelligence}
-      - DOCUMENT_INTELLIGENCE_ENDPOINT=${DOCUMENT_INTELLIGENCE_ENDPOINT:-https://aif-entchat-poc-sand.cognitiveservices.azure.com/}
-      - DOCUMENT_INTELLIGENCE_MODEL=${DOCUMENT_INTELLIGENCE_MODEL:-prebuilt-read}
-      # ── LLM: Azure AI Foundry directly (from .env) ──
-      - OPENAI_API_BASE_URL=${OPENAI_API_BASE_URL:-https://aif-entchat-poc-sand.cognitiveservices.azure.com}
-      # ── All other vars loaded from docker/.env ──
+      # Data files read by Tools (pandas), not by RAG. Text is still extracted;
+      # only the embedding + vector write is skipped. RAG for other files is unaffected.
+      - SKIP_EMBEDDING_EXTENSIONS=xlsx,xls,csv
+      # ── LLM: Azure AI Foundry direct (same as production) ──
+      - OPENAI_API_BASE_URL=https://aif-entchat-poc-sand.cognitiveservices.azure.com
+      # ── Everything else comes from .env.owui ──
+    restart: unless-stopped
 
   # ============================================================
   # LiteLLM — LLM Proxy for Token Tracking & Cost Monitoring
@@ -60,21 +91,20 @@ services:
     volumes:
       - ./litellm-config.local.yaml:/app/config.yaml:ro
     env_file:
-      - .env
+      - .env.litellm
+    depends_on:
+      postgres:
+        condition: service_healthy
     environment:
-      - AZURE_API_BASE=${AZURE_API_BASE:-https://aif-entchat-poc-sand.cognitiveservices.azure.com}
-      - AZURE_API_KEY=${AZURE_API_KEY}
-      - LITELLM_MASTER_KEY=${LITELLM_MASTER_KEY:?set LITELLM_MASTER_KEY in docker/.env}
-      # No DATABASE_URL = SQLite fallback for local testing
+      # LiteLLM runs `prisma migrate deploy` at startup and auto-baselines any
+      # schema it doesn't own into DROP TABLE. Must never resolve to /open_webui.
+      - DATABASE_URL=postgresql://owui:${LOCAL_PG_PASSWORD:-owui}@postgres:5432/litellm
     command:
       - "--config"
       - "/app/config.yaml"
       - "--port"
       - "4000"
     restart: unless-stopped
-    networks:
-      - entchat-net
 
-networks:
-  entchat-net:
-    driver: bridge
+volumes:
+  pgdata-local:

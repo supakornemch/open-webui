@@ -1,7 +1,9 @@
-# LiteLLM Configuration — Local Dev (SQLite)
+# LiteLLM Configuration — Local Dev
 general_settings:
   master_key: os.environ/LITELLM_MASTER_KEY
-  # No database_url = SQLite fallback (for local testing)
+  # Omitting database_url here does NOT disable the DB — LiteLLM still reads the
+  # DATABASE_URL env var and migrates it. compose.yml pins it to the local
+  # /litellm database.
 
 litellm_settings:
   set_verbose: true

@@ -1,0 +1,2854 @@
+{
+  "items": [
+    {
+      "item_id": "POSM-POSM",
+      "category": "POSM",
+      "item_number": "POSM",
+      "base_name": "ถังใส่น้ำแข็ง",
+      "full_name": "ถังใส่น้ำแข็ง-โค้ก(ทรงสี่เหลี่ยม)",
+      "specs": {},
+      "vendor_prices": [
+        {
+          "vendor": "Vendor 7",
+          "price": 42.5
+        },
+        {
+          "vendor": "Vendor 12",
+          "price": 87.0
+        },
+        {
+          "vendor": "Vendor 13",
+          "price": 145.0
+        }
+      ],
+      "winner_price": 42.5,
+      "winner_vendor": "Vendor 7",
+      "price_range": {
+        "min": 42.5,
+        "max": 145.0
+      },
+      "vendor_count": 3
+    },
+    {
+      "item_id": "POSM-POSM",
+      "category": "POSM",
+      "item_number": "POSM",
+      "base_name": "กล่องทิชชู",
+      "full_name": "กล่องทิชชู-โค้ก",
+      "specs": {},
+      "vendor_prices": [
+        {
+          "vendor": "Vendor 7",
+          "price": 28.5
+        },
+        {
+          "vendor": "Vendor 13",
+          "price": 55.0
+        }
+      ],
+      "winner_price": 28.5,
+      "winner_vendor": "Vendor 7",
+      "price_range": {
+        "min": 28.5,
+        "max": 55.0
+      },
+      "vendor_count": 2
+    },
+    {
+      "item_id": "POSM-POSM",
+      "category": "POSM",
+      "item_number": "POSM",
+      "base_name": "ผ้ากันเปื้อนโคคา",
+      "full_name": "ผ้ากันเปื้อนโคคา-โคล่าแบบเอี้ยม(เต็มตัว) ไขว้หลัง ขนาดสกรีน ไม่เกิน A4",
+      "specs": {
+        "ผ้า": "กันเปื้อนโคคา-โคล่าแบบเอี้ยม(เต็มตัว) ไขว้หลัง ขนาดสกรีน ไม่เกิน A4"
+      },
+      "vendor_prices": [
+        {
+          "vendor": "Vendor 3",
+          "price": 112.0
+        },
+        {
+          "vendor": "Vendor 5",
+          "price": 86.0
+        },
+        {
+          "vendor": "Vendor 6",
+          "price": 87.5
+        },
+        {
+          "vendor": "Vendor 8",
+          "price": 90.0
+        },
+        {
+          "vendor": "Vendor 9",
+          "price": 75.0
+        },
+        {
+          "vendor": "Vendor 10",
+          "price": 75.0
+        },
+        {
+          "vendor": "Vendor 12",
+          "price": 85.0
+        },
+        {
+          "vendor": "Vendor 13",
+          "price": 150.0
+        }
+      ],
+      "winner_price": 75.0,
+      "winner_vendor": "Vendor 9",
+      "price_range": {
+        "min": 75.0,
+        "max": 150.0
+      },
+      "vendor_count": 8
+    },
+    {
+      "item_id": "POSM-POSM",
+      "category": "POSM",
+      "item_number": "POSM",
+      "base_name": "ผ้ากันเปื้อนโคคา",
+      "full_name": "ผ้ากันเปื้อนโคคา-โคล่าแบบ(ครึ่งตัว)",
+      "specs": {
+        "ผ้า": "กันเปื้อนโคคา-โคล่าแบบ(ครึ่งตัว)"
+      },
+      "vendor_prices": [
+        {
+          "vendor": "Vendor 3",
+          "price": 98.0
+        },
+        {
+          "vendor": "Vendor 5",
+          "price": 71.0
+        },
+        {
+          "vendor": "Vendor 6",
+          "price": 74.0
+        },
+        {
+          "vendor": "Vendor 8",
+          "price": 70.0
+        },
+        {
+          "vendor": "Vendor 9",
+          "price": 55.0
+        },
+        {
+          "vendor": "Vendor 10",
+          "price": 69.5
+        },
+        {
+          "vendor": "Vendor 12",
+          "price": 70.0
+        },
+        {
+          "vendor": "Vendor 13",
+          "price": 100.0
+        }
+      ],
+      "winner_price": 55.0,
+      "winner_vendor": "Vendor 9",
+      "price_range": {
+        "min": 55.0,
+        "max": 100.0
+      },
+      "vendor_count": 8
+    },
+    {
+      "item_id": "POSM-POSM",
+      "category": "POSM",
+      "item_number": "POSM",
+      "base_name": "ร่มโค้ก 36 นิ้ว",
+      "full_name": "ร่มโค้ก 36 นิ้ว - โครงเหล็ก สีตาย (ไม่เกิน 4 สี)",
+      "specs": {
+        "ขนาด": "36 นิ้ว",
+        "โครง": "เหล็ก",
+        "สี": "สีตาย"
+      },
+      "vendor_prices": [
+        {
+          "vendor": "Vendor 1",
+          "price": 565.0
+        },
+        {
+          "vendor": "Vendor 10",
+          "price": 523.0
+        },
+        {
+          "vendor": "Vendor 12",
+          "price": 1080.0
+        },
+        {
+          "vendor": "Vendor 13",
+          "price": 1950.0
+        }
+      ],
+      "winner_price": 523.0,
+      "winner_vendor": "Vendor 10",
+      "price_range": {
+        "min": 523.0,
+        "max": 1950.0
+      },
+      "vendor_count": 4
+    },
+    {
+      "item_id": "POSM-POSM",
+      "category": "POSM",
+      "item_number": "POSM",
+      "base_name": "ร่มโค้ก 36 นิ้ว",
+      "full_name": "ร่มโค้ก 36 นิ้ว  - โครงเหล็ก ไล่ระดับสี (ไม่เกิน 8 เฉด)",
+      "specs": {
+        "ขนาด": "36 นิ้ว",
+        "โครง": "เหล็ก",
+        "สี": "ไล่ระดับสี"
+      },
+      "vendor_prices": [
+        {
+          "vendor": "Vendor 1",
+          "price": 570.0
+        },
+        {
+          "vendor": "Vendor 10",
+          "price": 658.0
+        },
+        {
+          "vendor": "Vendor 13",
+          "price": 2050.0
+        }
+      ],
+      "winner_price": 570.0,
+      "winner_vendor": "Vendor 1",
+      "price_range": {
+        "min": 570.0,
+        "max": 2050.0
+      },
+      "vendor_count": 3
+    },
+    {
+      "item_id": "POSM-POSM",
+      "category": "POSM",
+      "item_number": "POSM",
+      "base_name": "ร่มโค้ก 36 นิ้ว",
+      "full_name": "ร่มโค้ก 36 นิ้ว  - โครงไฟเบอร์ สีตาย (ไม่เกิน 4 สี)",
+      "specs": {
+        "ขนาด": "36 นิ้ว",
+        "โครง": "ไฟเบอร์",
+        "สี": "สีตาย"
+      },
+      "vendor_prices": [
+        {
+          "vendor": "Vendor 1",
+          "price": 565.0
+        },
+        {
+          "vendor": "Vendor 10",
+          "price": 523.0
+        },
+        {
+          "vendor": "Vendor 13",
+          "price": 1950.0
+        }
+      ],
+      "winner_price": 523.0,
+      "winner_vendor": "Vendor 10",
+      "price_range": {
+        "min": 523.0,
+        "max": 1950.0
+      },
+      "vendor_count": 3
+    },
+    {
+      "item_id": "POSM-POSM",
+      "category": "POSM",
+      "item_number": "POSM",
+      "base_name": "ร่มโค้ก 36 นิ้ว",
+      "full_name": "ร่มโค้ก 36 นิ้ว  - โครงไฟเบอร์ ไล่ระดับสี (ไม่เกิน 8 เฉด)",
+      "specs": {
+        "ขนาด": "36 นิ้ว",
+        "โครง": "ไฟเบอร์",
+        "สี": "ไล่ระดับสี"
+      },
+      "vendor_prices": [
+        {
+          "vendor": "Vendor 1",
+          "price": 570.0
+        },
+        {
+          "vendor": "Vendor 10",
+          "price": 658.0
+        },
+        {
+          "vendor": "Vendor 13",
+          "price": 1950.0
+        }
+      ],
+      "winner_price": 570.0,
+      "winner_vendor": "Vendor 1",
+      "price_range": {
+        "min": 570.0,
+        "max": 1950.0
+      },
+      "vendor_count": 3
+    },
+    {
+      "item_id": "POSM-POSM",
+      "category": "POSM",
+      "item_number": "POSM",
+      "base_name": "ร่มโค้ก 40 นิ้ว",
+      "full_name": "ร่มโค้ก 40 นิ้ว - โครงเหล็ก สีตาย (ไม่เกิน 4 สี)",
+      "specs": {
+        "ขนาด": "40 นิ้ว",
+        "โครง": "เหล็ก",
+        "สี": "สีตาย"
+      },
+      "vendor_prices": [
+        {
+          "vendor": "Vendor 1",
+          "price": 570.0
+        },
+        {
+          "vendor": "Vendor 4",
+          "price": 800.0
+        },
+        {
+          "vendor": "Vendor 10",
+          "price": 583.0
+        },
+        {
+          "vendor": "Vendor 13",
+          "price": 2300.0
+        }
+      ],
+      "winner_price": 570.0,
+      "winner_vendor": "Vendor 1",
+      "price_range": {
+        "min": 570.0,
+        "max": 2300.0
+      },
+      "vendor_count": 4
+    },
+    {
+      "item_id": "POSM-POSM",
+      "category": "POSM",
+      "item_number": "POSM",
+      "base_name": "ร่มโค้ก 40 นิ้ว",
+      "full_name": "ร่มโค้ก 40 นิ้ว  - โครงเหล็ก ไล่ระดับสี (ไม่เกิน 8 เฉด)",
+      "specs": {
+        "ขนาด": "40 นิ้ว",
+        "โครง": "เหล็ก",
+        "สี": "ไล่ระดับสี"
+      },
+      "vendor_prices": [
+        {
+          "vendor": "Vendor 1",
+          "price": 585.0
+        },
+        {
+          "vendor": "Vendor 4",
+          "price": 1050.0
+        },
+        {
+          "vendor": "Vendor 10",
+          "price": 716.0
+        },
+        {
+          "vendor": "Vendor 13",
+          "price": 2400.0
+        }
+      ],
+      "winner_price": 585.0,
+      "winner_vendor": "Vendor 1",
+      "price_range": {
+        "min": 585.0,
+        "max": 2400.0
+      },
+      "vendor_count": 4
+    },
+    {
+      "item_id": "POSM-POSM",
+      "category": "POSM",
+      "item_number": "POSM",
+      "base_name": "ร่มโค้ก 40 นิ้ว",
+      "full_name": "ร่มโค้ก 40 นิ้ว  - โครงไฟเบอร์ สีตาย (ไม่เกิน 4 สี)",
+      "specs": {
+        "ขนาด": "40 นิ้ว",
+        "โครง": "ไฟเบอร์",
+        "สี": "สีตาย"
+      },
+      "vendor_prices": [
+        {
+          "vendor": "Vendor 1",
+          "price": 570.0
+        },
+        {
+          "vendor": "Vendor 10",
+          "price": 583.0
+        },
+        {
+          "vendor": "Vendor 13",
+          "price": 2300.0
+        }
+      ],
+      "winner_price": 570.0,
+      "winner_vendor": "Vendor 1",
+      "price_range": {
+        "min": 570.0,
+        "max": 2300.0
+      },
+      "vendor_count": 3
+    },
+    {
+      "item_id": "POSM-POSM",
+      "category": "POSM",
+      "item_number": "POSM",
+      "base_name": "ร่มโค้ก 40 นิ้ว",
+      "full_name": "ร่มโค้ก 40 นิ้ว  - โครงไฟเบอร์ ไล่ระดับสี (ไม่เกิน 8 เฉด)",
+      "specs": {
+        "ขนาด": "40 นิ้ว",
+        "โครง": "ไฟเบอร์",
+        "สี": "ไล่ระดับสี"
+      },
+      "vendor_prices": [
+        {
+          "vendor": "Vendor 1",
+          "price": 585.0
+        },
+        {
+          "vendor": "Vendor 10",
+          "price": 716.0
+        },
+        {
+          "vendor": "Vendor 13",
+          "price": 2400.0
+        }
+      ],
+      "winner_price": 585.0,
+      "winner_vendor": "Vendor 1",
+      "price_range": {
+        "min": 585.0,
+        "max": 2400.0
+      },
+      "vendor_count": 3
+    },
+    {
+      "item_id": "POSM-POSM",
+      "category": "POSM",
+      "item_number": "POSM",
+      "base_name": "กล่องใส่ช้อน/ตะเกียบ",
+      "full_name": "กล่องใส่ช้อน/ตะเกียบ(แบบแนวตั้ง)",
+      "specs": {},
+      "vendor_prices": [
+        {
+          "vendor": "Vendor 2",
+          "price": 58.0
+        },
+        {
+          "vendor": "Vendor 12",
+          "price": 70.0
+        },
+        {
+          "vendor": "Vendor 13",
+          "price": 130.35
+        }
+      ],
+      "winner_price": 58.0,
+      "winner_vendor": "Vendor 2",
+      "price_range": {
+        "min": 58.0,
+        "max": 130.35
+      },
+      "vendor_count": 3
+    },
+    {
+      "item_id": "POSM-POSM",
+      "category": "POSM",
+      "item_number": "POSM",
+      "base_name": "หมวกกุ๊ก",
+      "full_name": "หมวกกุ๊ก",
+      "specs": {},
+      "vendor_prices": [
+        {
+          "vendor": "Vendor 3",
+          "price": 115.0
+        },
+        {
+          "vendor": "Vendor 5",
+          "price": 59.0
+        },
+        {
+          "vendor": "Vendor 8",
+          "price": 85.0
+        },
+        {
+          "vendor": "Vendor 10",
+          "price": 73.5
+        },
+        {
+          "vendor": "Vendor 12",
+          "price": 95.0
+        },
+        {
+          "vendor": "Vendor 13",
+          "price": 350.0
+        }
+      ],
+      "winner_price": 59.0,
+      "winner_vendor": "Vendor 5",
+      "price_range": {
+        "min": 59.0,
+        "max": 350.0
+      },
+      "vendor_count": 6
+    },
+    {
+      "item_id": "POSM-POSM",
+      "category": "POSM",
+      "item_number": "POSM",
+      "base_name": "PM Rack  4 ชั้น",
+      "full_name": "PM Rack  4 ชั้น ",
+      "specs": {},
+      "vendor_prices": [
+        {
+          "vendor": "Vendor 11",
+          "price": 750.0
+        },
+        {
+          "vendor": "Vendor 12",
+          "price": 680.0
+        }
+      ],
+      "winner_price": 680.0,
+      "winner_vendor": "Vendor 12",
+      "price_range": {
+        "min": 680.0,
+        "max": 750.0
+      },
+      "vendor_count": 2
+    },
+    {
+      "item_id": "POSM-POSM",
+      "category": "POSM",
+      "item_number": "POSM",
+      "base_name": "Station 2 ชั้น",
+      "full_name": "Station 2 ชั้น (สีแดง)",
+      "specs": {},
+      "vendor_prices": [
+        {
+          "vendor": "Vendor 11",
+          "price": 630.0
+        },
+        {
+          "vendor": "Vendor 14",
+          "price": 565.0
+        }
+      ],
+      "winner_price": 565.0,
+      "winner_vendor": "Vendor 14",
+      "price_range": {
+        "min": 565.0,
+        "max": 630.0
+      },
+      "vendor_count": 2
+    },
+    {
+      "item_id": "POSM-POSM",
+      "category": "POSM",
+      "item_number": "POSM",
+      "base_name": "Station 2 ชั้น",
+      "full_name": "Station 2 ชั้น (สีแดง)",
+      "specs": {},
+      "vendor_prices": [
+        {
+          "vendor": "Vendor 11",
+          "price": 620.0
+        },
+        {
+          "vendor": "Vendor 14",
+          "price": 565.0
+        }
+      ],
+      "winner_price": 565.0,
+      "winner_vendor": "Vendor 14",
+      "price_range": {
+        "min": 565.0,
+        "max": 620.0
+      },
+      "vendor_count": 2
+    },
+    {
+      "item_id": "POSM-POSM",
+      "category": "POSM",
+      "item_number": "POSM",
+      "base_name": "Mega Rack  ขนาด 120x40x150 ซม. TT",
+      "full_name": "Mega Rack  ขนาด 120x40x150 ซม. TT-DSD",
+      "specs": {
+        "ขนาด": "120x40x150"
+      },
+      "vendor_prices": [
+        {
+          "vendor": "Vendor 14",
+          "price": 5600.0
+        }
+      ],
+      "winner_price": 5600.0,
+      "winner_vendor": "Vendor 14",
+      "price_range": {
+        "min": 5600.0,
+        "max": 5600.0
+      },
+      "vendor_count": 1
+    },
+    {
+      "item_id": "POSM-POSM",
+      "category": "POSM",
+      "item_number": "POSM",
+      "base_name": "Mega Rack  ขนาด 120x40x150 ซม. TT",
+      "full_name": "Mega Rack  ขนาด 120x40x150 ซม. TT-DSD",
+      "specs": {
+        "ขนาด": "120x40x150"
+      },
+      "vendor_prices": [
+        {
+          "vendor": "Vendor 14",
+          "price": 5600.0
+        }
+      ],
+      "winner_price": 5600.0,
+      "winner_vendor": "Vendor 14",
+      "price_range": {
+        "min": 5600.0,
+        "max": 5600.0
+      },
+      "vendor_count": 1
+    },
+    {
+      "item_id": "POSM-POSM",
+      "category": "POSM",
+      "item_number": "POSM",
+      "base_name": "Mega Rack ขนาด 150x60x150 ซม. WS",
+      "full_name": "Mega Rack ขนาด 150x60x150 ซม. WS",
+      "specs": {
+        "ขนาด": "150x60x150"
+      },
+      "vendor_prices": [
+        {
+          "vendor": "Vendor 14",
+          "price": 5600.0
+        }
+      ],
+      "winner_price": 5600.0,
+      "winner_vendor": "Vendor 14",
+      "price_range": {
+        "min": 5600.0,
+        "max": 5600.0
+      },
+      "vendor_count": 1
+    },
+    {
+      "item_id": "POSM-POSM",
+      "category": "POSM",
+      "item_number": "POSM",
+      "base_name": "Mega Rack ขนาด 150x60x150 ซม. WS",
+      "full_name": "Mega Rack ขนาด 150x60x150 ซม. WS",
+      "specs": {
+        "ขนาด": "150x60x150"
+      },
+      "vendor_prices": [
+        {
+          "vendor": "Vendor 14",
+          "price": 5600.0
+        }
+      ],
+      "winner_price": 5600.0,
+      "winner_vendor": "Vendor 14",
+      "price_range": {
+        "min": 5600.0,
+        "max": 5600.0
+      },
+      "vendor_count": 1
+    },
+    {
+      "item_id": "POSM-POSM",
+      "category": "POSM",
+      "item_number": "POSM",
+      "base_name": "Table",
+      "full_name": "Table",
+      "specs": {},
+      "vendor_prices": [
+        {
+          "vendor": "Vendor 11",
+          "price": 1200.0
+        },
+        {
+          "vendor": "Vendor 13",
+          "price": 1050.0
+        }
+      ],
+      "winner_price": 1050.0,
+      "winner_vendor": "Vendor 13",
+      "price_range": {
+        "min": 1050.0,
+        "max": 1200.0
+      },
+      "vendor_count": 2
+    },
+    {
+      "item_id": "Printing-Printing-mkt",
+      "category": "Printing",
+      "item_number": "Printing-mkt",
+      "base_name": "โคมไฟสำเร็จรูป",
+      "full_name": "โคมไฟสำเร็จรูป (ทรงกลม แบบนูน) ",
+      "specs": {},
+      "vendor_prices": [
+        {
+          "vendor": "Vendor 3",
+          "price": 2000.0
+        },
+        {
+          "vendor": "Vendor 5",
+          "price": 2200.0
+        },
+        {
+          "vendor": "Vendor 7",
+          "price": 3500.0
+        },
+        {
+          "vendor": "Vendor 10",
+          "price": 2095.0
+        }
+      ],
+      "winner_price": 2000.0,
+      "winner_vendor": "Vendor 3",
+      "price_range": {
+        "min": 2000.0,
+        "max": 3500.0
+      },
+      "vendor_count": 4
+    },
+    {
+      "item_id": "Printing-Printing-mkt",
+      "category": "Printing",
+      "item_number": "Printing-mkt",
+      "base_name": "PP Board โค้กเขียนชื่อร้านค้าโค้ก 120x120 cm.",
+      "full_name": "PP Board โค้กเขียนชื่อร้านค้าโค้ก 120x120 cm. ",
+      "specs": {
+        "ขนาด": "120x120"
+      },
+      "vendor_prices": [
+        {
+          "vendor": "Vendor 3",
+          "price": 360.0
+        },
+        {
+          "vendor": "Vendor 5",
+          "price": 500.0
+        },
+        {
+          "vendor": "Vendor 6",
+          "price": 300.0
+        },
+        {
+          "vendor": "Vendor 7",
+          "price": 450.0
+        },
+        {
+          "vendor": "Vendor 8",
+          "price": 299.0
+        },
+        {
+          "vendor": "Vendor 9",
+          "price": 365.0
+        },
+        {
+          "vendor": "Vendor 10",
+          "price": 200.0
+        }
+      ],
+      "winner_price": 200.0,
+      "winner_vendor": "Vendor 10",
+      "price_range": {
+        "min": 200.0,
+        "max": 500.0
+      },
+      "vendor_count": 7
+    },
+    {
+      "item_id": "Printing-Printing-mkt",
+      "category": "Printing",
+      "item_number": "Printing-mkt",
+      "base_name": "PP Board 85x190 cm.",
+      "full_name": "PP Board 85x190 cm.(ป้ายหน้าเคาน์เตอร์)",
+      "specs": {
+        "ขนาด": "85x190"
+      },
+      "vendor_prices": [
+        {
+          "vendor": "Vendor 3",
+          "price": 450.0
+        },
+        {
+          "vendor": "Vendor 5",
+          "price": 550.0
+        },
+        {
+          "vendor": "Vendor 6",
+          "price": 333.5
+        },
+        {
+          "vendor": "Vendor 7",
+          "price": 240.0
+        },
+        {
+          "vendor": "Vendor 8",
+          "price": 333.5
+        },
+        {
+          "vendor": "Vendor 9",
+          "price": 470.0
+        },
+        {
+          "vendor": "Vendor 10",
+          "price": 240.0
+        }
+      ],
+      "winner_price": 240.0,
+      "winner_vendor": "Vendor 7",
+      "price_range": {
+        "min": 240.0,
+        "max": 550.0
+      },
+      "vendor_count": 7
+    },
+    {
+      "item_id": "Printing-Printing-mkt",
+      "category": "Printing",
+      "item_number": "Printing-mkt",
+      "base_name": "PP Board 70x150 cm.",
+      "full_name": "PP Board 70x150 cm. (ป้ายหน้าเคาน์เตอร์)",
+      "specs": {
+        "ขนาด": "70x150"
+      },
+      "vendor_prices": [
+        {
+          "vendor": "Vendor 3",
+          "price": 300.0
+        },
+        {
+          "vendor": "Vendor 5",
+          "price": 360.0
+        },
+        {
+          "vendor": "Vendor 6",
+          "price": 218.5
+        },
+        {
+          "vendor": "Vendor 7",
+          "price": 330.0
+        },
+        {
+          "vendor": "Vendor 8",
+          "price": 218.5
+        },
+        {
+          "vendor": "Vendor 9",
+          "price": 360.0
+        },
+        {
+          "vendor": "Vendor 10",
+          "price": 180.0
+        }
+      ],
+      "winner_price": 180.0,
+      "winner_vendor": "Vendor 10",
+      "price_range": {
+        "min": 180.0,
+        "max": 360.0
+      },
+      "vendor_count": 7
+    },
+    {
+      "item_id": "Printing-Printing-mkt",
+      "category": "Printing",
+      "item_number": "Printing-mkt",
+      "base_name": "ป้ายรายการอาหารโค้ก 60x120 cm.",
+      "full_name": "ป้ายรายการอาหารโค้ก 60x120 cm. ",
+      "specs": {
+        "ขนาด": "60x120"
+      },
+      "vendor_prices": [
+        {
+          "vendor": "Vendor 3",
+          "price": 200.0
+        },
+        {
+          "vendor": "Vendor 5",
+          "price": 350.0
+        },
+        {
+          "vendor": "Vendor 6",
+          "price": 195.0
+        },
+        {
+          "vendor": "Vendor 7",
+          "price": 230.0
+        },
+        {
+          "vendor": "Vendor 8",
+          "price": 149.5
+        },
+        {
+          "vendor": "Vendor 9",
+          "price": 190.0
+        },
+        {
+          "vendor": "Vendor 10",
+          "price": 120.0
+        }
+      ],
+      "winner_price": 120.0,
+      "winner_vendor": "Vendor 10",
+      "price_range": {
+        "min": 120.0,
+        "max": 350.0
+      },
+      "vendor_count": 7
+    },
+    {
+      "item_id": "Printing-Printing-mkt",
+      "category": "Printing",
+      "item_number": "Printing-mkt",
+      "base_name": "แบนเนอร์โค้ก 80x300 cm.",
+      "full_name": "แบนเนอร์โค้ก 80x300 cm.",
+      "specs": {
+        "ขนาด": "80x300"
+      },
+      "vendor_prices": [
+        {
+          "vendor": "Vendor 3",
+          "price": 150.0
+        },
+        {
+          "vendor": "Vendor 5",
+          "price": 200.0
+        },
+        {
+          "vendor": "Vendor 6",
+          "price": 140.3
+        },
+        {
+          "vendor": "Vendor 8",
+          "price": 140.3
+        },
+        {
+          "vendor": "Vendor 9",
+          "price": 290.0
+        },
+        {
+          "vendor": "Vendor 10",
+          "price": 115.0
+        }
+      ],
+      "winner_price": 115.0,
+      "winner_vendor": "Vendor 10",
+      "price_range": {
+        "min": 115.0,
+        "max": 290.0
+      },
+      "vendor_count": 6
+    },
+    {
+      "item_id": "Printing-Printing-mkt",
+      "category": "Printing",
+      "item_number": "Printing-mkt",
+      "base_name": "ผ้าใบกันสาด",
+      "full_name": "ผ้าใบกันสาด- โค้ก 1.8x3.5 m.",
+      "specs": {
+        "ผ้า": "ใบกันสาด- โค้ก 1.8x3.5 m."
+      },
+      "vendor_prices": [
+        {
+          "vendor": "Vendor 6",
+          "price": 2127.5
+        },
+        {
+          "vendor": "Vendor 8",
+          "price": 2127.5
+        },
+        {
+          "vendor": "Vendor 10",
+          "price": 1630.0
+        }
+      ],
+      "winner_price": 1630.0,
+      "winner_vendor": "Vendor 10",
+      "price_range": {
+        "min": 1630.0,
+        "max": 2127.5
+      },
+      "vendor_count": 3
+    },
+    {
+      "item_id": "Printing-Printing-mkt",
+      "category": "Printing",
+      "item_number": "Printing-mkt",
+      "base_name": "แผ่นริจิ",
+      "full_name": "แผ่นริจิ-โค้ก 16x24 นิ้ว",
+      "specs": {
+        "ขนาด": "24 นิ้ว"
+      },
+      "vendor_prices": [
+        {
+          "vendor": "Vendor 6",
+          "price": 117.3
+        },
+        {
+          "vendor": "Vendor 7",
+          "price": 215.0
+        },
+        {
+          "vendor": "Vendor 8",
+          "price": 117.3
+        },
+        {
+          "vendor": "Vendor 10",
+          "price": 42.0
+        }
+      ],
+      "winner_price": 42.0,
+      "winner_vendor": "Vendor 10",
+      "price_range": {
+        "min": 42.0,
+        "max": 215.0
+      },
+      "vendor_count": 4
+    },
+    {
+      "item_id": "Printing-Printing-mkt",
+      "category": "Printing",
+      "item_number": "Printing-mkt",
+      "base_name": "แผ่นริจิ",
+      "full_name": "แผ่นริจิ-โค้ก 24x32 นิ้ว",
+      "specs": {
+        "ขนาด": "32 นิ้ว"
+      },
+      "vendor_prices": [
+        {
+          "vendor": "Vendor 6",
+          "price": 227.7
+        },
+        {
+          "vendor": "Vendor 7",
+          "price": 430.0
+        },
+        {
+          "vendor": "Vendor 8",
+          "price": 227.7
+        },
+        {
+          "vendor": "Vendor 10",
+          "price": 59.0
+        }
+      ],
+      "winner_price": 59.0,
+      "winner_vendor": "Vendor 10",
+      "price_range": {
+        "min": 59.0,
+        "max": 430.0
+      },
+      "vendor_count": 4
+    },
+    {
+      "item_id": "Printing-Printing-mkt",
+      "category": "Printing",
+      "item_number": "Printing-mkt",
+      "base_name": "ธงราว 30x30 cm.",
+      "full_name": "ธงราว 30x30 cm.",
+      "specs": {
+        "ขนาด": "30x30"
+      },
+      "vendor_prices": [
+        {
+          "vendor": "Vendor 5",
+          "price": 200.0
+        },
+        {
+          "vendor": "Vendor 6",
+          "price": 97.75
+        },
+        {
+          "vendor": "Vendor 7",
+          "price": 150.0
+        },
+        {
+          "vendor": "Vendor 8",
+          "price": 97.75
+        },
+        {
+          "vendor": "Vendor 10",
+          "price": 85.0
+        }
+      ],
+      "winner_price": 85.0,
+      "winner_vendor": "Vendor 10",
+      "price_range": {
+        "min": 85.0,
+        "max": 200.0
+      },
+      "vendor_count": 5
+    },
+    {
+      "item_id": "Printing-Printing-mkt",
+      "category": "Printing",
+      "item_number": "Printing-mkt",
+      "base_name": "ผ้าปูโต๊ะโค้ก",
+      "full_name": "ผ้าปูโต๊ะโค้ก",
+      "specs": {
+        "ผ้า": "ปูโต๊ะโค้ก"
+      },
+      "vendor_prices": [
+        {
+          "vendor": "Vendor 4",
+          "price": 83.5
+        },
+        {
+          "vendor": "Vendor 5",
+          "price": 155.0
+        },
+        {
+          "vendor": "Vendor 6",
+          "price": 143.5
+        },
+        {
+          "vendor": "Vendor 8",
+          "price": 115.0
+        },
+        {
+          "vendor": "Vendor 10",
+          "price": 83.5
+        }
+      ],
+      "winner_price": 83.5,
+      "winner_vendor": "Vendor 4",
+      "price_range": {
+        "min": 83.5,
+        "max": 155.0
+      },
+      "vendor_count": 5
+    },
+    {
+      "item_id": "Printing-Printing-mkt",
+      "category": "Printing",
+      "item_number": "Printing-mkt",
+      "base_name": "สติ๊กเกอร์ 37x28 cm.",
+      "full_name": "สติ๊กเกอร์ 37x28 cm. ",
+      "specs": {
+        "ขนาด": "37x28"
+      },
+      "vendor_prices": [
+        {
+          "vendor": "Vendor 1",
+          "price": 30.0
+        },
+        {
+          "vendor": "Vendor 3",
+          "price": 20.0
+        },
+        {
+          "vendor": "Vendor 6",
+          "price": 94.3
+        },
+        {
+          "vendor": "Vendor 7",
+          "price": 85.0
+        },
+        {
+          "vendor": "Vendor 8",
+          "price": 35.0
+        },
+        {
+          "vendor": "Vendor 10",
+          "price": 19.0
+        }
+      ],
+      "winner_price": 19.0,
+      "winner_vendor": "Vendor 10",
+      "price_range": {
+        "min": 19.0,
+        "max": 94.3
+      },
+      "vendor_count": 6
+    },
+    {
+      "item_id": "Printing-Printing-mkt",
+      "category": "Printing",
+      "item_number": "Printing-mkt",
+      "base_name": "Prillar Sign",
+      "full_name": "Prillar Sign",
+      "specs": {},
+      "vendor_prices": [
+        {
+          "vendor": "Vendor 2",
+          "price": 279.0
+        },
+        {
+          "vendor": "Vendor 3",
+          "price": 120.0
+        },
+        {
+          "vendor": "Vendor 5",
+          "price": 450.0
+        },
+        {
+          "vendor": "Vendor 6",
+          "price": 210.0
+        },
+        {
+          "vendor": "Vendor 10",
+          "price": 120.0
+        }
+      ],
+      "winner_price": 120.0,
+      "winner_vendor": "Vendor 3",
+      "price_range": {
+        "min": 120.0,
+        "max": 450.0
+      },
+      "vendor_count": 5
+    },
+    {
+      "item_id": "Garment-Garment",
+      "category": "Garment",
+      "item_number": "Garment",
+      "base_name": "เสื้อยืดสีขาว และเสื้อเทศกาลกินเจ",
+      "full_name": "เสื้อยืดสีขาว และเสื้อเทศกาลกินเจ\n - คอกลม/คอวีแขนสั้น\n - ผ้าCotton100% #32\n - แขนสั้น\n เสื้อยืดสีอื่นๆ\n *สีอ่อน เพิ่ม 5 บาท\n *สีกลาง เพิ่ม 10 บาท\n *สีเข้ม เพิ่ม 20 บาท\n เสื้อ 5 ไซด์ และไซด์พิเศษ 1 ไซด์\n",
+      "specs": {
+        "ผ้า": "Cotton100% #32"
+      },
+      "vendor_prices": [
+        {
+          "vendor": "Vendor 1",
+          "price": 95.0
+        },
+        {
+          "vendor": "Vendor 3",
+          "price": 95.0
+        },
+        {
+          "vendor": "Vendor 4",
+          "price": 90.0
+        }
+      ],
+      "winner_price": 90.0,
+      "winner_vendor": "Vendor 4",
+      "price_range": {
+        "min": 90.0,
+        "max": 95.0
+      },
+      "vendor_count": 3
+    },
+    {
+      "item_id": "Garment-Garment",
+      "category": "Garment",
+      "item_number": "Garment",
+      "base_name": "เสื้อโปโล",
+      "full_name": "เสื้อโปโล\n - ผ้า TC (เสื้อสีขาวไม่รวมปัก)\n - เสื้อแขนปล่อย ไม่จั้ม ไม่ทอแถบสีเพิ่ม\n - ปกเสื้อสีพื้นปกติไม่ทอแถบสีเพิ่ม\n เสื้อสีอื่นๆ\n *สีอ่อน เพิ่ม 5 บาท\n *สีกลาง เพิ่ม 10 บาท\n *สีเข้ม เพิ่ม 20 บาท\n เสื้อ 5 ไซด์ และไซด์พิเศษ 1 ไซด์",
+      "specs": {
+        "ผ้า": "TC (เสื้อสีขาวไม่รวมปัก)"
+      },
+      "vendor_prices": [
+        {
+          "vendor": "Vendor 1",
+          "price": 175.0
+        }
+      ],
+      "winner_price": 175.0,
+      "winner_vendor": "Vendor 1",
+      "price_range": {
+        "min": 175.0,
+        "max": 175.0
+      },
+      "vendor_count": 1
+    },
+    {
+      "item_id": "Garment-Garment",
+      "category": "Garment",
+      "item_number": "Garment",
+      "base_name": "เสื้อแจ็คเก็ต",
+      "full_name": "เสื้อแจ็คเก็ต \n - ผ้าไมโครพีชบาง (ผ้าร่มซับใน)\n - แขนยาว (เสื้อสีขาวไม่รวมปัก)\nเสื้อยืดสีอื่นๆ\n *สีอ่อน เพิ่ม 5 บาท\n *สีกลาง เพิ่ม 10 บาท\n *สีเข้ม เพิ่ม 20 บาท\n เสื้อ 5 ไซด์ และไซด์พิเศษ 1 ไซด์",
+      "specs": {
+        "ผ้า": "ไมโครพีชบาง (ผ้าร่มซับใน)"
+      },
+      "vendor_prices": [
+        {
+          "vendor": "Vendor 1",
+          "price": 500.0
+        },
+        {
+          "vendor": "Vendor 3",
+          "price": 500.0
+        },
+        {
+          "vendor": "Vendor 4",
+          "price": 350.0
+        }
+      ],
+      "winner_price": 350.0,
+      "winner_vendor": "Vendor 4",
+      "price_range": {
+        "min": 350.0,
+        "max": 500.0
+      },
+      "vendor_count": 3
+    },
+    {
+      "item_id": "Garment-Garment",
+      "category": "Garment",
+      "item_number": "Garment",
+      "base_name": "เสื้อคอกลมพิมพ์ลาย",
+      "full_name": "เสื้อคอกลมพิมพ์ลาย \n - พิมพ์ลายในตัว/ซับลิเมชั่น \n - ผ้าไมโคร \n เสื้อยืดสีอื่นๆ\n *สีอ่อน เพิ่ม 5 บาท\n *สีกลาง เพิ่ม 10 บาท\n *สีเข้ม เพิ่ม 20 บาท\n เสื้อ 5 ไซด์ และไซด์พิเศษ 1 ไซด์",
+      "specs": {
+        "ผ้า": "ไมโคร"
+      },
+      "vendor_prices": [
+        {
+          "vendor": "Vendor 1",
+          "price": 125.0
+        },
+        {
+          "vendor": "Vendor 4",
+          "price": 120.0
+        }
+      ],
+      "winner_price": 120.0,
+      "winner_vendor": "Vendor 4",
+      "price_range": {
+        "min": 120.0,
+        "max": 125.0
+      },
+      "vendor_count": 2
+    },
+    {
+      "item_id": "Garment-Garment",
+      "category": "Garment",
+      "item_number": "Garment",
+      "base_name": "เสื้อโปโล ผ้าไมโคร",
+      "full_name": "เสื้อโปโล ผ้าไมโคร ",
+      "specs": {
+        "ผ้า": "ไมโคร"
+      },
+      "vendor_prices": [
+        {
+          "vendor": "Vendor 1",
+          "price": 175.0
+        },
+        {
+          "vendor": "Vendor 4",
+          "price": 195.0
+        }
+      ],
+      "winner_price": 175.0,
+      "winner_vendor": "Vendor 1",
+      "price_range": {
+        "min": 175.0,
+        "max": 195.0
+      },
+      "vendor_count": 2
+    },
+    {
+      "item_id": "Garment-Garment",
+      "category": "Garment",
+      "item_number": "Garment",
+      "base_name": "",
+      "full_name": " - พิมพ์ลายในตัว/ซับลิเมชั่น \n - ผ้าไมโคร ",
+      "specs": {
+        "ผ้า": "ไมโคร"
+      },
+      "vendor_prices": [
+        {
+          "vendor": "Vendor 1",
+          "price": 156.0
+        },
+        {
+          "vendor": "Vendor 3",
+          "price": 125.0
+        },
+        {
+          "vendor": "Vendor 4",
+          "price": 185.0
+        }
+      ],
+      "winner_price": 125.0,
+      "winner_vendor": "Vendor 3",
+      "price_range": {
+        "min": 125.0,
+        "max": 185.0
+      },
+      "vendor_count": 3
+    },
+    {
+      "item_id": "Garment-Garment",
+      "category": "Garment",
+      "item_number": "Garment",
+      "base_name": "เสื้อยืดสีอื่นๆ",
+      "full_name": " เสื้อยืดสีอื่นๆ",
+      "specs": {},
+      "vendor_prices": [
+        {
+          "vendor": "Vendor 1",
+          "price": 153.0
+        },
+        {
+          "vendor": "Vendor 3",
+          "price": 120.0
+        },
+        {
+          "vendor": "Vendor 4",
+          "price": 173.0
+        }
+      ],
+      "winner_price": 120.0,
+      "winner_vendor": "Vendor 3",
+      "price_range": {
+        "min": 120.0,
+        "max": 173.0
+      },
+      "vendor_count": 3
+    },
+    {
+      "item_id": "Garment-Garment",
+      "category": "Garment",
+      "item_number": "Garment",
+      "base_name": "*สีอ่อน เพิ่ม 5 บาท",
+      "full_name": " *สีอ่อน เพิ่ม 5 บาท",
+      "specs": {},
+      "vendor_prices": [
+        {
+          "vendor": "Vendor 1",
+          "price": 153.0
+        },
+        {
+          "vendor": "Vendor 3",
+          "price": 120.0
+        },
+        {
+          "vendor": "Vendor 4",
+          "price": 167.0
+        }
+      ],
+      "winner_price": 120.0,
+      "winner_vendor": "Vendor 3",
+      "price_range": {
+        "min": 120.0,
+        "max": 167.0
+      },
+      "vendor_count": 3
+    },
+    {
+      "item_id": "Garment-Garment",
+      "category": "Garment",
+      "item_number": "Garment",
+      "base_name": "*สีกลาง เพิ่ม 10 บาท",
+      "full_name": " *สีกลาง เพิ่ม 10 บาท",
+      "specs": {},
+      "vendor_prices": [
+        {
+          "vendor": "Vendor 1",
+          "price": 150.0
+        },
+        {
+          "vendor": "Vendor 2",
+          "price": 260.0
+        },
+        {
+          "vendor": "Vendor 3",
+          "price": 115.0
+        },
+        {
+          "vendor": "Vendor 4",
+          "price": 160.0
+        }
+      ],
+      "winner_price": 115.0,
+      "winner_vendor": "Vendor 3",
+      "price_range": {
+        "min": 115.0,
+        "max": 260.0
+      },
+      "vendor_count": 4
+    },
+    {
+      "item_id": "Garment-Garment",
+      "category": "Garment",
+      "item_number": "Garment",
+      "base_name": "*สีเข้ม เพิ่ม 20 บาท",
+      "full_name": " *สีเข้ม เพิ่ม 20 บาท",
+      "specs": {},
+      "vendor_prices": [
+        {
+          "vendor": "Vendor 1",
+          "price": 150.0
+        },
+        {
+          "vendor": "Vendor 3",
+          "price": 115.0
+        },
+        {
+          "vendor": "Vendor 4",
+          "price": 157.0
+        }
+      ],
+      "winner_price": 115.0,
+      "winner_vendor": "Vendor 3",
+      "price_range": {
+        "min": 115.0,
+        "max": 157.0
+      },
+      "vendor_count": 3
+    },
+    {
+      "item_id": "Garment-Garment",
+      "category": "Garment",
+      "item_number": "Garment",
+      "base_name": "เสื้อ 5 ไซด์ และไซด์พิเศษ 1 ไซด์",
+      "full_name": " เสื้อ 5 ไซด์ และไซด์พิเศษ 1 ไซด์",
+      "specs": {},
+      "vendor_prices": [
+        {
+          "vendor": "Vendor 1",
+          "price": 150.0
+        },
+        {
+          "vendor": "Vendor 3",
+          "price": 115.0
+        },
+        {
+          "vendor": "Vendor 4",
+          "price": 157.0
+        }
+      ],
+      "winner_price": 115.0,
+      "winner_vendor": "Vendor 3",
+      "price_range": {
+        "min": 115.0,
+        "max": 157.0
+      },
+      "vendor_count": 3
+    },
+    {
+      "item_id": "Garment-Garment",
+      "category": "Garment",
+      "item_number": "Garment",
+      "base_name": "เสื้อคอปก พิมพ์ลาย 4 สี CMYK +ผ้าดรายเทค",
+      "full_name": "เสื้อคอปก พิมพ์ลาย 4 สี CMYK +ผ้าดรายเทค\n - เนื้อผ้าไมโคร 130-140 กรัม\n - พิมพ์ลายในตัว/ซับลิเมชั่น \n - ผ้าไมโคร \n - เสื้อ 5 ไซด์ และไซด์พิเศษ 1 ไซด์\n เสื้อยืดสีอื่นๆ\n *สีอ่อน เพิ่ม 5 บาท\n *สีกลาง เพิ่ม 10 บาท\n *สีเข้ม เพิ่ม 20 บาท\n เสื้อ 5 ไซด์ และไซด์พิเศษ 1 ไซด์",
+      "specs": {
+        "ผ้า": "ดรายเทค"
+      },
+      "vendor_prices": [
+        {
+          "vendor": "Vendor 1",
+          "price": 175.0
+        }
+      ],
+      "winner_price": 175.0,
+      "winner_vendor": "Vendor 1",
+      "price_range": {
+        "min": 175.0,
+        "max": 175.0
+      },
+      "vendor_count": 1
+    },
+    {
+      "item_id": "Garment-Garment",
+      "category": "Garment",
+      "item_number": "Garment",
+      "base_name": "เสื้อโปโล ผ้าดรายเทค 201",
+      "full_name": "เสื้อโปโล ผ้าดรายเทค 201\n - ผ้าดรายเทค 201 (เสื้อสีขาวไม่รวมปัก)\n - เสื้อแขนปล่อย ไม่จั้ม ไม่ทอแถบสีเพิ่ม\n - ปกเสื้อสีพื้นปกติไม่ทอแถบสีเพิ่ม\n เสื้อสีอื่นๆ\n *สีอ่อน เพิ่ม 5 บาท\n *สีกลาง เพิ่ม 10 บาท\n *สีเข้ม เพิ่ม 20 บาท\n เสื้อ 5 ไซด์ และไซด์พิเศษ 1 ไซด์",
+      "specs": {
+        "ผ้า": "ดรายเทค 201"
+      },
+      "vendor_prices": [
+        {
+          "vendor": "Vendor 1",
+          "price": 275.0
+        },
+        {
+          "vendor": "Vendor 4",
+          "price": 225.0
+        }
+      ],
+      "winner_price": 225.0,
+      "winner_vendor": "Vendor 4",
+      "price_range": {
+        "min": 225.0,
+        "max": 275.0
+      },
+      "vendor_count": 2
+    },
+    {
+      "item_id": "Garment-Garment",
+      "category": "Garment",
+      "item_number": "Garment",
+      "base_name": "เสื้อโปโล ผ้า Dry",
+      "full_name": "เสื้อโปโล ผ้า Dry-Touch MP48  (เพิ่มเฉพาะกิจแจ้งคณะกรรมการแล้ว เนื่องจากเสื้อสเปคใหม่ราคาเหมาะสม ไว้เป็นทางเลือก\n - ผ้า Dry-Touch MP48 (เสื้อสีขาวไม่รวมปัก)\n - เสื้อแขนปล่อย ไม่จั้ม ไม่ทอแถบสีเพิ่ม\n - ปกเสื้อสีพื้นปกติไม่ทอแถบสีเพิ่ม\n เสื้อสีอื่นๆ\n *สีอ่อน เพิ่ม 5 บาท\n *สีกลาง เพิ่ม 10 บาท\n *สีเข้ม เพิ่ม 20 บาท\n เสื้อ 5 ไซด์ และไซด์พิเศษ 1 ไซด์",
+      "specs": {
+        "ผ้า": "Dry-Touch MP48  (เพิ่มเฉพาะกิจแจ้งคณะกรรมการแล้ว เนื่องจากเสื้อสเปคใหม่ราคาเหมาะสม ไว้เป็นทางเลือก"
+      },
+      "vendor_prices": [
+        {
+          "vendor": "Vendor 3",
+          "price": 155.0
+        },
+        {
+          "vendor": "Vendor 4",
+          "price": 155.0
+        }
+      ],
+      "winner_price": 155.0,
+      "winner_vendor": "Vendor 3",
+      "price_range": {
+        "min": 155.0,
+        "max": 155.0
+      },
+      "vendor_count": 2
+    },
+    {
+      "item_id": "Garment-Garment",
+      "category": "Garment",
+      "item_number": "Garment",
+      "base_name": "สกรีน 1 สี 1 จุด ขนาดไม่เกิน A4",
+      "full_name": "สกรีน 1 สี 1 จุด ขนาดไม่เกิน A4",
+      "specs": {},
+      "vendor_prices": [
+        {
+          "vendor": "Vendor 1",
+          "price": 12.5
+        },
+        {
+          "vendor": "Vendor 3",
+          "price": 15.0
+        }
+      ],
+      "winner_price": 12.5,
+      "winner_vendor": "Vendor 1",
+      "price_range": {
+        "min": 12.5,
+        "max": 15.0
+      },
+      "vendor_count": 2
+    },
+    {
+      "item_id": "Garment-Garment",
+      "category": "Garment",
+      "item_number": "Garment",
+      "base_name": "สกรีน 2 สี 1 จุด ขนาดไม่เกิน A4",
+      "full_name": "สกรีน 2 สี 1 จุด ขนาดไม่เกิน A4",
+      "specs": {},
+      "vendor_prices": [
+        {
+          "vendor": "Vendor 1",
+          "price": 16.5
+        },
+        {
+          "vendor": "Vendor 2",
+          "price": 270.0
+        },
+        {
+          "vendor": "Vendor 3",
+          "price": 20.0
+        }
+      ],
+      "winner_price": 16.5,
+      "winner_vendor": "Vendor 1",
+      "price_range": {
+        "min": 16.5,
+        "max": 270.0
+      },
+      "vendor_count": 3
+    },
+    {
+      "item_id": "Garment-Garment",
+      "category": "Garment",
+      "item_number": "Garment",
+      "base_name": "สกรีน 3 สี 1 จุด ขนาดไม่เกิน A4",
+      "full_name": "สกรีน 3 สี 1 จุด ขนาดไม่เกิน A4",
+      "specs": {},
+      "vendor_prices": [
+        {
+          "vendor": "Vendor 1",
+          "price": 18.75
+        },
+        {
+          "vendor": "Vendor 3",
+          "price": 25.0
+        }
+      ],
+      "winner_price": 18.75,
+      "winner_vendor": "Vendor 1",
+      "price_range": {
+        "min": 18.75,
+        "max": 25.0
+      },
+      "vendor_count": 2
+    },
+    {
+      "item_id": "Garment-Garment",
+      "category": "Garment",
+      "item_number": "Garment",
+      "base_name": "สกรีน 4 สี 1 จุด ขนาดไม่เกิน A4",
+      "full_name": "สกรีน 4 สี 1 จุด ขนาดไม่เกิน A4",
+      "specs": {},
+      "vendor_prices": [
+        {
+          "vendor": "Vendor 1",
+          "price": 22.5
+        },
+        {
+          "vendor": "Vendor 3",
+          "price": 30.0
+        }
+      ],
+      "winner_price": 22.5,
+      "winner_vendor": "Vendor 1",
+      "price_range": {
+        "min": 22.5,
+        "max": 30.0
+      },
+      "vendor_count": 2
+    },
+    {
+      "item_id": "Garment-Garment",
+      "category": "Garment",
+      "item_number": "Garment",
+      "base_name": "ค่าปัก ขนาดปัก ไม่เกิน 10 cm 1 สี 1 จุด ตัวอักษรไม่เทพื้น",
+      "full_name": "ค่าปัก ขนาดปัก ไม่เกิน 10 cm 1 สี 1 จุด ตัวอักษรไม่เทพื้น",
+      "specs": {},
+      "vendor_prices": [
+        {
+          "vendor": "Vendor 1",
+          "price": 30.0
+        },
+        {
+          "vendor": "Vendor 3",
+          "price": 15.0
+        }
+      ],
+      "winner_price": 15.0,
+      "winner_vendor": "Vendor 3",
+      "price_range": {
+        "min": 15.0,
+        "max": 30.0
+      },
+      "vendor_count": 2
+    },
+    {
+      "item_id": "Garment-Garment",
+      "category": "Garment",
+      "item_number": "Garment",
+      "base_name": "ค่าปัก ขนาดปัก ไม่เกิน 10 cm 2 สี 1 จุด ตัวอักษรไม่เทพื้น",
+      "full_name": "ค่าปัก ขนาดปัก ไม่เกิน 10 cm 2 สี 1 จุด ตัวอักษรไม่เทพื้น",
+      "specs": {},
+      "vendor_prices": [
+        {
+          "vendor": "Vendor 1",
+          "price": 32.0
+        },
+        {
+          "vendor": "Vendor 3",
+          "price": 15.0
+        }
+      ],
+      "winner_price": 15.0,
+      "winner_vendor": "Vendor 3",
+      "price_range": {
+        "min": 15.0,
+        "max": 32.0
+      },
+      "vendor_count": 2
+    },
+    {
+      "item_id": "Garment-Garment",
+      "category": "Garment",
+      "item_number": "Garment",
+      "base_name": "ค่าปัก ขนาดปัก ไม่เกิน 10 cm 3 สี 1 จุด ตัวอักษรไม่เทพื้น",
+      "full_name": "ค่าปัก ขนาดปัก ไม่เกิน 10 cm 3 สี 1 จุด ตัวอักษรไม่เทพื้น",
+      "specs": {},
+      "vendor_prices": [
+        {
+          "vendor": "Vendor 1",
+          "price": 35.0
+        },
+        {
+          "vendor": "Vendor 3",
+          "price": 15.0
+        }
+      ],
+      "winner_price": 15.0,
+      "winner_vendor": "Vendor 3",
+      "price_range": {
+        "min": 15.0,
+        "max": 35.0
+      },
+      "vendor_count": 2
+    },
+    {
+      "item_id": "Garment-Garment",
+      "category": "Garment",
+      "item_number": "Garment",
+      "base_name": "ค่าปัก ขนาดปัก ไม่เกิน 10 cm 4 สี 1 จุด ตัวอักษรไม่เทพื้น",
+      "full_name": "ค่าปัก ขนาดปัก ไม่เกิน 10 cm 4 สี 1 จุด ตัวอักษรไม่เทพื้น",
+      "specs": {},
+      "vendor_prices": [
+        {
+          "vendor": "Vendor 1",
+          "price": 35.0
+        },
+        {
+          "vendor": "Vendor 3",
+          "price": 15.0
+        }
+      ],
+      "winner_price": 15.0,
+      "winner_vendor": "Vendor 3",
+      "price_range": {
+        "min": 15.0,
+        "max": 35.0
+      },
+      "vendor_count": 2
+    },
+    {
+      "item_id": "Premium-Premium-EA&HRC",
+      "category": "Premium",
+      "item_number": "Premium-EA&HRC",
+      "base_name": "ผ้าเบอร์วิ่ง",
+      "full_name": "ผ้าเบอร์วิ่ง",
+      "specs": {
+        "ผ้า": "เบอร์วิ่ง"
+      },
+      "vendor_prices": [
+        {
+          "vendor": "Vendor 5",
+          "price": 2.0
+        },
+        {
+          "vendor": "Vendor 6",
+          "price": 7.5
+        }
+      ],
+      "winner_price": 2.0,
+      "winner_vendor": "Vendor 5",
+      "price_range": {
+        "min": 2.0,
+        "max": 7.5
+      },
+      "vendor_count": 2
+    },
+    {
+      "item_id": "Premium-Premium-EA&HRC",
+      "category": "Premium",
+      "item_number": "Premium-EA&HRC",
+      "base_name": "แก้วกระดาษ ขนาด 6.5 ออนซ์",
+      "full_name": "แก้วกระดาษ ขนาด 6.5 ออนซ์",
+      "specs": {},
+      "vendor_prices": [
+        {
+          "vendor": "Vendor 1",
+          "price": 0.6
+        },
+        {
+          "vendor": "Vendor 2",
+          "price": 1.05
+        },
+        {
+          "vendor": "Vendor 5",
+          "price": 1.2
+        },
+        {
+          "vendor": "Vendor 6",
+          "price": 0.98
+        },
+        {
+          "vendor": "Vendor 8",
+          "price": 0.98
+        }
+      ],
+      "winner_price": 0.6,
+      "winner_vendor": "Vendor 1",
+      "price_range": {
+        "min": 0.6,
+        "max": 1.2
+      },
+      "vendor_count": 5
+    },
+    {
+      "item_id": "Premium-Premium-EA&HRC",
+      "category": "Premium",
+      "item_number": "Premium-EA&HRC",
+      "base_name": "แก้วกระดาษขนาด 22 ออนช์",
+      "full_name": "แก้วกระดาษขนาด 22 ออนช์",
+      "specs": {},
+      "vendor_prices": [
+        {
+          "vendor": "Vendor 1",
+          "price": 1.85
+        },
+        {
+          "vendor": "Vendor 2",
+          "price": 1.67
+        },
+        {
+          "vendor": "Vendor 5",
+          "price": 2.54
+        },
+        {
+          "vendor": "Vendor 6",
+          "price": 2.5
+        }
+      ],
+      "winner_price": 1.67,
+      "winner_vendor": "Vendor 2",
+      "price_range": {
+        "min": 1.67,
+        "max": 2.54
+      },
+      "vendor_count": 4
+    },
+    {
+      "item_id": "Premium-Premium-EA&HRC",
+      "category": "Premium",
+      "item_number": "Premium-EA&HRC",
+      "base_name": "ร่มเสาข้าง",
+      "full_name": "ร่มเสาข้าง",
+      "specs": {},
+      "vendor_prices": [
+        {
+          "vendor": "Vendor 3",
+          "price": 2500.0
+        },
+        {
+          "vendor": "Vendor 4",
+          "price": 3200.0
+        }
+      ],
+      "winner_price": 2500.0,
+      "winner_vendor": "Vendor 3",
+      "price_range": {
+        "min": 2500.0,
+        "max": 3200.0
+      },
+      "vendor_count": 2
+    },
+    {
+      "item_id": "Premium-Premium-EA&HRC",
+      "category": "Premium",
+      "item_number": "Premium-EA&HRC",
+      "base_name": "ขาตั้ง Earth Tone",
+      "full_name": "ขาตั้ง Earth Tone ",
+      "specs": {},
+      "vendor_prices": [
+        {
+          "vendor": "Vendor 3",
+          "price": 750.0
+        },
+        {
+          "vendor": "Vendor 4",
+          "price": 850.0
+        }
+      ],
+      "winner_price": 750.0,
+      "winner_vendor": "Vendor 3",
+      "price_range": {
+        "min": 750.0,
+        "max": 850.0
+      },
+      "vendor_count": 2
+    },
+    {
+      "item_id": "Premium-Premium-EA&HRC",
+      "category": "Premium",
+      "item_number": "Premium-EA&HRC",
+      "base_name": "ร่มสีดำ 2 เมตร",
+      "full_name": "ร่มสีดำ 2 เมตร",
+      "specs": {},
+      "vendor_prices": [
+        {
+          "vendor": "Vendor 3",
+          "price": 2400.0
+        },
+        {
+          "vendor": "Vendor 4",
+          "price": 3200.0
+        },
+        {
+          "vendor": "Vendor 6",
+          "price": 3900.0
+        },
+        {
+          "vendor": "Vendor 8",
+          "price": 2400.0
+        }
+      ],
+      "winner_price": 2400.0,
+      "winner_vendor": "Vendor 3",
+      "price_range": {
+        "min": 2400.0,
+        "max": 3900.0
+      },
+      "vendor_count": 4
+    },
+    {
+      "item_id": "Premium-Premium-EA&HRC",
+      "category": "Premium",
+      "item_number": "Premium-EA&HRC",
+      "base_name": "ขาตั้งเหล็กแพสีดำ",
+      "full_name": "ขาตั้งเหล็กแพสีดำ",
+      "specs": {},
+      "vendor_prices": [
+        {
+          "vendor": "Vendor 3",
+          "price": 700.0
+        },
+        {
+          "vendor": "Vendor 4",
+          "price": 1300.0
+        },
+        {
+          "vendor": "Vendor 8",
+          "price": 700.0
+        }
+      ],
+      "winner_price": 700.0,
+      "winner_vendor": "Vendor 3",
+      "price_range": {
+        "min": 700.0,
+        "max": 1300.0
+      },
+      "vendor_count": 3
+    },
+    {
+      "item_id": "Premium-Premium-EA&HRC",
+      "category": "Premium",
+      "item_number": "Premium-EA&HRC",
+      "base_name": "ร่มชายหาด 42 นิ้ว",
+      "full_name": "ร่มชายหาด 42 นิ้ว",
+      "specs": {
+        "ขนาด": "42 นิ้ว"
+      },
+      "vendor_prices": [
+        {
+          "vendor": "Vendor 4",
+          "price": 1280.0
+        },
+        {
+          "vendor": "Vendor 6",
+          "price": 4000.0
+        }
+      ],
+      "winner_price": 1280.0,
+      "winner_vendor": "Vendor 4",
+      "price_range": {
+        "min": 1280.0,
+        "max": 4000.0
+      },
+      "vendor_count": 2
+    },
+    {
+      "item_id": "Premium-Premium-EA&HRC",
+      "category": "Premium",
+      "item_number": "Premium-EA&HRC",
+      "base_name": "เหล็กเสียบสำหรับร่มปักชายหาด",
+      "full_name": "เหล็กเสียบสำหรับร่มปักชายหาด",
+      "specs": {},
+      "vendor_prices": [
+        {
+          "vendor": "Vendor 3",
+          "price": 110.0
+        }
+      ],
+      "winner_price": 110.0,
+      "winner_vendor": "Vendor 3",
+      "price_range": {
+        "min": 110.0,
+        "max": 110.0
+      },
+      "vendor_count": 1
+    },
+    {
+      "item_id": "Premium-Premium-EA&HRC",
+      "category": "Premium",
+      "item_number": "Premium-EA&HRC",
+      "base_name": "Menu Stand Earth tone",
+      "full_name": "Menu Stand Earth tone ",
+      "specs": {},
+      "vendor_prices": [
+        {
+          "vendor": "Vendor 6",
+          "price": 9500.0
+        },
+        {
+          "vendor": "Vendor 7",
+          "price": 4400.0
+        }
+      ],
+      "winner_price": 4400.0,
+      "winner_vendor": "Vendor 7",
+      "price_range": {
+        "min": 4400.0,
+        "max": 9500.0
+      },
+      "vendor_count": 2
+    },
+    {
+      "item_id": "Premium-Premium-EA&HRC",
+      "category": "Premium",
+      "item_number": "Premium-EA&HRC",
+      "base_name": "เก้าอีผู้กำกับ",
+      "full_name": "เก้าอีผู้กำกับ",
+      "specs": {},
+      "vendor_prices": [
+        {
+          "vendor": "Vendor 1",
+          "price": 1400.0
+        },
+        {
+          "vendor": "Vendor 6",
+          "price": 2200.0
+        }
+      ],
+      "winner_price": 1400.0,
+      "winner_vendor": "Vendor 1",
+      "price_range": {
+        "min": 1400.0,
+        "max": 2200.0
+      },
+      "vendor_count": 2
+    },
+    {
+      "item_id": "Premium-Premium-EA&HRC",
+      "category": "Premium",
+      "item_number": "Premium-EA&HRC",
+      "base_name": "Bean Bag",
+      "full_name": "Bean Bag (หนังชามัวร์) ",
+      "specs": {},
+      "vendor_prices": [
+        {
+          "vendor": "Vendor 1",
+          "price": 1500.0
+        },
+        {
+          "vendor": "Vendor 4",
+          "price": 1650.0
+        }
+      ],
+      "winner_price": 1500.0,
+      "winner_vendor": "Vendor 1",
+      "price_range": {
+        "min": 1500.0,
+        "max": 1650.0
+      },
+      "vendor_count": 2
+    },
+    {
+      "item_id": "Premium-Premium-EA&HRC",
+      "category": "Premium",
+      "item_number": "Premium-EA&HRC",
+      "base_name": "Bean Bag",
+      "full_name": "Bean Bag (วัสดุผ้า) ",
+      "specs": {
+        "ผ้า": ")"
+      },
+      "vendor_prices": [
+        {
+          "vendor": "Vendor 1",
+          "price": 1850.0
+        },
+        {
+          "vendor": "Vendor 4",
+          "price": 1550.0
+        },
+        {
+          "vendor": "Vendor 5",
+          "price": 1700.0
+        }
+      ],
+      "winner_price": 1550.0,
+      "winner_vendor": "Vendor 4",
+      "price_range": {
+        "min": 1550.0,
+        "max": 1850.0
+      },
+      "vendor_count": 3
+    },
+    {
+      "item_id": "Premium-Premium-EA&HRC",
+      "category": "Premium",
+      "item_number": "Premium-EA&HRC",
+      "base_name": "Bar mat",
+      "full_name": "Bar mat",
+      "specs": {},
+      "vendor_prices": [
+        {
+          "vendor": "Vendor 1",
+          "price": 145.0
+        },
+        {
+          "vendor": "Vendor 4",
+          "price": 365.0
+        },
+        {
+          "vendor": "Vendor 6",
+          "price": 900.0
+        }
+      ],
+      "winner_price": 145.0,
+      "winner_vendor": "Vendor 1",
+      "price_range": {
+        "min": 145.0,
+        "max": 900.0
+      },
+      "vendor_count": 3
+    },
+    {
+      "item_id": "Premium-Premium-EA&HRC",
+      "category": "Premium",
+      "item_number": "Premium-EA&HRC",
+      "base_name": "ป้ายเคาน์เตอร์คิวอาร์โค้ช",
+      "full_name": "ป้ายเคาน์เตอร์คิวอาร์โค้ช",
+      "specs": {},
+      "vendor_prices": [
+        {
+          "vendor": "Vendor 6",
+          "price": 800.0
+        },
+        {
+          "vendor": "Vendor 7",
+          "price": 380.0
+        }
+      ],
+      "winner_price": 380.0,
+      "winner_vendor": "Vendor 7",
+      "price_range": {
+        "min": 380.0,
+        "max": 800.0
+      },
+      "vendor_count": 2
+    },
+    {
+      "item_id": "PrintRate-44",
+      "category": "PrintRate",
+      "item_number": "44",
+      "base_name": "1",
+      "full_name": "1-50 ",
+      "specs": {},
+      "vendor_prices": [
+        {
+          "vendor": "Vendor 2",
+          "price": 23.9
+        },
+        {
+          "vendor": "Vendor 4",
+          "price": 10.0
+        },
+        {
+          "vendor": "Vendor 6",
+          "price": 12.0
+        },
+        {
+          "vendor": "Vendor 7",
+          "price": 20.0
+        },
+        {
+          "vendor": "Vendor 8",
+          "price": 123.0
+        }
+      ],
+      "winner_price": 10.0,
+      "winner_vendor": "Vendor 4",
+      "price_range": {
+        "min": 10.0,
+        "max": 123.0
+      },
+      "vendor_count": 5
+    },
+    {
+      "item_id": "PrintRate-46",
+      "category": "PrintRate",
+      "item_number": "46",
+      "base_name": "1",
+      "full_name": "1-500",
+      "specs": {},
+      "vendor_prices": [
+        {
+          "vendor": "Vendor 1",
+          "price": 30.0
+        },
+        {
+          "vendor": "Vendor 2",
+          "price": 35.8
+        },
+        {
+          "vendor": "Vendor 4",
+          "price": 50.0
+        },
+        {
+          "vendor": "Vendor 6",
+          "price": 35.0
+        },
+        {
+          "vendor": "Vendor 7",
+          "price": 38.0
+        },
+        {
+          "vendor": "Vendor 8",
+          "price": 33.0
+        }
+      ],
+      "winner_price": 30.0,
+      "winner_vendor": "Vendor 1",
+      "price_range": {
+        "min": 30.0,
+        "max": 50.0
+      },
+      "vendor_count": 6
+    },
+    {
+      "item_id": "PrintRate-59",
+      "category": "PrintRate",
+      "item_number": "59",
+      "base_name": "501",
+      "full_name": "501 - 1,000",
+      "specs": {},
+      "vendor_prices": [
+        {
+          "vendor": "Vendor 2",
+          "price": 3.8
+        },
+        {
+          "vendor": "Vendor 4",
+          "price": 2.8
+        },
+        {
+          "vendor": "Vendor 7",
+          "price": 11.0
+        }
+      ],
+      "winner_price": 2.8,
+      "winner_vendor": "Vendor 4",
+      "price_range": {
+        "min": 2.8,
+        "max": 11.0
+      },
+      "vendor_count": 3
+    },
+    {
+      "item_id": "PrintRate-60",
+      "category": "PrintRate",
+      "item_number": "60",
+      "base_name": "1,001",
+      "full_name": "1,001 - 2,000",
+      "specs": {},
+      "vendor_prices": [
+        {
+          "vendor": "Vendor 4",
+          "price": 2.2
+        },
+        {
+          "vendor": "Vendor 8",
+          "price": 5.75
+        }
+      ],
+      "winner_price": 2.2,
+      "winner_vendor": "Vendor 4",
+      "price_range": {
+        "min": 2.2,
+        "max": 5.75
+      },
+      "vendor_count": 2
+    },
+    {
+      "item_id": "PrintRate-62",
+      "category": "PrintRate",
+      "item_number": "62",
+      "base_name": "1",
+      "full_name": " 1 - 50",
+      "specs": {},
+      "vendor_prices": [
+        {
+          "vendor": "Vendor 2",
+          "price": 33.66
+        },
+        {
+          "vendor": "Vendor 4",
+          "price": 10.0
+        },
+        {
+          "vendor": "Vendor 6",
+          "price": 17.25
+        },
+        {
+          "vendor": "Vendor 7",
+          "price": 25.0
+        }
+      ],
+      "winner_price": 10.0,
+      "winner_vendor": "Vendor 4",
+      "price_range": {
+        "min": 10.0,
+        "max": 33.66
+      },
+      "vendor_count": 4
+    },
+    {
+      "item_id": "PrintRate-91",
+      "category": "PrintRate",
+      "item_number": "91",
+      "base_name": "1",
+      "full_name": "1 - 500",
+      "specs": {},
+      "vendor_prices": [
+        {
+          "vendor": "Vendor 1",
+          "price": 5.0
+        },
+        {
+          "vendor": "Vendor 2",
+          "price": 4.85
+        },
+        {
+          "vendor": "Vendor 3",
+          "price": 3.0
+        },
+        {
+          "vendor": "Vendor 4",
+          "price": 2.5
+        },
+        {
+          "vendor": "Vendor 6",
+          "price": 6.0
+        },
+        {
+          "vendor": "Vendor 7",
+          "price": 15.0
+        }
+      ],
+      "winner_price": 2.5,
+      "winner_vendor": "Vendor 4",
+      "price_range": {
+        "min": 2.5,
+        "max": 15.0
+      },
+      "vendor_count": 6
+    },
+    {
+      "item_id": "PrintRate-92",
+      "category": "PrintRate",
+      "item_number": "92",
+      "base_name": "1",
+      "full_name": "1 - 100",
+      "specs": {},
+      "vendor_prices": [
+        {
+          "vendor": "Vendor 1",
+          "price": 20.0
+        },
+        {
+          "vendor": "Vendor 2",
+          "price": 25.5
+        },
+        {
+          "vendor": "Vendor 3",
+          "price": 20.0
+        },
+        {
+          "vendor": "Vendor 4",
+          "price": 25.0
+        },
+        {
+          "vendor": "Vendor 6",
+          "price": 23.0
+        },
+        {
+          "vendor": "Vendor 7",
+          "price": 35.0
+        }
+      ],
+      "winner_price": 20.0,
+      "winner_vendor": "Vendor 1",
+      "price_range": {
+        "min": 20.0,
+        "max": 35.0
+      },
+      "vendor_count": 6
+    },
+    {
+      "item_id": "PrintRate-93",
+      "category": "PrintRate",
+      "item_number": "93",
+      "base_name": "1",
+      "full_name": "1 - 100",
+      "specs": {},
+      "vendor_prices": [
+        {
+          "vendor": "Vendor 1",
+          "price": 15.0
+        },
+        {
+          "vendor": "Vendor 2",
+          "price": 15.94
+        },
+        {
+          "vendor": "Vendor 3",
+          "price": 8.0
+        },
+        {
+          "vendor": "Vendor 4",
+          "price": 12.5
+        },
+        {
+          "vendor": "Vendor 6",
+          "price": 12.65
+        },
+        {
+          "vendor": "Vendor 7",
+          "price": 25.0
+        }
+      ],
+      "winner_price": 8.0,
+      "winner_vendor": "Vendor 3",
+      "price_range": {
+        "min": 8.0,
+        "max": 25.0
+      },
+      "vendor_count": 6
+    },
+    {
+      "item_id": "PrintRate-94",
+      "category": "PrintRate",
+      "item_number": "94",
+      "base_name": "1",
+      "full_name": "1 - 100",
+      "specs": {},
+      "vendor_prices": [
+        {
+          "vendor": "Vendor 1",
+          "price": 30.0
+        },
+        {
+          "vendor": "Vendor 2",
+          "price": 36.4
+        },
+        {
+          "vendor": "Vendor 3",
+          "price": 24.0
+        },
+        {
+          "vendor": "Vendor 4",
+          "price": 50.0
+        },
+        {
+          "vendor": "Vendor 6",
+          "price": 46.0
+        },
+        {
+          "vendor": "Vendor 7",
+          "price": 55.0
+        }
+      ],
+      "winner_price": 24.0,
+      "winner_vendor": "Vendor 3",
+      "price_range": {
+        "min": 24.0,
+        "max": 55.0
+      },
+      "vendor_count": 6
+    },
+    {
+      "item_id": "PrintRate-95",
+      "category": "PrintRate",
+      "item_number": "95",
+      "base_name": "น้อยกว่า 50",
+      "full_name": "น้อยกว่า 50",
+      "specs": {},
+      "vendor_prices": [
+        {
+          "vendor": "Vendor 1",
+          "price": 18.0
+        },
+        {
+          "vendor": "Vendor 2",
+          "price": 27.6
+        },
+        {
+          "vendor": "Vendor 4",
+          "price": 20.0
+        },
+        {
+          "vendor": "Vendor 6",
+          "price": 17.25
+        },
+        {
+          "vendor": "Vendor 7",
+          "price": 35.0
+        },
+        {
+          "vendor": "Vendor 8",
+          "price": 15.0
+        }
+      ],
+      "winner_price": 15.0,
+      "winner_vendor": "Vendor 8",
+      "price_range": {
+        "min": 15.0,
+        "max": 35.0
+      },
+      "vendor_count": 6
+    },
+    {
+      "item_id": "PrintRate-101",
+      "category": "PrintRate",
+      "item_number": "101",
+      "base_name": "100",
+      "full_name": "100 - 500",
+      "specs": {},
+      "vendor_prices": [
+        {
+          "vendor": "Vendor 2",
+          "price": 19.64
+        },
+        {
+          "vendor": "Vendor 3",
+          "price": 8.0
+        },
+        {
+          "vendor": "Vendor 4",
+          "price": 72.0
+        },
+        {
+          "vendor": "Vendor 6",
+          "price": 33.0
+        },
+        {
+          "vendor": "Vendor 7",
+          "price": 35.0
+        }
+      ],
+      "winner_price": 8.0,
+      "winner_vendor": "Vendor 3",
+      "price_range": {
+        "min": 8.0,
+        "max": 72.0
+      },
+      "vendor_count": 5
+    },
+    {
+      "item_id": "PrintRate-102",
+      "category": "PrintRate",
+      "item_number": "102",
+      "base_name": "1,000",
+      "full_name": "1,000 - 5,000",
+      "specs": {},
+      "vendor_prices": [
+        {
+          "vendor": "Vendor 1",
+          "price": 2.8
+        },
+        {
+          "vendor": "Vendor 2",
+          "price": 5.52
+        },
+        {
+          "vendor": "Vendor 3",
+          "price": 5.0
+        },
+        {
+          "vendor": "Vendor 4",
+          "price": 6.0
+        },
+        {
+          "vendor": "Vendor 6",
+          "price": 6.0
+        },
+        {
+          "vendor": "Vendor 7",
+          "price": 10.0
+        },
+        {
+          "vendor": "Vendor 8",
+          "price": 22.0
+        }
+      ],
+      "winner_price": 2.8,
+      "winner_vendor": "Vendor 1",
+      "price_range": {
+        "min": 2.8,
+        "max": 22.0
+      },
+      "vendor_count": 7
+    },
+    {
+      "item_id": "PrintRate-103",
+      "category": "PrintRate",
+      "item_number": "103",
+      "base_name": "1,000",
+      "full_name": "1,000 - 3,000",
+      "specs": {},
+      "vendor_prices": [
+        {
+          "vendor": "Vendor 2",
+          "price": 19.0
+        },
+        {
+          "vendor": "Vendor 3",
+          "price": 25.0
+        },
+        {
+          "vendor": "Vendor 4",
+          "price": 38.0
+        },
+        {
+          "vendor": "Vendor 6",
+          "price": 25.5
+        },
+        {
+          "vendor": "Vendor 7",
+          "price": 25.0
+        },
+        {
+          "vendor": "Vendor 8",
+          "price": 45.0
+        }
+      ],
+      "winner_price": 19.0,
+      "winner_vendor": "Vendor 2",
+      "price_range": {
+        "min": 19.0,
+        "max": 45.0
+      },
+      "vendor_count": 6
+    },
+    {
+      "item_id": "PrintRate-105",
+      "category": "PrintRate",
+      "item_number": "105",
+      "base_name": "1",
+      "full_name": "1 - 5,000",
+      "specs": {},
+      "vendor_prices": [
+        {
+          "vendor": "Vendor 2",
+          "price": 6.0
+        },
+        {
+          "vendor": "Vendor 4",
+          "price": 3.2
+        },
+        {
+          "vendor": "Vendor 6",
+          "price": 4.6
+        },
+        {
+          "vendor": "Vendor 7",
+          "price": 15.0
+        },
+        {
+          "vendor": "Vendor 8",
+          "price": 28.0
+        }
+      ],
+      "winner_price": 3.2,
+      "winner_vendor": "Vendor 4",
+      "price_range": {
+        "min": 3.2,
+        "max": 28.0
+      },
+      "vendor_count": 5
+    },
+    {
+      "item_id": "PrintRate-106",
+      "category": "PrintRate",
+      "item_number": "106",
+      "base_name": "1",
+      "full_name": " 1 - 50",
+      "specs": {},
+      "vendor_prices": [
+        {
+          "vendor": "Vendor 1",
+          "price": 18.0
+        },
+        {
+          "vendor": "Vendor 2",
+          "price": 16.2
+        },
+        {
+          "vendor": "Vendor 4",
+          "price": 20.0
+        },
+        {
+          "vendor": "Vendor 6",
+          "price": 23.0
+        },
+        {
+          "vendor": "Vendor 8",
+          "price": 18.0
+        }
+      ],
+      "winner_price": 16.2,
+      "winner_vendor": "Vendor 2",
+      "price_range": {
+        "min": 16.2,
+        "max": 23.0
+      },
+      "vendor_count": 5
+    },
+    {
+      "item_id": "PrintRate-108",
+      "category": "PrintRate",
+      "item_number": "108",
+      "base_name": "100",
+      "full_name": "100 - 500",
+      "specs": {},
+      "vendor_prices": [
+        {
+          "vendor": "Vendor 1",
+          "price": 1.0
+        },
+        {
+          "vendor": "Vendor 2",
+          "price": 1.3
+        },
+        {
+          "vendor": "Vendor 4",
+          "price": 0.36
+        },
+        {
+          "vendor": "Vendor 6",
+          "price": 6.0
+        },
+        {
+          "vendor": "Vendor 7",
+          "price": 8.0
+        }
+      ],
+      "winner_price": 0.36,
+      "winner_vendor": "Vendor 4",
+      "price_range": {
+        "min": 0.36,
+        "max": 8.0
+      },
+      "vendor_count": 5
+    }
+  ],
+  "metadata": {
+    "total_items": 88,
+    "categories": [
+      "PrintRate",
+      "Premium",
+      "Printing",
+      "Garment",
+      "POSM"
+    ],
+    "extracted_at": "2026-07-31T13:53:28.508154",
+    "source_file": "Trade Marketing Materials price for Y2026.final.xlsx"
+  }
+}
