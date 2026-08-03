@@ -11,6 +11,17 @@ RUN pip install --no-cache-dir azure-search-documents>=11.4.0
 # ── Install pandas + openpyxl + httpx for Procurement Price Lookup Tool ──
 RUN pip install --no-cache-dir pandas openpyxl httpx
 
+# ── Install Fabric Data Warehouse Tool deps: pyodbc + ODBC Driver 18 + Entra ──
+# msodbcsql18 only ships from Microsoft's repo. Base image is Debian 12
+# (python:3.11-slim-bookworm); curl + ca-certificates already present.
+RUN apt-get update && apt-get install -y --no-install-recommends gnupg \
+    && curl -fsSL https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor -o /usr/share/keyrings/microsoft-prod.gpg \
+    && curl -fsSL https://packages.microsoft.com/config/debian/12/prod.list > /etc/apt/sources.list.d/mssql-release.list \
+    && apt-get update \
+    && ACCEPT_EULA=Y apt-get install -y --no-install-recommends msodbcsql18 unixodbc-dev \
+    && rm -rf /var/lib/apt/lists/*
+RUN pip install --no-cache-dir pyodbc azure-identity
+
 # ── Install black + click for code formatting ──
 RUN pip install --no-cache-dir black click
 
