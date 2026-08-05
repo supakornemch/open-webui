@@ -1,36 +1,39 @@
 """
 title: Fabric Data Warehouse Query Tool
 author: Haadthip DIO
-version: 1.2
+version: 1.4
 required_open_webui_version: 0.5.0
 
-Executes SQL queries against Microsoft Fabric Data Warehouse / Lakehouse using Entra ID authentication via Azure SDK or pyodbc.
-
-Capabilities:
-- Query Fabric Data Warehouse tables across domain-specific tools (Sales, Targets, Customers, Products, Credit, Coolers, Visits)
-- Execute custom T-SQL queries safely (SELECT / read-only)
-- Inspect table schemas and metadata (INFORMATION_SCHEMA)
-- Pagination support with limit (max_rows) and page number / offset
-- Non-blocking async execution using background thread executor
-- Returns results in clean JSON markdown format
+Query Microsoft Fabric Data Warehouse (LH_OTC_TEST) using Entra ID auth.
+Domain helpers: Sales/OTC, Targets, Customers, Products, Credit, Coolers, Visits, RFM Segmentation.
+Custom T-SQL (SELECT/WITH only), schema inspection, pagination (hard cap: 20).
 """
 
 import asyncio
 import json
 import os
+import re
 import struct
-from typing import Optional, List, Dict, Any
+from typing import Optional
 from pydantic import BaseModel, Field
 
 import pyodbc
 from azure.identity import (
     DefaultAzureCredential,
-    AzureCliCredential,
     ClientSecretCredential,
 )
 
 
 class Tools:
+    HARD_MAX_LIMIT = 20
+    WILDCARD_SELECT_RE = re.compile(
+        r"(?:\bSELECT\b|,)\s*"
+        r"(?:DISTINCT\s+)?(?:TOP\s+\d+\s+)?"
+        r"(?:[A-Za-z_]\w*[.])?\s*\*"
+        r"(?=\s*(?:,|\bFROM\b|$))",
+        re.IGNORECASE,
+    )
+
     class Valves(BaseModel):
         FABRIC_ENDPOINT: str = Field(
             default="ypmukualhmkuhbmumqiyxplusu-ytem5s6jyj6e5cg2lqqkuiiufq.datawarehouse.fabric.microsoft.com",
@@ -61,12 +64,12 @@ class Tools:
             description="(Optional) Pre-acquired Entra ID bearer token"
         )
         DEFAULT_LIMIT: int = Field(
-            default=50,
-            description="Default maximum number of rows to return per query page"
+            default=20,
+            description="Default maximum number of rows to return per query page (hard cap: 20)"
         )
         MAX_LIMIT_CAP: int = Field(
-            default=200,
-            description="Hard upper limit cap on maximum allowed rows per request"
+            default=20,
+            description="Maximum rows per request; the tool hard-caps this value at 20"
         )
         CONNECT_TIMEOUT: int = Field(
             default=15,
@@ -84,16 +87,68 @@ class Tools:
         if not self.valves.AZURE_CLIENT_SECRET:
             self.valves.AZURE_CLIENT_SECRET = os.getenv("MICROSOFT_CLIENT_SECRET", "")
 
+    @classmethod
+    def _validate_read_only_query(cls, query: str) -> Optional[str]:
+        if not query:
+            return "Error: SQL query cannot be empty."
+
+        upper_query = query.upper()
+        if not upper_query.startswith(("SELECT", "WITH")):
+            return "Error: Only read-only queries (SELECT or WITH) are allowed."
+
+        if re.search(
+            r"\b(?:INSERT|UPDATE|DELETE|MERGE|DROP|ALTER|CREATE|TRUNCATE|GRANT|DENY|EXEC|EXECUTE)\b",
+            query,
+            re.IGNORECASE,
+        ):
+            return "Error: Data-modifying and procedure statements are not allowed."
+
+        if cls.WILDCARD_SELECT_RE.search(query):
+            return (
+                "Error: SELECT * is not allowed. "
+                "Select only the columns required to answer the question."
+            )
+
+        return None
+
+    def _normalise_limit(self, requested_limit: Optional[int]) -> int:
+        try:
+            default_limit = int(self.valves.DEFAULT_LIMIT)
+        except (TypeError, ValueError):
+            default_limit = self.HARD_MAX_LIMIT
+
+        try:
+            configured_cap = int(self.valves.MAX_LIMIT_CAP)
+        except (TypeError, ValueError):
+            configured_cap = self.HARD_MAX_LIMIT
+
+        try:
+            row_limit = int(requested_limit) if requested_limit is not None else default_limit
+        except (TypeError, ValueError):
+            row_limit = default_limit
+
+        if row_limit <= 0:
+            row_limit = default_limit
+        if row_limit <= 0:
+            row_limit = self.HARD_MAX_LIMIT
+
+        if configured_cap <= 0:
+            configured_cap = self.HARD_MAX_LIMIT
+
+        return max(1, min(row_limit, configured_cap, self.HARD_MAX_LIMIT))
+
+    @staticmethod
+    def _sql_literal(value: object) -> str:
+        """Quote a user-supplied string for a read-only SQL filter."""
+        return "'" + str(value).replace("'", "''") + "'"
+
     def _sync_get_connection_and_query(
         self, database_name: str, cleaned_query: str, limit: int, offset: int
     ) -> str:
         db = database_name or self.valves.DEFAULT_DATABASE
         endpoint = self.valves.FABRIC_ENDPOINT
 
-        # Priority 1: User/Valve provided raw token
         token_str = self.valves.ACCESS_TOKEN.strip()
-
-        # Priority 2: Service Principal Credential if client_id & secret are set
         if not token_str and self.valves.AZURE_CLIENT_ID and self.valves.AZURE_CLIENT_SECRET and self.valves.AZURE_TENANT_ID:
             try:
                 cred = ClientSecretCredential(
@@ -106,7 +161,7 @@ class Tools:
             except Exception:
                 token_str = ""
 
-        # Priority 3: DefaultAzureCredential / AzureCliCredential fallback
+        # Priority 3: DefaultAzureCredential fallback
         if not token_str:
             try:
                 credential = DefaultAzureCredential()
@@ -121,7 +176,6 @@ class Tools:
         if not token_str:
             raise RuntimeError("Failed to acquire Entra ID Access Token for Fabric connection.")
 
-        # Format token for ODBC Attribute 1256 (SQL_COPT_SS_ACCESS_TOKEN)
         token_bytes = token_str.encode("utf-16-le")
         token_struct = struct.pack(f"<I{len(token_bytes)}s", len(token_bytes), token_bytes)
         SQL_COPT_SS_ACCESS_TOKEN = 1256
@@ -134,26 +188,32 @@ class Tools:
             "TrustServerCertificate=no;"
         )
 
-        conn = pyodbc.connect(
-            conn_str,
-            attrs_before={SQL_COPT_SS_ACCESS_TOKEN: token_struct},
-            timeout=self.valves.CONNECT_TIMEOUT
-        )
-        cursor = conn.cursor()
-        cursor.execute(cleaned_query)
+        conn = None
+        try:
+            conn = pyodbc.connect(
+                conn_str,
+                attrs_before={SQL_COPT_SS_ACCESS_TOKEN: token_struct},
+                timeout=self.valves.CONNECT_TIMEOUT
+            )
+            cursor = conn.cursor()
+            cursor.execute(cleaned_query)
 
-        if not cursor.description:
-            conn.close()
-            return "Query executed successfully with no output."
+            if not cursor.description:
+                return "Query executed successfully with no output."
 
-        columns = [column[0] for column in cursor.description]
+            columns = [column[0] for column in cursor.description]
 
-        # Handle pagination (offset & limit)
-        if offset > 0:
-            cursor.skip(offset)
+            remaining_offset = max(offset, 0)
+            while remaining_offset > 0:
+                skipped_rows = cursor.fetchmany(min(remaining_offset, self.HARD_MAX_LIMIT))
+                if not skipped_rows:
+                    break
+                remaining_offset -= len(skipped_rows)
 
-        rows = cursor.fetchmany(limit)
-        conn.close()
+            rows = cursor.fetchmany(limit)
+        finally:
+            if conn is not None:
+                conn.close()
 
         if not rows:
             return f"No results found in database `{db}` (Page Offset: {offset}, Limit: {limit})."
@@ -184,26 +244,19 @@ class Tools:
         __user__: Optional[dict] = None
     ) -> str:
         """
-        Execute a custom T-SQL SELECT query against Microsoft Fabric Data Warehouse / Lakehouse.
-
-        :param sql_query: Read-only T-SQL SELECT query (e.g., 'SELECT TOP 10 * FROM dv.mlv_sale_preformance_aggregate').
-        :param database_name: (Optional) Target database name such as 'LH_OTC_TEST' or 'LH_PROJECT'. Defaults to LH_OTC_TEST.
-        :param limit: (Optional) Max rows to return per page (max cap: 200). Defaults to 50.
-        :param offset: (Optional) Number of rows to skip (0-indexed). Defaults to 0.
-        :param page: (Optional) Page number (1-indexed). Overrides offset.
-        :return: JSON formatted query results.
+        Execute T-SQL SELECT/WITH query. Must list explicit columns (no SELECT *).
+        :param sql_query: T-SQL with explicit columns, e.g. 'SELECT TOP 20 BillingDate, SumBillNetRevenue FROM dv.mlv_sale_preformance_aggregate'
+        :param limit: Max rows (hard cap: 20)
+        :param page: Page number (1-indexed, overrides offset)
         """
         cleaned_query = sql_query.strip()
-        
-        # Basic safety check to prevent data modification
-        if not cleaned_query.upper().startswith(("SELECT", "WITH", "EXEC", "SHOW")):
-            return "Error: Only read-only queries (SELECT, WITH, EXEC) are allowed."
+
+        validation_error = self._validate_read_only_query(cleaned_query)
+        if validation_error:
+            return validation_error
 
         target_db = database_name or self.valves.DEFAULT_DATABASE
-
-        # Calculate limit and offset
-        row_limit = limit if (limit and limit > 0) else self.valves.DEFAULT_LIMIT
-        row_limit = min(row_limit, self.valves.MAX_LIMIT_CAP)
+        row_limit = self._normalise_limit(limit)
 
         if page and page > 0:
             row_offset = (page - 1) * row_limit
@@ -228,36 +281,27 @@ class Tools:
         zone: Optional[str] = None,
         brand_key: Optional[str] = None,
         customer_key: Optional[str] = None,
-        limit: Optional[int] = 50,
+        limit: Optional[int] = 20,
         page: Optional[int] = 1,
         __user__: Optional[dict] = None
     ) -> str:
         """
-        Query sales performance metrics (Net Revenue, PC Volume, UC Volume) aggregated by date, sub-org, zone, brand, or customer.
-        Main Table: dv.mlv_sale_preformance_aggregate (also refers to dv.dv_daily_sales, gold.fact_billing)
-
-        :param date_from: (Optional) Start date filter 'YYYY-MM-DD' (e.g. '2025-01-01').
-        :param date_to: (Optional) End date filter 'YYYY-MM-DD' (e.g. '2025-01-31').
-        :param sub_org: (Optional) Sales SubOrg key / code (e.g. '5110', '5120').
-        :param zone: (Optional) Sales zone name or code.
-        :param brand_key: (Optional) Brand Key / Code (e.g. 'COKE', 'FANTA').
-        :param customer_key: (Optional) Customer ID / Code.
-        :param limit: (Optional) Max rows per page. Defaults to 50.
-        :param page: (Optional) Page number (1-indexed).
+        Query sales (Net Revenue, PC, UC) from dv.mlv_sale_preformance_aggregate.
+        Filter: date (YYYY-MM-DD), sub_org, zone, brand_key, customer_key. Limit: 20.
         """
         where_clauses = []
         if date_from:
-            where_clauses.append(f"BillingDate >= '{date_from}'")
+            where_clauses.append(f"BillingDate >= {self._sql_literal(date_from)}")
         if date_to:
-            where_clauses.append(f"BillingDate <= '{date_to}'")
+            where_clauses.append(f"BillingDate <= {self._sql_literal(date_to)}")
         if sub_org:
-            where_clauses.append(f"SubOrgKey = '{sub_org}'")
+            where_clauses.append(f"SubOrgKey = {self._sql_literal(sub_org)}")
         if zone:
-            where_clauses.append(f"Zone LIKE '%{zone}%'")
+            where_clauses.append(f"Zone LIKE {self._sql_literal(f'%{zone}%')}")
         if brand_key:
-            where_clauses.append(f"BrandKey = '{brand_key}'")
+            where_clauses.append(f"BrandKey = {self._sql_literal(brand_key)}")
         if customer_key:
-            where_clauses.append(f"BillCustomerKey = '{customer_key}'")
+            where_clauses.append(f"BillCustomerKey = {self._sql_literal(customer_key)}")
 
         where_sql = f"WHERE {' AND '.join(where_clauses)}" if where_clauses else ""
         query = f"""
@@ -267,7 +311,9 @@ class Tools:
             {where_sql}
             ORDER BY BillingDate DESC
         """
-        return await self.query_fabric(sql_query=query, limit=limit, page=page, __user__=__user__)
+        return await self.query_fabric(
+            sql_query=query, limit=self._normalise_limit(limit), page=page, __user__=__user__
+        )
 
     async def query_sales_targets(
         self,
@@ -276,44 +322,38 @@ class Tools:
         sub_org: Optional[str] = None,
         material_no: Optional[str] = None,
         customer_key: Optional[str] = None,
-        limit: Optional[int] = 50,
+        limit: Optional[int] = 20,
         page: Optional[int] = 1,
         __user__: Optional[dict] = None
     ) -> str:
         """
-        Query sales target quotas and performance goals (Revenue, Physical Cases - PC, Unit Cases - UC).
-        Main Tables: dv.mlv_sale_target, dv.mlv_sale_target_customer, gold.fact_sale_target
-
-        :param year: (Optional) Target year (e.g. 2025).
-        :param month: (Optional) Target month number 1-12.
-        :param sub_org: (Optional) Sales SubOrg key / code.
-        :param material_no: (Optional) Material / product code.
-        :param customer_key: (Optional) Customer ID / Code for customer-level targets.
-        :param limit: (Optional) Max rows per page.
-        :param page: (Optional) Page number.
+        Query sales targets (Revenue, PC, UC) from dv.mlv_sale_target or dv.mlv_sale_target_customer.
+        Filter: year, month, sub_org, material_no, customer_key. Limit: 20.
         """
         if customer_key:
-            where_clauses = [f"BillCustomerKey = '{customer_key}'"]
+            where_clauses = [f"CustomerKey = {self._sql_literal(customer_key)}"]
             if year:
-                where_clauses.append(f"Year = {year}")
+                where_clauses.append(f"Year = {int(year)}")
             if month:
-                where_clauses.append(f"MonthNumber = {month}")
+                where_clauses.append(f"MonthNumber = {int(month)}")
             where_sql = f"WHERE {' AND '.join(where_clauses)}"
-            query = f"SELECT * FROM dv.mlv_sale_target_customer {where_sql} ORDER BY Year DESC, MonthNumber DESC"
+            query = f"SELECT SubOrgKey, CustomerKey, MaterialNo, PackSizeCode, Year, MonthNumber, Revenue, Pc, Uc, MonthYearKey FROM dv.mlv_sale_target_customer {where_sql} ORDER BY Year DESC, MonthNumber DESC"
         else:
             where_clauses = []
             if year:
-                where_clauses.append(f"Year = {year}")
+                where_clauses.append(f"Year = {int(year)}")
             if month:
-                where_clauses.append(f"MonthNumber = {month}")
+                where_clauses.append(f"MonthNumber = {int(month)}")
             if sub_org:
-                where_clauses.append(f"SubOrg = '{sub_org}'")
+                where_clauses.append(f"SubOrg = {self._sql_literal(sub_org)}")
             if material_no:
-                where_clauses.append(f"MaterialNo = '{material_no}'")
+                where_clauses.append(f"MaterialNo = {self._sql_literal(material_no)}")
             where_sql = f"WHERE {' AND '.join(where_clauses)}" if where_clauses else ""
             query = f"SELECT MaterialNo, PackSizeCode, Year, MonthNumber, Revenue, Pc, Uc, SubOrg FROM dv.mlv_sale_target {where_sql} ORDER BY Year DESC, MonthNumber DESC"
 
-        return await self.query_fabric(sql_query=query, limit=limit, page=page, __user__=__user__)
+        return await self.query_fabric(
+            sql_query=query, limit=self._normalise_limit(limit), page=page, __user__=__user__
+        )
 
     async def query_customers(
         self,
@@ -322,42 +362,37 @@ class Tools:
         search_term: Optional[str] = None,
         sub_org: Optional[str] = None,
         only_buying: bool = False,
-        limit: Optional[int] = 50,
+        limit: Optional[int] = 20,
         page: Optional[int] = 1,
         __user__: Optional[dict] = None
     ) -> str:
         """
-        Query customer master data, buying customer status, and outlet details.
-        Main Tables: gold.dim_customer, dv.mlv_buying_customer, dv.dv_new_outlet, dv.dv_closed_outlet
-
-        :param customer_name: (Optional) Name or partial name of customer/store (e.g. 'เซเว่น', 'สมชาย').
-        :param customer_key: (Optional) Exact Customer ID / Code.
-        :param search_term: (Optional) Customer search term / alias.
-        :param sub_org: (Optional) SubOrg key filter.
-        :param only_buying: (Optional) If true, query active buying customers from dv.mlv_buying_customer.
-        :param limit: (Optional) Max rows per page.
-        :param page: (Optional) Page number.
+        Query customers from gold.dim_customer or dv.mlv_buying_customer (only_buying=true).
+        Filter: customer_name, customer_key, search_term, sub_org. Limit: 20.
         """
         if only_buying:
             where_clauses = []
             if customer_key:
-                where_clauses.append(f"BillCustomerKey = '{customer_key}'")
+                where_clauses.append(f"BillCustomerKey = {self._sql_literal(customer_key)}")
             if sub_org:
-                where_clauses.append(f"SubOrgKey = '{sub_org}'")
+                where_clauses.append(f"SubOrgKey = {self._sql_literal(sub_org)}")
             where_sql = f"WHERE {' AND '.join(where_clauses)}" if where_clauses else ""
             query = f"SELECT BillingDate, BillCustomerKey, SalesGroupKey, SubOrgKey, SOSalesOfficeKey, IsHybrid FROM dv.mlv_buying_customer {where_sql} ORDER BY BillingDate DESC"
         else:
             where_clauses = []
             if customer_key:
-                where_clauses.append(f"CustomerKey = '{customer_key}'")
+                where_clauses.append(f"CustomerKey = {self._sql_literal(customer_key)}")
             if customer_name:
-                where_clauses.append(f"(Name LIKE '%{customer_name}%' OR Name2 LIKE '%{customer_name}%')")
+                name_pattern = self._sql_literal(f"%{customer_name}%")
+                where_clauses.append(f"(Name LIKE {name_pattern} OR Name2 LIKE {name_pattern})")
             if search_term:
-                where_clauses.append(f"SearchTerm LIKE '%{search_term}%'")
+                where_clauses.append(f"SearchTerm LIKE {self._sql_literal(f'%{search_term}%')}")
             where_sql = f"WHERE {' AND '.join(where_clauses)}" if where_clauses else ""
             query = f"SELECT CustomerKey, Name, Name2, Country, Region, PostCode, SearchTerm, AcctGroup, CreatDate FROM gold.dim_customer {where_sql} ORDER BY CustomerKey"
 
-        return await self.query_fabric(sql_query=query, limit=limit, page=page, __user__=__user__)
+        return await self.query_fabric(
+            sql_query=query, limit=self._normalise_limit(limit), page=page, __user__=__user__
+        )
 
     async def query_products(
         self,
@@ -365,86 +400,83 @@ class Tools:
         material_key: Optional[str] = None,
         brand_key: Optional[str] = None,
         pack_size: Optional[str] = None,
-        limit: Optional[int] = 50,
+        limit: Optional[int] = 20,
         page: Optional[int] = 1,
         __user__: Optional[dict] = None
     ) -> str:
         """
-        Query product and material master data (Material Description, Material Group, Brand, Pack Size).
-        Main Tables: gold.dim_material, gold.dim_brand, gold.dim_pack_size, gold.dim_beverage_category, dbo.material_code
-
-        :param material_name: (Optional) Product name or keyword (e.g. 'Coke', 'น้ำทิพย์', '325ml').
-        :param material_key: (Optional) Material Code / Key.
-        :param brand_key: (Optional) Brand code/name filter.
-        :param pack_size: (Optional) Pack size filter.
-        :param limit: (Optional) Max rows per page.
-        :param page: (Optional) Page number.
+        Query products from gold.dim_material.
+        Filter: material_name, material_key, brand_key, pack_size. Limit: 20.
         """
         where_clauses = []
         if material_key:
-            where_clauses.append(f"MaterialKey = '{material_key}'")
+            where_clauses.append(f"MaterialKey = {self._sql_literal(material_key)}")
         if material_name:
-            where_clauses.append(f"MatDescr LIKE '%{material_name}%'")
+            where_clauses.append(f"MatDescr LIKE {self._sql_literal(f'%{material_name}%')}")
         if brand_key:
-            where_clauses.append(f"MatlGroup LIKE '%{brand_key}%'")
+            where_clauses.append(f"MatlGroup LIKE {self._sql_literal(f'%{brand_key}%')}")
+        if pack_size:
+            where_clauses.append(f"MatDescr LIKE {self._sql_literal(f'%{pack_size}%')}")
 
         where_sql = f"WHERE {' AND '.join(where_clauses)}" if where_clauses else ""
-        query = f"SELECT MaterialKey, MatlNo, MatDescr, MatlTypeKey, MatlGroup, Status, CreatedOn FROM gold.dim_material {where_sql} ORDER BY MaterialKey"
-        return await self.query_fabric(sql_query=query, limit=limit, page=page, __user__=__user__)
+        query = f"SELECT MaterialKey, MatlNo, MatDescr, MatlTypeKey, MatlGroup, PackSizeKey, BrandKey, Status, CreatedOn FROM gold.dim_material {where_sql} ORDER BY MaterialKey"
+        return await self.query_fabric(
+            sql_query=query, limit=self._normalise_limit(limit), page=page, __user__=__user__
+        )
 
     async def query_credit_and_overdue(
         self,
         customer_key: Optional[str] = None,
         due_before_date: Optional[str] = None,
-        limit: Optional[int] = 50,
+        limit: Optional[int] = 20,
         page: Optional[int] = 1,
         __user__: Optional[dict] = None
     ) -> str:
         """
-        Query customer overdue credit, unpaid amounts, and account receivable status.
-        Main Tables: dv.mlv_credit_overdue, dv.dv_credit_use_credit_limit, gold.dim_customer_credit, gold.fact_ar_open_item
-
-        :param customer_key: (Optional) Customer ID / Code filter.
-        :param due_before_date: (Optional) Date filter 'YYYY-MM-DD' to check items due on or before date.
-        :param limit: (Optional) Max rows per page.
-        :param page: (Optional) Page number.
+        Query overdue credit from dv.mlv_credit_overdue.
+        Filter: customer_key, due_before_date (YYYY-MM-DD). Limit: 20.
         """
         where_clauses = []
         if customer_key:
-            where_clauses.append(f"CustomerKey = '{customer_key}'")
+            where_clauses.append(f"CustomerKey = {self._sql_literal(customer_key)}")
         if due_before_date:
-            where_clauses.append(f"DueDate <= '{due_before_date}'")
+            where_clauses.append(f"DueDate <= {self._sql_literal(due_before_date)}")
 
         where_sql = f"WHERE {' AND '.join(where_clauses)}" if where_clauses else ""
         query = f"SELECT CustomerKey, BillingDocKey, BaselineDate, DueDate, AmountLC, SignedAmount FROM dv.mlv_credit_overdue {where_sql} ORDER BY DueDate ASC"
-        return await self.query_fabric(sql_query=query, limit=limit, page=page, __user__=__user__)
+        return await self.query_fabric(
+            sql_query=query, limit=self._normalise_limit(limit), page=page, __user__=__user__
+        )
 
     async def query_coolers(
         self,
         customer_key: Optional[str] = None,
         cooler_serial: Optional[str] = None,
         cooler_status: Optional[str] = None,
-        limit: Optional[int] = 50,
+        limit: Optional[int] = 20,
         page: Optional[int] = 1,
         __user__: Optional[dict] = None
     ) -> str:
         """
-        Query cooler placements, cooler buying statistics, and cooler inventory status.
-        Main Tables: dv.dv_cooler, dv.mlv_outlet_with_cooler_buying, dv.dv_cooler_target, ext.ext_cooler_placement, gold.fact_cooler
-
-        :param customer_key: (Optional) Customer ID / Code where cooler is installed.
-        :param cooler_serial: (Optional) Serial number of the cooler equipment.
-        :param cooler_status: (Optional) Status of cooler.
-        :param limit: (Optional) Max rows per page.
-        :param page: (Optional) Page number.
+        Query coolers from dv.mlv_outlet_with_cooler_buying.
+        Filter: customer_key. Note: cooler_serial/status not supported; use query_fabric on dv.dv_cooler. Limit: 20.
         """
         where_clauses = []
         if customer_key:
-            where_clauses.append(f"BillCustomerKey = '{customer_key}'")
+            where_clauses.append(f"BillCustomerKey = {self._sql_literal(customer_key)}")
+
+        if cooler_serial or cooler_status:
+            return (
+                "Error: cooler_serial and cooler_status are not available in "
+                "dv.mlv_outlet_with_cooler_buying. Use get_table_schema on dv.dv_cooler "
+                "and query_fabric with the required equipment fields."
+            )
         
         where_sql = f"WHERE {' AND '.join(where_clauses)}" if where_clauses else ""
-        query = f"SELECT * FROM dv.mlv_outlet_with_cooler_buying {where_sql}"
-        return await self.query_fabric(sql_query=query, limit=limit, page=page, __user__=__user__)
+        query = f"SELECT EquipmentKey, CustomerKey, ValidFromDate, ValidToDate, StorageLocationKey, BillCustomerKey, BillingDate FROM dv.mlv_outlet_with_cooler_buying {where_sql} ORDER BY BillingDate DESC, EquipmentKey"
+        return await self.query_fabric(
+            sql_query=query, limit=self._normalise_limit(limit), page=page, __user__=__user__
+        )
 
     async def query_customer_visits(
         self,
@@ -452,52 +484,55 @@ class Tools:
         visit_date_from: Optional[str] = None,
         visit_date_to: Optional[str] = None,
         visit_group_key: Optional[str] = None,
-        limit: Optional[int] = 50,
+        limit: Optional[int] = 20,
         page: Optional[int] = 1,
         __user__: Optional[dict] = None
     ) -> str:
         """
-        Query salesman customer visit plans, visit history, active visit routes, and sales orders from visits.
-        Main Tables: dv.mlv_customer_visit_list, dv.mlv_active_customer_visit, dv.mlv_customer_visit_sales_order, gold.fact_customer_visit
-
-        :param customer_key: (Optional) Customer ID / Code visited.
-        :param visit_date_from: (Optional) Visit start date filter 'YYYY-MM-DD'.
-        :param visit_date_to: (Optional) Visit end date filter 'YYYY-MM-DD'.
-        :param visit_group_key: (Optional) Sales visit group / route key.
-        :param limit: (Optional) Max rows per page.
-        :param page: (Optional) Page number.
+        Query customer visits from dv.mlv_customer_visit_list.
+        Filter: customer_key, visit_date_from/to (YYYY-MM-DD), visit_group_key. Limit: 20.
         """
         where_clauses = []
         if customer_key:
-            where_clauses.append(f"CustomerKey = '{customer_key}'")
+            where_clauses.append(f"CustomerKey = {self._sql_literal(customer_key)}")
+        if visit_date_from:
+            where_clauses.append(f"ExecDateKey >= {self._sql_literal(visit_date_from)}")
+        if visit_date_to:
+            where_clauses.append(f"ExecDateKey <= {self._sql_literal(visit_date_to)}")
         if visit_group_key:
-            where_clauses.append(f"VisitGroupKey = '{visit_group_key}'")
+            where_clauses.append(f"VisitGroupKey = {self._sql_literal(visit_group_key)}")
 
         where_sql = f"WHERE {' AND '.join(where_clauses)}" if where_clauses else ""
-        query = f"SELECT * FROM dv.mlv_customer_visit_list {where_sql}"
-        return await self.query_fabric(sql_query=query, limit=limit, page=page, __user__=__user__)
+        query = f"SELECT ExecDateKey, SubOrgKey, CustomerKey, VisitGroupKey, GroupVisitKey, GroupBM, GroupVisitSalesOfficeDescKey, GroupABM, SubOrgVisitGroupKey FROM dv.mlv_customer_visit_list {where_sql} ORDER BY ExecDateKey DESC, CustomerKey"
+        return await self.query_fabric(
+            sql_query=query, limit=self._normalise_limit(limit), page=page, __user__=__user__
+        )
 
-    async def list_tables(
+    async def query_customer_rfm(
         self,
-        schema_name: Optional[str] = None,
-        database_name: Optional[str] = None,
-        limit: Optional[int] = 100,
+        customer_key: Optional[str] = None,
+        min_monetary: Optional[float] = None,
+        segment: Optional[str] = None,
+        limit: Optional[int] = 20,
         page: Optional[int] = 1,
         __user__: Optional[dict] = None
     ) -> str:
         """
-        List available tables and schemas in Fabric Data Warehouse database with pagination.
-
-        :param schema_name: (Optional) Filter by specific schema (e.g. 'dv', 'gold', 'ext', 'dbo', 'sap', 'silver', 'bronze').
-        :param database_name: (Optional) Target database name (defaults to LH_OTC_TEST).
-        :param limit: (Optional) Max rows per page. Defaults to 100.
-        :param page: (Optional) Page number (1-indexed).
-        :return: List of schemas, table names, and table types.
+        Query customer RFM segmentation from dv.mlv_customer_rfm.
+        Filter: customer_key, min_monetary, segment (base_rfm_segment). Limit: 20.
         """
-        where_sql = f"WHERE TABLE_SCHEMA = '{schema_name}'" if schema_name else ""
-        query = f"SELECT TABLE_SCHEMA, TABLE_NAME, TABLE_TYPE FROM INFORMATION_SCHEMA.TABLES {where_sql} ORDER BY TABLE_SCHEMA, TABLE_NAME;"
+        where_clauses = []
+        if customer_key:
+            where_clauses.append(f"CustomerKey = {self._sql_literal(customer_key)}")
+        if min_monetary is not None:
+            where_clauses.append(f"cur_monetary >= {float(min_monetary)}")
+        if segment:
+            where_clauses.append(f"base_rfm_segment LIKE {self._sql_literal(f'%{segment}%')}")
+
+        where_sql = f"WHERE {' AND '.join(where_clauses)}" if where_clauses else ""
+        query = f"SELECT CustomerKey, BillCustomerKey, SalesGroupKey, cur_last_billing_date, cur_frequency, cur_monetary, cur_recency_days, base_rfm_segment, adjusted_rfm_segment, RFM_score, segment_health FROM dv.mlv_customer_rfm {where_sql} ORDER BY cur_monetary DESC, cur_frequency DESC"
         return await self.query_fabric(
-            sql_query=query, database_name=database_name, limit=limit, page=page, __user__=__user__
+            sql_query=query, limit=self._normalise_limit(limit), page=page, __user__=__user__
         )
 
     async def get_table_schema(
@@ -505,23 +540,27 @@ class Tools:
         table_name: str,
         schema_name: Optional[str] = "gold",
         database_name: Optional[str] = None,
+        limit: Optional[int] = 20,
+        page: Optional[int] = 1,
         __user__: Optional[dict] = None
     ) -> str:
         """
-        Inspect table column names, data types, and column positions for a specific table in Fabric DW.
-
-        :param table_name: Table or view name (e.g. 'dim_customer', 'mlv_sale_preformance_aggregate').
-        :param schema_name: (Optional) Schema name (e.g. 'dv', 'gold', 'dbo'). Defaults to 'gold'.
-        :param database_name: (Optional) Target database name.
-        :return: Column metadata listing.
+        Inspect columns from INFORMATION_SCHEMA.COLUMNS.
+        :param table_name: Table/view name
+        :param schema_name: Schema (default: gold). Limit: 20.
         """
         query = f"""
             SELECT COLUMN_NAME, DATA_TYPE, CHARACTER_MAXIMUM_LENGTH, IS_NULLABLE
             FROM INFORMATION_SCHEMA.COLUMNS
-            WHERE TABLE_SCHEMA = '{schema_name}' AND TABLE_NAME = '{table_name}'
+                        WHERE TABLE_SCHEMA = {self._sql_literal(schema_name)}
+                            AND TABLE_NAME = {self._sql_literal(table_name)}
             ORDER BY ORDINAL_POSITION
         """
         return await self.query_fabric(
-            sql_query=query, database_name=database_name, limit=200, page=1, __user__=__user__
+            sql_query=query,
+            database_name=database_name,
+            limit=self._normalise_limit(limit),
+            page=page,
+            __user__=__user__,
         )
 

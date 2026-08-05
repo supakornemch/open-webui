@@ -5,15 +5,15 @@ The source workbook is relational: product, variant, vendor, and vendor price
 data live in separate sheets. This exporter joins those sheets itself because
 Python readers do not recalculate Excel VLOOKUP formulas.
 
-Only rows explicitly marked both ``Is Winner`` and ``Meets Spec`` are emitted.
-It is intentionally an error to use a template that omits those controls: a
-lowest quote is not necessarily an acceptable awarded quote.
+All rows in ``Vendor_Prices`` are emitted when their product, variant, vendor,
+price, and quantity data are valid. The single ``Qty`` column may contain a
+flat minimum (``1``), a range (``1-99 ชิ้น``), or an open-ended tier
+(``500+ ชิ้น``). A blank year remains null in the index.
 """
 
 import argparse
 import json
 import re
-from collections import defaultdict
 from pathlib import Path
 from typing import Any
 
@@ -29,12 +29,8 @@ REQUIRED_PRICE_COLUMNS = {
     "Variant Code",
     "Vendor Code",
     "Price",
-    "Unit",
     "Qty",
-    "Qty Range",
     "Year",
-    "Is Winner",
-    "Meets Spec",
     "Notes",
 }
 
@@ -50,10 +46,6 @@ def read_rows(workbook: Any, sheet_name: str) -> list[dict[str, Any]]:
     return rows
 
 
-def as_bool(value: Any) -> bool:
-    return str(value).strip().upper() in {"TRUE", "YES", "1"}
-
-
 def compact_id(value: str) -> str:
     return re.sub(r"[^A-Za-z0-9_-]+", "_", value).strip("_")
 
@@ -62,8 +54,45 @@ def display(value: Any) -> str:
     return "" if value is None else str(value).strip()
 
 
+def quantity_bounds(value: Any) -> tuple[int, int | None]:
+    """Convert the single Qty field into inclusive minimum and maximum bounds."""
+    text = display(value).replace(",", "")
+    numbers = [int(number) for number in re.findall(r"\d+", text)]
+    if not numbers:
+        raise ValueError(f"Invalid Qty: {value!r}")
+    if len(numbers) >= 2 and re.search(r"[-–—ถึง]|\bto\b", text, re.IGNORECASE):
+        lower, upper = numbers[0], numbers[1]
+        if lower > upper:
+            raise ValueError(f"Invalid Qty range: {value!r}")
+        return lower, upper
+    return numbers[0], None
+
+
+def related_products(product: dict[str, Any], quote: dict[str, Any]) -> list[str]:
+    """Read declared follow-up items from the product or quote metadata.
+
+    Prefer the structured ``Related Products Code`` column. A source workbook may
+    also use the strict Notes convention ``RELATED_PRODUCTS: item A; item B``.
+    Free-form notes are intentionally ignored so the assistant never invents
+    an accessory relationship from prose.
+    """
+    values = [display(product.get("Related Products Code"))]
+    notes = display(quote.get("Notes")) or display(product.get("Notes"))
+    match = re.search(r"\bRELATED_PRODUCTS?\s*:\s*([^\r\n]+)", notes, re.IGNORECASE)
+    if match:
+        values.append(match.group(1))
+
+    items = []
+    for value in values:
+        for item in re.split(r"[;|\r\n]+", value):
+            item = item.strip()
+            if item and item not in items:
+                items.append(item)
+    return items
+
+
 def build_records(source: Path) -> tuple[list[dict[str, Any]], list[str]]:
-    workbook = load_workbook(source, read_only=True, data_only=False)
+    workbook = load_workbook(source, read_only=True, data_only=True)
     missing_sheets = REQUIRED_SHEETS - set(workbook.sheetnames)
     if missing_sheets:
         raise ValueError(f"Missing sheets: {', '.join(sorted(missing_sheets))}")
@@ -78,7 +107,7 @@ def build_records(source: Path) -> tuple[list[dict[str, Any]], list[str]]:
     missing_columns = REQUIRED_PRICE_COLUMNS - price_columns
     if missing_columns:
         raise ValueError(
-            "Vendor_Prices must include awarded-quote controls. Missing: "
+            "Vendor_Prices is missing required columns: "
             + ", ".join(sorted(missing_columns))
         )
 
@@ -87,13 +116,8 @@ def build_records(source: Path) -> tuple[list[dict[str, Any]], list[str]]:
     vendor_by_code = {display(row["Vendor Code"]): row for row in vendors}
     records = []
     missing_references = []
-    ignored_not_awarded = 0
 
     for row in prices:
-        if not as_bool(row["Is Winner"]) or not as_bool(row["Meets Spec"]):
-            ignored_not_awarded += 1
-            continue
-
         product_code = display(row["Product Code"])
         variant_code = display(row["Variant Code"])
         vendor_code = display(row["Vendor Code"])
@@ -113,9 +137,17 @@ def build_records(source: Path) -> tuple[list[dict[str, Any]], list[str]]:
         item_name = display(product.get("Product Name"))
         variant_description = display(variant.get("Description")) if variant else ""
         vendor_name = display(vendor.get("Vendor Name"))
-        year = int(row["Year"])
-        quantity_range = display(row["Qty Range"])
-        source_key = "|".join((product_code, variant_code or "base", vendor_code, str(year), quantity_range))
+        year = int(row["Year"]) if row["Year"] is not None else None
+        related = related_products(product, row)
+        quantity = str(row["Qty"]) if row["Qty"] is not None else ""
+        try:
+            qty_min, qty_max = quantity_bounds(quantity)
+        except ValueError as error:
+            missing_references.append(f"product={product_code!r}: {error}")
+            continue
+        source_key = "|".join(
+            (product_code, variant_code or "base", vendor_code, str(year or "unknown"), quantity)
+        )
         record = {
             "id": compact_id(source_key),
             "product_code": product_code,
@@ -128,28 +160,36 @@ def build_records(source: Path) -> tuple[list[dict[str, Any]], list[str]]:
             "vendor_name": vendor_name,
             "year": year,
             "price": float(price),
-            "unit": display(row["Unit"]),
-            "qty": row["Qty"],
-            "qty_range": quantity_range,
-            "is_winner": True,
-            "meets_spec": True,
+            "qty": quantity,
+            "qty_min": qty_min,
+            "qty_max": qty_max,
             "notes": display(row["Notes"]),
+            "product_description": display(row.get("Product Description", "")),
+            "related_products": related,
             "corpus": "procurement-prices",
             "source": source.name,
         }
-        product_text = " ".join(part for part in (item_name, variant_description) if part)
+        product_text = " ".join(
+            part for part in (product_code, item_name, variant_code, variant_description,
+                              display(row.get("Product Description", ""))) if part
+        )
+        related_text = f" | ต้องค้นหาราคาต่อ: {', '.join(related)}" if related else ""
         record["content"] = (
-            f"{product_text} | หมวด {record['category']} | ราคา {record['price']:g} บาท/{record['unit']} "
-            f"| ช่วงจำนวน {quantity_range or 'ไม่ระบุ'} | ผู้ชนะ {vendor_name} | ปี {year}"
+            f"{product_text} | หมวด {record['category']} | ราคา {record['price']:g} บาท "
+            f"| จำนวน {record['qty']} | ผู้ขาย {vendor_name} | ปี {year or 'ไม่ระบุ'}{related_text}"
         )
         records.append(record)
 
     if missing_references:
-        raise ValueError("Unresolved template references: " + "; ".join(missing_references[:5]))
+        print(f"Warning: Skipped {len(missing_references)} row(s) with incomplete data:")
+        for ref in missing_references[:5]:
+            print(f"  {ref}")
     if not records:
-        raise ValueError("No awarded rows found: mark Is Winner and Meets Spec as TRUE")
+        raise ValueError("No records found in Vendor_Prices sheet")
 
-    warnings = [f"Ignored {ignored_not_awarded} non-awarded or non-compliant vendor quote(s)"]
+    warnings = []
+    if missing_references:
+        warnings.append(f"Skipped {len(missing_references)} row(s) with incomplete data")
     return records, warnings
 
 

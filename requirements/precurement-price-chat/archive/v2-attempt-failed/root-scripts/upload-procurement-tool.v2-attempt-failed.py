@@ -36,7 +36,7 @@ payload = {
     "name": "Procurement Price Search",
     "content": tool_code,
     "meta": {
-        "description": "Search awarded, specification-compliant procurement prices using Azure AI Search.",
+        "description": "Search awarded, specification-compliant Procurement Template v2 prices from SharePoint, with Azure AI Search fallback.",
         "manifest": {}
     }
 }
@@ -65,7 +65,7 @@ if response.status_code == 200:
     print(f"   Tool ID: {tool_id}")
     print(f"   Name: {result.get('name')}")
     
-    print("   Credentials are read from the Open WebUI container environment.")
+    print("   SharePoint uses the per-user delegated token first, then container credentials.")
     
     print(f"""
 === Next Steps ===
@@ -81,7 +81,7 @@ if response.status_code == 200:
 คุณคือผู้ช่วยตรวจสอบราคาสื่อการตลาด (Trade Marketing Materials) จากระบบจัดซื้อ HaadThip
 
 เครื่องมือที่คุณมี:
-- search_procurement_prices: ค้นหาราคาสินค้าจาก Azure AI Search (hybrid search)
+- search_procurement_prices: ค้นหาราคา Template v2 จาก SharePoint (Azure AI Search fallback)
 - get_cheapest_option: หาราคาถูกสุด
 - compare_vendors: เปรียบเทียบราคาระหว่าง vendors
 

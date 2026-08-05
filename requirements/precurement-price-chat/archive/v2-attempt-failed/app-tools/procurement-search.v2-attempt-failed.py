@@ -1,11 +1,10 @@
 """
 title: Procurement Price Search
 author: Haadthip DIO
-version: 1.0
+version: 2.0
 required_open_webui_version: 0.5.0
 
 Search awarded procurement prices from Azure AI Search index (procurement-prices-th-idx).
-Uses hybrid search (keyword + vector) with Thai analyzer for accurate results.
 
 Capabilities:
 - Keyword search with Thai word segmentation
@@ -20,7 +19,6 @@ Authorization: Tool is available to all users with access to the model.
 
 import json
 import os
-from collections import defaultdict
 from typing import Optional
 
 from azure.core.credentials import AzureKeyCredential
@@ -29,9 +27,6 @@ from azure.search.documents.models import VectorizedQuery
 from fastapi import Request
 from openai import AzureOpenAI
 from pydantic import BaseModel, Field
-
-# Import Open WebUI's internal model caller
-from open_webui.utils.chat import generate_chat_completion
 
 
 class Tools:
@@ -101,88 +96,6 @@ class Tools:
         
         return response.data[0].embedding
 
-    async def _summarize_results(self, query: str, items: list, __user__: dict, __request__: Request, category: str = None, year: int = None, min_price: float = None, max_price: float = None) -> str:
-        """Use Open WebUI internal LLM to summarize search results without revealing vendor names"""
-        
-        # Find cheapest option
-        cheapest = min(items, key=lambda x: x["price"])
-        
-        # Group by product to show variants
-        products = defaultdict(list)
-        for item in items:
-            key = item["product_name"]
-            products[key].append(item)
-        
-        # Build summary prompt
-        prompt = f"""คุณเป็น AI ผู้ช่วยจัดซื้อ กรุณาสรุปผลการค้นหาราคาสินค้าดังนี้:
-
-คำค้นหา: "{query}"
-จำนวนผลลัพธ์: {len(items)} รายการ
-
-ข้อมูลสินค้า:
-"""
-        
-        for product_name, variants in products.items():
-            prompt += f"\n{product_name}:\n"
-            for v in variants:
-                prompt += f"  - ราคา ฿{v['price']:,.2f} ({v['qty_range'] or 'ไม่ระบุจำนวน'})\n"
-        
-        prompt += """
-กฎการตอบ:
-1. ห้ามบอกชื่อ vendor (ห้ามพูดว่า "Vendor A", "Vendor B", etc.)
-2. บอกเฉพาะราคาที่ถูกที่สุด (ชนะการประกวดราคา)
-3. ถ้ามีหลาย variant ให้อธิบายความแตกต่าง
-4. ถ้ามี note หรือปัญหา ต้องแจ้งเตือนทันที
-5. ตอบสั้น กระชับ เน้นตัวเลขและข้อมูลสำคัญ
-
-ตัวอย่างคำตอบที่ดี:
-"ร่มโค้ก ราคา ฿480/ชิ้น สำหรับ 500+ ชิ้น"
-
-กรุณาสรุปผลการค้นหาตามกฎข้างต้น:"""
-        
-        # Call Open WebUI internal model
-        payload = {
-            "model": "gpt-4o",
-            "messages": [
-                {
-                    "role": "system",
-                    "content": "คุณเป็น AI ผู้ช่วยจัดซื้อที่ตอบสั้น กระชับ และห้ามเปิดเผยชื่อ vendor"
-                },
-                {
-                    "role": "user",
-                    "content": prompt
-                }
-            ],
-            "stream": False,
-            "temperature": 0.3,
-            "max_tokens": 300
-        }
-        
-        try:
-            response = await generate_chat_completion(__request__, payload, __user__)
-            summary_text = response["choices"][0]["message"]["content"]
-            
-            return json.dumps({
-                "success": True,
-                "query": query,
-                "total_results": len(items),
-                "summary": summary_text,
-                "cheapest_price": cheapest["price"],
-                "cheapest_product": cheapest["product_name"]
-            }, ensure_ascii=False, indent=2)
-            
-        except Exception as e:
-            # Fallback to simple summary if LLM call fails
-            return json.dumps({
-                "success": True,
-                "query": query,
-                "total_results": len(items),
-                "summary": f"{cheapest['product_name']} ราคา ฿{cheapest['price']:,.2f} ({cheapest['qty_range'] or 'ไม่ระบุ'})",
-                "cheapest_price": cheapest["price"],
-                "cheapest_product": cheapest["product_name"],
-                "error": f"LLM summarization failed: {str(e)}"
-            }, ensure_ascii=False, indent=2)
-
     def _build_filter(
         self,
         category: Optional[str] = None,
@@ -194,7 +107,7 @@ class Tools:
         """Build OData filter string"""
         filters = []
         
-        filters.extend(["is_winner eq true", "meets_spec eq true"])
+        filters.append("corpus eq 'procurement-prices'")
         if category:
             filters.append(f"category eq '{category}'")
         if vendor:
@@ -216,6 +129,7 @@ class Tools:
         year: Optional[int] = None,
         min_price: Optional[float] = None,
         max_price: Optional[float] = None,
+        quantity: Optional[int] = None,
         sort_by_price: bool = False,
         use_wildcard: bool = False,
         __user__: dict = None,
@@ -232,6 +146,7 @@ class Tools:
             year: Filter by year (2024-2030)
             min_price: Minimum price filter
             max_price: Maximum price filter
+            quantity: Requested quantity; selects tiers whose Qty range contains this amount
             sort_by_price: Sort results by price ascending (find cheapest)
             use_wildcard: Use wildcard search for partial Thai word matches (e.g. "ร่ม*")
         
@@ -269,6 +184,7 @@ class Tools:
                 year=year,
                 min_price=min_price,
                 max_price=max_price
+                ,quantity=quantity
             )
             
             # Prepare vector query
@@ -282,7 +198,6 @@ class Tools:
             search_text = query if not use_wildcard else (f"{query}*" if not query.endswith("*") else query)
             
             # Execute hybrid search (fulltext + vector)
-            # API version 2026-04-01 supports native hybrid search
             results = search_client.search(
                 search_text=search_text,
                 vector_queries=[vector_query],
@@ -291,12 +206,12 @@ class Tools:
                 select=[
                     "product_code", "product_name", "category", "pricing_model",
                     "variant_code", "variant_description", "vendor_code", "vendor_name",
-                    "year", "price", "qty", "qty_range"
+                    "year", "price", "qty", "notes", "related_products", "product_description"
                 ],
                 order_by=["price asc"] if sort_by_price else None
             )
             
-            # Convert iterator to list to ensure results are captured
+            # Convert iterator to list
             results_list = list(results)
             
             # If no results with exact match and wildcard not used, retry with wildcard
@@ -310,7 +225,7 @@ class Tools:
                     select=[
                         "product_code", "product_name", "category", "pricing_model",
                         "variant_code", "variant_description", "vendor_code", "vendor_name",
-                        "year", "price", "qty", "qty_range"
+                        "year", "price", "qty", "notes", "related_products", "product_description"
                     ],
                     order_by=["price asc"] if sort_by_price else None
                 )
@@ -326,12 +241,14 @@ class Tools:
                     "pricing_model": result.get("pricing_model"),
                     "variant_code": result.get("variant_code"),
                     "variant_description": result.get("variant_description"),
+                    "product_description": result.get("product_description"),
                     "vendor_code": result.get("vendor_code"),
                     "vendor_name": result.get("vendor_name"),
                     "year": result.get("year"),
                     "price": result.get("price"),
                     "qty": result.get("qty"),
-                    "qty_range": result.get("qty_range"),
+                    "notes": result.get("notes"),
+                    "related_products": result.get("related_products", []),
                     "score": result.get("@search.score")
                 })
             
@@ -346,7 +263,6 @@ class Tools:
                     }
                 )
             
-            # Return results directly (no LLM summarization for now - debugging)
             if len(items) > 0:
                 return json.dumps({
                     "success": True,
@@ -421,18 +337,20 @@ class Tools:
         __event_emitter__=None
     ) -> str:
         """
-        Compare prices across vendors for a specific product/variant.
+        Compare prices from different vendors for the same product/variant.
         
         Args:
-            product_code: Product code (e.g. POSM_001)
-            variant_code: Variant code (e.g. POSM_001_V1)
+            product_code: Product code to compare
+            variant_code: Optional variant code
             year: Filter by year
         
         Returns:
             JSON string with vendor comparison
         """
-        query = f"{product_code} {variant_code}" if variant_code else product_code
-        
+        query = product_code
+        if variant_code:
+            query = f"{product_code} {variant_code}"
+            
         return await self.search_procurement_prices(
             query=query,
             year=year,
