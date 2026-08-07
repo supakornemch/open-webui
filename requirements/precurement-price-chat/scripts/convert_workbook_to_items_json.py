@@ -22,8 +22,8 @@ from openpyxl.utils import get_column_letter
 
 
 ROOT = Path(__file__).resolve().parents[1]
-DEFAULT_SOURCE = ROOT / "Trade Marketing Materials price for Y2026.final.xlsx"
-DEFAULT_OUTPUT = ROOT / "Trade Marketing Materials price for Y2026.items.json"
+DEFAULT_SOURCE = ROOT / "data/source/Trade Marketing Materials price for Y2026.final.xlsx"
+DEFAULT_OUTPUT = ROOT / "data/exports/Trade Marketing Materials price for Y2026.items.json"
 
 EXCEL_ERROR_VALUES = {
     "#REF!",
@@ -58,7 +58,7 @@ SHEET_CONFIG = {
         "quantity_header": ("QTY Y2026",),
     },
     "4.สรุปPremium": {
-        "category": "Premium-EA&HRC",
+        "category": "Premium",
         "header_row": 2,
         "item_header": ("Item",),
         "description_header": ("รายการ",),

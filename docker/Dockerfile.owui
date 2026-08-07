@@ -1,9 +1,7 @@
 # ponytail: hardcode --platform because Azure App Service is Linux/AMD64.
 # Local ARM Mac builds via docker buildx --platform linux/amd64 (Docker Desktop emulates).
+# Updated to v0.11.0 (2026-08-05) — includes nginx 1.28.2+ (fixes CVE-2026-1642)
 FROM --platform=linux/amd64 ghcr.io/open-webui/open-webui:v0.11.0
-
-# ── Install nginx for CSP headers (frame-ancestors for Teams/SharePoint) ──
-RUN apt-get update && apt-get install -y nginx && rm -rf /var/lib/apt/lists/*
 
 # ── Install Azure AI Search SDK for custom vector DB backend ──
 RUN pip install --no-cache-dir azure-search-documents>=11.4.0
@@ -11,15 +9,18 @@ RUN pip install --no-cache-dir azure-search-documents>=11.4.0
 # ── Install pandas + openpyxl + httpx for Procurement Price Lookup Tool ──
 RUN pip install --no-cache-dir pandas openpyxl httpx
 
-# ── Install Fabric Data Warehouse Tool deps: pyodbc + ODBC Driver 18 + Entra ──
-# msodbcsql18 only ships from Microsoft's repo. Base image is Debian 12
-# (python:3.11-slim-bookworm); curl + ca-certificates already present.
-RUN apt-get update && apt-get install -y --no-install-recommends gnupg \
+# ── Install nginx 1.30+ from official repo + Fabric ODBC Driver 18 in one go ──
+# Combine apt-get update to avoid overwriting sources.list
+RUN apt-get update && apt-get install -y --no-install-recommends curl gnupg2 ca-certificates lsb-release debian-archive-keyring \
+    && curl -fsSL https://nginx.org/keys/nginx_signing.key | gpg --dearmor -o /usr/share/keyrings/nginx-archive-keyring.gpg \
+    && echo "deb [signed-by=/usr/share/keyrings/nginx-archive-keyring.gpg] http://nginx.org/packages/debian $(lsb_release -cs) nginx" > /etc/apt/sources.list.d/nginx.list \
     && curl -fsSL https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor -o /usr/share/keyrings/microsoft-prod.gpg \
     && curl -fsSL https://packages.microsoft.com/config/debian/12/prod.list > /etc/apt/sources.list.d/mssql-release.list \
     && apt-get update \
+    && apt-get install -y nginx \
     && ACCEPT_EULA=Y apt-get install -y --no-install-recommends msodbcsql18 unixodbc-dev \
     && rm -rf /var/lib/apt/lists/*
+
 RUN pip install --no-cache-dir pyodbc azure-identity
 
 # ── Install black + click for code formatting ──
@@ -38,7 +39,9 @@ COPY app/static/genie-setup-manual.html /app/build/docs/genie-setup-manual.html
 COPY screenshots/ /app/build/screenshots/
 
 # ── nginx reverse proxy ──
-COPY docker/nginx.conf /etc/nginx/sites-enabled/default
+# Use conf.d instead of sites-enabled (more reliable across distros)
+RUN rm -f /etc/nginx/sites-enabled/default /etc/nginx/conf.d/default.conf
+COPY docker/nginx.conf /etc/nginx/conf.d/openwebui.conf
 
 # ── Custom Azure AI Search vector DB backend ──
 # Patches OWUI type.py + factory.py to register azure-ai-search
@@ -58,4 +61,5 @@ RUN RETRIEVAL=/app/backend/open_webui/routers/retrieval.py && \
     echo "skip_embedding patch applied"
 
 # ── Start nginx + Open WebUI (nginx on 8080 proxies to OWUI on 8081) ──
-CMD bash -c "nginx && PORT=8081 bash /app/backend/start.sh"
+# Test nginx config before starting, and ensure it starts in foreground initially
+CMD bash -c "nginx -t && nginx && echo 'nginx started on 8080' && PORT=8081 bash /app/backend/start.sh"

@@ -64,8 +64,8 @@ REQUESTS_ERROR = requests.RequestException
 
 
 ROOT = Path(__file__).resolve().parents[1]
-DEFAULT_INPUT = ROOT / "Trade Marketing Materials price for Y2026.items.json"
-DEFAULT_ENRICHMENT = ROOT / "procurement-enrichment.json"
+DEFAULT_INPUT = ROOT / "data/exports/Trade Marketing Materials price for Y2026.items.json"
+DEFAULT_ENRICHMENT = ROOT / "data/enrichment/procurement-enrichment.json"
 INDEX_NAME = "procurement-catalog-v1"
 SEARCH_API_VERSION = "2024-07-01"
 DEFAULT_OPENAI_API_VERSION = "2024-10-21"
@@ -181,8 +181,18 @@ def stable_key(*parts: Any) -> str:
 
 
 def logical_item_id(item: dict[str, Any]) -> str:
+    """Logical product id.
+
+    Catalog Master items carry an explicit year -> {Year}:{Category}:{Item}.
+    Legacy items.json items fall back to {sheet}:{item_number}.
+    """
     source = item.get("source") or {}
-    return f"{source.get('sheet', '')}:{item.get('item_number', '')}"
+    year = normalize_text(item.get("year")) or ""
+    category = normalize_text(item.get("category")) or normalize_text(source.get("sheet"))
+    item_number = normalize_text(item.get("item_number"))
+    if year:
+        return f"{year}:{category}:{item_number}"
+    return f"{source.get('sheet', '')}:{item_number}"
 
 
 def source_text(item: dict[str, Any]) -> str:
@@ -548,6 +558,7 @@ def build_document(
     sheet = normalize_text(source.get("sheet"))
     row = source.get("row")
     document_id = stable_key(payload["source_sha256"], sheet, row, item_id)
+    effective_year = int(item.get("year") or EFFECTIVE_YEAR)
     source_name = normalize_text(item.get("name"))
     source_description = normalize_text(item.get("description"))
     row_description = normalize_text(item.get("row_description"))
@@ -614,6 +625,7 @@ def build_document(
         spec_text,
         condition_text,
         normalize_text(item.get("category")),
+        normalize_text(item.get("pricing_basis")),
     ]
     search_text = " ".join(dict.fromkeys(part for part in search_parts if part))
     history = item.get("history") or {}
@@ -631,7 +643,7 @@ def build_document(
         "source_row": row,
         "item_number": normalize_text(item.get("item_number")),
         "source_version": SOURCE_VERSION,
-        "effective_year": EFFECTIVE_YEAR,
+        "effective_year": effective_year,
         "category": normalize_text(item.get("category")),
         "source_name": source_name,
         "source_description": source_description,
@@ -675,6 +687,7 @@ def build_document(
         "product_condition_text": condition_text,
         "condition_tags": condition_tags,
         "search_text": search_text,
+        "pricing_basis": normalize_text(item.get("pricing_basis")) or None,
         "enrichment_status": enrichment_status,
         "enrichment_model": normalize_text(enrichment_record.get("model")) or None,
         "enrichment_prompt_version": normalize_text(
@@ -710,146 +723,40 @@ def index_schema() -> dict[str, Any]:
     }
     fields = [
         field("id", "Edm.String", key=True, retrievable=True),
-        field("dataset", "Edm.String", filterable=True, facetable=True, retrievable=True),
         field("logical_item_id", "Edm.String", filterable=True, retrievable=True),
-        field("source_row_id", "Edm.String", filterable=True, retrievable=True),
-        field("source_file", "Edm.String", filterable=True, retrievable=True),
-        field("source_sha256", "Edm.String", filterable=True, retrievable=True),
-        field("source_sheet", "Edm.String", filterable=True, facetable=True, retrievable=True),
-        field("source_row", "Edm.Int32", filterable=True, sortable=True, retrievable=True),
-        field("item_number", "Edm.String", filterable=True, retrievable=True),
-        field("source_version", "Edm.String", filterable=True, retrievable=True),
-        field(
-            "effective_year",
-            "Edm.Int32",
-            filterable=True,
-            facetable=True,
-            sortable=True,
-            retrievable=True,
-        ),
+        field("year", "Edm.Int32", filterable=True, facetable=True, sortable=True, retrievable=True),
         field("category", "Edm.String", **searchable_thai, filterable=True, facetable=True),
-        field("source_name", "Edm.String", **searchable_thai),
-        field("source_description", "Edm.String", **searchable_thai),
-        field("row_description", "Edm.String", **searchable_thai),
-        field("raw_source_json", "Edm.String", retrievable=True),
-        field("history_json", "Edm.String", retrievable=True),
-        field(
-            "quantity_label",
-            "Edm.String",
-            searchable=True,
-            retrievable=True,
-            analyzer="th.microsoft",
-        ),
-        field("quantity_min", "Edm.Int32", filterable=True, sortable=True, retrievable=True),
-        field("quantity_max", "Edm.Int32", filterable=True, sortable=True, retrievable=True),
-        field("quantity_is_exact", "Edm.Boolean", filterable=True, retrievable=True),
-        field("quantity_is_missing", "Edm.Boolean", filterable=True, retrievable=True),
-        field("currency_code", "Edm.String", filterable=True, facetable=True, retrievable=True),
-        field("awarded_price", "Edm.Double", filterable=True, sortable=True, retrievable=True),
-        field("awarded_price_raw", "Edm.String", retrievable=True),
-        field(
-            "awarded_vendor",
-            "Edm.String",
-            searchable=True,
-            filterable=True,
-            retrievable=True,
-            analyzer="th.microsoft",
-        ),
-        field("awarded_vendor_key", "Edm.String", filterable=True, retrievable=True),
-        field("award_notes", "Collection(Edm.String)", searchable=True, retrievable=True),
-        field(
-            "vendor_names",
-            "Collection(Edm.String)",
-            searchable=True,
-            filterable=True,
-            retrievable=True,
-        ),
-        field("vendor_keys", "Collection(Edm.String)", filterable=True, retrievable=True),
-        field(
-            "vendor_names_text",
-            "Edm.String",
-            searchable=True,
-            retrievable=True,
-            analyzer="th.microsoft",
-        ),
-        complex_field(
-            "vendor_quotes",
-            [
-                field(
-                    "vendor_name",
-                    "Edm.String",
-                    searchable=True,
-                    retrievable=True,
-                    analyzer="th.microsoft",
-                ),
-                field("vendor_key", "Edm.String", filterable=True, retrievable=True),
-                field("price", "Edm.Double", filterable=True, retrievable=True),
-                field("price_raw", "Edm.String", retrievable=True),
-                field("is_awarded", "Edm.Boolean", filterable=True, retrievable=True),
-                field("source_column", "Edm.String", filterable=True, retrievable=True),
-            ],
-        ),
-        field("lowest_quote_price", "Edm.Double", filterable=True, sortable=True, retrievable=True),
-        field(
-            "lowest_quote_vendor",
-            "Edm.String",
-            searchable=True,
-            retrievable=True,
-            analyzer="th.microsoft",
-        ),
-        field("award_matches_lowest_quote", "Edm.Boolean", filterable=True, retrievable=True),
+
         field("product_name", "Edm.String", **searchable_thai),
         field("product_aliases", "Collection(Edm.String)", searchable=True, retrievable=True),
-        field(
-            "product_type",
-            "Edm.String",
-            searchable=True,
-            filterable=True,
-            facetable=True,
-            retrievable=True,
-            analyzer="th.microsoft",
-        ),
+        field("product_type", "Edm.String", **searchable_thai, filterable=True, facetable=True),
         field("keywords", "Collection(Edm.String)", searchable=True, filterable=True, retrievable=True),
-        field("keywords_text", "Edm.String", searchable=True, retrievable=True, analyzer="th.microsoft"),
-        complex_field(
-            "product_specs",
-            [
-                field(
-                    "name",
-                    "Edm.String",
-                    searchable=True,
-                    filterable=True,
-                    retrievable=True,
-                    analyzer="th.microsoft",
-                ),
-                field("value", "Edm.String", searchable=True, retrievable=True, analyzer="th.microsoft"),
-                field("normalized_value", "Edm.String", filterable=True, retrievable=True),
-                field("unit", "Edm.String", filterable=True, retrievable=True),
-                field("evidence", "Edm.String", searchable=True, retrievable=True, analyzer="th.microsoft"),
-                field("confidence", "Edm.Double", filterable=True, retrievable=True),
-            ],
-        ),
+        field("keywords_text", "Edm.String", **searchable_thai),
         field("product_spec_text", "Edm.String", **searchable_thai),
+        field("product_condition_text", "Edm.String", **searchable_thai),
+        field("pricing_basis", "Edm.String", **searchable_thai, filterable=True),
+        field("search_text", "Edm.String", **searchable_thai),
+        field("notes_text", "Edm.String", **searchable_thai),
+        field("award_vendors", "Collection(Edm.String)", searchable=True, filterable=True, retrievable=True),
+
+        field("price_min", "Edm.Double", filterable=True, sortable=True, retrievable=True),
+        field("price_max", "Edm.Double", filterable=True, sortable=True, retrievable=True),
+        field("quantity_min_all", "Edm.Int32", filterable=True, sortable=True, retrievable=True),
+        field("quantity_max_all", "Edm.Int32", filterable=True, sortable=True, retrievable=True),
+
         complex_field(
-            "product_conditions",
+            "tiers",
             [
-                field("type", "Edm.String", searchable=True, filterable=True, retrievable=True, analyzer="th.microsoft"),
-                field("text", "Edm.String", searchable=True, retrievable=True, analyzer="th.microsoft"),
-                field("normalized_value", "Edm.String", filterable=True, retrievable=True),
-                field("is_optional", "Edm.Boolean", filterable=True, retrievable=True),
-                field("evidence", "Edm.String", searchable=True, retrievable=True, analyzer="th.microsoft"),
-                field("confidence", "Edm.Double", filterable=True, retrievable=True),
+                field("lead_time", "Edm.String", filterable=True, retrievable=True, analyzer="th.microsoft"),
+                field("quantity_label", "Edm.String", searchable=True, retrievable=True, analyzer="th.microsoft"),
+                field("quantity_min", "Edm.Int32", filterable=True, retrievable=True),
+                field("quantity_max", "Edm.Int32", filterable=True, retrievable=True),
+                field("quantity_is_exact", "Edm.Boolean", filterable=True, retrievable=True),
+                field("awarded_price", "Edm.Double", filterable=True, retrievable=True),
+                field("source_row", "Edm.Int32", filterable=True, retrievable=True),
             ],
         ),
-        field("product_condition_text", "Edm.String", **searchable_thai),
-        field("condition_tags", "Collection(Edm.String)", searchable=True, filterable=True, retrievable=True),
-        field("search_text", "Edm.String", **searchable_thai),
-        field("enrichment_status", "Edm.String", filterable=True, facetable=True, retrievable=True),
-        field("enrichment_model", "Edm.String", filterable=True, retrievable=True),
-        field("enrichment_prompt_version", "Edm.String", filterable=True, retrievable=True),
-        field("enrichment_input_hash", "Edm.String", filterable=True, retrievable=True),
-        field("enrichment_confidence", "Edm.Double", filterable=True, sortable=True, retrievable=True),
-        field("enriched_at", "Edm.DateTimeOffset", filterable=True, sortable=True, retrievable=True),
+
         field(
             "content_vector",
             "Collection(Edm.Single)",
@@ -892,12 +799,11 @@ def index_schema() -> dict[str, Any]:
                             {"fieldName": "search_text"},
                             {"fieldName": "product_spec_text"},
                             {"fieldName": "product_condition_text"},
-                            {"fieldName": "source_description"},
                         ],
                         "prioritizedKeywordsFields": [
                             {"fieldName": "keywords_text"},
                             {"fieldName": "category"},
-                            {"fieldName": "vendor_names_text"},
+                            {"fieldName": "notes_text"},
                         ],
                     },
                 }
@@ -1042,7 +948,6 @@ class SearchApi:
                 headers=self.headers,
                 json={
                     "search": "*",
-                    "filter": f"dataset eq '{DATASET}'",
                     "select": "id",
                     "top": 1000,
                     "skip": skip,
@@ -1067,7 +972,6 @@ class SearchApi:
             headers=self.headers,
             json={
                 "search": "*",
-                "filter": f"dataset eq '{DATASET}'",
                 "top": 0,
                 "count": True,
             },
@@ -1088,9 +992,8 @@ class SearchApi:
                 "search": query,
                 "queryType": "semantic",
                 "semanticConfiguration": "procurement-semantic",
-                "filter": f"dataset eq '{DATASET}'",
                 "top": 3,
-                "select": "id,product_name,category,quantity_label,awarded_price,awarded_vendor",
+                "select": "id,logical_item_id,product_name,category,price_min,award_vendors",
             },
             timeout=REQUEST_TIMEOUT,
         )
