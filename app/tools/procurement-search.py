@@ -34,7 +34,7 @@ Authorization: Available to all users with access to the model.
 
 import json
 import os
-from typing import Optional
+from typing import Literal, Optional
 
 from azure.core.credentials import AzureKeyCredential
 from azure.search.documents import SearchClient
@@ -248,7 +248,7 @@ class Tools:
     async def search_procurement_prices(
         self,
         query: str,
-        category: Optional[str] = None,
+        category: Optional[Literal["POSM", "Printing-MKT", "Printing-Rate", "Garment", "Premium"]] = None,
         year: Optional[int] = None,
         min_price: Optional[float] = None,
         max_price: Optional[float] = None,
@@ -433,7 +433,7 @@ class Tools:
     async def get_cheapest_option(
         self,
         query: str,
-        category: Optional[str] = None,
+        category: Optional[Literal["POSM", "Printing-MKT", "Printing-Rate", "Garment", "Premium"]] = None,
         year: Optional[int] = None,
         __user__: dict = None,
         __request__: Request = None,
@@ -463,7 +463,7 @@ class Tools:
     async def compare_vendors(
         self,
         query: str,
-        category: Optional[str] = None,
+        category: Optional[Literal["POSM", "Printing-MKT", "Printing-Rate", "Garment", "Premium"]] = None,
         year: Optional[int] = None,
         quantity: Optional[int] = None,
         __user__: dict = None,
