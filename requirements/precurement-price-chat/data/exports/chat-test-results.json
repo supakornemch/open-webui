@@ -1,0 +1,247 @@
+[
+  {
+    "id": "EX-01",
+    "message": "ร่มโค้ก 36 นิ้ว โครงเหล็ก 2 อัน ราคาเท่าไหร่",
+    "passed": true,
+    "detail": "✅ False | ✅ False | ⏱ 0.6s 3151 tok",
+    "tags": [
+      "exact",
+      "price"
+    ]
+  },
+  {
+    "id": "EX-02",
+    "message": "โคมไฟสำเร็จรูป ราคาเท่าไหร่",
+    "passed": true,
+    "detail": "✅ True | ✅ False | ⏱ 10.8s 3126 tok",
+    "tags": [
+      "exact",
+      "price"
+    ]
+  },
+  {
+    "id": "EX-03",
+    "message": "แก้วกระดาษ 6.5 ออนซ์ ราคา",
+    "passed": true,
+    "detail": "✅ True | ✅ False | ⏱ 9.6s 2931 tok",
+    "tags": [
+      "exact",
+      "price"
+    ]
+  },
+  {
+    "id": "EX-04",
+    "message": "Arch 60x70 cm ราคาเท่าไหร่",
+    "passed": true,
+    "detail": "✅ True | ✅ False | ⏱ 12.4s 3367 tok",
+    "tags": [
+      "exact",
+      "price"
+    ]
+  },
+  {
+    "id": "EX-05",
+    "message": "ผ้าเบอร์วิ่ง ราคาเท่าไหร่",
+    "passed": true,
+    "detail": "✅ True | ✅ False | ⏱ 11.5s 3208 tok",
+    "tags": [
+      "exact",
+      "price"
+    ]
+  },
+  {
+    "id": "TY-01",
+    "message": "โคมไฟสำเรจรูป ราคาเท่าไหร่",
+    "passed": true,
+    "detail": "✅ True | ✅ False | ⏱ 8.2s 2719 tok",
+    "tags": [
+      "typo"
+    ]
+  },
+  {
+    "id": "TY-02",
+    "message": "รมโค้ก 36 นิ้ว ราคา",
+    "passed": true,
+    "detail": "✅ False | ✅ False | ⏱ 4.2s 2032 tok",
+    "tags": [
+      "typo"
+    ]
+  },
+  {
+    "id": "TY-03",
+    "message": "ถังนำแข็งโค้ก",
+    "passed": true,
+    "detail": "✅ False | ⏱ 3.5s 1873 tok",
+    "tags": [
+      "typo"
+    ]
+  },
+  {
+    "id": "TY-04",
+    "message": "ธงปกนก ราคา",
+    "passed": true,
+    "detail": "✅ True | ⏱ 8.2s 2708 tok",
+    "tags": [
+      "typo"
+    ]
+  },
+  {
+    "id": "TY-05",
+    "message": "แบนเนอโค้ก ราคาเท่าไหร่",
+    "passed": true,
+    "detail": "✅ False | ⏱ 3.7s 1891 tok",
+    "tags": [
+      "typo"
+    ]
+  },
+  {
+    "id": "LS-01",
+    "message": "how much is coke umbrella 36 inch",
+    "passed": true,
+    "detail": "✅ True | ✅ False | ⏱ 11.9s 3345 tok",
+    "tags": [
+      "lang"
+    ]
+  },
+  {
+    "id": "LS-02",
+    "message": "ice bucket coke price",
+    "passed": true,
+    "detail": "✅ False | ⏱ 9.5s 2870 tok",
+    "tags": [
+      "lang"
+    ]
+  },
+  {
+    "id": "LS-03",
+    "message": "how much is beach umbrella 42 inch",
+    "passed": true,
+    "detail": "✅ True | ✅ False | ⏱ 6.4s 2314 tok",
+    "tags": [
+      "lang"
+    ]
+  },
+  {
+    "id": "LS-04",
+    "message": "sticker PVC 4 สี ราคา",
+    "passed": false,
+    "detail": "API Error: HTTP 504",
+    "tags": [
+      "lang",
+      "mixed"
+    ]
+  },
+  {
+    "id": "LS-05",
+    "message": "PP Board 3 มิล ราคา",
+    "passed": true,
+    "detail": "✅ False | ⏱ 4.3s 1986 tok",
+    "tags": [
+      "lang",
+      "mixed"
+    ]
+  },
+  {
+    "id": "QT-01",
+    "message": "Arch 60x70 15 อัน ราคาเท่าไหร่",
+    "passed": true,
+    "detail": "✅ True | ✅ False | ⏱ 5.5s 2100 tok",
+    "tags": [
+      "qty",
+      "tier"
+    ]
+  },
+  {
+    "id": "QT-02",
+    "message": "Arch 60x70 5 อัน ราคา",
+    "passed": true,
+    "detail": "✅ False | ✅ False | ⏱ 20.0s 4601 tok",
+    "tags": [
+      "qty",
+      "tier"
+    ]
+  },
+  {
+    "id": "QT-03",
+    "message": "ถังน้ำแข็งโค้ก 5000 อัน ราคาเท่าไหร่",
+    "passed": true,
+    "detail": "✅ True | ✅ False | ⏱ 10.7s 3081 tok",
+    "tags": [
+      "qty",
+      "tier"
+    ]
+  },
+  {
+    "id": "VC-01",
+    "message": "ร่มโค้ก 10 อัน ราคาเท่าไหร่",
+    "passed": true,
+    "detail": "✅ False | ⏱ 3.2s 1823 tok",
+    "tags": [
+      "variant"
+    ]
+  },
+  {
+    "id": "VC-02",
+    "message": "PP Board ราคา",
+    "passed": true,
+    "detail": "✅ True | ⏱ 4.8s 2079 tok",
+    "tags": [
+      "variant"
+    ]
+  },
+  {
+    "id": "ZR-01",
+    "message": "iPhone 15 Pro Max ราคาเท่าไหร่",
+    "passed": true,
+    "detail": "✅ True | ⏱ 3.9s 1898 tok",
+    "tags": [
+      "zero"
+    ]
+  },
+  {
+    "id": "ZR-02",
+    "message": "รถยนต์ Toyota ราคา",
+    "passed": true,
+    "detail": "✅ True | ⏱ 3.9s 1953 tok",
+    "tags": [
+      "zero"
+    ]
+  },
+  {
+    "id": "TH-01",
+    "message": "ขอสอบถามราคาหน่อยครับ พอดีจะสั่งร่มโค้ก 36 นิ้ว โครงไฟเบอร์ สีตาย 3 อัน",
+    "passed": true,
+    "detail": "✅ False | ⏱ 6.0s 2256 tok",
+    "tags": [
+      "thai",
+      "natural"
+    ]
+  },
+  {
+    "id": "TH-02",
+    "message": "เช็คราคาถังน้ำแข็งโค้กให้หน่อย",
+    "passed": true,
+    "detail": "✅ False | ✅ False | ⏱ 7.4s 2542 tok",
+    "tags": [
+      "thai"
+    ]
+  },
+  {
+    "id": "UP-01",
+    "message": "ถังน้ำแข็งโค้ก ราคาต่ออันเท่าไหร่",
+    "passed": true,
+    "detail": "✅ False | ✅ False | ⏱ 3.6s 1901 tok",
+    "tags": [
+      "unit"
+    ]
+  },
+  {
+    "id": "UP-02",
+    "message": "แก้วกระดาษ 6.5 ออนซ์ ราคาต่อใบ",
+    "passed": true,
+    "detail": "✅ False | ✅ False | ⏱ 3.2s 1804 tok",
+    "tags": [
+      "unit"
+    ]
+  }
+]

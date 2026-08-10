@@ -1,25 +1,35 @@
 """
 title: Procurement Price Search
 author: Haadthip DIO
-version: 3.0
+version: 3.1
 required_open_webui_version: 0.5.0
 
-Search awarded procurement prices from Azure AI Search index
-(procurement-catalog-v1, one document per logical product).
-
-The workbook (Excel Master) is the source of truth: prices, quantity tiers,
-vendors and award facts come from the index verbatim. This tool NEVER
-calculates or invents a price that is not present in the index/source.
+Search procurement prices from Azure AI Search index procurement-catalog-v1.
+One document = one logical product with tiered pricing. Prices come from the
+Excel Master verbatim. This tool never computes or invents prices.
 
 Capabilities:
-- HYBRID search (BM25 keyword + vector, fused by Azure RRF) with Thai word segmentation
-- Optional semantic reranking on top of hybrid (queryType=semantic, procurement-semantic)
-- Filter by year, category, price range, required quantity
-- Deterministic quantity-tier matching (tiers/any)
-- Returns authoritative awarded price + award_vendors (ผู้ผ่านการประมูล)
-- Never computes a price not stored in the index
+- Hybrid search: BM25 keyword + vector (3072-dim), fused by Azure RRF
+- Thai word segmentation via th.microsoft analyzer
+- Semantic rerank on top (optional, queryType=semantic)
+- Filter: year, category, price range, quantity tier
+- Quantity tier matching: tiers/any OData filter
+- Category fallback: drops category filter if no results found
 
-Authorization: Tool is available to all users with access to the model.
+Category guide (send ONLY when user explicitly names the category):
+- POSM — สื่อ ณ จุดขาย (ร่มโค้ก, ถังน้ำแข็ง, กล่องทิชชู, PM Rack, Mega Rack, ป้าย)
+- Printing-MKT — งานพิมพ์การตลาด (โคมไฟ, PP Board, แบนเนอร์, ผ้าปูโต๊ะ, สติ๊กเกอร์, ธงราว)
+- Printing-Rate — งานพิมพ์ตามเรท (Arch, Wrap Around, โปสเตอร์, Tent card, Wobbler, ธงปีกนก, Sticker PVC, Coupon)
+- Garment — เสื้อผ้า (เสื้อยืด, เสื้อโปโล, เสื้อแจ็คเก็ต, สกรีน, ค่าปัก)
+- Premium — ของพรีเมียม (ร่ม, แก้วกระดาษ, ผ้าเบอร์วิ่ง, Menu Stand, เก้าอี้)
+
+Quantity filter warning: products have a minimum order quantity (MOQ).
+A quantity filter removes products whose MOQ exceeds the request. Search
+WITHOUT quantity first to identify the product, then check its tiers for
+the user's requested quantity. If the quantity is below MOQ, report the
+MOQ and ask whether the user wants to adjust.
+
+Authorization: Available to all users with access to the model.
 """
 
 import json
@@ -251,22 +261,33 @@ class Tools:
         __event_emitter__=None,
     ) -> str:
         """
-        Search procurement products with hybrid retrieval (keyword + vector).
+        Search procurement products. Hybrid retrieval: keyword + vector.
+
+        Send quantity ONLY after identifying the product. Quantity filter
+        removes products whose minimum order quantity exceeds the request.
+        If you send quantity on the first search and get zero results,
+        retry without quantity first to find the product, then check its
+        tiers.
 
         Args:
-            query: Search query in Thai or English (e.g. "Arch PP Board", "โปสเตอร์")
-            category: Filter by category (POSM, Printing-MKT, Printing-Rate, Garment, Premium-EA&HRC)
-            year: Filter by year (e.g. 2026)
-            min_price: Minimum awarded price filter
-            max_price: Maximum awarded price filter
-            quantity: Required quantity — matches only products with a tier that
-                      can serve it (deterministic, no guessing)
-            use_semantic: Use semantic reranking (better for fuzzy/paraphrased queries)
-            sort_by_price: Sort results by price_min ascending (find cheapest)
-            use_wildcard: Use wildcard search for partial Thai word matches (e.g. "ร่ม*")
+            query: Search terms in Thai or English. Be specific. Include
+                  size, color, material when available (e.g. "ร่มโค้ก 40 นิ้ว
+                  โครงไฟเบอร์" not just "ร่ม").
+            category: Send ONLY when user states the category explicitly.
+                      Do NOT guess. Wrong category kills results.
+            year: Filter by year. Default: search all years.
+            min_price: Minimum awarded price.
+            max_price: Maximum awarded price.
+            quantity: DO NOT send on the first search. Send only after you
+                      have identified the product and want to match a tier.
+            use_semantic: True for fuzzy or paraphrased queries.
+            sort_by_price: True to sort cheapest first.
+            use_wildcard: True for partial Thai word matches.
 
         Returns:
-            JSON string with search results (awarded prices + award_vendors)
+            JSON with results array, each containing logical_item_id,
+            product_name, category, price_min/max, quantity_min_all/max_all,
+            tiers[], award_vendors, product_spec_text, pricing_basis.
         """
         if __event_emitter__:
             await __event_emitter__(
@@ -311,8 +332,7 @@ class Tools:
                     break
 
             # Category fallback: if the caller guessed a category and nothing
-            # matched, retry WITHOUT the category filter (the guess may be wrong,
-            # e.g. "PP Board" is in Printing-MKT, not POSM).
+            # matched, retry WITHOUT the category filter (the guess may be wrong).
             category_dropped = False
             if len(results_list) == 0 and filter_expr and category:
                 no_cat_filter = self._build_filter(
@@ -331,6 +351,29 @@ class Tools:
                     )
                     if len(results_list) > 0:
                         category_dropped = True
+                        break
+
+            # Quantity fallback: if quantity filter killed all results, retry
+            # WITHOUT it. The product's MOQ may exceed the request. Return both
+            # the full product list and a flag so the LLM can report the MOQ.
+            quantity_dropped = False
+            if len(results_list) == 0 and filter_expr and quantity is not None:
+                no_qty_filter = self._build_filter(
+                    category=category,
+                    year=year,
+                    min_price=min_price,
+                    max_price=max_price,
+                    quantity=None,
+                )
+                for attempt in candidates:
+                    results_list = self._search(
+                        search_text=attempt,
+                        query_vector=query_vector,
+                        filter_expr=no_qty_filter,
+                        use_semantic=use_semantic,
+                    )
+                    if len(results_list) > 0:
+                        quantity_dropped = True
                         break
 
             if sort_by_price and results_list:
@@ -357,6 +400,12 @@ class Tools:
                     response["warning"] = (
                         f"ไม่พบผลเมื่อ filter category='{category}' → "
                         "ค้นใหม่โดยไม่ระบุ category (อาจเดาหมวดผิด) และได้ผลลัพธ์นี้"
+                    )
+                if quantity_dropped:
+                    response["warning"] = (
+                        f"ไม่พบผลเมื่อ filter quantity={quantity} → "
+                        "ค้นใหม่โดยไม่ระบุจำนวน (MOQ อาจสูงกว่าที่ขอ) "
+                        "ตรวจสอบ quantity_min_all ในผลลัพธ์และแจ้งผู้ใช้"
                     )
                 return json.dumps(response, ensure_ascii=False, indent=2)
             return json.dumps(
