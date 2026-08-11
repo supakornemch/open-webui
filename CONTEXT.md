@@ -104,6 +104,7 @@
 
 ### Container Registry (`acrentchatpocsand`)
 - **Images**: `entchat-owui` (Open WebUI + teams-auth.html, v0.11.0), `litellm-entchat` (LiteLLM + MCP packages)
+- **Canonical repository names (POC + QAS)**: use `entchat-owui` and `litellm-entchat`. **Never use the legacy `owui-entchat-teams` repository name.** QAS images are pushed to `acrentchatqas.azurecr.io/entchat-owui` and `acrentchatqas.azurecr.io/litellm-entchat`.
 - ⚠️ ARM64 build → OCI index → ต้องใช้ AMD64 sub-manifest digest เสมอ
 
 ## Open WebUI (Genie)
