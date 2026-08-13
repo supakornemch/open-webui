@@ -103,7 +103,7 @@ services:
       - "--config"
       - "/app/config.yaml"
       - "--port"
-      - "4000"
+      - "4001"
     restart: unless-stopped
 
 volumes:

@@ -3,7 +3,9 @@ FROM ghcr.io/berriai/litellm:v1.83.3-stable
 # ponytail: Node.js for MCP stdio servers + pre-install packages (avoid cold-start download)
 # ponytail: LiteLLM base image ships .npmrc with min-release-age=3d which breaks
 # npx on Alpine ("Invalid time value"). Remove it so MCP stdio servers can spawn.
-RUN apk add --no-cache nodejs npm && \
+RUN apk add --no-cache nginx nodejs npm && \
+  addgroup -S nginx 2>/dev/null || true && \
+  adduser -S -D -H -s /sbin/nologin -G nginx nginx 2>/dev/null || true && \
     rm -f /app/.npmrc && \
     npm install -g \
       @modelcontextprotocol/server-postgres \
@@ -17,5 +19,9 @@ RUN apk add --no-cache nodejs npm && \
 COPY docker/litellm-config.yaml /app/config.yaml
 # ponytail: filesystem MCP needs a readable dir; /app/workspace for mounted docs
 RUN mkdir -p /app/workspace
+COPY docker/litellm-nginx.conf /etc/nginx/nginx.conf
+COPY docker/start-litellm.sh /app/start-litellm.sh
+RUN chmod 755 /app/start-litellm.sh && nginx -t
 EXPOSE 4000
-CMD ["--config", "/app/config.yaml", "--port", "4000"]
+ENTRYPOINT ["/app/start-litellm.sh"]
+CMD ["--config", "/app/config.yaml", "--port", "4001"]
