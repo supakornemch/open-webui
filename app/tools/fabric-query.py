@@ -137,6 +137,20 @@ class Tools:
 
         return max(1, min(row_limit, configured_cap, self.HARD_MAX_LIMIT))
 
+    def _resolve_database_name(self, database_name: Optional[str]) -> str:
+        """Resolve the only Fabric warehouse supported by this tool."""
+        candidate = (database_name or "").strip()
+        if candidate.lower() in {"", "?", "none", "null", "undefined"}:
+            return self.valves.DEFAULT_DATABASE
+        if candidate.casefold() != self.valves.DEFAULT_DATABASE.casefold():
+            raise ValueError(
+                f"Unsupported Fabric database `{candidate}`. This tool is configured for "
+                f"`{self.valves.DEFAULT_DATABASE}` only; `gold` and `dv` are schemas, "
+                "not database names. Omit database_name and qualify tables as "
+                "`gold.<table>` or `dv.<table>`."
+            )
+        return self.valves.DEFAULT_DATABASE
+
     @staticmethod
     def _sql_literal(value: object) -> str:
         """Quote a user-supplied string for a read-only SQL filter."""
@@ -145,7 +159,7 @@ class Tools:
     def _sync_get_connection_and_query(
         self, database_name: str, cleaned_query: str, limit: int, offset: int
     ) -> str:
-        db = database_name or self.valves.DEFAULT_DATABASE
+        db = self._resolve_database_name(database_name)
         endpoint = self.valves.FABRIC_ENDPOINT
 
         token_str = self.valves.ACCESS_TOKEN.strip()
@@ -255,8 +269,12 @@ class Tools:
         if validation_error:
             return validation_error
 
-        target_db = database_name or self.valves.DEFAULT_DATABASE
         row_limit = self._normalise_limit(limit)
+
+        try:
+            target_db = self._resolve_database_name(database_name)
+        except ValueError as e:
+            return f"Error resolving Fabric database: {e}"
 
         if page and page > 0:
             row_offset = (page - 1) * row_limit

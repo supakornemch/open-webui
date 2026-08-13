@@ -1,0 +1,138 @@
+[
+  {
+    "id": "sales-performance-skill",
+    "user_id": "a54a7f58-5c1c-45df-a66d-c1189f69291f",
+    "name": "Sales Performance Skill",
+    "description": "ใช้ตอบคำถาม Net Revenue, PC/UC Volume, sales trend และ breakdown ตาม SubOrg, Zone, Brand หรือ customer",
+    "content": "# Sales Performance Skill\n\nใช้ตอบคำถามยอดขาย, Net Revenue, PC Volume, UC Volume, trend และ breakdown ตาม `SubOrg`, `Zone`, `Brand` หรือ customer จาก `LH_OTC_TEST.dv.mlv_sale_preformance_aggregate`\n\n## กฎ\n\n- Metric ที่ยืนยันแล้ว: `SumBillNetRevenue`, `SumBillPCVolume`, `SumBillUCVolume`, `BillingDate`, `SubOrgKey`, `Zone`, `BrandKey`, `BillCustomerKey`\n- ถ้าต้องการรายการรายวัน/รายการขาย ใช้ `query_sales_performance`; ถ้าต้อง aggregate, trend, YoY หรือ breakdown ใช้ `query_fabric`\n- ระบุช่วงวันแบบ inclusive-start/exclusive-end เช่น `>= '2025-01-01' AND < '2025-07-01'`\n- ทุก call ส่ง `limit=20`; ห้าม `SELECT *`; ไม่ต้องส่ง `database_name`\n\n## Few-shot queries\n\n### ยอดรวมช่วงเวลา\n\nผู้ใช้: \"ยอด Net Revenue ครึ่งแรกปี 2025 เท่าไร\"\n\nเรียก `query_fabric`:\n\n```json\n{\n  \"sql_query\": \"SELECT SUM(SumBillNetRevenue) AS net_revenue FROM dv.mlv_sale_preformance_aggregate WHERE BillingDate >= '2025-01-01' AND BillingDate < '2025-07-01'\",\n  \"limit\": 20\n}\n```\n\n### Trend รายเดือน\n\nผู้ใช้: \"ยอดขายรายเดือนปี 2025\"\n\nเรียก `query_fabric`:\n\n```json\n{\n  \"sql_query\": \"SELECT YEAR(BillingDate) AS sales_year, MONTH(BillingDate) AS sales_month, SUM(SumBillNetRevenue) AS net_revenue, SUM(SumBillPCVolume) AS pc_volume, SUM(SumBillUCVolume) AS uc_volume FROM dv.mlv_sale_preformance_aggregate WHERE BillingDate >= '2025-01-01' AND BillingDate < '2026-01-01' GROUP BY YEAR(BillingDate), MONTH(BillingDate) ORDER BY sales_year, sales_month\",\n  \"limit\": 20\n}\n```\n\n### Breakdown ตาม Zone\n\nผู้ใช้: \"ยอดขายเดือนมิถุนายน 2025 แยก Zone\"\n\nเรียก `query_fabric`:\n\n```json\n{\n  \"sql_query\": \"SELECT Zone, SUM(SumBillNetRevenue) AS net_revenue FROM dv.mlv_sale_preformance_aggregate WHERE BillingDate >= '2025-06-01' AND BillingDate < '2025-07-01' GROUP BY Zone ORDER BY net_revenue DESC\",\n  \"limit\": 20\n}\n```\n\n## คำตอบ\n\nรายงานช่วงเวลา, metric, grain, filter และ source table; อย่าระบุหน่วยเงินจนกว่าจะมี business definition ยืนยัน",
+    "meta": {
+      "tags": [
+        "fabric",
+        "sales"
+      ]
+    },
+    "is_active": true,
+    "access_grants": [
+      {
+        "id": "78a30efe-70cd-4ff3-995e-dcd03cacd429",
+        "resource_type": "skill",
+        "resource_id": "sales-performance-skill",
+        "principal_type": "group",
+        "principal_id": "dbebf665-efe0-4fdc-bbfe-4138173b8530",
+        "permission": "read",
+        "created_at": 1786590626
+      }
+    ],
+    "updated_at": 1786590626,
+    "created_at": 1786590626
+  },
+  {
+    "id": "sales-target-skill",
+    "user_id": "a54a7f58-5c1c-45df-a66d-c1189f69291f",
+    "name": "Sales Target Skill",
+    "description": "ใช้ตอบคำถามเป้ายอดขาย Revenue, PC และ UC ตามสินค้า, SubOrg, เดือน หรือ customer",
+    "content": "# Sales Target Skill\n\nใช้ตอบคำถามเป้ายอดขาย Revenue, PC, UC ตามสินค้า, SubOrg, เดือน หรือ customer จาก `LH_OTC_TEST.dv.mlv_sale_target` และ `dv.mlv_sale_target_customer`\n\n## กฎ\n\n- ใช้ `query_sales_targets` สำหรับการดู target ตาม filter ที่ tool รองรับ\n- Fields ที่ helper ยืนยัน: `Revenue`, `Pc`, `Uc`, `Year`, `MonthNumber`, `MaterialNo`, `PackSizeCode`, `SubOrg`; customer target เพิ่ม `CustomerKey`\n- Actual vs target ต้อง inspect schema และยืนยัน grain/join key ก่อน เพราะ actual sales กับ target อาจไม่อยู่ใน grain เดียวกัน\n- ทุก call ส่ง `limit=20`; ห้าม `SELECT *`; ไม่ต้องส่ง `database_name`\n\n## Few-shot queries\n\n### Target ตาม SubOrg และเดือน\n\nผู้ใช้: \"เป้ายอดขายเดือน 6 ปี 2025 ของ SubOrg Z0201\"\n\nเรียก `query_sales_targets`:\n\n```json\n{\n  \"year\": 2025,\n  \"month\": 6,\n  \"sub_org\": \"Z0201\",\n  \"limit\": 20,\n  \"page\": 1\n}\n```\n\n### Target ของสินค้า\n\nผู้ใช้: \"เป้า Revenue ของ Material 1000001 ปี 2025\"\n\nเรียก `query_sales_targets`:\n\n```json\n{\n  \"year\": 2025,\n  \"material_no\": \"1000001\",\n  \"limit\": 20,\n  \"page\": 1\n}\n```\n\n### Target ของลูกค้า\n\nผู้ใช้: \"เป้าลูกค้า 0008005694 เดือน 6 ปี 2025\"\n\nเรียก `query_sales_targets`:\n\n```json\n{\n  \"year\": 2025,\n  \"month\": 6,\n  \"customer_key\": \"0008005694\",\n  \"limit\": 20,\n  \"page\": 1\n}\n```\n\n## คำตอบ\n\nระบุ target table, period, filter และ level ของ target; อย่าอ้าง attainment percentage จน query actual กับ target ที่ grain เดียวกันสำเร็จ",
+    "meta": {
+      "tags": [
+        "fabric",
+        "target"
+      ]
+    },
+    "is_active": true,
+    "access_grants": [
+      {
+        "id": "0a98d384-6c8c-4c70-8f1d-d997a29ce0b7",
+        "resource_type": "skill",
+        "resource_id": "sales-target-skill",
+        "principal_type": "group",
+        "principal_id": "dbebf665-efe0-4fdc-bbfe-4138173b8530",
+        "permission": "read",
+        "created_at": 1786590626
+      }
+    ],
+    "updated_at": 1786590626,
+    "created_at": 1786590626
+  },
+  {
+    "id": "visit-execution-skill",
+    "user_id": "a54a7f58-5c1c-45df-a66d-c1189f69291f",
+    "name": "Visit Execution Skill",
+    "description": "ใช้ตอบคำถามแผนและประวัติเยี่ยมลูกค้า, visit group และ visit execution",
+    "content": "# Visit Execution Skill\n\nใช้ตอบคำถามแผน/ประวัติเยี่ยมลูกค้า ตามช่วงเวลา, customer, SubOrg และ visit group จาก `LH_OTC_TEST.dv.mlv_customer_visit_list`\n\n## กฎ\n\n- ใช้ `query_customer_visits` สำหรับรายการ visit; helper ยืนยัน fields `ExecDateKey`, `SubOrgKey`, `CustomerKey`, `VisitGroupKey`, `GroupVisitKey`\n- คำถาม visit rate, no-visit หรือ visit-to-order ต้อง inspect schema ของ `dv.mlv_customer_visit_sales_order` หรือ `dv.dv_visit_so` ก่อน\n- ทุก call ส่ง `limit=20`; ห้าม `SELECT *`; ไม่ต้องส่ง `database_name`\n\n## Few-shot queries\n\n### ประวัติเยี่ยมลูกค้า\n\nผู้ใช้: \"ประวัติเยี่ยมลูกค้า 0008005694 ในเดือนมิถุนายน 2025\"\n\nเรียก `query_customer_visits`:\n\n```json\n{\n  \"customer_key\": \"0008005694\",\n  \"visit_date_from\": \"2025-06-01\",\n  \"visit_date_to\": \"2025-06-30\",\n  \"limit\": 20,\n  \"page\": 1\n}\n```\n\n### รายการตาม visit group\n\nผู้ใช้: \"แสดง visit group VG001 เดือนมิถุนายน 2025\"\n\nเรียก `query_customer_visits`:\n\n```json\n{\n  \"visit_group_key\": \"VG001\",\n  \"visit_date_from\": \"2025-06-01\",\n  \"visit_date_to\": \"2025-06-30\",\n  \"limit\": 20,\n  \"page\": 1\n}\n```\n\n### Visit-to-order KPI\n\nผู้ใช้: \"visit-to-order rate เดือนมิถุนายน 2025\"\n\nก่อน query ให้เรียก `get_table_schema(table_name=\"mlv_customer_visit_sales_order\", schema_name=\"dv\", limit=20)` แล้วใช้เฉพาะ column ที่ยืนยันใน schema\n\n## คำตอบ\n\nระบุว่าเป็นรายการสูงสุด 20 แถวหรือ aggregate จริง, ช่วงวัน, filter และ source table",
+    "meta": {
+      "tags": [
+        "fabric",
+        "visit"
+      ]
+    },
+    "is_active": true,
+    "access_grants": [
+      {
+        "id": "fd55754f-2aa8-4168-8cdd-4c63862d80ad",
+        "resource_type": "skill",
+        "resource_id": "visit-execution-skill",
+        "principal_type": "group",
+        "principal_id": "dbebf665-efe0-4fdc-bbfe-4138173b8530",
+        "permission": "read",
+        "created_at": 1786590626
+      }
+    ],
+    "updated_at": 1786590626,
+    "created_at": 1786590626
+  },
+  {
+    "id": "credit-collection-skill",
+    "user_id": "a54a7f58-5c1c-45df-a66d-c1189f69291f",
+    "name": "Credit Collection Skill",
+    "description": "ใช้ตอบคำถามหนี้ค้างชำระ, overdue, collection และ credit utilization",
+    "content": "# Credit Collection Skill\n\nใช้ตอบคำถามหนี้ค้างชำระ, overdue และ credit exposure จาก `LH_OTC_TEST.dv.mlv_credit_overdue`; ข้อมูลนี้อ่อนไหว จึงตอบเท่าที่จำเป็นต่อบทบาทผู้ใช้\n\n## กฎ\n\n- Helper ยืนยัน fields: `CustomerKey`, `BillingDocKey`, `BaselineDate`, `DueDate`, `AmountLC`, `SignedAmount`\n- ใช้ `query_credit_and_overdue` สำหรับรายการ overdue ตาม customer หรือ due date\n- คำถาม credit limit/utilization ต้อง inspect schema ของ `dv.dv_credit_use_credit_limit` ก่อน\n- ทุก call ส่ง `limit=20`; ห้าม `SELECT *`; ไม่ต้องส่ง `database_name`\n\n## Few-shot queries\n\n### Overdue ของลูกค้า\n\nผู้ใช้: \"หนี้ค้างของลูกค้า 0008005694\"\n\nเรียก `query_credit_and_overdue`:\n\n```json\n{\n  \"customer_key\": \"0008005694\",\n  \"limit\": 20,\n  \"page\": 1\n}\n```\n\n### เอกสารที่ถึงกำหนดก่อนวันกำหนด\n\nผู้ใช้: \"เอกสาร overdue ที่ครบกำหนดไม่เกิน 2025-06-30\"\n\nเรียก `query_credit_and_overdue`:\n\n```json\n{\n  \"due_before_date\": \"2025-06-30\",\n  \"limit\": 20,\n  \"page\": 1\n}\n```\n\n### Credit utilization\n\nผู้ใช้: \"ลูกค้าใดใช้วงเงินเกิน 80%\"\n\nก่อน query ให้เรียก `get_table_schema(table_name=\"dv_credit_use_credit_limit\", schema_name=\"dv\", limit=20)` แล้วตรวจ field credit limit/usage ก่อนคำนวณ\n\n## คำตอบ\n\nระบุ cutoff date และ source table; ไม่สรุปว่าหน้าแรก 20 แถวคือจำนวนเอกสารทั้งหมด และอย่าเปิดเผยข้อมูลเกินความจำเป็น",
+    "meta": {
+      "tags": [
+        "fabric",
+        "credit"
+      ]
+    },
+    "is_active": true,
+    "access_grants": [
+      {
+        "id": "75595790-8e60-4d2e-aefa-40a0752117e3",
+        "resource_type": "skill",
+        "resource_id": "credit-collection-skill",
+        "principal_type": "group",
+        "principal_id": "dbebf665-efe0-4fdc-bbfe-4138173b8530",
+        "permission": "read",
+        "created_at": 1786590626
+      }
+    ],
+    "updated_at": 1786590626,
+    "created_at": 1786590626
+  },
+  {
+    "id": "distribution-cooler-skill",
+    "user_id": "a54a7f58-5c1c-45df-a66d-c1189f69291f",
+    "name": "Distribution and Cooler Skill",
+    "description": "ใช้ตอบคำถามร้านที่มีตู้แช่, cooler placement, outlet buying และ distribution coverage",
+    "content": "# Distribution and Cooler Skill\n\nใช้ตอบคำถามร้านที่มีตู้แช่, การซื้อของ outlet ที่มี cooler, cooler placement และ distribution coverage\n\n## กฎ\n\n- ใช้ `query_coolers` สำหรับร้านที่มี cooler และ buying data; helper ยืนยัน fields `EquipmentKey`, `CustomerKey`, `ValidFromDate`, `ValidToDate`, `StorageLocationKey`, `BillCustomerKey`, `BillingDate`\n- การค้นหา serial/status ต้อง inspect `dv.dv_cooler` ก่อนแล้วใช้ `query_fabric`; helper ไม่รองรับ filter สองตัวนี้\n- Distribution coverage/target ต้อง inspect `dv.mlv_distributed_outlets_customer` หรือ `dv.dv_distribution_target` ก่อน\n- ทุก call ส่ง `limit=20`; ห้าม `SELECT *`; ไม่ต้องส่ง `database_name`\n\n## Few-shot queries\n\n### ร้านที่มีตู้และซื้อสินค้า\n\nผู้ใช้: \"ร้าน 0008005694 ที่มีตู้แช่และมีการซื้อ\"\n\nเรียก `query_coolers`:\n\n```json\n{\n  \"customer_key\": \"0008005694\",\n  \"limit\": 20,\n  \"page\": 1\n}\n```\n\n### รายการ outlet with cooler ล่าสุด\n\nผู้ใช้: \"แสดงร้านมีตู้แช่ที่มีการซื้อล่าสุด\"\n\nเรียก `query_coolers`:\n\n```json\n{\n  \"limit\": 20,\n  \"page\": 1\n}\n```\n\n### ค้นหาตู้ด้วย serial\n\nผู้ใช้: \"ค้นหาตู้ serial ABC123\"\n\nก่อน query ให้เรียก `get_table_schema(table_name=\"dv_cooler\", schema_name=\"dv\", limit=20)` แล้วใช้ `query_fabric` โดยเลือกเฉพาะ serial/equipment/customer fields ที่ schema ยืนยัน\n\n## คำตอบ\n\nระบุว่าเป็น cooler-buying relation หรือ asset master, ช่วงเวลา/สถานะความถูกต้อง และจำนวนสูงสุด 20 แถว",
+    "meta": {
+      "tags": [
+        "fabric",
+        "cooler",
+        "distribution"
+      ]
+    },
+    "is_active": true,
+    "access_grants": [
+      {
+        "id": "82ce0e99-1554-4a69-ac2c-c0a85398fd05",
+        "resource_type": "skill",
+        "resource_id": "distribution-cooler-skill",
+        "principal_type": "group",
+        "principal_id": "dbebf665-efe0-4fdc-bbfe-4138173b8530",
+        "permission": "read",
+        "created_at": 1786590626
+      }
+    ],
+    "updated_at": 1786590626,
+    "created_at": 1786590626
+  }
+]

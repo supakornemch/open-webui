@@ -29,6 +29,7 @@
 | custom SQL | `query_fabric(sql_query, limit≤20, page?)` |
 
 - `query_fabric`: ใช้เมื่อต้อง aggregate/join/กรองเฉพาะ; เขียน table แบบ fully qualified (`dv.mlv_...`); ส่ง `limit=20` เสมอแม้ SQL มี `TOP`
+- Database: ใช้ `LH_OTC_TEST` เป็นค่าเริ่มต้น จึง **ไม่ต้องส่ง** `database_name` ใน tool call; หากจำเป็นต้องระบุ ให้ส่งเฉพาะ `LH_OTC_TEST` เท่านั้น ห้ามส่ง placeholder เช่น `?`, `null`, `none` หรือ `undefined`
 
 ## Workflow
 
