@@ -1,8 +1,9 @@
 # EnterpriseChat — Local Compose for Teams Auth Testing
 # Builds custom Open WebUI (with teams-auth.html + Azure AI Search backend) + LiteLLM
 #
-# Usage:
-#   docker compose -f docker/compose.yml up -d --build
+# Usage (shared infra must already be running):
+#   docker compose -f ../local-infra/compose.yml up -d
+#   docker compose -f docker/compose.yml --env-file docker/.env.local up -d --build
 #
 # Secrets live in one file per service (both gitignored):
 #   cp docker/.env.owui.example docker/.env.owui
@@ -18,27 +19,6 @@
 name: enterprisechat-local
 services:
   # ============================================================
-  # Postgres — local DB so local never touches the shared Azure DB
-  # ============================================================
-  postgres:
-    image: postgres:18-alpine
-    container_name: postgres-local
-    environment:
-      - POSTGRES_USER=owui
-      - POSTGRES_PASSWORD=${LOCAL_PG_PASSWORD:-owui}
-      - POSTGRES_DB=open_webui
-    volumes:
-      # pg18+ wants the mount one level up; data lands in a version subdir
-      - pgdata-local:/var/lib/postgresql
-      - ./initdb:/docker-entrypoint-initdb.d:ro
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U owui -d open_webui"]
-      interval: 5s
-      timeout: 5s
-      retries: 10
-    restart: unless-stopped
-
-  # ============================================================
   # Open WebUI — Chat Interface (custom image)
   # ============================================================
   open-webui:
@@ -53,16 +33,16 @@ services:
       - ../data/open-webui:/app/backend/data
     env_file:
       - .env.owui
-    depends_on:
-      postgres:
-        condition: service_healthy
+    networks:
+      - default
+      - haadthip-infra
     environment:
       # ── Local overrides (different from production) ──
       - ENV=dev
       - WEBUI_URL=http://localhost:3000
       - MICROSOFT_REDIRECT_URI=http://localhost:3000/oauth/microsoft/callback
       # ── DB: local Postgres — never the shared Azure sandbox DB ──
-      - DATABASE_URL=postgresql://owui:${LOCAL_PG_PASSWORD:-owui}@postgres:5432/open_webui
+      - DATABASE_URL=postgresql://postgres:${LOCAL_POSTGRES_PASSWORD:?set LOCAL_POSTGRES_PASSWORD}@haadthip-local-postgres:5432/open_webui
       # ── Vector DB: Azure AI Search (key from .env.owui) ──
       - VECTOR_DB=azure-ai-search
       - AZURE_SEARCH_ENDPOINT=https://srch-entchat-poc-sand.search.windows.net
@@ -92,13 +72,13 @@ services:
       - ./litellm-config.local.yaml:/app/config.yaml:ro
     env_file:
       - .env.litellm
-    depends_on:
-      postgres:
-        condition: service_healthy
+    networks:
+      - default
+      - haadthip-infra
     environment:
       # LiteLLM runs `prisma migrate deploy` at startup and auto-baselines any
       # schema it doesn't own into DROP TABLE. Must never resolve to /open_webui.
-      - DATABASE_URL=postgresql://owui:${LOCAL_PG_PASSWORD:-owui}@postgres:5432/litellm
+      - DATABASE_URL=postgresql://postgres:${LOCAL_POSTGRES_PASSWORD:?set LOCAL_POSTGRES_PASSWORD}@haadthip-local-postgres:5432/litellm
     command:
       - "--config"
       - "/app/config.yaml"
@@ -106,5 +86,7 @@ services:
       - "4001"
     restart: unless-stopped
 
-volumes:
-  pgdata-local:
+networks:
+  haadthip-infra:
+    external: true
+    name: haadthip-local-infra_default

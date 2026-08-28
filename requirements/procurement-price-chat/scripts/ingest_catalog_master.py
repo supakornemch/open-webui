@@ -11,7 +11,7 @@ and rebuilds `procurement-catalog-v1` with ONE document per logical product:
   --verify         check vector dimensions / count + semantic sample query
 
 Logical product id = {Year}:{Category}:{Item}. Each document carries:
-  - tiers[] (quantity + awarded price + vendor_quotes[] with is_awarded)
+  - tiers[] (quantity + awarded price)
   - flat aggregates price_min/max, quantity_min_all/max_all
   - product enrichment fields (name/aliases/type/keywords/spec/condition text)
   - award_vendors (from รายชื่อผู้ผ่านการประมูล), notes_text (from Note)
@@ -239,8 +239,8 @@ def build_product_documents(
     """Group tier rows into one document per logical product.
 
     Each document carries the agreed product-level schema: tiers[] with
-    vendor_quotes[] (every quote + is_awarded), flat aggregates, product
-    enrichment text fields, award_vendors and notes_text.
+    quantity and awarded price, flat aggregates, product enrichment text
+    fields, award_vendors and notes_text.
     """
     from collections import OrderedDict
 

@@ -30,6 +30,7 @@
       "name": "tiers",
       "type": "Collection(Edm.ComplexType)",
       "fields": [
+        { "name": "lead_time", "type": "Edm.String", "filterable": true, "retrievable": true, "analyzer": "th.microsoft" },
         { "name": "quantity_label", "type": "Edm.String", "searchable": true, "retrievable": true, "analyzer": "th.microsoft" },
         { "name": "quantity_min", "type": "Edm.Int32", "filterable": true, "retrievable": true },
         { "name": "quantity_max", "type": "Edm.Int32", "filterable": true, "retrievable": true },

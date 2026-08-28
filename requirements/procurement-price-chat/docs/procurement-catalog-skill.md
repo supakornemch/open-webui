@@ -2,7 +2,7 @@
 
 ## Index
 - Azure AI Search index: `procurement-catalog-v1` (one document per logical product)
-- 123 products, 405 quantity tiers, from Excel Master Y2025/Y2026 (Printing-MKT + Printing-Rate)
+- 179 products, 518 quantity-tier rows, from Excel Master Y2026
 - Hybrid + semantic retrieval via tool `procurement_price_search` (hybrid = BM25 keyword + vector fused by Azure RRF; semantic rerank is optional on top)
 
 ## Document structure (fields the tool returns)
@@ -14,19 +14,15 @@
 - `tiers[]` — แต่ละเรทราคา:
   - `quantity_label`, `quantity_min`, `quantity_max` — ช่วงจำนวนของเรทนี้
   - `awarded_price` — ราคาที่ผ่านการประมูลของเรทนี้ (authoritative จาก workbook)
-  - `vendor_quotes[]` — ราคา quote ของทุก vendor ในเรทนี้
-    - `vendor_name`, `price`
-    - `is_awarded` — true = vendor นี้เป็นผู้ชนะเรทนี้
-- `award_vendors` — รายชื่อ vendor ที่ผ่านการประมูล (ระดับสินค้า)
-- `vendor_names` — รายชื่อ vendor ทั้งหมดที่เสนอราคา
+- `award_vendors` — รายชื่อผู้ผ่านการประมูล (ระดับสินค้า)
 - `product_spec_text`, `product_condition_text` — สเปค / เงื่อนไขของสินค้า
 - `notes_text` — หมายเหตุ (เช่น "ราคาต่ำสุดแต่ไม่ตรงสเปค")
 
 ## How to read results
 1. ผู้ใช้ถามราคา → tool `search_procurement_prices(query=...)`
-2. ถ้าระบุจำนวน (เช่น "500 ชิ้น") → ส่ง `quantity=500` ให้ tool จับคู่ tier แบบ deterministic
+2. แม้ผู้ใช้ระบุจำนวน (เช่น "500 ชิ้น") ให้ค้นหาสินค้าโดยไม่ส่ง `quantity` ก่อน; เมื่อระบุสินค้าได้แล้ว จึงส่ง `quantity=500` ให้ tool จับคู่ tier แบบ deterministic
 3. อ่านราคาจาก `tiers[].awarded_price` (เรทที่ตรง) หรือ `price_min/max`
-4. เทียบ vendor → ดู `vendor_quotes[]` ในเรทนั้น + `is_awarded`
+4. หากถามผู้ผ่านการประมูล → ดู `award_vendors` ระดับสินค้า (catalog นี้ไม่มี quote ราย vendor)
 5. ถ้าหลายสินค้าคล้ายกัน → เทียบ `product_spec_text` / `product_condition_text` แล้วถามกลับ
 
 ## Quantity tier matching rule

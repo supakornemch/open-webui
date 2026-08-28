@@ -1,7 +1,7 @@
 """
 title: Fabric Data Warehouse Query Tool
 author: Haadthip DIO
-version: 1.4
+version: 1.5
 required_open_webui_version: 0.5.0
 
 Query Microsoft Fabric Data Warehouse (LH_OTC_TEST) using Entra ID auth.
@@ -16,12 +16,6 @@ import re
 import struct
 from typing import Optional
 from pydantic import BaseModel, Field
-
-import pyodbc
-from azure.identity import (
-    DefaultAzureCredential,
-    ClientSecretCredential,
-)
 
 
 class Tools:
@@ -159,6 +153,16 @@ class Tools:
     def _sync_get_connection_and_query(
         self, database_name: str, cleaned_query: str, limit: int, offset: int
     ) -> str:
+        try:
+            import pyodbc
+            from azure.identity import ClientSecretCredential, DefaultAzureCredential
+        except ImportError as exc:
+            raise RuntimeError(
+                "Fabric query dependencies are not installed in this Open WebUI image: "
+                f"{exc}. Deploy an image that installs `pyodbc`, `azure-identity`, "
+                "and Microsoft ODBC Driver 18 for SQL Server."
+            ) from exc
+
         db = self._resolve_database_name(database_name)
         endpoint = self.valves.FABRIC_ENDPOINT
 

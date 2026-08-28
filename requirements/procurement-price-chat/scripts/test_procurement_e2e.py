@@ -8,7 +8,7 @@ layer:
   1. Generate a query embedding via the same LiteLLM proxy endpoint/keys the
      tool valves use (text-embedding-3-large, 3072 dims).
   2. Hybrid search (keyword + vector) against procurement-catalog-v1.
-  3. Exercise filters: category / vendor / year / price range / quantity tier.
+  3. Exercise filters: category / year / price range / quantity tier.
   4. Assert the results match the products we KNOW are in the index.
 
 Run later (needs VPN + env):
@@ -52,10 +52,7 @@ QUERY_CASES = [
 FILTER_CASES = [
     ("category=Printing-Rate", {"search": "*", "filter": "category eq 'Printing-Rate'", "min_hits": 1}),
     ("year=2026", {"search": "*", "filter": "year eq 2026", "min_hits": 1}),
-    (
-        "vendor=บจก.กราฟฟิกเน็กซ์",
-        {"search": "*", "filter": "vendor_keys/any(v: v eq 'บจก.กราฟฟิกเน็กซ์')", "min_hits": 1},
-    ),
+
     (
         "price_min<=250",
         {"search": "Arch", "filter": "price_min le 250", "min_hits": 1},
@@ -107,7 +104,7 @@ def run_search(client: SearchClient, *, search_text: str, query_vector: list[flo
         "select": [
             "logical_item_id", "year", "category", "product_name",
             "price_min", "price_max", "quantity_min_all", "quantity_max_all",
-            "award_vendors", "vendor_names", "tiers",
+            "award_vendors", "tiers",
         ],
     }
     if use_semantic:
@@ -154,7 +151,7 @@ def main() -> int:
     print("== index sanity ==")
     total = search_client.search(search_text="*", top=0, include_total_count=True)
     count = total.get_count()
-    check(f"index count >= 123 (got {count})", count is not None and count >= 123)
+    check(f"index count >= 179 (got {count})", count is not None and count >= 179)
     print()
 
     # ---- 1. query cases (hybrid, expect specific product) ----
@@ -209,7 +206,7 @@ def main() -> int:
               f"name={name_ok} price={price_ok} qty={qty_ok} got={r.get('price_min')}/{r.get('price_max')}")
     print()
 
-    # ---- 5. tier & vendor_quotes integrity ----
+    # ---- 5. tier integrity ----
     print("== tier integrity ==")
     vec = get_embedding(embed_client, embedding_deployment, "Arch 60x70")
     results = run_search(search_client, search_text="Arch 60x70", query_vector=vec, top=5)
@@ -218,17 +215,12 @@ def main() -> int:
         check("Arch 60x70 found for tier check", False)
     else:
         tiers = arch.get("tiers") or []
-        # With duration expansion: 2 qty tiers × 4 durations = 8 tiers
-        check(f"Arch 60x70 has 8 tiers (2 qty × 4 durations, got {len(tiers)})", len(tiers) == 8)
+        check(f"Arch 60x70 has 2 quantity tiers (got {len(tiers)})", len(tiers) == 2)
         awarded_ok = all(
             t.get("awarded_price") in (207.0, 230.0) for t in tiers
         )
         check("tiers awarded_price in {207, 230}", awarded_ok)
-        quote_ok = all(
-            any(q.get("is_awarded") is True for q in (t.get("vendor_quotes") or []))
-            for t in tiers
-        )
-        check("each tier has an is_awarded quote", quote_ok)
+
     print()
 
     print(f"==== RESULT: {PASS} passed, {FAIL} failed ====")
