@@ -34,8 +34,9 @@ docker/.env
 docker/.env.owui
 docker/.env.litellm
 
-# ── Open WebUI local data ──
+# ── Local data ──
 data/open-webui/
+data/n8n/
 
 # ── POC exports (regenerable) ──
 data/open_webui_poc.dump

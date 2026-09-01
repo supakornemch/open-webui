@@ -11,7 +11,8 @@ RUN apk add --no-cache nginx nodejs npm && \
       @modelcontextprotocol/server-postgres \
       @modelcontextprotocol/server-filesystem \
       @guanxiong/mcp-server-time \
-      @upstash/context7-mcp
+      @upstash/context7-mcp \
+      n8n
 
 # ponytail: Playwright MCP needs chromium which adds 1.5GB on Alpine.
 # add when Playwright is needed: chromium + deps, or switch to Debian base.
