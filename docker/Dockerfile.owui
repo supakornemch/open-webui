@@ -1,7 +1,7 @@
 # ponytail: hardcode --platform because Azure App Service is Linux/AMD64.
 # Local ARM Mac builds via docker buildx --platform linux/amd64 (Docker Desktop emulates).
 # Updated to v0.11.0 (2026-08-05) — includes nginx 1.28.2+ (fixes CVE-2026-1642)
-FROM --platform=linux/amd64 ghcr.io/open-webui/open-webui:v0.11.0
+FROM --platform=linux/amd64 ghcr.io/open-webui/open-webui:v0.11.3
 
 # ── Install Azure AI Search SDK for custom vector DB backend ──
 RUN pip install --no-cache-dir azure-search-documents>=11.4.0
