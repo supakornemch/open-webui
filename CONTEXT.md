@@ -274,6 +274,9 @@ Teams iframe → teams-auth.html → Teams SDK init
 | 14 | DocWise 500/502 — `IndentationError` in `admin_views.py:302` | Python syntax error ป้องกัน Django app load — ต้อง fix source + rebuild Docker image |
 | 15 | ASP B2 overload (92% CPU, 91% mem, 3 apps) | Scale up เป็น B3 หรือแยก ASP ต่อ app |
 | 16 | OWUI alembic_version ตารางว่าง → migrations พัง | INSERT 48 migration version IDs ด้วยตนเอง (ไม่งั้น OWUI พยายามรัน migration ซ้ำบน tables ที่มีอยู่แล้ว) |
+| 17 | หน้า model editor ช้า ~11s — `GET /api/v1/audio/voices` | OWUI (`audio.tts.engine=azure`) fetch voices list จาก `audio.tts.azure.speech_base_url` ซึ่ง hang ใน VNet จน timeout 10s (`AIOHTTP_CLIENT_TIMEOUT_MODEL_LIST`) → คืน `[]` ฟรี ๆ แก้: ตั้ง `audio.tts.engine=""` ใน config table (Admin → Audio) TTS ยังใช้ไม่ได้บน QAS อยู่แล้วจนกว่าจะเปิด outbound ไป `southeastasia.tts.speech.microsoft.com` |
+| 18 | LLM cost control & key consolidation (ADR-0002) | รวมทุก traffic ของ Genie (chat, KB, embeddings, procurement pipe+tool) ให้วิ่งผ่าน LiteLLM v-key เดียว `entchat-qas` ($1,000/เดือน, reset ทุก 30 วัน, 15 models) บน `app-litellm-qas` พร้อมอัปเดต KeyVault (`litellm-vkey-enterprise-chat-qas`, `litellm-vkey-entchat-qas`) และลบ legacy keys 5 ตัว |
+
 
 ## Docker Compose Files
 

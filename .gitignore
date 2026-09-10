@@ -65,3 +65,8 @@ node_modules/
 # Allow screenshots (needed by Docker build)
 !screenshots/
 !screenshots/*
+
+# Local trial keys (never commit)
+docker/.procurement-trial-key.txt
+
+docker/.entchat-qas-vkey.txt

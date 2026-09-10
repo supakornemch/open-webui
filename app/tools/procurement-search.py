@@ -1,12 +1,13 @@
 """
 title: Procurement Price Search
 author: Haadthip DIO
-version: 3.1
+version: 3.3
 required_open_webui_version: 0.5.0
 
 Search procurement prices from Azure AI Search index procurement-catalog-v1.
 One document = one logical product with tiered pricing. Prices come from the
-Excel Master verbatim. This tool never computes or invents prices.
+Excel Master verbatim. After identifying the product, call calculate_total_price
+with the quantity and tiers to get the deterministic total price.
 
 Capabilities:
 - Hybrid search: BM25 keyword + vector (3072-dim), fused by Azure RRF
@@ -112,16 +113,19 @@ class Tools:
 
     def __init__(self):
         self.valves = self.Valves()
-
-        # Load from environment if not set in valves
-        if not self.valves.AZURE_SEARCH_KEY:
-            self.valves.AZURE_SEARCH_KEY = os.getenv("AZURE_SEARCH_ADMIN_KEY", "")
-        if not self.valves.AZURE_OPENAI_KEY:
-            self.valves.AZURE_OPENAI_KEY = os.getenv("OPENAI_API_KEY", "")
-        if self.valves.AZURE_OPENAI_ENDPOINT == "https://aif-entchat-poc-sand.cognitiveservices.azure.com":
-            self.valves.AZURE_OPENAI_ENDPOINT = os.getenv(
-                "OPENAI_API_BASE_URL", self.valves.AZURE_OPENAI_ENDPOINT
-            )
+        v = self.valves
+        # Valves are the admin-set source of truth (they survive the OWUI tool
+        # sandbox, where App Service Key Vault references are not resolvable).
+        # Env vars are only a fallback for fresh deploys with empty valves.
+        if not v.AZURE_SEARCH_ENDPOINT:
+            v.AZURE_SEARCH_ENDPOINT = os.getenv("AZURE_SEARCH_ENDPOINT", v.AZURE_SEARCH_ENDPOINT)
+        if not v.AZURE_SEARCH_KEY:
+            v.AZURE_SEARCH_KEY = os.getenv("AZURE_SEARCH_ADMIN_KEY", "")
+        if not v.AZURE_OPENAI_ENDPOINT:
+            base = os.getenv("OPENAI_API_BASE_URL", "").rstrip("/")
+            v.AZURE_OPENAI_ENDPOINT = base[:-3] if base.endswith("/v1") else base
+        if not v.AZURE_OPENAI_KEY:
+            v.AZURE_OPENAI_KEY = os.getenv("OPENAI_API_KEY", "")
 
     def _get_embedding(self, text: str) -> list[float]:
         """Generate embedding vector for text using an OpenAI-compatible endpoint.
@@ -459,6 +463,81 @@ class Tools:
             __request__=__request__,
             __event_emitter__=__event_emitter__,
         )
+
+    async def calculate_total_price(
+        self,
+        quantity: int,
+        tiers: list,
+        __user__: dict = None,
+        __event_emitter__=None,
+    ) -> str:
+        """
+        Compute the total awarded price for a quantity from a product's tiers.
+        Deterministic tier matching — never invents prices.
+
+        Args:
+            quantity: Number of units the user wants.
+            tiers: The `tiers` array copied verbatim from the search result
+                   of the chosen product (quantity_min, quantity_max,
+                   awarded_price, quantity_label).
+
+        Returns:
+            JSON with matched tier, unit_price, total_price = unit x quantity,
+            or below_moq info (MOQ + total at MOQ) when quantity is under
+            the minimum tier.
+        """
+        valid = [
+            t for t in (tiers or [])
+            if t.get("awarded_price") is not None and t.get("quantity_min") is not None
+        ]
+        if not valid:
+            return json.dumps({"success": False, "error": "ไม่มี tier ที่ใช้ได้ (missing awarded_price/quantity_min)"}, ensure_ascii=False)
+        valid.sort(key=lambda t: t["quantity_min"])
+
+        matched = None
+        for t in valid:
+            qmin = t["quantity_min"]
+            qmax = t.get("quantity_max")
+            if quantity < qmin:
+                break  # below MOQ — no tier covers this quantity
+            if qmax is None or quantity <= qmax:
+                matched = t
+                break
+        if matched is None and quantity < valid[0]["quantity_min"]:
+            lowest = valid[0]
+            moq = lowest["quantity_min"]
+            unit = lowest["awarded_price"]
+            return json.dumps({
+                "success": True,
+                "quantity": quantity,
+                "below_moq": True,
+                "moq": moq,
+                "unit_price_at_moq": unit,
+                "total_at_moq": round(unit * moq, 2),
+                "message": f"จำนวน {quantity} ต่ำกว่าขั้นต่ำ {moq} — ไม่มีเรทที่ตรง; ทางเลือก: สั่งตาม MOQ {moq} ชิ้น (รวม {unit * moq:,.2f} บาท) หรือปรึกษาจัดซื้อ",
+            }, ensure_ascii=False, indent=2)
+        if matched is None:
+            return json.dumps({
+                "success": False,
+                "reason": "no_matching_tier",
+                "quantity": quantity,
+                "error": "ไม่มี awarded tier ที่ครอบคลุมจำนวนนี้ — ห้าม extrapolate ราคา",
+            }, ensure_ascii=False, indent=2)
+
+        unit = matched["awarded_price"]
+        total = round(unit * quantity, 2)
+        return json.dumps({
+            "success": True,
+            "quantity": quantity,
+            "matched_tier": {
+                "quantity_label": matched.get("quantity_label"),
+                "quantity_min": matched["quantity_min"],
+                "quantity_max": matched.get("quantity_max"),
+            },
+            "unit_price": unit,
+            "total_price": total,
+            "formula": f"{unit} x {quantity} = {total}",
+        }, ensure_ascii=False, indent=2)
 
     async def compare_vendors(
         self,

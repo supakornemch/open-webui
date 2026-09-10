@@ -62,4 +62,6 @@ RUN RETRIEVAL=/app/backend/open_webui/routers/retrieval.py && \
 
 # ── Start nginx + Open WebUI (nginx on 8080 proxies to OWUI on 8081) ──
 # Test nginx config before starting, and ensure it starts in foreground initially
+HEALTHCHECK --interval=30s --timeout=10s --start-period=60s --retries=3 \
+    CMD curl --silent --fail http://localhost:8080/health | grep -qx 'OK'
 CMD bash -c "nginx -t && nginx && echo 'nginx started on 8080' && PORT=8081 bash /app/backend/start.sh"
