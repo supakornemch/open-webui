@@ -5,6 +5,9 @@ __pycache__/
 *.egg
 
 # ── Environment ──
+qas.env
+sit.env
+prod.env
 .env
 .env.*
 !.env.example
@@ -31,8 +34,9 @@ docker/.env
 docker/.env.owui
 docker/.env.litellm
 
-# ── Open WebUI local data ──
+# ── Local data ──
 data/open-webui/
+data/n8n/
 
 # ── POC exports (regenerable) ──
 data/open_webui_poc.dump
@@ -61,3 +65,8 @@ node_modules/
 # Allow screenshots (needed by Docker build)
 !screenshots/
 !screenshots/*
+
+# Local trial keys (never commit)
+docker/.procurement-trial-key.txt
+
+docker/.entchat-qas-vkey.txt

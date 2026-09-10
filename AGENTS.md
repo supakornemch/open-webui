@@ -11,8 +11,9 @@ cp docker/.env.owui.example docker/.env.owui         # fill in secrets first (gi
 cp docker/.env.litellm.example docker/.env.litellm   # fill in secrets first (gitignored)
 docker compose -f docker/compose.yml up -d --build
 ```
-Local compose runs its own Postgres; `open_webui` and `litellm` are separate databases.
+Local development uses the shared PostgreSQL service at `../local-infra`; `open_webui` and `litellm` remain separate databases.
 - Open WebUI → http://localhost:3000 · LiteLLM → http://localhost:4000 · LiteLLM UI → http://localhost:4000/ui
+- Start shared infrastructure first: `docker compose -f ../local-infra/compose.yml --env-file ../local-infra/.env up -d`
 - There is no unit-test suite. Verify search changes with [scripts/test-search-regression.py](scripts/test-search-regression.py); verify caching with [scripts/test-prompt-cache.py](scripts/test-prompt-cache.py). Both need Azure env vars set.
 
 ## Architecture (what's custom vs upstream)

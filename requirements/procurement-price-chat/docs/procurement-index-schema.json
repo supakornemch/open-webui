@@ -1,0 +1,264 @@
+{
+  "name": "procurement-catalog-v1",
+  "description": "Product-level procurement catalog. One document = one logical product ({ปี}:{หมวด}:{ลำดับ}). No vendor columns (award via award_vendors from รายชื่อผู้ผ่านการประมูล).",
+  "fields": [
+    {
+      "name": "id",
+      "type": "Edm.String",
+      "key": true,
+      "retrievable": true
+    },
+    {
+      "name": "logical_item_id",
+      "type": "Edm.String",
+      "filterable": true,
+      "retrievable": true
+    },
+    {
+      "name": "year",
+      "type": "Edm.Int32",
+      "filterable": true,
+      "facetable": true,
+      "sortable": true,
+      "retrievable": true
+    },
+    {
+      "name": "category",
+      "type": "Edm.String",
+      "searchable": true,
+      "filterable": true,
+      "facetable": true,
+      "retrievable": true,
+      "analyzer": "th.microsoft"
+    },
+    {
+      "name": "product_name",
+      "type": "Edm.String",
+      "searchable": true,
+      "retrievable": true,
+      "analyzer": "th.microsoft"
+    },
+    {
+      "name": "product_aliases",
+      "type": "Collection(Edm.String)",
+      "searchable": true,
+      "retrievable": true
+    },
+    {
+      "name": "product_type",
+      "type": "Edm.String",
+      "searchable": true,
+      "filterable": true,
+      "facetable": true,
+      "retrievable": true,
+      "analyzer": "th.microsoft"
+    },
+    {
+      "name": "keywords",
+      "type": "Collection(Edm.String)",
+      "searchable": true,
+      "filterable": true,
+      "retrievable": true
+    },
+    {
+      "name": "keywords_text",
+      "type": "Edm.String",
+      "searchable": true,
+      "retrievable": true,
+      "analyzer": "th.microsoft"
+    },
+    {
+      "name": "product_spec_text",
+      "type": "Edm.String",
+      "searchable": true,
+      "retrievable": true,
+      "analyzer": "th.microsoft"
+    },
+    {
+      "name": "product_condition_text",
+      "type": "Edm.String",
+      "searchable": true,
+      "retrievable": true,
+      "analyzer": "th.microsoft"
+    },
+    {
+      "name": "pricing_basis",
+      "type": "Edm.String",
+      "searchable": true,
+      "filterable": true,
+      "retrievable": true,
+      "analyzer": "th.microsoft"
+    },
+    {
+      "name": "search_text",
+      "type": "Edm.String",
+      "searchable": true,
+      "retrievable": true,
+      "analyzer": "th.microsoft"
+    },
+    {
+      "name": "notes_text",
+      "type": "Edm.String",
+      "searchable": true,
+      "retrievable": true,
+      "analyzer": "th.microsoft"
+    },
+    {
+      "name": "award_vendors",
+      "type": "Collection(Edm.String)",
+      "searchable": true,
+      "filterable": true,
+      "retrievable": true
+    },
+    {
+      "name": "price_min",
+      "type": "Edm.Double",
+      "filterable": true,
+      "sortable": true,
+      "retrievable": true
+    },
+    {
+      "name": "price_max",
+      "type": "Edm.Double",
+      "filterable": true,
+      "sortable": true,
+      "retrievable": true
+    },
+    {
+      "name": "quantity_min_all",
+      "type": "Edm.Int32",
+      "filterable": true,
+      "sortable": true,
+      "retrievable": true
+    },
+    {
+      "name": "quantity_max_all",
+      "type": "Edm.Int32",
+      "filterable": true,
+      "sortable": true,
+      "retrievable": true
+    },
+    {
+      "name": "tiers",
+      "type": "Collection(Edm.ComplexType)",
+      "fields": [
+        {
+          "name": "lead_time",
+          "type": "Edm.String",
+          "filterable": true,
+          "retrievable": true,
+          "analyzer": "th.microsoft"
+        },
+        {
+          "name": "quantity_label",
+          "type": "Edm.String",
+          "searchable": true,
+          "retrievable": true,
+          "analyzer": "th.microsoft"
+        },
+        {
+          "name": "quantity_min",
+          "type": "Edm.Int32",
+          "filterable": true,
+          "retrievable": true
+        },
+        {
+          "name": "quantity_max",
+          "type": "Edm.Int32",
+          "filterable": true,
+          "retrievable": true
+        },
+        {
+          "name": "quantity_is_exact",
+          "type": "Edm.Boolean",
+          "filterable": true,
+          "retrievable": true
+        },
+        {
+          "name": "awarded_price",
+          "type": "Edm.Double",
+          "filterable": true,
+          "retrievable": true
+        },
+        {
+          "name": "source_row",
+          "type": "Edm.Int32",
+          "filterable": true,
+          "retrievable": true
+        }
+      ]
+    },
+    {
+      "name": "content_vector",
+      "type": "Collection(Edm.Single)",
+      "searchable": true,
+      "retrievable": false,
+      "dimensions": 3072,
+      "vectorSearchProfile": "procurement-vector-profile"
+    },
+    {
+      "name": "source_hash",
+      "type": "Edm.String",
+      "searchable": false,
+      "filterable": true,
+      "retrievable": true
+    }
+  ],
+  "vectorSearch": {
+    "algorithms": [
+      {
+        "name": "procurement-hnsw",
+        "kind": "hnsw",
+        "hnswParameters": {
+          "metric": "cosine",
+          "m": 4,
+          "efConstruction": 400,
+          "efSearch": 500
+        }
+      }
+    ],
+    "profiles": [
+      {
+        "name": "procurement-vector-profile",
+        "algorithm": "procurement-hnsw"
+      }
+    ]
+  },
+  "semantic": {
+    "configurations": [
+      {
+        "name": "procurement-semantic",
+        "prioritizedFields": {
+          "titleField": {
+            "fieldName": "product_name"
+          },
+          "prioritizedContentFields": [
+            {
+              "fieldName": "search_text"
+            },
+            {
+              "fieldName": "product_spec_text"
+            },
+            {
+              "fieldName": "product_condition_text"
+            }
+          ],
+          "prioritizedKeywordsFields": [
+            {
+              "fieldName": "keywords_text"
+            },
+            {
+              "fieldName": "category"
+            },
+            {
+              "fieldName": "notes_text"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "similarity": {
+    "@odata.type": "#Microsoft.Azure.Search.BM25Similarity"
+  }
+}

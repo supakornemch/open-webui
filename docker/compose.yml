@@ -1,8 +1,9 @@
 # EnterpriseChat — Local Compose for Teams Auth Testing
 # Builds custom Open WebUI (with teams-auth.html + Azure AI Search backend) + LiteLLM
 #
-# Usage:
-#   docker compose -f docker/compose.yml up -d --build
+# Usage (shared infra must already be running):
+#   docker compose -f ../local-infra/compose.yml up -d
+#   docker compose -f docker/compose.yml --env-file docker/.env.local up -d --build
 #
 # Secrets live in one file per service (both gitignored):
 #   cp docker/.env.owui.example docker/.env.owui
@@ -11,33 +12,20 @@
 # There is no shared .env. LiteLLM inheriting OWUI's DATABASE_URL is what let it
 # baseline the OWUI schema into DROP TABLE statements on 2026-07-30.
 #
+# EnterpriseChat — Local Compose for Teams Auth Testing
+# Builds custom Open WebUI (with teams-auth.html + Azure AI Search backend) + LiteLLM + n8n
+#
+# Usage (shared infra must already be running):
+#   docker compose -f ../local-infra/compose.yml up -d
+#   docker compose -f docker/compose.yml --env-file docker/.env.local up -d --build
+#
 # Open WebUI:  http://localhost:3000
 # LiteLLM:     http://localhost:4000
 # LiteLLM UI:  http://localhost:4000/ui
+# n8n:         http://localhost:5678 (or proxied via nginx)
 
 name: enterprisechat-local
 services:
-  # ============================================================
-  # Postgres — local DB so local never touches the shared Azure DB
-  # ============================================================
-  postgres:
-    image: postgres:18-alpine
-    container_name: postgres-local
-    environment:
-      - POSTGRES_USER=owui
-      - POSTGRES_PASSWORD=${LOCAL_PG_PASSWORD:-owui}
-      - POSTGRES_DB=open_webui
-    volumes:
-      # pg18+ wants the mount one level up; data lands in a version subdir
-      - pgdata-local:/var/lib/postgresql
-      - ./initdb:/docker-entrypoint-initdb.d:ro
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U owui -d open_webui"]
-      interval: 5s
-      timeout: 5s
-      retries: 10
-    restart: unless-stopped
-
   # ============================================================
   # Open WebUI — Chat Interface (custom image)
   # ============================================================
@@ -53,21 +41,32 @@ services:
       - ../data/open-webui:/app/backend/data
     env_file:
       - .env.owui
-    depends_on:
-      postgres:
-        condition: service_healthy
+    networks:
+      - default
+      - haadthip-infra
     environment:
       # ── Local overrides (different from production) ──
       - ENV=dev
       - WEBUI_URL=http://localhost:3000
       - MICROSOFT_REDIRECT_URI=http://localhost:3000/oauth/microsoft/callback
       # ── DB: local Postgres — never the shared Azure sandbox DB ──
-      - DATABASE_URL=postgresql://owui:${LOCAL_PG_PASSWORD:-owui}@postgres:5432/open_webui
+      - DATABASE_URL=${DATABASE_URL:?set DATABASE_URL in .env.owui}
+      # ── Vector DB: Azure AI Search (key from .env.owui) ──
+      - VECTOR_DB=azure-ai-search
+      - AZURE_SEARCH_ENDPOINT=https://srch-entchat-qas.search.windows.net
+      - AZURE_SEARCH_TYPE=hybrid
+      - AZURE_ENABLE_SEMANTIC_SEARCH=false
+      - AZURE_SEARCH_NAMESPACE_MODE=true
+      # Data files read by Tools (pandas), not by RAG. Text is still extracted;
+      # only the embedding + vector write is skipped. RAG for other files is unaffected.
+      - SKIP_EMBEDDING_EXTENSIONS=xlsx,xls,csv
+      # ── LLM: Azure AI Foundry direct (same as production) ──
+      - OPENAI_API_BASE_URL=https://app-litellm-qas.azurewebsites.net/v1
       # ── Everything else comes from .env.owui ──
     restart: unless-stopped
 
   # ============================================================
-  # LiteLLM — LLM Proxy for Token Tracking & Cost Monitoring
+  # LiteLLM — LLM Proxy & Gateway
   # ============================================================
   litellm:
     build:
@@ -81,19 +80,60 @@ services:
       - ./litellm-config.local.yaml:/app/config.yaml:ro
     env_file:
       - .env.litellm
-    depends_on:
-      postgres:
-        condition: service_healthy
+    networks:
+      - default
+      - haadthip-infra
     environment:
       # LiteLLM runs `prisma migrate deploy` at startup and auto-baselines any
-      # schema it doesn't own into DROP TABLE. Must never resolve to /open_webui.
-      - DATABASE_URL=postgresql://owui:${LOCAL_PG_PASSWORD:-owui}@postgres:5432/litellm
+      # schema it doesn't own into DROP TABLE. Must never resolve to /open_webui or /n8n.
+      - DATABASE_URL=postgresql://postgres:${LOCAL_POSTGRES_PASSWORD:?set LOCAL_POSTGRES_PASSWORD}@local-postgres:5432/litellm
     command:
       - "--config"
       - "/app/config.yaml"
       - "--port"
-      - "4000"
+      - "4001"
     restart: unless-stopped
 
-volumes:
-  pgdata-local:
+  # ============================================================
+  # n8n — Workflow Automation Engine (Official Image)
+  # ============================================================
+  n8n:
+    image: n8nio/n8n:latest
+    platform: linux/amd64
+    container_name: n8n-poc
+    ports:
+      - "5678:5678"
+    volumes:
+      - ../data/n8n:/home/node/.n8n
+    networks:
+      - default
+      - haadthip-infra
+    environment:
+      - N8N_BLOCK_ENV_ACCESS_IN_NODE=false
+      - N8N_PATH=/
+      - N8N_HOST=localhost
+      - N8N_PORT=5678
+      - N8N_PROTOCOL=http
+      - N8N_WEBHOOK_URL=http://localhost:5678/
+      - DB_TYPE=postgresdb
+      - DB_POSTGRESDB_HOST=local-postgres
+      - DB_POSTGRESDB_PORT=5432
+      - DB_POSTGRESDB_DATABASE=n8n
+      - DB_POSTGRESDB_USER=postgres
+      - DB_POSTGRESDB_PASSWORD=postgres
+      - GENERIC_TIMEZONE=Asia/Bangkok
+      - N8N_ENCRYPTION_KEY=local-dev-encryption-key-change-me-12345
+      - N8N_SECURE_COOKIE=false
+      - NODE_FUNCTION_ALLOW_BUILTIN=*
+      - NODE_FUNCTION_ALLOW_EXTERNAL=xlsx,@e965/xlsx
+      - HAADTHIP_MICROSOFT_CLIENT_ID=${HAADTHIP_MICROSOFT_CLIENT_ID}
+      - HAADTHIP_MICROSOFT_CLIENT_SECRET=${HAADTHIP_MICROSOFT_CLIENT_SECRET}
+      - HAADTHIP_MICROSOFT_CLIENT_TENANT_ID=${HAADTHIP_MICROSOFT_CLIENT_TENANT_ID}
+    env_file:
+      - .env.owui
+    restart: unless-stopped
+
+networks:
+  haadthip-infra:
+    external: true
+    name: local-infra

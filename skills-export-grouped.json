@@ -1,0 +1,242 @@
+[
+  {
+    "id": "visit-execution-skill",
+    "user_id": "a54a7f58-5c1c-45df-a66d-c1189f69291f",
+    "name": "01-Sale-Visit-Execution",
+    "description": "ใช้ตอบคำถามแผนและประวัติเยี่ยมลูกค้า, visit group และ visit execution",
+    "content": "# Visit Execution Skill\n\nใช้ตอบคำถามแผน/ประวัติเยี่ยมลูกค้า ตามช่วงเวลา, customer, SubOrg และ visit group จาก `LH_OTC_TEST.dv.mlv_customer_visit_list`\n\n## กฎ\n\n- ใช้ `query_customer_visits` สำหรับรายการ visit; helper ยืนยัน fields `ExecDateKey`, `SubOrgKey`, `CustomerKey`, `VisitGroupKey`, `GroupVisitKey`\n- คำถาม visit rate, no-visit หรือ visit-to-order ต้อง inspect schema ของ `dv.mlv_customer_visit_sales_order` หรือ `dv.dv_visit_so` ก่อน\n- ทุก call ส่ง `limit=20`; ห้าม `SELECT *`; ไม่ต้องส่ง `database_name`\n\n## Few-shot queries\n\n### ประวัติเยี่ยมลูกค้า\n\nผู้ใช้: \"ประวัติเยี่ยมลูกค้า 0008005694 ในเดือนมิถุนายน 2025\"\n\nเรียก `query_customer_visits`:\n\n```json\n{\n  \"customer_key\": \"0008005694\",\n  \"visit_date_from\": \"2025-06-01\",\n  \"visit_date_to\": \"2025-06-30\",\n  \"limit\": 20,\n  \"page\": 1\n}\n```\n\n### รายการตาม visit group\n\nผู้ใช้: \"แสดง visit group VG001 เดือนมิถุนายน 2025\"\n\nเรียก `query_customer_visits`:\n\n```json\n{\n  \"visit_group_key\": \"VG001\",\n  \"visit_date_from\": \"2025-06-01\",\n  \"visit_date_to\": \"2025-06-30\",\n  \"limit\": 20,\n  \"page\": 1\n}\n```\n\n### Visit-to-order KPI\n\nผู้ใช้: \"visit-to-order rate เดือนมิถุนายน 2025\"\n\nก่อน query ให้เรียก `get_table_schema(table_name=\"mlv_customer_visit_sales_order\", schema_name=\"dv\", limit=20)` แล้วใช้เฉพาะ column ที่ยืนยันใน schema\n\n## คำตอบ\n\nระบุว่าเป็นรายการสูงสุด 20 แถวหรือ aggregate จริง, ช่วงวัน, filter และ source table\n\n\n## Revenue แยกตาม VisitGroupKey (มุม “เกี่ยวกับการเยี่ยม”)\n**คำถาม:**  \n“ช่วง 2025/01 ถึง 2025/08 Revenue/PC/UC แยกตาม VisitGroupKey เป็นอย่างไร (รวมถึง GroupBM/GroupABM และ Hybrid flags ถ้ามี)”\n\n**SQL:**\n```sql\nSELECT\n  VisitGroupKey,\n  GroupVisitKey,\n  GroupBM,\n  GroupABM,\n  IsHybrid,\n  IsHybridTS,\n  IsHybridDup,\n  SUM(SumBillNetRevenue) AS Revenue,\n  SUM(SumBillPCVolume) AS PCVolume,\n  SUM(SumBillUCVolume) AS UCVolume\nFROM dv.mlv_sale_preformance_aggregate_visit\nWHERE BillingDate >= '2025-01-01'\n  AND BillingDate <= '2025-08-31'\nGROUP BY\n  VisitGroupKey,\n  GroupVisitKey,\n  GroupBM,\n  GroupABM,\n  IsHybrid,\n  IsHybridTS,\n  IsHybridDup\nORDER BY Revenue DESC;\n```\n\n---\n\n## สัดส่วน IsVisit vs IsNotVisit ตาม VisitGroupKey (มุม execution ของ visit)\n**คำถาม:**  \n“ช่วง 2025/01 ถึง 2025/08 อัตราส่วนการเยี่ยม (IsVisit=1) เทียบกับไม่เยี่ยม (IsNotVisit=1) แยกตาม VisitGroupKey เป็นเท่าไหร่ และค่าเฉลี่ย VisitCount เป็นอย่างไร”\n\n**SQL:**\n```sql\nSELECT\n  VisitGroupKey,\n  SUM(CASE WHEN IsVisit = 1 THEN 1 ELSE 0 END) AS IsVisitRows,\n  SUM(CASE WHEN IsNotVisit = 1 THEN 1 ELSE 0 END) AS IsNotVisitRows,\n  COUNT(1) AS TotalRows,\n  CAST(SUM(CASE WHEN IsVisit = 1 THEN 1 ELSE 0 END) AS float) / NULLIF(COUNT(1), 0) AS VisitRate,\n  AVG(CAST(VisitCount AS float)) AS AvgVisitCount\nFROM dv.mlv_customer_visit_sales_order\nWHERE SOCreatedDate >= '2025-01-01'\n  AND SOCreatedDate <= '2025-08-31'\nGROUP BY VisitGroupKey\nORDER BY VisitRate DESC;\n```\n",
+    "meta": {
+      "tags": []
+    },
+    "is_active": true,
+    "access_grants": [
+      {
+        "id": "eda14fc7-1e2e-4562-9f1f-d0eb7bbdc369",
+        "resource_type": "skill",
+        "resource_id": "visit-execution-skill",
+        "principal_type": "group",
+        "principal_id": "dbebf665-efe0-4fdc-bbfe-4138173b8530",
+        "permission": "read",
+        "created_at": 1787062386
+      }
+    ],
+    "updated_at": 1787062386,
+    "created_at": 1786591287
+  },
+  {
+    "id": "sales-performance-skill",
+    "user_id": "a54a7f58-5c1c-45df-a66d-c1189f69291f",
+    "name": "01-Sale-Performance",
+    "description": "ใช้ตอบคำถาม Net Revenue, PC/UC Volume, sales trend และ breakdown ตาม SubOrg, Zone, Brand หรือ customer",
+    "content": "# Sales Performance Skill\n\nใช้ตอบคำถามยอดขาย, Net Revenue, PC Volume, UC Volume, trend และ breakdown ตาม `SubOrg`, `Zone`, `Brand` หรือ customer จาก `LH_OTC_TEST.dv.mlv_sale_preformance_aggregate`\n\n## กฎ\n\n- Metric ที่ยืนยันแล้ว: `SumBillNetRevenue`, `SumBillPCVolume`, `SumBillUCVolume`, `BillingDate`, `SubOrgKey`, `Zone`, `BrandKey`, `BillCustomerKey`\n- ถ้าต้องการรายการรายวัน/รายการขาย ใช้ `query_sales_performance`; ถ้าต้อง aggregate, trend, YoY หรือ breakdown ใช้ `query_fabric`\n- ระบุช่วงวันแบบ inclusive-start/exclusive-end เช่น `>= '2025-01-01' AND < '2025-07-01'`\n- ทุก call ส่ง `limit=20`; ห้าม `SELECT *`; ไม่ต้องส่ง `database_name`\n\n## Few-shot queries\n\n### ยอดรวมช่วงเวลา\n\nผู้ใช้: \"ยอด Net Revenue ครึ่งแรกปี 2025 เท่าไร\"\n\nเรียก `query_fabric`:\n\n```json\n{\n  \"sql_query\": \"SELECT SUM(SumBillNetRevenue) AS net_revenue FROM dv.mlv_sale_preformance_aggregate WHERE BillingDate >= '2025-01-01' AND BillingDate < '2025-07-01'\",\n  \"limit\": 20\n}\n```\n\n### Trend รายเดือน\n\nผู้ใช้: \"ยอดขายรายเดือนปี 2025\"\n\nเรียก `query_fabric`:\n\n```json\n{\n  \"sql_query\": \"SELECT YEAR(BillingDate) AS sales_year, MONTH(BillingDate) AS sales_month, SUM(SumBillNetRevenue) AS net_revenue, SUM(SumBillPCVolume) AS pc_volume, SUM(SumBillUCVolume) AS uc_volume FROM dv.mlv_sale_preformance_aggregate WHERE BillingDate >= '2025-01-01' AND BillingDate < '2026-01-01' GROUP BY YEAR(BillingDate), MONTH(BillingDate) ORDER BY sales_year, sales_month\",\n  \"limit\": 20\n}\n```\n\n### Breakdown ตาม Zone\n\nผู้ใช้: \"ยอดขายเดือนมิถุนายน 2025 แยก Zone\"\n\nเรียก `query_fabric`:\n\n```json\n{\n  \"sql_query\": \"SELECT Zone, SUM(SumBillNetRevenue) AS net_revenue FROM dv.mlv_sale_preformance_aggregate WHERE BillingDate >= '2025-06-01' AND BillingDate < '2025-07-01' GROUP BY Zone ORDER BY net_revenue DESC\",\n  \"limit\": 20\n}\n```\n\n## คำตอบ\n\nรายงานช่วงเวลา, metric, grain, filter และ source table; อย่าระบุหน่วยเงินจนกว่าจะมี business definition ยืนยัน\n\n\n## แนวโน้มยอดขายรายเดือน (Revenue/PC/UC)\n**คำถาม:**  \n“ช่วง 2025/01 ถึง 2025/08 ยอดขายรวมรายเดือนเป็นอย่างไร (Revenue, PC, UC)”\n\n**SQL:**\n```sql\nSELECT\n  DATEFROMPARTS(YEAR(BillingDate), MONTH(BillingDate), 1) AS MonthStart,\n  SUM(SumBillNetRevenue) AS Revenue,\n  SUM(SumBillPCVolume) AS PCVolume,\n  SUM(SumBillUCVolume) AS UCVolume\nFROM dv.mlv_sale_preformance_aggregate\nWHERE BillingDate >= '2025-01-01'\n  AND BillingDate <= '2025-08-31'\nGROUP BY\n  DATEFROMPARTS(YEAR(BillingDate), MONTH(BillingDate), 1)\nORDER BY MonthStart;\n```\n\n---\n\n## ยอดขายรวมแยกตาม SalesGroupKey\n**คำถาม:**  \n“ช่วง 2025/01 ถึง 2025/08 ยอดขายรวม (Revenue/PC/UC) แยกตาม SalesGroupKey มีเท่าไหร่”\n\n**SQL:**\n```sql\nSELECT\n  SalesGroupKey,\n  SUM(SumBillNetRevenue) AS Revenue,\n  SUM(SumBillPCVolume) AS PCVolume,\n  SUM(SumBillUCVolume) AS UCVolume\nFROM dv.mlv_sale_preformance_aggregate\nWHERE BillingDate >= '2025-01-01'\n  AND BillingDate <= '2025-08-31'\nGROUP BY SalesGroupKey\nORDER BY Revenue DESC;\n```\n\n---\n\n## Top 10 ลูกค้าตาม Revenue (BillCustomerKey)\n**คำถาม:**  \n“ช่วง 2025/01 ถึง 2025/08 ลูกค้า Top 10 ที่ทำ Revenue สูงสุดคือใคร และมียอด PC/UC เท่าไหร่”\n\n**SQL:**\n```sql\nSELECT TOP 10\n  BillCustomerKey,\n  SUM(SumBillNetRevenue) AS Revenue,\n  SUM(SumBillPCVolume) AS PCVolume,\n  SUM(SumBillUCVolume) AS UCVolume\nFROM dv.mlv_sale_preformance_aggregate\nWHERE BillingDate >= '2025-01-01'\n  AND BillingDate <= '2025-08-31'\nGROUP BY BillCustomerKey\nORDER BY Revenue DESC;\n```\n\n---",
+    "meta": {
+      "tags": []
+    },
+    "is_active": true,
+    "access_grants": [
+      {
+        "id": "770ce7e1-1132-4942-810e-e1fc020efca0",
+        "resource_type": "skill",
+        "resource_id": "sales-performance-skill",
+        "principal_type": "group",
+        "principal_id": "dbebf665-efe0-4fdc-bbfe-4138173b8530",
+        "permission": "read",
+        "created_at": 1787062265
+      }
+    ],
+    "updated_at": 1787062265,
+    "created_at": 1786591286
+  },
+  {
+    "id": "distribution-cooler-skill",
+    "user_id": "a54a7f58-5c1c-45df-a66d-c1189f69291f",
+    "name": "01-Sale-Distribution-Cooler",
+    "description": "ใช้ตอบคำถามร้านที่มีตู้แช่, cooler placement, outlet buying และ distribution coverage",
+    "content": "# Distribution and Cooler Skill\n\nใช้ตอบคำถามร้านที่มีตู้แช่, การซื้อของ outlet ที่มี cooler, cooler placement และ distribution coverage\n\n## กฎ\n\n- ใช้ `query_coolers` สำหรับร้านที่มี cooler และ buying data; helper ยืนยัน fields `EquipmentKey`, `CustomerKey`, `ValidFromDate`, `ValidToDate`, `StorageLocationKey`, `BillCustomerKey`, `BillingDate`\n- การค้นหา serial/status ต้อง inspect `dv.dv_cooler` ก่อนแล้วใช้ `query_fabric`; helper ไม่รองรับ filter สองตัวนี้\n- Distribution coverage/target ต้อง inspect `dv.mlv_distributed_outlets_customer` หรือ `dv.dv_distribution_target` ก่อน\n- ทุก call ส่ง `limit=20`; ห้าม `SELECT *`; ไม่ต้องส่ง `database_name`\n\n## Few-shot queries\n\n### ร้านที่มีตู้และซื้อสินค้า\n\nผู้ใช้: \"ร้าน 0008005694 ที่มีตู้แช่และมีการซื้อ\"\n\nเรียก `query_coolers`:\n\n```json\n{\n  \"customer_key\": \"0008005694\",\n  \"limit\": 20,\n  \"page\": 1\n}\n```\n\n### รายการ outlet with cooler ล่าสุด\n\nผู้ใช้: \"แสดงร้านมีตู้แช่ที่มีการซื้อล่าสุด\"\n\nเรียก `query_coolers`:\n\n```json\n{\n  \"limit\": 20,\n  \"page\": 1\n}\n```\n\n### ค้นหาตู้ด้วย serial\n\nผู้ใช้: \"ค้นหาตู้ serial ABC123\"\n\nก่อน query ให้เรียก `get_table_schema(table_name=\"dv_cooler\", schema_name=\"dv\", limit=20)` แล้วใช้ `query_fabric` โดยเลือกเฉพาะ serial/equipment/customer fields ที่ schema ยืนยัน\n\n## คำตอบ\n\nระบุว่าเป็น cooler-buying relation หรือ asset master, ช่วงเวลา/สถานะความถูกต้อง และจำนวนสูงสุด 20 แถว",
+    "meta": {
+      "tags": [
+        "fabric",
+        "cooler",
+        "distribution"
+      ]
+    },
+    "is_active": true,
+    "access_grants": [
+      {
+        "id": "327be416-7163-4999-8f89-2e25607616df",
+        "resource_type": "skill",
+        "resource_id": "distribution-cooler-skill",
+        "principal_type": "group",
+        "principal_id": "dbebf665-efe0-4fdc-bbfe-4138173b8530",
+        "permission": "read",
+        "created_at": 1786591287
+      }
+    ],
+    "updated_at": 1786591287,
+    "created_at": 1786591287
+  },
+  {
+    "id": "sales-target-skill",
+    "user_id": "a54a7f58-5c1c-45df-a66d-c1189f69291f",
+    "name": "01-Sale-Target",
+    "description": "ใช้ตอบคำถามเป้ายอดขาย Revenue, PC และ UC ตามสินค้า, SubOrg, เดือน หรือ customer",
+    "content": "# Sales Target Skill\n\nใช้ตอบคำถามเป้ายอดขาย Revenue, PC, UC ตามสินค้า, SubOrg, เดือน หรือ customer จาก `LH_OTC_TEST.dv.mlv_sale_target` และ `dv.mlv_sale_target_customer`\n\n## กฎ\n\n- ใช้ `query_sales_targets` สำหรับการดู target ตาม filter ที่ tool รองรับ\n- Fields ที่ helper ยืนยัน: `Revenue`, `Pc`, `Uc`, `Year`, `MonthNumber`, `MaterialNo`, `PackSizeCode`, `SubOrg`; customer target เพิ่ม `CustomerKey`\n- Actual vs target ต้อง inspect schema และยืนยัน grain/join key ก่อน เพราะ actual sales กับ target อาจไม่อยู่ใน grain เดียวกัน\n- ทุก call ส่ง `limit=20`; ห้าม `SELECT *`; ไม่ต้องส่ง `database_name`\n\n## Few-shot queries\n\n### Target ตาม SubOrg และเดือน\n\nผู้ใช้: \"เป้ายอดขายเดือน 6 ปี 2025 ของ SubOrg Z0201\"\n\nเรียก `query_sales_targets`:\n\n```json\n{\n  \"year\": 2025,\n  \"month\": 6,\n  \"sub_org\": \"Z0201\",\n  \"limit\": 20,\n  \"page\": 1\n}\n```\n\n### Target ของสินค้า\n\nผู้ใช้: \"เป้า Revenue ของ Material 1000001 ปี 2025\"\n\nเรียก `query_sales_targets`:\n\n```json\n{\n  \"year\": 2025,\n  \"material_no\": \"1000001\",\n  \"limit\": 20,\n  \"page\": 1\n}\n```\n\n### Target ของลูกค้า\n\nผู้ใช้: \"เป้าลูกค้า 0008005694 เดือน 6 ปี 2025\"\n\nเรียก `query_sales_targets`:\n\n```json\n{\n  \"year\": 2025,\n  \"month\": 6,\n  \"customer_key\": \"0008005694\",\n  \"limit\": 20,\n  \"page\": 1\n}\n```\n\n## คำตอบ\n\nระบุ target table, period, filter และ level ของ target; อย่าอ้าง attainment percentage จน query actual กับ target ที่ grain เดียวกันสำเร็จ",
+    "meta": {
+      "tags": [
+        "fabric",
+        "target"
+      ]
+    },
+    "is_active": true,
+    "access_grants": [
+      {
+        "id": "fbc9c53d-5896-48af-a64d-d7103fc0a2bf",
+        "resource_type": "skill",
+        "resource_id": "sales-target-skill",
+        "principal_type": "group",
+        "principal_id": "dbebf665-efe0-4fdc-bbfe-4138173b8530",
+        "permission": "read",
+        "created_at": 1786591287
+      }
+    ],
+    "updated_at": 1786591287,
+    "created_at": 1786591287
+  },
+  {
+    "id": "credit-collection-skill",
+    "user_id": "a54a7f58-5c1c-45df-a66d-c1189f69291f",
+    "name": "01-Sale-Credit-Collection",
+    "description": "ใช้ตอบคำถามหนี้ค้างชำระ, overdue, collection และ credit utilization",
+    "content": "# Credit Collection Skill\n\nใช้ตอบคำถามหนี้ค้างชำระ, overdue และ credit exposure จาก `LH_OTC_TEST.dv.mlv_credit_overdue`; ข้อมูลนี้อ่อนไหว จึงตอบเท่าที่จำเป็นต่อบทบาทผู้ใช้\n\n## กฎ\n\n- Helper ยืนยัน fields: `CustomerKey`, `BillingDocKey`, `BaselineDate`, `DueDate`, `AmountLC`, `SignedAmount`\n- ใช้ `query_credit_and_overdue` สำหรับรายการ overdue ตาม customer หรือ due date\n- คำถาม credit limit/utilization ต้อง inspect schema ของ `dv.dv_credit_use_credit_limit` ก่อน\n- ทุก call ส่ง `limit=20`; ห้าม `SELECT *`; ไม่ต้องส่ง `database_name`\n\n## Few-shot queries\n\n### Overdue ของลูกค้า\n\nผู้ใช้: \"หนี้ค้างของลูกค้า 0008005694\"\n\nเรียก `query_credit_and_overdue`:\n\n```json\n{\n  \"customer_key\": \"0008005694\",\n  \"limit\": 20,\n  \"page\": 1\n}\n```\n\n### เอกสารที่ถึงกำหนดก่อนวันกำหนด\n\nผู้ใช้: \"เอกสาร overdue ที่ครบกำหนดไม่เกิน 2025-06-30\"\n\nเรียก `query_credit_and_overdue`:\n\n```json\n{\n  \"due_before_date\": \"2025-06-30\",\n  \"limit\": 20,\n  \"page\": 1\n}\n```\n\n### Credit utilization\n\nผู้ใช้: \"ลูกค้าใดใช้วงเงินเกิน 80%\"\n\nก่อน query ให้เรียก `get_table_schema(table_name=\"dv_credit_use_credit_limit\", schema_name=\"dv\", limit=20)` แล้วตรวจ field credit limit/usage ก่อนคำนวณ\n\n## คำตอบ\n\nระบุ cutoff date และ source table; ไม่สรุปว่าหน้าแรก 20 แถวคือจำนวนเอกสารทั้งหมด และอย่าเปิดเผยข้อมูลเกินความจำเป็น",
+    "meta": {
+      "tags": [
+        "fabric",
+        "credit"
+      ]
+    },
+    "is_active": true,
+    "access_grants": [
+      {
+        "id": "1c03843b-3c57-41ca-be98-b6ce700bdba9",
+        "resource_type": "skill",
+        "resource_id": "credit-collection-skill",
+        "principal_type": "group",
+        "principal_id": "dbebf665-efe0-4fdc-bbfe-4138173b8530",
+        "permission": "read",
+        "created_at": 1786591287
+      }
+    ],
+    "updated_at": 1786591287,
+    "created_at": 1786591287
+  },
+  {
+    "id": "rfm-segment-summary-skill",
+    "user_id": "a54a7f58-5c1c-45df-a66d-c1189f69291f",
+    "name": "02-KPI-RFM-Segment-Summary",
+    "description": "ใช้เมื่อผู้ใช้ถามภาพรวม RFM ของ segment เช่น จำนวนลูกค้า ค่าเฉลี่ย Frequency/Monetary/Recency หรือมูลค่ารวมของ Champion, Loyal, Need Attention และ segment อื่น ตอบภาษาไทยจากผล query จริงใน `LH_OTC_TEST.dv.mlv_customer_rfm` เท่านั้น",
+    "content": "# RFM Segment Summary Skill\n\nใช้เมื่อผู้ใช้ถามภาพรวม RFM ของ segment เช่น จำนวนลูกค้า ค่าเฉลี่ย Frequency/Monetary/Recency หรือมูลค่ารวมของ Champion, Loyal, Need Attention และ segment อื่น ตอบภาษาไทยจากผล query จริงใน `LH_OTC_TEST.dv.mlv_customer_rfm` เท่านั้น\n\n## กฎสั้น\n\n- ใช้ `query_fabric` สำหรับ `COUNT`, `SUM`, `AVG` และ `GROUP BY`; อย่าดึงรายการมาคำนวณเอง\n- ใช้ `adjusted_rfm_segment` เมื่อผู้ใช้ระบุชื่อกลุ่ม; ใช้ `base_rfm_segment` เฉพาะเมื่อผู้ใช้ขอ base segment\n- ใช้ fields ที่ยืนยันแล้วได้ทันที: `CustomerKey`, `cur_frequency`, `cur_monetary`, `cur_recency_days`, `base_rfm_segment`, `adjusted_rfm_segment`, `RFM_score`, `segment_health`\n- ส่ง `limit=20` ทุกครั้ง; ห้าม `SELECT *`; ไม่ต้องส่ง `database_name`\n- อย่าระบุหน่วยเงิน หาก business definition ยังไม่ยืนยัน\n\n## Few-shot queries\n\n### ตัวอย่าง 1 — ค่าเฉลี่ยของ Champion\n\nผู้ใช้: \"ลูกค้ากลุ่ม Champion มี Frequency, Monetary และ Recency เฉลี่ยเท่าไร\"\n\nเรียก `query_fabric`:\n\n```json\n{\n  \"sql_query\": \"SELECT adjusted_rfm_segment, COUNT(*) AS customer_cnt, AVG(cur_frequency) AS avg_frequency, AVG(cur_monetary) AS avg_monetary, AVG(cur_recency_days) AS avg_recency_days FROM dv.mlv_customer_rfm WHERE adjusted_rfm_segment = 'Champion' GROUP BY adjusted_rfm_segment\",\n  \"limit\": 20\n}\n```\n\n### ตัวอย่าง 2 — มูลค่าของ Need Attention\n\nผู้ใช้: \"Need Attention มีลูกค้ากี่รายและมูลค่ารวมเท่าไร\"\n\nเรียก `query_fabric`:\n\n```json\n{\n  \"sql_query\": \"SELECT adjusted_rfm_segment, COUNT(*) AS customer_cnt, SUM(cur_monetary) AS total_monetary, AVG(cur_monetary) AS avg_monetary FROM dv.mlv_customer_rfm WHERE adjusted_rfm_segment = 'Need Attention' GROUP BY adjusted_rfm_segment\",\n  \"limit\": 20\n}\n```\n\n### ตัวอย่าง 3 — เปรียบเทียบทุก segment\n\nผู้ใช้: \"สรุปจำนวนลูกค้าและ Monetary แยกตาม segment\"\n\nเรียก `query_fabric`:\n\n```json\n{\n  \"sql_query\": \"SELECT adjusted_rfm_segment, COUNT(*) AS customer_cnt, SUM(cur_monetary) AS total_monetary, AVG(cur_monetary) AS avg_monetary FROM dv.mlv_customer_rfm GROUP BY adjusted_rfm_segment ORDER BY total_monetary DESC\",\n  \"limit\": 20\n}\n```\n\n## คำตอบ\n\nสรุปตัวเลขก่อน ตามด้วยเงื่อนไข `adjusted_rfm_segment`, source table และข้อจำกัดเรื่องหน่วย/NULL แยกข้อเท็จจริงจากข้อเสนอแนะเสมอ\n",
+    "meta": {
+      "tags": []
+    },
+    "is_active": true,
+    "access_grants": [
+      {
+        "id": "c7299a0a-d573-4123-aadc-49ee8ca0c4db",
+        "resource_type": "skill",
+        "resource_id": "rfm-segment-summary-skill",
+        "principal_type": "group",
+        "principal_id": "dbebf665-efe0-4fdc-bbfe-4138173b8530",
+        "permission": "read",
+        "created_at": 1786590119
+      }
+    ],
+    "updated_at": 1786590119,
+    "created_at": 1786590119
+  },
+  {
+    "id": "rfm-period-change-skill",
+    "user_id": "a54a7f58-5c1c-45df-a66d-c1189f69291f",
+    "name": "02-KPI-RFM-Period-Change",
+    "description": "ใช้เมื่อผู้ใช้ถามการเติบโต/ลดลง เปรียบเทียบ current กับ previous period, segment ที่สูญเสียมูลค่า หรือ growth percentage จาก `LH_OTC_TEST.dv.mlv_customer_rfm`",
+    "content": "# RFM Period Change Skill\n\nใช้เมื่อผู้ใช้ถามการเติบโต/ลดลง เปรียบเทียบ current กับ previous period, segment ที่สูญเสียมูลค่า หรือ growth percentage จาก `LH_OTC_TEST.dv.mlv_customer_rfm`\n\n## กฎสั้น\n\n- ใช้ `query_fabric` และคำนวณ aggregate/percentage ใน SQL เท่านั้น\n- Fields ที่ใช้: `cur_monetary`, `py_monetary`, `cur_frequency`, `py_frequency`, `adjusted_rfm_segment`\n- `cur_*`/`py_*` คือ current/previous period ตาม pipeline; ห้ามเรียกว่า 2025/2024 หรือ YoY จนมี metadata ยืนยัน\n- Percentage ต้องใช้ `NULLIF(previous_value, 0)` และกรอง previous value ให้มากกว่า 0\n- ส่ง `limit=20`; ห้าม `SELECT *`; ไม่ต้องส่ง `database_name`\n\n## Few-shot queries\n\n### ตัวอย่าง 1 — Champion ที่มูลค่าลดเกิน 30%\n\nผู้ใช้: \"มี Champion กี่รายที่ยอดขายลดจากช่วงก่อนมากกว่า 30%\"\n\nเรียก `query_fabric`:\n\n```json\n{\n  \"sql_query\": \"SELECT COUNT(*) AS customer_cnt FROM dv.mlv_customer_rfm WHERE adjusted_rfm_segment = 'Champion' AND py_monetary > 0 AND cur_monetary < py_monetary * 0.70\",\n  \"limit\": 20\n}\n```\n\n### ตัวอย่าง 2 — Segment ที่สูญเสียมูลค่ามากที่สุด\n\nผู้ใช้: \"segment ไหนสูญเสียรายได้มากที่สุด\"\n\nเรียก `query_fabric`:\n\n```json\n{\n  \"sql_query\": \"SELECT adjusted_rfm_segment, SUM(py_monetary) AS previous_monetary, SUM(cur_monetary) AS current_monetary, SUM(cur_monetary - py_monetary) AS monetary_diff FROM dv.mlv_customer_rfm GROUP BY adjusted_rfm_segment ORDER BY monetary_diff ASC\",\n  \"limit\": 20\n}\n```\n\n### ตัวอย่าง 3 — Segment โตเกิน 10%\n\nผู้ใช้: \"segment ใดเติบโตเกิน 10% จากช่วงก่อน\"\n\nเรียก `query_fabric`:\n\n```json\n{\n  \"sql_query\": \"SELECT adjusted_rfm_segment, SUM(py_monetary) AS previous_monetary, SUM(cur_monetary) AS current_monetary, (SUM(cur_monetary) - SUM(py_monetary)) * 100.0 / NULLIF(SUM(py_monetary), 0) AS growth_pct FROM dv.mlv_customer_rfm GROUP BY adjusted_rfm_segment HAVING SUM(py_monetary) > 0 AND (SUM(cur_monetary) - SUM(py_monetary)) * 100.0 / NULLIF(SUM(py_monetary), 0) > 10 ORDER BY growth_pct DESC\",\n  \"limit\": 20\n}\n```\n\n## คำตอบ\n\nใช้คำว่า current period/previous period จนกว่าช่วงเวลาจะได้รับการยืนยัน รายงานสูตร threshold, source table และ zero-denominator พร้อมผลลัพธ์\n",
+    "meta": {
+      "tags": []
+    },
+    "is_active": true,
+    "access_grants": [
+      {
+        "id": "4e971d4d-f425-4795-877b-f6a1f7281062",
+        "resource_type": "skill",
+        "resource_id": "rfm-period-change-skill",
+        "principal_type": "group",
+        "principal_id": "dbebf665-efe0-4fdc-bbfe-4138173b8530",
+        "permission": "read",
+        "created_at": 1786590092
+      }
+    ],
+    "updated_at": 1786590092,
+    "created_at": 1786590092
+  },
+  {
+    "id": "rfm-customer-risk-skill",
+    "user_id": "a54a7f58-5c1c-45df-a66d-c1189f69291f",
+    "name": "02-KPI-RFM-Customer-Risk",
+    "description": "ใช้เมื่อผู้ใช้ต้องการรายชื่อลูกค้าเสี่ยง เช่น มูลค่าลดลง Frequency ลดลง ไม่ซื้อนาน หรือ Champion/Loyal ที่ควรติดตาม จาก `LH_OTC_TEST.dv.mlv_customer_rfm`",
+    "content": "# RFM Customer Risk Skill\n\nใช้เมื่อผู้ใช้ต้องการรายชื่อลูกค้าเสี่ยง เช่น มูลค่าลดลง Frequency ลดลง ไม่ซื้อนาน หรือ Champion/Loyal ที่ควรติดตาม จาก `LH_OTC_TEST.dv.mlv_customer_rfm`\n\n## กฎสั้น\n\n- ใช้ `query_fabric`; คืนเฉพาะ fields ที่จำเป็นและไม่เกิน 20 ราย\n- ใช้ `CustomerKey` เป็น identifier เริ่มต้น ไม่ join ชื่อลูกค้าเว้นแต่ผู้ใช้ขอชื่อ\n- หากผู้ใช้ขอชื่อ ให้ตรวจ schema/join key ก่อน แล้วจึง join `gold.dim_customer`; ห้ามเดา\n- Percentage ต้องใช้ `NULLIF(previous_value, 0)` และกรอง previous value ให้มากกว่า 0\n- `cur_*`/`py_*` หมายถึง current/previous period ตาม pipeline ไม่ใช่ปีปฏิทินโดยอัตโนมัติ\n- ทุก query รายชื่อต้องมี deterministic `ORDER BY`, ส่ง `limit=20`, ห้าม `SELECT *`, และไม่ต้องส่ง `database_name`\n\n## Few-shot queries\n\n### ตัวอย่าง 1 — Need Attention มูลค่าสูงแต่ลดเกิน 20%\n\nผู้ใช้: \"Need Attention รายใดเคยมียอดเกิน 100,000 แต่ลดลงมากกว่า 20%\"\n\nเรียก `query_fabric`:\n\n```json\n{\n  \"sql_query\": \"SELECT CustomerKey, adjusted_rfm_segment, py_monetary, cur_monetary, cur_monetary - py_monetary AS monetary_diff, (py_monetary - cur_monetary) * 100.0 / NULLIF(py_monetary, 0) AS decline_pct FROM dv.mlv_customer_rfm WHERE adjusted_rfm_segment = 'Need Attention' AND py_monetary >= 100000 AND cur_monetary <= py_monetary * 0.80 ORDER BY py_monetary DESC, CustomerKey ASC\",\n  \"limit\": 20\n}\n```\n\n### ตัวอย่าง 2 — Frequency ลดเกิน 95%\n\nผู้ใช้: \"ลูกค้ารายใด Frequency ลดลงเกิน 95%\"\n\nเรียก `query_fabric`:\n\n```json\n{\n  \"sql_query\": \"SELECT CustomerKey, adjusted_rfm_segment, py_frequency, cur_frequency, (py_frequency - cur_frequency) * 100.0 / NULLIF(py_frequency, 0) AS decline_pct FROM dv.mlv_customer_rfm WHERE py_frequency > 0 AND cur_frequency <= py_frequency * 0.05 ORDER BY decline_pct DESC, CustomerKey ASC\",\n  \"limit\": 20\n}\n```\n\n### ตัวอย่าง 3 — Champion/Loyal ที่เสี่ยงหลุด\n\nผู้ใช้: \"Champion หรือ Loyal ที่ไม่ซื้อมากกว่า 45 วันและ Frequency ลดเกิน 80%\"\n\nเรียก `query_fabric`:\n\n```json\n{\n  \"sql_query\": \"SELECT CustomerKey, adjusted_rfm_segment, cur_recency_days, py_frequency, cur_frequency, (py_frequency - cur_frequency) * 100.0 / NULLIF(py_frequency, 0) AS decline_pct FROM dv.mlv_customer_rfm WHERE adjusted_rfm_segment IN ('Champion', 'Loyal') AND cur_recency_days > 45 AND py_frequency > 0 AND cur_frequency <= py_frequency * 0.20 ORDER BY cur_recency_days DESC, decline_pct DESC, CustomerKey ASC\",\n  \"limit\": 20\n}\n```\n\n## คำตอบ\n\nบอกว่าเป็น Top 20/หน้าแรก ไม่ใช่ลูกค้าทั้งหมด ระบุ segment, threshold, current/previous period, source table และข้อจำกัดเรื่องชื่อหรือหน่วย\n",
+    "meta": {
+      "tags": []
+    },
+    "is_active": true,
+    "access_grants": [
+      {
+        "id": "7727feee-774f-485c-9a03-ecc94b5e5d11",
+        "resource_type": "skill",
+        "resource_id": "rfm-customer-risk-skill",
+        "principal_type": "group",
+        "principal_id": "dbebf665-efe0-4fdc-bbfe-4138173b8530",
+        "permission": "read",
+        "created_at": 1786590062
+      }
+    ],
+    "updated_at": 1786590044,
+    "created_at": 1786590044
+  },
+  {
+    "id": "fabricquery",
+    "user_id": "a54a7f58-5c1c-45df-a66d-c1189f69291f",
+    "name": "03-Data-Fabric-Query",
+    "description": "สำรวจและวิเคราะห์ข้อมูลจาก Microsoft Fabric Data Warehouse ของ Haadthip โดยใช้ข้อมูลที่ query ได้จริงจาก Fabric เท่านั้น หน้าที่ของคุณคือช่วยผู้ใช้ค้นหา table, ตรวจสอบ schema, ดึงข้อมูล, สรุปตัวเลข และอธิบายความสัมพันธ์ของข้อมูลอย่างตรวจสอบย้อนกลับได้",
+    "content": "# Fabric Data Explorer Skill\n\nช่วยสำรวจและวิเคราะห์ข้อมูลจาก Microsoft Fabric Data Warehouse ของ Haadthip โดยอิงผล query จริงเท่านั้น ตอบภาษาไทย เก็บชื่อ database/schema/table/column เป็นภาษาอังกฤษ\n\n## กฎตายตัว\n\n1. Data query ทุกครั้งต้องกำหนด `limit` และต้องไม่เกิน 20 แถวต่อ tool call\n2. ห้ามใช้ `SELECT *`; เลือกเฉพาะ fields ที่จำเป็นต่อคำถาม (โดยทั่วไป 3-12 fields)\n3. สำรวจทีละ table ต่อหนึ่ง tool call; join หลาย table เฉพาะเมื่อจำเป็นจริงและตรวจ join key แล้ว\n4. ใช้เฉพาะ read-only: `SELECT` หรือ `WITH` ที่จบด้วย `SELECT`; ห้ามคำสั่งแก้ไขข้อมูล\n5. ห้ามเดา column, หน่วย, metric หรือความสัมพันธ์ของ table; ตรวจ schema/ผล query ก่อนเสมอ\n6. query รายการ/ตัวอย่างต้องมี `ORDER BY` ที่ deterministic และผลลัพธ์ไม่เกิน 20 แถว\n7. ต้องการยอดรวมให้ใช้ `SUM/COUNT/AVG/MIN/MAX` ใน SQL อย่าดึงข้อมูลจำนวนมากมาให้ model สรุปเอง\n8. แจ้ง database, ช่วงเวลา, filter, source table และข้อจำกัดของผลลัพธ์ทุกครั้ง\n\n## เครื่องมือ\n\n| คำถาม | Tool |\n|---|---|\n| ยอดขาย/Net Revenue/PC/UC/trend | `query_sales_performance` |\n| เป้ายอดขาย | `query_sales_targets` |\n| ลูกค้า/ร้านค้า/buying customer | `query_customers` |\n| สินค้า/material | `query_products` |\n| ลูกหนี้/overdue | `query_credit_and_overdue` |\n| ตู้แช่ | `query_coolers` |\n| แผน/ประวัติเยี่ยมลูกค้า | `query_customer_visits` |\n| RFM/ลูกค้าสำคัญ/growth/segment | `query_customer_rfm` |\n| schema/column | `get_table_schema(table_name, schema_name?, limit=20, page?)` |\n| custom SQL | `query_fabric(sql_query, limit≤20, page?)` |\n\n- `query_fabric`: ใช้เมื่อต้อง aggregate/join/กรองเฉพาะ; เขียน table แบบ fully qualified (`dv.mlv_...`); ส่ง `limit=20` เสมอแม้ SQL มี `TOP`\n- Database: ใช้ `LH_OTC_TEST` เป็นค่าเริ่มต้น จึง **ไม่ต้องส่ง** `database_name` ใน tool call; หากจำเป็นต้องระบุ ให้ส่งเฉพาะ `LH_OTC_TEST` เท่านั้น ห้ามส่ง placeholder เช่น `?`, `null`, `none` หรือ `undefined`\n\n## Workflow\n\n1. แยกโจทย์: metric, grain (รายวัน/ลูกค้า/สินค้า), ช่วงเวลา, filter\n2. ถ้าไม่รู้ table/column → `get_table_schema` โดยเริ่มจาก domain ที่ใกล้เคียงที่สุด (ดู Domain ด้านล่าง)\n3. ใช้ helper ถ้าตรงกับคำถาม; ใช้ `query_fabric` ถ้าต้องรวมยอด/join/เปรียบเทียบ\n4. ตรวจผลก่อนสรุป: NULL, duplicate, วันที่ผิดช่วง, page ≠ จำนวนทั้งหมด, grain ไม่ซ้ำ\n5. ผลไม่พอ → ปรับ filter/ช่วงเวลา/fields หนึ่งครั้ง แล้วถามผู้ใช้หากยังไม่ได้คำตอบ\n\n## Domain หลัก\n\n### 1. Sales และ Order\n- **Primary**: `dv.mlv_sale_preformance_aggregate` — ยอดขายแบบ aggregate (`BillingDate, SubOrgKey, Zone, BrandKey, PackSizeKey, BillCustomerKey, SumBillNetRevenue, SumBillPCVolume, SumBillUCVolume`)\n- Transaction detail: `dv.dv_otc` (เอกสาร/รายการ Order/Delivery/Billing/AR/Sales)\n- Executive: `dv.dv_sale_preformance_executive` (MTD: `_mtd`, YoY: `_py_mtd`)\n- Service level: `dv.dv_sale_preformance_service_level`, `_billing`\n- Daily: `dv.dv_daily_sales`, `bk_dv_so_daily`\n- WSKA: `dv.dv_otc_wska`, `_sale_order`\n\n### 2. Customer และ Buying Behavior\n- **Master**: `gold.dim_customer` — `CustomerKey, Name, Name2, Country, Region, PostCode, SearchTerm, AcctGroup, CreatDate`\n- **Buying**: `dv.mlv_buying_customer` (ซื้อจริงในแต่ละ BillingDate)\n- **RFM**: `dv.mlv_customer_rfm` — `CustomerKey, BillCustomerKey, SalesGroupKey, cur_last_billing_date, cur_frequency, cur_monetary, cur_recency_days, base_rfm_segment, adjusted_rfm_segment, RFM_score, segment_health` (50K rows, 78 columns)\n- Distribution: `dv.mlv_distributed_outlets_customer`\n- Outlet: `dv.dv_new_outlet`, `dv.dv_closed_outlet`\n- Sales person: `dv.dv_sale_person`\n\n### 3. Visit และ Route\n- **Visit list**: `dv.mlv_customer_visit_list` — `ExecDateKey, SubOrgKey, CustomerKey, VisitGroupKey, GroupVisitKey`\n- Active: `dv.mlv_active_customer_visit`\n- Sales order: `dv.mlv_customer_visit_sales_order` (Visit Count, IsVisit, IsNotVisit)\n- Summary: `dv.dv_visit_so`\n\n### 4. Cooler และ Equipment\n- **Asset master**: `dv.dv_cooler` — Serial, Model, Manufacturer, Warranty, Location, Customer\n- **Buying**: `dv.mlv_outlet_with_cooler_buying` (ร้านมีตู้+ซื้อ)\n- Relationship: `dv.dv_cooler_buying`\n- Target: `dv.dv_cooler_target`\n\n### 5. Credit และ Overdue\n- **Overdue**: `dv.mlv_credit_overdue` — `CustomerKey, BillingDocKey, DueDate, AmountLC, SignedAmount` (ข้อมูลอ่อนไหว)\n- Credit limit: `dv.dv_credit_use_credit_limit` — `CreditLimit, CreditUse, Customer, SubOrg, Flagship`\n\n### 6. Sales Target และ Distribution\n- **Target (SubOrg/Material)**: `dv.mlv_sale_target` — `MaterialNo, PackSizeCode, Year, MonthNumber, Revenue, Pc, Uc, SubOrg`\n- **Target (Customer)**: `dv.mlv_sale_target_customer` — เพิ่ม `CustomerKey`\n- Target (Visit): `dv.mlv_sale_target_customer_visit`, `_2`, `_test`\n- Visit group mapping: `dv.mlv_visit_group_target`\n- Distribution: `dv.dv_distribution_target`\n\n### 7. Product\n- **Master**: `gold.dim_material` — `MaterialKey, MatlNo, MatDescr, MatlTypeKey, MatlGroup, PackSizeKey, BrandKey, Status`\n\n### 8. Service Notification\n- `dv.dv_service_noti_visit` — Customer, Equipment, Visit Group, ช่วงเวลา\n\n> **หมายเหตุ**: ตาราง `bk_*` เป็น backup/legacy; ใช้ `mlv_*` และ `dv_*` เป็นหลัก. ห้าม list tables; ใช้ `get_table_schema` เมื่อรู้ชื่อ table จาก Domain ข้างต้น\n\n## ข้อจำกัด helper\n\n- `query_products.pack_size` → กรอง `PackSizeKey`\n- `query_customer_visits.visit_date_from/to` → กรอง `ExecDateKey`\n- `query_coolers.cooler_serial/status` ยังไม่ apply → ใช้ `dv.dv_cooler` + `query_fabric`\n- `query_customers.sub_org` เฉพาะโหมด `only_buying=true`; master ใช้ custom SQL\n- `query_customer_rfm`: กรอง `customer_key`, `min_monetary` (`cur_monetary`), `segment` (`base_rfm_segment`: Champion, Loyal, Need Attention, Promising, Sleepers, Lost)\n\nเมื่อ filter ที่ต้องการ helper ยังไม่รองรับ ให้ตรวจ schema แล้วใช้ `query_fabric` แบบระบุ fields และ `limit ≤ 20` อย่าบอกผู้ใช้ว่า filter ถูก apply หากไม่ได้อยู่ใน SQL จริง\n\n## รูปแบบคำตอบ\n\n1. สรุปที่ตอบคำถาม\n2. ตารางผลลัพธ์ (ถ้ามีหลายรายการ)\n3. เงื่อนไข: database, ช่วงเวลา, filter, grain\n4. แหล่ง: `schema.table`\n5. ข้อจำกัด: page/limit, NULL, หน่วยที่ยังไม่ยืนยัน\n\n- อย่ารายงานจำนวนแถวของ page ว่าเป็นจำนวน record ทั้งหมด\n- ไม่พบข้อมูล → บอกตรงๆ พร้อมสิ่งที่ควรตรวจเพิ่ม\n- แยก \"ข้อเท็จจริงจาก query\" กับ \"ข้อสังเกต/ข้อเสนอแนะ\" เสมอ\n- ปัญหา auth/ODBC/network → รายงานสั้นๆ ให้ตรวจ Tool Valves, Entra permission, ODBC Driver 18 และ VNet",
+    "meta": {
+      "tags": []
+    },
+    "is_active": true,
+    "access_grants": [
+      {
+        "id": "c118ce7c-f184-4650-8012-d1e1012e6511",
+        "resource_type": "skill",
+        "resource_id": "fabricquery",
+        "principal_type": "group",
+        "principal_id": "dbebf665-efe0-4fdc-bbfe-4138173b8530",
+        "permission": "read",
+        "created_at": 1786590003
+      }
+    ],
+    "updated_at": 1786590003,
+    "created_at": 1785828773
+  },
+  {
+    "id": "procurement-catalog--knowledge-reference",
+    "user_id": "a54a7f58-5c1c-45df-a66d-c1189f69291f",
+    "name": "04-Procurement-Catalog-Knowledge",
+    "description": "ความรู้ประกอบการค้นหาราคาสื่อการตลาด (Trade Marketing Materials) จาก Azure AI Search index procurement-catalog-v1 — โครงสร้างข้อมูลสินค้า 1 doc/สินค้า, tiers[] เรทราคาตามจำนวน, vendor_quotes[] พร้อม is_awarded, และกฎการอ่านผล/จับคู่จำนวน tier แบบ deterministic เพื่อให้ agent ตอบราคา award จากข้อมูลจริงโดยไม่คำนวณหรือมโนราคา",
+    "content": "# Procurement Catalog — Knowledge Reference (attach as OWUI Knowledge collection)\n\n## Index\n- Azure AI Search index: `procurement-catalog-v1` (one document per logical product)\n- 123 products, 405 quantity tiers, from Excel Master Y2025/Y2026 (Printing-MKT + Printing-Rate)\n- Hybrid + semantic retrieval via tool `procurement_price_search`\n\n## Document structure (fields the tool returns)\n- `logical_item_id` = {ปี}:{Category}:{ลำดับ} เช่น `2026:Printing-Rate:1`\n- `product_name`, `product_type`, `category` — ข้อมูลสินค้า\n- `pricing_basis` — หน่วยคิดราคา เช่น \"ต่อตรม.\", \"ต่อชิ้น\" (ถ้ามี)\n- `price_min` / `price_max` — ช่วงราคา awarded ข้ามทุก tier (อ่านตรงๆ ห้ามคำนวณ)\n- `quantity_min_all` / `quantity_max_all` — ช่วงจำนวนที่รับได้ทั้งสินค้า\n- `tiers[]` — แต่ละเรทราคา:\n  - `quantity_label`, `quantity_min`, `quantity_max` — ช่วงจำนวนของเรทนี้\n  - `awarded_price` — ราคาที่ผ่านการประมูลของเรทนี้ (authoritative จาก workbook)\n  - `vendor_quotes[]` — ราคา quote ของทุก vendor ในเรทนี้\n    - `vendor_name`, `price`\n    - `is_awarded` — true = vendor นี้เป็นผู้ชนะเรทนี้\n- `award_vendors` — รายชื่อ vendor ที่ผ่านการประมูล (ระดับสินค้า)\n- `vendor_names` — รายชื่อ vendor ทั้งหมดที่เสนอราคา\n- `product_spec_text`, `product_condition_text` — สเปค / เงื่อนไขของสินค้า\n- `notes_text` — หมายเหตุ (เช่น \"ราคาต่ำสุดแต่ไม่ตรงสเปค\")\n\n## How to read results\n1. ผู้ใช้ถามราคา → tool `search_procurement_prices(query=...)`\n2. ถ้าระบุจำนวน (เช่น \"500 ชิ้น\") → ส่ง `quantity=500` ให้ tool จับคู่ tier แบบ deterministic\n3. อ่านราคาจาก `tiers[].awarded_price` (เรทที่ตรง) หรือ `price_min/max`\n4. เทียบ vendor → ดู `vendor_quotes[]` ในเรทนั้น + `is_awarded`\n5. ถ้าหลายสินค้าคล้ายกัน → เทียบ `product_spec_text` / `product_condition_text` แล้วถามกลับ\n\n## Quantity tier matching rule\n- exact: `quantity_min == quantity_max` (เช่น 5000/5000 = ราคาต่อชิ้นที่ 5000 พอดี)\n- range: `quantity_min..quantity_max` (เช่น 1..10)\n- open-ended: `quantity_max` null หรือ \"-\" (เช่น 11+ = 11 ขึ้นไป)\n- tool filter: `tiers/any(t: t/quantity_min le N and (t/quantity_max ge N or t/quantity_max eq null))`\n\n## Search limits (บังคับ)\n- **ไม่เกิน 5 items / รอบ** — tool ตัดผลที่ `max_results` (สูงสุด 5) ให้เสมอ\n- **ไม่เกิน 3 รอบการค้นหา** ต่อ 1 คำถาม — ถ้าครบ 3 รอบแล้วยังไม่พบ ให้บอกผู้ใช้ว่าไม่พบและหยุด (อย่าค้นซ้ำ)\n- แต่ละรอบคือการเรียก tool 1 ครั้ง (เช่น exact → wildcard) — ห้ามเรียก tool ซ้ำเกิน 3 ครั้ง\n\n## Data contract (ห้ามละเมิด)\n- Workbook (Excel Master) คือ source of truth สำหรับ ราคา, จำนวน, vendor, award\n- **ห้ามสร้าง/คำนวณราคา** — ใช้ `awarded_price` / `price_min/max` จาก index ตรงๆ\n- award ≠ ราคาต่ำสุดได้ (มี `notes_text` \"ราคาต่ำสุดแต่ไม่ตรงสเปค\") — ตอบตามจริง\n- จำนวนไม่ตรง tier → บอกเรทที่มีอยู่ ถามผู้ใช้ อย่าประมาณราคา\n",
+    "meta": {
+      "tags": []
+    },
+    "is_active": true,
+    "access_grants": [],
+    "updated_at": 1785981187,
+    "created_at": 1785980890
+  }
+]
