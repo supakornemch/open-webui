@@ -86,7 +86,7 @@ class Pipe:
         AZURE_SEARCH_SEMANTIC_CONFIG: str = Field(default="procurement-semantic")
         LLM_BASE_URL: str = Field(default="")
         LLM_API_KEY: str = Field(default="")
-        LLM_MODEL: str = Field(default="deploy-gpt-5.4-nano")
+        LLM_MODEL: str = Field(default="deploy-gpt-5.4-mini")
         EMBEDDING_MODEL: str = Field(default="deploy-embedding-3-large")
         MAX_TOOL_ROUNDS: int = Field(default=4)
         MAX_RESULTS: int = Field(default=5)
