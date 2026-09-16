@@ -1,25 +1,63 @@
 """
-title: Fabric Query — Delegated User Token (QAS Experiment)
+title: Genie AI — Main Assistant
 author: Haadthip DIO
-version: 0.2.0
+version: 1.0.0
 required_open_webui_version: 0.11.0
-
-QAS-only clone used to prove Microsoft Fabric SQL tool calls with the signed-in
-user's Microsoft OAuth access token. It fails closed and never falls back to an
-application identity, managed identity, or static token.
 """
-
 import asyncio
 import base64
 import json
+import os
 import re
 import struct
 from typing import Optional
 
+from openai import OpenAI
 from pydantic import BaseModel, Field
 
 
-class Tools:
+FABRIC_TOOL = {
+    "type": "function",
+    "function": {
+        "name": "query_fabric",
+        "description": (
+            "Execute read-only SQL query against Microsoft Fabric Data Warehouse "
+            "using the signed-in user's delegated token. Use this for sales data, "
+            "customer info, credit/AR, targets, quantitative business questions, "
+            "or when asked 'what data can I access' / 'ดูให้หน่อยว่าฉันเข้าถึงข้อมูลอะไรได้'."
+        ),
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "sql_query": {
+                    "type": "string",
+                    "description": (
+                        "T-SQL SELECT or WITH query. Must use explicit column names (no SELECT *), "
+                        "schema-qualified table names (e.g., dbo.dim_customer), and read-only operations only. "
+                        "To discover accessible tables: SELECT TOP 10 table_schema, table_name FROM INFORMATION_SCHEMA.TABLES WHERE table_schema NOT IN ('sys','INFORMATION_SCHEMA')"
+                    ),
+                },
+                "limit": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 20,
+                    "default": 20,
+                    "description": "Maximum rows to return (max 20)",
+                },
+                "offset": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "default": 0,
+                    "description": "Row offset for pagination",
+                },
+            },
+            "required": ["sql_query"],
+        },
+    },
+}
+
+
+class Pipe:
     HARD_MAX_LIMIT = 20
     SQL_AUDIENCES = {
         "https://database.windows.net",
@@ -34,30 +72,50 @@ class Tools:
 
     class Valves(BaseModel):
         FABRIC_ENDPOINT: str = Field(
-            default="ypmukualhmkuhbmumqiyxplusu-ytem5s6jyj6e5cg2lqqkuiiufq.datawarehouse.fabric.microsoft.com",
+            default="",
             description="Fabric Data Warehouse endpoint hostname",
         )
         DEFAULT_DATABASE: str = Field(
             default="LH_OTC_TEST",
-            description="Only Fabric Warehouse/Lakehouse allowed for this QAS experiment",
+            description="Fabric Warehouse/Lakehouse database name",
         )
         ODBC_DRIVER: str = Field(
             default="ODBC Driver 18 for SQL Server",
             description="Installed Microsoft SQL Server ODBC driver",
         )
         ALLOWED_TENANT_ID: str = Field(
-            default="5045d9c3-3b0b-4315-8594-64118bbd7495",
-            description="Entra tenant accepted by this QAS-only delegated tool",
+            default="",
+            description="Entra tenant ID restriction (leave empty to allow any)",
         )
+        LLM_BASE_URL: str = Field(default="", description="LiteLLM base URL")
+        LLM_API_KEY: str = Field(default="", description="LiteLLM API key")
+        LLM_MODEL: str = Field(
+            default="genie.deploy-gpt-5.6-luna",
+            description="Model ID for orchestration",
+        )
+        MAX_TOOL_ROUNDS: int = Field(default=8, description="Max tool loop iterations")
         DEFAULT_LIMIT: int = Field(default=20, description="Default row limit")
         CONNECT_TIMEOUT: int = Field(default=15, description="ODBC connection timeout")
 
     def __init__(self):
         self.valves = self.Valves()
+        v = self.valves
+        if not v.FABRIC_ENDPOINT:
+            v.FABRIC_ENDPOINT = os.getenv(
+                "FABRIC_ENDPOINT",
+                "ypmukualhmkuhbmumqiyxplusu-ytem5s6jyj6e5cg2lqqkuiiufq.datawarehouse.fabric.microsoft.com",
+            )
+        if not v.ALLOWED_TENANT_ID:
+            v.ALLOWED_TENANT_ID = os.getenv("ALLOWED_TENANT_ID", "5045d9c3-3b0b-4315-8594-64118bbd7495")
+        if not v.LLM_BASE_URL:
+            base = os.getenv("OPENAI_API_BASE_URL", "").rstrip("/")
+            v.LLM_BASE_URL = base[:-3] if base.endswith("/v1") else base
+        if not v.LLM_API_KEY:
+            v.LLM_API_KEY = os.getenv("OPENAI_API_KEY", "")
 
     @staticmethod
     def _decode_jwt_claims(token: str) -> dict:
-        """Decode claims for fail-fast routing checks; Entra/Fabric validates the signature."""
+        """Decode JWT claims (Entra validates signature)."""
         try:
             parts = token.split(".")
             if len(parts) != 3:
@@ -68,47 +126,40 @@ class Tools:
                 raise ValueError("JWT payload is not an object")
             return claims
         except (ValueError, UnicodeDecodeError, json.JSONDecodeError) as exc:
-            raise RuntimeError("Open WebUI supplied an invalid delegated OAuth token.") from exc
+            raise RuntimeError("Invalid delegated OAuth token.") from exc
 
     def _require_delegated_token(
         self, __oauth_token__: Optional[dict], __user__: Optional[dict]
     ) -> tuple[str, dict]:
-        """Require the current Open WebUI OAuth session's delegated Azure SQL token."""
+        """Require delegated Azure SQL token from Open WebUI OAuth session."""
         if not isinstance(__oauth_token__, dict):
             raise RuntimeError(
-                "No delegated OAuth token was supplied by Open WebUI. Sign out and sign in "
-                "again after the Azure SQL delegated scope is configured."
+                "No delegated OAuth token. Sign out and sign in again with Azure SQL scope configured."
             )
 
         token = str(__oauth_token__.get("access_token") or "").strip()
         if not token:
-            raise RuntimeError(
-                "Open WebUI OAuth session has no delegated OAuth token. Sign out and sign in again."
-            )
+            raise RuntimeError("OAuth session has no delegated token. Sign out and sign in again.")
 
         claims = self._decode_jwt_claims(token)
         audience = str(claims.get("aud") or "").rstrip("/")
         allowed_audiences = {item.rstrip("/") for item in self.SQL_AUDIENCES}
         if audience not in allowed_audiences:
             raise RuntimeError(
-                "Delegated OAuth token has the wrong audience for Fabric SQL. "
-                f"Expected database.windows.net; received {audience or 'none'}."
+                f"Token audience {audience or 'none'} is not database.windows.net; wrong scope configured."
             )
 
         tenant = str(claims.get("tid") or "")
         if self.valves.ALLOWED_TENANT_ID and tenant.casefold() != self.valves.ALLOWED_TENANT_ID.casefold():
-            raise RuntimeError("Delegated OAuth token belongs to an unapproved tenant.")
+            raise RuntimeError("Token belongs to an unapproved tenant.")
 
         scopes = {scope.casefold() for scope in str(claims.get("scp") or "").split()}
         if "user_impersonation" not in scopes:
-            raise RuntimeError(
-                "OAuth token does not contain the delegated scope user_impersonation; "
-                "app-only tokens and role claims are rejected."
-            )
+            raise RuntimeError("Token missing user_impersonation scope; app-only tokens rejected.")
 
         oid = str(claims.get("oid") or "").strip()
         if not oid:
-            raise RuntimeError("Delegated OAuth token does not contain an immutable user oid claim.")
+            raise RuntimeError("Token missing user oid claim.")
 
         username = str(
             claims.get("preferred_username")
@@ -123,38 +174,32 @@ class Tools:
         if not query:
             return "Error: SQL query cannot be empty."
         if not query.upper().startswith(("SELECT", "WITH")):
-            return "Error: Only read-only SELECT or WITH queries are allowed."
+            return "Error: Only read-only SELECT or WITH queries allowed."
         if re.search(
             r"\b(?:INSERT|UPDATE|DELETE|MERGE|DROP|ALTER|CREATE|TRUNCATE|GRANT|DENY|EXEC|EXECUTE)\b",
             query,
             re.IGNORECASE,
         ):
-            return "Error: Data-modifying and procedure statements are not allowed."
+            return "Error: Data-modifying statements not allowed."
         if cls.WILDCARD_SELECT_RE.search(query):
-            return "Error: SELECT * is not allowed; list only the required columns."
+            return "Error: SELECT * not allowed; list explicit columns only."
         return None
 
     @staticmethod
     def _extract_table_names(sql: str) -> set[str]:
-        """
-        Extract table names from SQL query (simple regex-based parser).
-        Returns normalized set like {'schema.table', 'table'}.
-        """
-        # Remove comments
+        """Extract table names from SQL (simple regex parser)."""
         sql_no_comments = re.sub(r"--[^\n]*", "", sql)
         sql_no_comments = re.sub(r"/\*.*?\*/", "", sql_no_comments, flags=re.DOTALL)
-        
-        # Find FROM and JOIN clauses
         table_pattern = re.compile(
             r"\b(?:FROM|JOIN)\s+([A-Za-z_][\w]*(?:\.[A-Za-z_][\w]*)?)",
-            re.IGNORECASE
+            re.IGNORECASE,
         )
         matches = table_pattern.findall(sql_no_comments)
         return {match.lower().strip() for match in matches if match.strip()}
 
     @classmethod
     def _validate_table_access(cls, sql_query: str, allowed_tables: set[str]) -> Optional[str]:
-        """Reject every query whose table references are outside the token-derived allowlist."""
+        """Reject queries accessing tables outside allowlist."""
         referenced_tables = cls._extract_table_names(sql_query)
         if not referenced_tables:
             return "Error: Query must reference at least one schema-qualified table."
@@ -178,12 +223,12 @@ class Tools:
         candidate = (database_name or self.valves.DEFAULT_DATABASE).strip()
         if candidate.casefold() != self.valves.DEFAULT_DATABASE.casefold():
             raise ValueError(
-                f"Unsupported Fabric database `{candidate}`; only `{self.valves.DEFAULT_DATABASE}` is allowed."
+                f"Unsupported database `{candidate}`; only `{self.valves.DEFAULT_DATABASE}` allowed."
             )
         return self.valves.DEFAULT_DATABASE
 
     def _discover_allowed_tables(self, cursor) -> set[str]:
-        """Return only tables SELECT-able by the current delegated Fabric SQL user."""
+        """Return only SELECT-able tables for current delegated user."""
         cursor.execute(
             """
             SELECT s.name, t.name
@@ -211,7 +256,7 @@ class Tools:
             import pyodbc
         except ImportError as exc:
             raise RuntimeError(
-                "pyodbc and Microsoft ODBC Driver 18 must be installed in the Open WebUI image."
+                "pyodbc and Microsoft ODBC Driver 18 must be installed."
             ) from exc
 
         db = self._resolve_database_name(database_name)
@@ -260,28 +305,15 @@ class Tools:
             "```json\n" + json.dumps(results, ensure_ascii=False, indent=2) + "\n```"
         )
 
-    async def query_fabric_delegated(
+    async def _execute_fabric_query(
         self,
         sql_query: str,
-        database_name: Optional[str] = None,
-        limit: Optional[int] = 20,
-        offset: Optional[int] = 0,
-        __oauth_token__: Optional[dict] = None,
-        __user__: Optional[dict] = None,
+        limit: int,
+        offset: int,
+        __oauth_token__: Optional[dict],
+        __user__: Optional[dict],
     ) -> str:
-        """
-        QAS experiment: execute a read-only Fabric SQL query as the signed-in user.
-        Requires Open WebUI's server-side Microsoft OAuth session token and never
-        falls back to a Service Principal. Use explicit columns; maximum 20 rows.
-        
-        Args:
-            sql_query: T-SQL SELECT query
-            database_name: Target Fabric database (defaults to LH_OTC_TEST)
-            limit: Maximum rows to return (max 20)
-            offset: Row offset for pagination; default is 0
-            __oauth_token__: Open WebUI OAuth session (auto-injected)
-            __user__: Open WebUI user context (auto-injected)
-        """
+        """Execute Fabric query with delegated token."""
         cleaned_query = (sql_query or "").strip()
         validation_error = self._validate_read_only_query(cleaned_query)
         if validation_error:
@@ -289,7 +321,7 @@ class Tools:
 
         try:
             access_token, identity = self._require_delegated_token(__oauth_token__, __user__)
-            target_db = self._resolve_database_name(database_name)
+            target_db = self.valves.DEFAULT_DATABASE
             row_limit = self._normalise_limit(limit)
             row_offset = max(int(offset or 0), 0)
             loop = asyncio.get_running_loop()
@@ -305,3 +337,70 @@ class Tools:
             return f"Delegated user {identity['username']} (oid: {identity['oid']})\n\n{result}"
         except Exception as exc:
             return f"Delegated Fabric query denied: {exc}"
+
+    def _dispatch_tool(
+        self,
+        name: str,
+        args: dict,
+        oauth_token: dict,
+        user: dict,
+    ) -> str:
+        """Dispatch tool call (sync wrapper)."""
+        if name == "query_fabric":
+            loop = asyncio.new_event_loop()
+            asyncio.set_event_loop(loop)
+            try:
+                return loop.run_until_complete(
+                    self._execute_fabric_query(
+                        sql_query=args.get("sql_query", ""),
+                        limit=args.get("limit", 20),
+                        offset=args.get("offset", 0),
+                        __oauth_token__=oauth_token,
+                        __user__=user,
+                    )
+                )
+            finally:
+                loop.close()
+        return json.dumps({"success": False, "error": f"unknown tool: {name}"})
+
+    def pipe(self, body: dict, __user__: dict = None, __oauth_token__: dict = None, __event_emitter__=None) -> str:
+        """Main Pipe entry point — orchestrates tool loop with delegated token."""
+        messages = list(body.get("messages") or [])
+        system = body.get("system")
+        if system:
+            messages.insert(0, {"role": "system", "content": system})
+
+        client = OpenAI(
+            api_key=self.valves.LLM_API_KEY,
+            base_url=self.valves.LLM_BASE_URL.rstrip("/") + "/v1",
+        )
+
+        for _ in range(max(1, min(self.valves.MAX_TOOL_ROUNDS, 10))):
+            response = client.chat.completions.create(
+                model=self.valves.LLM_MODEL,
+                messages=messages,
+                tools=[FABRIC_TOOL],  # type: ignore
+                tool_choice="auto",
+                extra_body={"prompt_cache_key": "genie-qas"},
+            )
+            choice = response.choices[0]
+            msg = choice.message
+            if choice.finish_reason != "tool_calls" or not msg.tool_calls:
+                return msg.content or ""
+
+            messages.append(
+                {
+                    "role": "assistant",
+                    "content": msg.content,
+                    "tool_calls": [x.model_dump() for x in msg.tool_calls],
+                }
+            )
+            for call in msg.tool_calls:
+                func = getattr(call, "function", None)
+                if not func:
+                    continue
+                args = json.loads(func.arguments or "{}")
+                result = self._dispatch_tool(func.name, args, __oauth_token__ or {}, __user__ or {})
+                messages.append({"role": "tool", "tool_call_id": call.id, "content": result})
+
+        return "ขออภัยครับ ระบบใช้เวลานานเกินกำหนด กรุณาลองใหม่อีกครั้ง"

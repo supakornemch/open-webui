@@ -14,3 +14,4 @@ litellm_settings:
   cache_params:
     type: local
     ttl: 3600
+  disable_message_cache: True

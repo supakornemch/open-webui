@@ -88,21 +88,79 @@ def test_accepts_verified_delegated_sql_token_and_returns_identity():
     }
 
 
-def test_query_passes_request_token_to_connection_without_fallback(monkeypatch):
+def test_query_preflights_current_token_permissions_before_executing_sql(monkeypatch):
     instance = tool()
-    seen = {}
+    seen = []
 
-    def fake_query(database_name, cleaned_query, limit, offset, access_token):
-        seen["token"] = access_token
-        return "ok"
+    class Cursor:
+        description = [("BillingDate",)]
 
-    monkeypatch.setattr(instance, "_sync_get_connection_and_query", fake_query)
-    result = asyncio.run(
-        instance.query_fabric_delegated(
-            "SELECT TOP 1 BillingDate FROM dv.mlv_sale_preformance_aggregate",
-            __oauth_token__={"access_token": delegated_token()},
-            __user__={"id": "user-id", "email": "tester@haadthip.com"},
-        )
+        def execute(self, sql):
+            seen.append(sql)
+
+        def fetchall(self):
+            return [("dv", "mlv_sale_preformance_aggregate")]
+
+        def fetchmany(self, limit):
+            return [("2026-09-15",)]
+
+    class Connection:
+        def cursor(self):
+            return Cursor()
+
+        def close(self):
+            seen.append("closed")
+
+    class Pyodbc:
+        @staticmethod
+        def connect(*args, **kwargs):
+            return Connection()
+
+    monkeypatch.setitem(__import__("sys").modules, "pyodbc", Pyodbc)
+    result = instance._sync_get_connection_and_query(
+        "LH_OTC_TEST",
+        "SELECT BillingDate FROM dv.mlv_sale_preformance_aggregate",
+        1,
+        0,
+        delegated_token(),
     )
-    assert result.startswith("Delegated user tester@haadthip.com")
-    assert seen["token"] == delegated_token()
+
+    assert result.startswith("Database: `LH_OTC_TEST`")
+    assert "HAS_PERMS_BY_NAME" in seen[0]
+    assert seen[1] == "SELECT BillingDate FROM dv.mlv_sale_preformance_aggregate"
+
+
+def test_query_denies_table_not_returned_by_token_permission_preflight(monkeypatch):
+    instance = tool()
+    seen = []
+
+    class Cursor:
+        def execute(self, sql):
+            seen.append(sql)
+
+        def fetchall(self):
+            return [("dv", "mlv_sale_preformance_aggregate")]
+
+    class Connection:
+        def cursor(self):
+            return Cursor()
+
+        def close(self):
+            seen.append("closed")
+
+    class Pyodbc:
+        @staticmethod
+        def connect(*args, **kwargs):
+            return Connection()
+
+    monkeypatch.setitem(__import__("sys").modules, "pyodbc", Pyodbc)
+    result = instance._sync_get_connection_and_query(
+        "LH_OTC_TEST",
+        "SELECT BillingDate FROM dv.unauthorized_table",
+        1,
+        0,
+        delegated_token(),
+    )
+
+    assert "ไม่มีสิทธิ์เข้าถึงตาราง" in result
+    assert len(seen) == 2  # permission lookup then connection close; user SQL never executes
