@@ -266,7 +266,12 @@ def main():
             found = want.lower() in (answer or "").lower()
             if not found and want.replace('.', '').isdigit():
                 # models may format 2095 as 2,095
-                found = f"{int(want):,}" in (answer or "")
+                if "." in str(want):
+                    found = f"{float(want):,.2f}" in (answer or "") or str(want) in (answer or "")
+                else:
+                    found = f"{int(want):,}" in (answer or "")
+                if want in (answer or ""):
+                    found = True
             checks.append((f'contains "{want}"', found))
         if excludes:
             checks.append((f'excludes "{excludes}"', excludes.lower() not in (answer or "").lower()))
