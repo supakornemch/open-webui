@@ -42,12 +42,12 @@ LOGO_FILE = ROOT / "Procurement_AI_logo_Haadthip_202607301711.jpeg"
 TOOL_ID = "procurement_price_search"
 MODEL_ID = "procurement-price-assistant"
 MODEL_NAME = "Procurement Price Assistant"
-BASE_MODEL_ID = "genie.gpt-5.4-mini"  # LiteLLM model name on Genie
+BASE_MODEL_ID = "genie.deploy-gpt-5.4-mini"  # LiteLLM model name on Genie QAS
 
 # Tool valves — secrets come from env, endpoints use known defaults
 TOOL_VALVES = {
-    "AZURE_SEARCH_ENDPOINT": "https://srch-entchat-poc-sand.search.windows.net",
-    "AZURE_OPENAI_ENDPOINT": "https://app-litellm-poc-sand.azurewebsites.net",
+    "AZURE_SEARCH_ENDPOINT": "https://srch-entchat-qas.search.windows.net",
+    "AZURE_OPENAI_ENDPOINT": "https://app-litellm-qas.azurewebsites.net",
     "AZURE_SEARCH_INDEX": "procurement-catalog-v1",
     "AZURE_SEARCH_SEMANTIC_CONFIG": "procurement-semantic",
     "AZURE_OPENAI_EMBEDDING_DEPLOYMENT": "deploy-embedding-3-large",
@@ -166,19 +166,13 @@ def deploy_tool_valves() -> bool:
 
 
 def build_system_prompt() -> str:
-    """Build the full system prompt from the markdown doc + skill reference."""
-    prompt = SYSTEM_PROMPT_FILE.read_text(encoding="utf-8").strip()
-    skill = SKILL_FILE.read_text(encoding="utf-8").strip()
+    """Return the system prompt exactly as authored in SYSTEM_PROMPT_FILE.
 
-    # Combine: system prompt first, then skill reference as appended knowledge
-    full = f"""{prompt}
-
----
-## Knowledge Reference (procurement-catalog-skill)
-
-{skill}
-"""
-    return full
+    The markdown file already contains the Knowledge Reference section, so the
+    skill file is NOT appended here. Appending it caused repo-vs-QAS drift and
+    double-included the knowledge block in the deployed prompt.
+    """
+    return SYSTEM_PROMPT_FILE.read_text(encoding="utf-8").strip()
 
 
 def upload_logo() -> str | None:
@@ -227,14 +221,17 @@ def deploy_model(logo_url: str | None = None) -> bool:
 
     # Preserve existing profile_image_url if we're updating and no new logo
     existing_logo_url = None
+    existing_params: dict[str, Any] = {}
     check = api("GET", f"/api/v1/models/model?id={MODEL_ID}")
     exists = check.status_code == 200
     if exists:
         existing = check.json()
         existing_meta = existing.get("meta") or {}
         existing_logo_url = existing_meta.get("profile_image_url")
+        existing_params = existing.get("params") or {}
         if existing_logo_url:
             print(f"  Existing logo: {'data:...' if existing_logo_url.startswith('data:') else existing_logo_url[:80]}")
+        print(f"  Preserving existing params: {sorted(existing_params)}")
 
     meta: dict[str, Any] = {
         "description": (
@@ -254,15 +251,16 @@ def deploy_model(logo_url: str | None = None) -> bool:
     elif existing_logo_url:
         print(f"  Preserving existing logo (not re-sending to avoid payload bloat)")
 
+    # Merge instead of replace: OWUI writes `params` wholesale, so a bare
+    # {"system": ...} payload would drop function_calling=native and the
+    # custom_params (prompt_cache_key, reasoning_effort).
+    params = {**existing_params, "system": system_prompt}
     body = {
         "id": MODEL_ID,
         "base_model_id": BASE_MODEL_ID,
         "name": MODEL_NAME,
         "meta": meta,
-        "params": {
-            "system": system_prompt,
-        },
-        "access_control": None,
+        "params": params,
         "is_active": True,
     }
 

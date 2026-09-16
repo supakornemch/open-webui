@@ -67,7 +67,7 @@ _SELECT_FIELDS = [
 class Tools:
     class Valves(BaseModel):
         AZURE_SEARCH_ENDPOINT: str = Field(
-            default="https://srch-entchat-poc-sand.search.windows.net",
+            default="https://srch-entchat-qas.search.windows.net",
             description="Azure AI Search endpoint"
         )
         AZURE_SEARCH_KEY: str = Field(
@@ -83,7 +83,7 @@ class Tools:
             description="Semantic configuration name (for semantic mode)"
         )
         AZURE_OPENAI_ENDPOINT: str = Field(
-            default="https://app-litellm-poc-sand.azurewebsites.net",
+            default="https://app-litellm-qas.azurewebsites.net",
             description="OpenAI-compatible endpoint for embeddings (LiteLLM proxy base URL, no /v1 suffix)"
         )
         AZURE_OPENAI_KEY: str = Field(

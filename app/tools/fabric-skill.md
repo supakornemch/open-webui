@@ -31,6 +31,17 @@
 - `query_fabric`: ใช้เมื่อต้อง aggregate/join/กรองเฉพาะ; เขียน table แบบ fully qualified (`dv.mlv_...`); ส่ง `limit=20` เสมอแม้ SQL มี `TOP`
 - Database: ใช้ `LH_OTC_TEST` เป็นค่าเริ่มต้น จึง **ไม่ต้องส่ง** `database_name` ใน tool call; หากจำเป็นต้องระบุ ให้ส่งเฉพาะ `LH_OTC_TEST` เท่านั้น ห้ามส่ง placeholder เช่น `?`, `null`, `none` หรือ `undefined`
 
+## Delegated User Permission Boundary (QAS)
+
+สำหรับ `fabric_query_delegated_user_qas`:
+
+1. ทุก query ใช้ Microsoft Entra delegated token ของผู้ใช้ที่ sign in อยู่เท่านั้น; ห้ามใช้หรือเสนอ Service Principal, managed identity, static token หรือ token ของผู้ใช้อื่น
+2. Tool จะตรวจ `HAS_PERMS_BY_NAME(..., 'SELECT')` ด้วย token เดียวกันก่อน execute SQL ทุกครั้ง และจะ run query เฉพาะ table ที่ Fabric ยืนยันว่า user นั้นมีสิทธิ์ ณ เวลานั้น
+3. ห้ามส่ง `allowed_tables`, ห้ามสร้าง allowlist, และห้ามพยายามข้าม permission preflight; tool ไม่รับ parameter ดังกล่าว
+4. เขียน table เป็น fully qualified (`schema.table`) เสมอ เพื่อให้ preflight ตรวจได้ชัดเจน
+5. หาก tool ตอบว่าไม่มีสิทธิ์, token ไม่ถูกต้อง, หรือ permission preflight ล้มเหลว: หยุด ไม่ retry ด้วย credential อื่น ไม่เดาว่าข้อมูลมีค่าใด และแจ้งให้ผู้ใช้ติดต่อ Fabric workspace/data owner
+6. สิทธิ์จาก Fabric เป็น security boundary; prompt, skill และ model ไม่ใช่ตัวกำหนดสิทธิ์แทน Fabric
+
 ## Workflow
 
 1. แยกโจทย์: metric, grain (รายวัน/ลูกค้า/สินค้า), ช่วงเวลา, filter
