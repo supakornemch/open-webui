@@ -202,7 +202,10 @@ class Pipe:
         if not referenced_tables:
             return "Error: Query must reference at least one schema-qualified table."
 
-        unauthorized = referenced_tables - allowed_tables
+        # System metadata schemas are always allowed (users have implicit access)
+        SYSTEM_SCHEMAS = {"information_schema", "sys"}
+        data_tables = referenced_tables - {t for t in referenced_tables if any(t.startswith(s + ".") for s in SYSTEM_SCHEMAS)}
+        unauthorized = data_tables - allowed_tables
         if unauthorized:
             return (
                 f"Error: ไม่มีสิทธิ์เข้าถึงตาราง {', '.join(sorted(unauthorized))}. "

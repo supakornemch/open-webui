@@ -1,7 +1,7 @@
 """
 title: Fabric Query — Delegated User Token (QAS Experiment)
 author: Haadthip DIO
-version: 0.2.0
+version: 0.3.0
 required_open_webui_version: 0.11.0
 
 QAS-only clone used to prove Microsoft Fabric SQL tool calls with the signed-in
@@ -143,7 +143,7 @@ class Tools:
         # Remove comments
         sql_no_comments = re.sub(r"--[^\n]*", "", sql)
         sql_no_comments = re.sub(r"/\*.*?\*/", "", sql_no_comments, flags=re.DOTALL)
-        
+
         # Find FROM and JOIN clauses
         table_pattern = re.compile(
             r"\b(?:FROM|JOIN)\s+([A-Za-z_][\w]*(?:\.[A-Za-z_][\w]*)?)",
@@ -159,7 +159,10 @@ class Tools:
         if not referenced_tables:
             return "Error: Query must reference at least one schema-qualified table."
 
-        unauthorized = referenced_tables - allowed_tables
+        # System metadata schemas are always allowed (users have implicit access)
+        SYSTEM_SCHEMAS = {"information_schema", "sys"}
+        data_tables = referenced_tables - {t for t in referenced_tables if any(t.startswith(s + ".") for s in SYSTEM_SCHEMAS)}
+        unauthorized = data_tables - allowed_tables
         if unauthorized:
             return (
                 f"Error: ไม่มีสิทธิ์เข้าถึงตาราง {', '.join(sorted(unauthorized))}. "
@@ -181,6 +184,23 @@ class Tools:
                 f"Unsupported Fabric database `{candidate}`; only `{self.valves.DEFAULT_DATABASE}` is allowed."
             )
         return self.valves.DEFAULT_DATABASE
+
+    def _open_connection(self, db: str, access_token: str):
+        """Open a delegated-token ODBC connection to the Fabric warehouse."""
+        import pyodbc  # noqa: PLC0415
+
+        token_bytes = access_token.encode("utf-16-le")
+        token_struct = struct.pack(f"<I{len(token_bytes)}s", len(token_bytes), token_bytes)
+        conn_str = (
+            f"Driver={{{self.valves.ODBC_DRIVER}}};"
+            f"Server={self.valves.FABRIC_ENDPOINT},1433;"
+            f"Database={db};Encrypt=yes;TrustServerCertificate=no;"
+        )
+        return pyodbc.connect(
+            conn_str,
+            attrs_before={1256: token_struct},
+            timeout=self.valves.CONNECT_TIMEOUT,
+        )
 
     def _discover_allowed_tables(self, cursor) -> set[str]:
         """Return only tables SELECT-able by the current delegated Fabric SQL user."""
@@ -215,21 +235,9 @@ class Tools:
             ) from exc
 
         db = self._resolve_database_name(database_name)
-        token_bytes = access_token.encode("utf-16-le")
-        token_struct = struct.pack(f"<I{len(token_bytes)}s", len(token_bytes), token_bytes)
-        conn_str = (
-            f"Driver={{{self.valves.ODBC_DRIVER}}};"
-            f"Server={self.valves.FABRIC_ENDPOINT},1433;"
-            f"Database={db};Encrypt=yes;TrustServerCertificate=no;"
-        )
-
         connection = None
         try:
-            connection = pyodbc.connect(
-                conn_str,
-                attrs_before={1256: token_struct},
-                timeout=self.valves.CONNECT_TIMEOUT,
-            )
+            connection = self._open_connection(db, access_token)
             cursor = connection.cursor()
             allowed_tables = self._discover_allowed_tables(cursor)
             access_error = self._validate_table_access(cleaned_query, allowed_tables)
@@ -260,6 +268,69 @@ class Tools:
             "```json\n" + json.dumps(results, ensure_ascii=False, indent=2) + "\n```"
         )
 
+    def _sync_describe_user_access(
+        self,
+        database_name: str,
+        access_token: str,
+    ) -> str:
+        """Describe what the current delegated user can SELECT in the warehouse."""
+        db = self._resolve_database_name(database_name)
+        connection = None
+        try:
+            connection = self._open_connection(db, access_token)
+            cursor = connection.cursor()
+
+            cursor.execute(
+                """
+                SELECT s.name AS schema_name, COUNT(*) AS table_count
+                FROM sys.schemas AS s
+                INNER JOIN sys.tables AS t ON t.schema_id = s.schema_id
+                WHERE s.name NOT IN ('sys', 'INFORMATION_SCHEMA')
+                  AND HAS_PERMS_BY_NAME(
+                      QUOTENAME(s.name) + '.' + QUOTENAME(t.name),
+                      'OBJECT',
+                      'SELECT'
+                  ) = 1
+                GROUP BY s.name
+                ORDER BY s.name
+                """
+            )
+            schemas = cursor.fetchall()
+
+            allowed = self._discover_allowed_tables(cursor)
+            total = len(allowed)
+
+            # Sample data tables for context
+            cursor.execute(
+                """
+                SELECT TOP 10 s.name + '.' + t.name
+                FROM sys.schemas AS s
+                INNER JOIN sys.tables AS t ON t.schema_id = s.schema_id
+                WHERE s.name NOT IN ('sys', 'INFORMATION_SCHEMA')
+                  AND HAS_PERMS_BY_NAME(
+                      QUOTENAME(s.name) + '.' + QUOTENAME(t.name),
+                      'OBJECT',
+                      'SELECT'
+                  ) = 1
+                ORDER BY s.name, t.name
+                """
+            )
+            sample = [row[0] for row in cursor.fetchall()]
+        finally:
+            if connection is not None:
+                connection.close()
+
+        schema_lines = [
+            f"  - {schema_name}: {table_count} tables" for schema_name, table_count in schemas
+        ]
+        return (
+            f"Delegated user access summary for `{db}`:\n\n"
+            f"Total SELECT-able tables: **{total}**\n\n"
+            f"Per schema:\n" + ("\n".join(schema_lines) if schema_lines else "  (none)") + "\n\n"
+            f"Sample accessible tables (first 10):\n"
+            + ("\n".join(f"  - {name}" for name in sample) if sample else "  (none)")
+        )
+
     async def query_fabric_delegated(
         self,
         sql_query: str,
@@ -273,7 +344,7 @@ class Tools:
         QAS experiment: execute a read-only Fabric SQL query as the signed-in user.
         Requires Open WebUI's server-side Microsoft OAuth session token and never
         falls back to a Service Principal. Use explicit columns; maximum 20 rows.
-        
+
         Args:
             sql_query: T-SQL SELECT query
             database_name: Target Fabric database (defaults to LH_OTC_TEST)
@@ -305,3 +376,32 @@ class Tools:
             return f"Delegated user {identity['username']} (oid: {identity['oid']})\n\n{result}"
         except Exception as exc:
             return f"Delegated Fabric query denied: {exc}"
+
+    async def describe_user_access(
+        self,
+        database_name: Optional[str] = None,
+        __oauth_token__: Optional[dict] = None,
+        __user__: Optional[dict] = None,
+    ) -> str:
+        """
+        QAS experiment: summarize which Fabric tables the signed-in user can SELECT.
+        Runs the same delegated-token permission preflight as query_fabric_delegated.
+
+        Args:
+            database_name: Target Fabric database (defaults to LH_OTC_TEST)
+            __oauth_token__: Open WebUI OAuth session (auto-injected)
+            __user__: Open WebUI user context (auto-injected)
+        """
+        try:
+            access_token, identity = self._require_delegated_token(__oauth_token__, __user__)
+            target_db = self._resolve_database_name(database_name)
+            loop = asyncio.get_running_loop()
+            result = await loop.run_in_executor(
+                None,
+                self._sync_describe_user_access,
+                target_db,
+                access_token,
+            )
+            return f"Delegated user {identity['username']} (oid: {identity['oid']})\n\n{result}"
+        except Exception as exc:
+            return f"Delegated Fabric access summary denied: {exc}"
