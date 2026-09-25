@@ -315,7 +315,7 @@ def create_deck(output_path="azure_architecture_enterprise_chat.pptx"):
 
     g_comps = [
         ("Open WebUI (Custom Image: `entchat-owui`)", 
-         "• Upstream v0.11.0 with baked-in patches (`app/patches/client.py`).\n• Hosts Teams SSO popup handler (`teams-auth.html`) and user session state.\n• Custom vector backend interface implementing 10 methods of `VectorDBBase`."),
+         "• Upstream v0.11.0 with baked-in patches (`app/image/patches/client.py`).\n• Hosts Teams SSO popup handler (`teams-auth.html`) and user session state.\n• Custom vector backend interface implementing 10 methods of `VectorDBBase`."),
         ("LiteLLM Proxy (`app-litellm-poc-sand`)",
          "• Centralized LLM Gateway on port 4000.\n• Local Cache (TTL 3600s) reducing repetitive prompt cost by 90%.\n• Model cost monitoring, token accounting, and budget enforcement.\n• MCP Tool Servers: `postgres`, `filesystem`, `time`, `context7`."),
         ("Azure AI Foundry Deployments",

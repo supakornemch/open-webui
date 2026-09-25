@@ -8,7 +8,7 @@
 - Project root: `/Users/supakorn.emch/Workspace/Haadthip/EnterpriseChat/requirements/procurement-price-chat`
 - Core components: Excel Workbook → Catalog Pipeline → Azure AI Search + Search Tool → Open WebUI Agent → User
 - Files generated: `procurement-assistant-architecture.html` (dark SVG diagram)
-- Open WebUI runtime data: `price-book-Y2026.xlsx` in `data/open-webui/procurement/`
+- Open WebUI runtime data: `price-book-Y2026.xlsx` in `data/runtime/open-webui/procurement/`
 
 ## Suggested Next Skills
 - `architecture-diagram` — refine or regenerate diagrams
@@ -29,4 +29,4 @@
 **Handoff complete.**  
 Ready for the next agent (Claude Opus 5) to continue from the architecture diagram or the system prompt. 
 
-**File saved:** `/Users/supakorn.emch/Workspace/Haadthip/EnterpriseChat/requirements/procurement-price-chat/docs/procurement-price-chat-handoff-claude-opus-5.md`
+**File saved:** `/Users/supakorn.emch/Workspace/Haadthip/EnterpriseChat/features/procurement/docs/procurement-price-chat-handoff-claude-opus-5.md`

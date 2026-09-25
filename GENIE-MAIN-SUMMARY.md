@@ -18,12 +18,12 @@ Analyzed chat export from POC model (`genieai-poc-rbac`) — found that:
 ### 2. **Solution: Pipe-Based Model**
 Created two new Pipe functions:
 
-#### A. `app/functions/fabric_delegated_pipe.py`
+#### A. `app/openwebui/functions/fabric_delegated_pipe.py`
 - Experimental Fabric-only Pipe
 - Tool loop inside Pipe (no UI dependency)
 - Delegated token support via `__oauth_token__` + `__user__`
 
-#### B. `app/functions/genie_main_pipe.py` ⭐
+#### B. `app/openwebui/functions/genie_main_pipe.py` ⭐
 - **Production Genie AI model**
 - Combines system prompt from POC + Fabric tool
 - REST API one-call support (no multi-turn loop)
@@ -60,18 +60,18 @@ WHERE table_schema NOT IN ('sys', 'INFORMATION_SCHEMA')
 
 ### New Files
 ```
-app/functions/fabric_delegated_pipe.py   (experimental)
-app/functions/genie_main_pipe.py        (production ⭐)
+app/openwebui/functions/fabric_delegated_pipe.py   (experimental)
+app/openwebui/functions/genie_main_pipe.py        (production ⭐)
 docs/genie-main-promotion-plan.md
 scripts/deploy-genie-main.sh
 ```
 
 ### Modified Files (uncommitted from previous work)
 ```
-app/tools/fabric-query-delegated.py
-app/tools/fabric-skill.md
-app/tools/procurement-search.py
-requirements/procurement-price-chat/...
+app/openwebui/tools/fabric-query-delegated.py
+app/openwebui/tools/fabric-skill.md
+app/openwebui/tools/procurement-search.py
+features/procurement/...
 tests/test_fabric_*.py
 ```
 

@@ -7,7 +7,7 @@ Usage:
 
 Requires:
   - Azure QAS PostgreSQL credentials in qas.env (DATABASE_URL)
-  - New system prompt in requirements/procurement-price-chat/docs/procurement-assistant-system-prompt.md
+  - New system prompt in features/procurement/docs/procurement-assistant-system-prompt.md
 """
 import os, sys
 from pathlib import Path
@@ -15,7 +15,7 @@ from urllib.parse import urlparse
 
 # ── Config ──────────────────────────────────────────────────────────
 REPO_ROOT = Path(__file__).resolve().parent.parent
-SYS_PROMPT_FILE = REPO_ROOT / "requirements/procurement-price-chat/docs/procurement-assistant-system-prompt.md"
+SYS_PROMPT_FILE = REPO_ROOT / "features/procurement/docs/procurement-assistant-system-prompt.md"
 MODEL_ID = "procurement-price-assistant"
 ENV_FILE = REPO_ROOT / "qas.env"
 

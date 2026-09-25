@@ -13,8 +13,8 @@ sys.modules.setdefault("fastapi", fastapi_stub)
 
 
 ROOT = Path(__file__).resolve().parents[3]
-PIPE_PATH = ROOT / "app/functions/procurement_price_pipe.py"
-TOOL_PATH = ROOT / "app/tools/procurement-search.py"
+PIPE_PATH = ROOT / "app/openwebui/functions/procurement_price_pipe.py"
+TOOL_PATH = ROOT / "app/openwebui/tools/procurement-search.py"
 
 
 def load_module(name: str, path: Path):

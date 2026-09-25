@@ -27,7 +27,7 @@ This session finalized the Confluence project hub documentation, updated and syn
   - Active RBAC permission group remains: `procurement-team` (`read` on assistant, pipe, and tool).
 
 ### B. E2E Regression Verification
-- Executed `requirements/procurement-price-chat/scripts/qas_procurement_regression.py` directly against live QAS OWUI & LiteLLM:
+- Executed `features/procurement/scripts/qas_procurement_regression.py` directly against live QAS OWUI & LiteLLM:
   - **Result:** **13/13 passed (100%)**
   - Verified exact match, Thai/English language switching, typos (`รมโค้ก`, `โคมไฟสำเรจรูป`), quantity tiers (Arch 60x70 5 units vs 15 units), below-MOQ warning (Ice bucket & Umbrella), and zero-result handling (`iPhone 15 Pro Max`).
 
@@ -73,9 +73,9 @@ This session finalized the Confluence project hub documentation, updated and syn
   `/Users/supakorn.emch/Workspace/Haadthip/presentation/procurement-assistant-deck.html`
 - **OpenDesign Project:** `procurement-assistant-presentation-9bb9`
 - **Regression Harness:**
-  `requirements/procurement-price-chat/scripts/qas_procurement_regression.py`
+  `features/procurement/scripts/qas_procurement_regression.py`
 - **Regression Results JSON:**
-  `requirements/procurement-price-chat/scripts/qas-regression-results.json`
+  `features/procurement/scripts/qas-regression-results.json`
 - **Confluence Knowledge Management Lessons:**
   Updated in skill `productivity/confluence-knowledge-management`
 

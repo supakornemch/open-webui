@@ -32,11 +32,11 @@ flowchart LR
 |---|---|---|---|
 | Genie UI module | Chat, model selection, tools, SSO entry | HTTP/browser | Upstream Open WebUI v0.11.0 plus patches |
 | LLM gateway module | Model routing, virtual keys, cost tracking, cache | OpenAI-compatible `/v1` | LiteLLM v1.83.3 |
-| Azure Search adapter | OWUI vector database operations | `VectorDBBase` | `app/patches/client.py` |
-| Procurement retrieval module | Hybrid search, filters, fallback, result shaping | Open WebUI tool function | `app/tools/procurement-search.py` |
-| Procurement orchestration module | Tool-calling loop and deterministic price calculation | Open WebUI Pipe | `app/functions/procurement_price_pipe.py` |
-| Catalog ingestion module | Workbook conversion, enrichment, index creation and verification | CLI scripts | `requirements/procurement-price-chat/scripts/` and `scripts/ingest/` |
-| Identity module | Entra OIDC and Teams popup flow | OAuth callbacks and static bridge | `app/auth/` |
+| Azure Search adapter | OWUI vector database operations | `VectorDBBase` | `app/image/patches/client.py` |
+| Procurement retrieval module | Hybrid search, filters, fallback, result shaping | Open WebUI tool function | `app/openwebui/tools/procurement-search.py` |
+| Procurement orchestration module | Tool-calling loop and deterministic price calculation | Open WebUI Pipe | `app/openwebui/functions/procurement_price_pipe.py` |
+| Catalog ingestion module | Workbook conversion, enrichment, index creation and verification | CLI scripts | `features/procurement/scripts/` and `scripts/ingest/` |
+| Identity module | Entra OIDC and Teams popup flow | OAuth callbacks and static bridge | `app/image/auth/` |
 | Runtime image module | Assemble upstream image and patches | Docker build | `docker/Dockerfile.owui`, `docker/Dockerfile.litellm` |
 
 ## 3. Deployment Topology
@@ -128,7 +128,7 @@ sequenceDiagram
 | OWUI vector backend | Azure App Settings | local env | Image and runtime config can diverge |
 | Open WebUI tool valves | OWUI model/tool database | process env | Secret and endpoint settings are database-held |
 | Pipe valves | OWUI function database | process env | Model/base URL may differ from tool valves |
-| LiteLLM routing | `docker/litellm-config.yaml` + App Settings | local config | Deployed config is not automatically identical to repo |
+| LiteLLM routing | `docker/litellm/config.yaml` + App Settings | local config | Deployed config is not automatically identical to repo |
 | Procurement catalog | Excel Master + ingest scripts | existing Search index | Index can be newer than checked-in source |
 | Entra/Teams SSO | Azure App Registration + app settings | local env | VNet egress is required |
 
@@ -146,7 +146,7 @@ sequenceDiagram
 
 ### 8.1 Procurement logic is duplicated
 
-`app/tools/procurement-search.py` and `app/functions/procurement_price_pipe.py` each contain tier matching, filter construction, Search client setup, fallback behavior and result shaping. The two implementations are already drifting: the Pipe has a synchronous tool loop and a different default model naming scheme, while the Tool has additional search methods and event reporting.
+`app/openwebui/tools/procurement-search.py` and `app/openwebui/functions/procurement_price_pipe.py` each contain tier matching, filter construction, Search client setup, fallback behavior and result shaping. The two implementations are already drifting: the Pipe has a synchronous tool loop and a different default model naming scheme, while the Tool has additional search methods and event reporting.
 
 **Effect:** the interface is wide and behavior must be verified twice. A pricing bug can be fixed in one path and remain in the other.
 

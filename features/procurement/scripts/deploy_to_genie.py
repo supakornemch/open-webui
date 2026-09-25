@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Deploy procurement-price-assistant model + tool to Open WebUI (Genie).
 
-Reads tool code from app/tools/procurement-search.py and system prompt /
+Reads tool code from app/openwebui/tools/procurement-search.py and system prompt /
 skill from docs/, then registers everything via OWUI REST API.
 
 Prerequisites:
@@ -33,7 +33,7 @@ from typing import Any
 import requests
 
 ROOT = Path(__file__).resolve().parents[1]
-TOOL_FILE = ROOT / ".." / ".." / "app" / "tools" / "procurement-search.py"
+TOOL_FILE = ROOT / ".." / ".." / "app" / "openwebui" / "tools" / "procurement-search.py"
 SYSTEM_PROMPT_FILE = ROOT / "docs" / "procurement-assistant-system-prompt.md"
 SKILL_FILE = ROOT / "docs" / "procurement-catalog-skill.md"
 LOGO_FILE = ROOT / "Procurement_AI_logo_Haadthip_202607301711.jpeg"

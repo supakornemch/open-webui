@@ -7,7 +7,7 @@ import pytest
 
 
 ROOT = Path(__file__).resolve().parents[1]
-TOOL_PATH = ROOT / "app" / "tools" / "fabric-permissions.py"
+TOOL_PATH = ROOT / "app" / "openwebui" / "tools" / "fabric-permissions.py"
 
 
 def load_module():

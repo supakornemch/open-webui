@@ -38,7 +38,7 @@ services:
     ports:
       - "3000:8080"
     volumes:
-      - ../data/open-webui:/app/backend/data
+      - ../data/runtime/open-webui:/app/backend/data
     env_file:
       - .env.owui
     networks:
@@ -77,7 +77,7 @@ services:
     ports:
       - "4000:4000"
     volumes:
-      - ./litellm-config.local.yaml:/app/config.yaml:ro
+      - ./litellm/config.local.yaml:/app/config.yaml:ro
     env_file:
       - .env.litellm
     networks:
@@ -104,7 +104,7 @@ services:
     ports:
       - "5678:5678"
     volumes:
-      - ../data/n8n:/home/node/.n8n
+      - ../data/runtime/n8n:/home/node/.n8n
     networks:
       - default
       - haadthip-infra

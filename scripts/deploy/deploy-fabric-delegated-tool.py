@@ -23,7 +23,7 @@ import requests
 
 ROOT = Path(__file__).resolve().parents[2]
 TOOL_ID = "fabric_query_delegated_user_qas"
-TOOL_FILE = ROOT / "app" / "tools" / "fabric-query-delegated.py"
+TOOL_FILE = ROOT / "app" / "openwebui" / "tools" / "fabric-query-delegated.py"
 
 
 def build_body() -> dict[str, Any]:

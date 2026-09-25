@@ -8,7 +8,7 @@
 
 ## Created Artifacts
 
-### 1. **Genie Main Pipe** — `app/functions/genie_main_pipe.py`
+### 1. **Genie Main Pipe** — `app/openwebui/functions/genie_main_pipe.py`
 
 Production-ready Pipe combining:
 - ✅ Delegated Fabric query tool (read-only SQL with permission preflight)

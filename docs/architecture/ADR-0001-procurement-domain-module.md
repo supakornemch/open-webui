@@ -6,7 +6,7 @@
 
 ## Context
 
-The Open WebUI Tool in `app/tools/procurement-search.py` and the Pipe in `app/functions/procurement_price_pipe.py` both implement procurement behavior. The overlap includes Azure AI Search client setup, embedding calls, OData filter construction, category and quantity fallback, tier selection, total-price calculation and result shaping.
+The Open WebUI Tool in `app/openwebui/tools/procurement-search.py` and the Pipe in `app/openwebui/functions/procurement_price_pipe.py` both implement procurement behavior. The overlap includes Azure AI Search client setup, embedding calls, OData filter construction, category and quantity fallback, tier selection, total-price calculation and result shaping.
 
 The Tool and Pipe are separate runtime adapters, but their business behavior is not separated from those adapters. Their interfaces are therefore wide and their implementations are drifting. The QAS trial depends on price correctness and MOQ handling, so a one-path fix that does not reach the other path is a material risk.
 

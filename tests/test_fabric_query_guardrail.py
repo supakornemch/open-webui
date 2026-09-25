@@ -8,7 +8,7 @@ import pytest
 
 
 ROOT = Path(__file__).resolve().parents[1]
-QUERY_TOOL_PATH = ROOT / "app" / "tools" / "fabric-query-delegated.py"
+QUERY_TOOL_PATH = ROOT / "app" / "openwebui" / "tools" / "fabric-query-delegated.py"
 
 
 def load_query_tool():

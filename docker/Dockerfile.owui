@@ -31,11 +31,11 @@ RUN pip install --no-cache-dir black click
 RUN python3 -c "from sentence_transformers import SentenceTransformer; SentenceTransformer('all-MiniLM-L6-v2')"
 
 # ── Teams SSO static files ──
-COPY app/auth/teams-auth.html /app/build/teams-auth.html
-COPY app/auth/teams-auth-bridge.html /app/build/teams-auth-bridge.html
+COPY app/image/auth/teams-auth.html /app/build/teams-auth.html
+COPY app/image/auth/teams-auth-bridge.html /app/build/teams-auth-bridge.html
 
 # ── Static assets ──
-COPY app/static/genie-setup-manual.html /app/build/docs/genie-setup-manual.html
+COPY app/image/static/genie-setup-manual.html /app/build/docs/genie-setup-manual.html
 COPY screenshots/ /app/build/screenshots/
 
 # ── nginx reverse proxy ──
@@ -45,14 +45,14 @@ COPY docker/nginx.conf /etc/nginx/conf.d/openwebui.conf
 
 # ── Custom Azure AI Search vector DB backend ──
 # Patches OWUI type.py + factory.py to register azure-ai-search
-COPY app/patches/type.py /app/backend/open_webui/retrieval/vector/type.py
-COPY app/patches/factory.py /app/backend/open_webui/retrieval/vector/factory.py
-COPY app/patches/client.py /app/backend/open_webui/retrieval/vector/dbs/azure_ai_search.py
+COPY app/image/patches/type.py /app/backend/open_webui/retrieval/vector/type.py
+COPY app/image/patches/factory.py /app/backend/open_webui/retrieval/vector/factory.py
+COPY app/image/patches/client.py /app/backend/open_webui/retrieval/vector/dbs/azure_ai_search.py
 
 # ── Per-file embedding skip (SKIP_EMBEDDING_EXTENSIONS) ──
 # In-place edit rather than COPY: retrieval.py is 3000+ lines of upstream code we
 # don't want to vendor. Fails the build if the anchor moves on an OWUI upgrade.
-COPY app/patches/skip_embedding.py /app/backend/open_webui/retrieval/skip_embedding.py
+COPY app/image/patches/skip_embedding.py /app/backend/open_webui/retrieval/skip_embedding.py
 RUN RETRIEVAL=/app/backend/open_webui/routers/retrieval.py && \
     test "$(grep -c '^            if config.BYPASS_EMBEDDING_AND_RETRIEVAL:$' $RETRIEVAL)" = "1" && \
     sed -i 's|^            if config.BYPASS_EMBEDDING_AND_RETRIEVAL:$|            from open_webui.retrieval.skip_embedding import should_skip_embedding\n            if config.BYPASS_EMBEDDING_AND_RETRIEVAL or should_skip_embedding(file.filename):|' $RETRIEVAL && \

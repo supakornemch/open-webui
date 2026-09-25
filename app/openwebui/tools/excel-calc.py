@@ -6,7 +6,7 @@ required_open_webui_version: 0.5.0
 
 Lets the model compute over an uploaded spreadsheet instead of reading it as text.
 
-Pairs with SKIP_EMBEDDING_EXTENSIONS (app/patches/skip_embedding.py): xlsx/xls/csv
+Pairs with SKIP_EMBEDDING_EXTENSIONS (app/image/patches/skip_embedding.py): xlsx/xls/csv
 attachments never reach the vector store, so this tool is the only way the model
 sees their numbers. Bytes are read straight off Storage and parsed with pandas —
 row counts and aggregates stay exact and don't burn context.

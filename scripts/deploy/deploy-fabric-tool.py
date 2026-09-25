@@ -25,7 +25,7 @@ import requests
 
 ROOT = Path(__file__).resolve().parents[2]
 TOOL_ID = "fabric_data_warehouse_query_tool"
-TOOL_FILE = ROOT / "app" / "tools" / "fabric-query.py"
+TOOL_FILE = ROOT / "app" / "openwebui" / "tools" / "fabric-query.py"
 
 
 def build_body() -> dict[str, Any]:

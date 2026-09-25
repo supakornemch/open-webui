@@ -10,7 +10,7 @@
 > - **Search types**: รองรับ 4 โหมด — vector, fulltext, hybrid, semantic (ตั้งค่าผ่าน `AZURE_SEARCH_TYPE`)
 > - **Namespace consolidation** (`AZURE_SEARCH_NAMESPACE_MODE=true`): รวม KBs/files/memories ลง shared indexes แค่ 3 ตัว (`owui-knowledge`, `owui-files`, `owui-memory`) — หลีกเลี่ยง 200-index limit
 > - **Semantic search**: optional (`AZURE_ENABLE_SEMANTIC_SEARCH=true`) — auto-create semantic config บน index
-> - **Implementation**: `app/patches/client.py` (+ `type.py`, `factory.py`)
+> - **Implementation**: `app/image/patches/client.py` (+ `type.py`, `factory.py`)
 >
 > ### ✅ Teams Auth v5 — notifySuccess + open browser + signin loop fix
 > - **notifySuccess**: เรียก `appInitialization.notifySuccess()` หลัง `initialize()` — กัน "There was a problem reaching this app" timeout
@@ -146,7 +146,7 @@ srch-entchat-poc-sand  (Azure AI Search, Standard tier)
 └── docwise-docs-v2    ← DocWise
 ```
 
-**Custom client**: `app/patches/client.py` — implement `VectorDBBase` 10 methods
+**Custom client**: `app/image/patches/client.py` — implement `VectorDBBase` 10 methods
 - Auto-create index schema with HNSW vector profile
 - `collection_key` field สำหรับ OData server-side filter ใน namespace mode
 - Schema auto-heal: ตรวจจับ index ที่ไม่มี `collection_key` แล้ว recreate
@@ -301,31 +301,37 @@ EnterpriseChat/
 ├── README.md               ← Project overview
 ├── .gitignore
 │
-├── app/                    ← Files copied into Docker image
-│   ├── patches/            ← OWUI source patches (Azure AI Search VECTOR_DB backend)
-│   │   ├── client.py       ← AzureAISearchClient (VectorDBBase impl)
-│   │   ├── type.py         ← Patched VectorType enum
-│   │   └── factory.py      ← Patched Vector factory
-│   ├── auth/               ← Teams SSO (teams-auth.html, teams-auth-bridge.html)
-│   └── static/             ← Static assets (genie-setup-manual.html)
-│
 ├── docker/                 ← Docker build & deploy config
 │   ├── Dockerfile.owui
 │   ├── Dockerfile.litellm
 │   ├── compose.yml         ← Main local dev compose
 │   ├── nginx.conf          ← nginx reverse proxy config
-│   ├── litellm-config.yaml
-│   ├── litellm-config.local.yaml
+│   ├── litellm/
+│   │   ├── config.yaml
+│   │   └── config.local.yaml
 │   ├── .env.owui                ← Secrets (gitignored)
 │   ├── .env.litellm             ← Secrets (gitignored)
 │   ├── .env.owui.example        ← Template
 │   ├── .env.litellm.example     ← Template
 │   └── initdb/                  ← Init scripts (01-litellm-db.sql)
 │
-├── functions/              ← Open WebUI functions (paste into admin panel)
-│   ├── tools/              ← Enterprise Search, Calculator, etc.
-│   ├── pipes/              ← Knowledge base query pipes
-│   └── filters/            ← Token tracking filter
+├── app/openwebui/          ← Open WebUI Functions and Tools
+│   ├── functions/
+│   └── tools/
+│
+├── app/image/              ← Files copied or patched into the Docker image
+│   ├── patches/
+│   ├── auth/
+│   └── static/
+
+├── features/               ← Domain-specific assets and workflows
+│   ├── fabric/
+│   └── procurement/
+
+├── tests/                  ← Repository-level tests
+│   ├── unit/
+│   ├── integration/
+│   └── e2e/
 │
 ├── screenshots/            ← UI screenshots (served in container)
 │
@@ -336,10 +342,7 @@ EnterpriseChat/
 │   └── presentations/
 │
 ├── scripts/               ← Ingestion & utility scripts
-├── knowledge/             ← Source documents
-│   ├── corporate/
-│   └── hr-policies/
-└── data/                  ← JSONL, exports, OWUI local data
+├── data/                  ← Runtime data, imports and generated exports
 ```
 
 ## Architecture Flow

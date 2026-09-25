@@ -35,8 +35,12 @@ docker/.env.owui
 docker/.env.litellm
 
 # ── Local data ──
+data/runtime/
 data/open-webui/
 data/n8n/
+# Database snapshots and operational exports must not enter source control
+data/imports/
+data/exports/
 
 # ── POC exports (regenerable) ──
 data/open_webui_poc.dump
