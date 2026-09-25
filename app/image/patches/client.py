@@ -18,24 +18,24 @@ Environment variables:
 
 Usage:
     export VECTOR_DB=azure-ai-search
-    export AZURE_SEARCH_ENDPOINT=https://srch-entchat-poc-sand.search.windows.net
+    export AZURE_SEARCH_ENDPOINT=https://<service>.search.windows.net
     export AZURE_SEARCH_ADMIN_KEY=<your-key>
 """
 
 import json
 import logging
 import re
-from typing import Any, Dict, List, Optional, Tuple, Union
+from typing import Any
 
 from azure.core.credentials import AzureKeyCredential
 from azure.search.documents import SearchClient
 from azure.search.documents.indexes import SearchIndexClient
 from azure.search.documents.indexes.models import (
     HnswAlgorithmConfiguration,
+    SearchableField,
     SearchField,
     SearchFieldDataType,
     SearchIndex,
-    SearchableField,
     SemanticConfiguration,
     SemanticField,
     SemanticPrioritizedFields,
@@ -46,7 +46,6 @@ from azure.search.documents.indexes.models import (
     VectorSearchProfile,
 )
 from azure.search.documents.models import QueryType, VectorizedQuery
-
 from open_webui.retrieval.vector.main import (
     GetResult,
     SearchResult,
@@ -57,20 +56,19 @@ from open_webui.retrieval.vector.main import (
 log = logging.getLogger(__name__)
 
 # ── constants ─────────────────────────────────────────────────────
-MAX_BATCH_SIZE   = 1000   # Azure AI Search upload batch limit
-MAX_SEARCH_SIZE  = 10000  # max results per search query
-VALID_SEARCH_TYPES = frozenset({"vector", "fulltext", "hybrid", "semantic"})
-SEMANTIC_CONFIG_NAME = "default-semantic-config"
+MAX_BATCH_SIZE = 1000  # Azure AI Search upload batch limit
+MAX_SEARCH_SIZE = 1000  # maximum documents returned per page
+INDEX_PREFIX = 'open-webui-'  # reset must never delete unrelated service indexes
+VALID_SEARCH_TYPES = frozenset({'vector', 'fulltext', 'hybrid', 'semantic'})
+SEMANTIC_CONFIG_NAME = 'default-semantic-config'
 
 # ── shared-index names (used when NAMESPACE_MODE=True) ───────────
-SHARED_KB_INDEX     = "owui-knowledge"
-SHARED_FILE_INDEX   = "owui-files"
-SHARED_MEMORY_INDEX = "owui-memory"
+SHARED_KB_INDEX = f'{INDEX_PREFIX}knowledge'
+SHARED_FILE_INDEX = f'{INDEX_PREFIX}files'
+SHARED_MEMORY_INDEX = f'{INDEX_PREFIX}memory'
 
 # ── UUID pattern for Collection→Namespace detection ──────────────
-UUID_RE = re.compile(
-    r"^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"
-)
+UUID_RE = re.compile(r'^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$')
 
 
 class AzureAISearchClient(VectorDBBase):
@@ -82,38 +80,36 @@ class AzureAISearchClient(VectorDBBase):
     def __init__(self):
         import os
 
-        self.endpoint   = os.environ.get("AZURE_SEARCH_ENDPOINT", "")
-        self.api_key    = os.environ.get("AZURE_SEARCH_ADMIN_KEY", "")
-        self.api_version = os.environ.get("AZURE_SEARCH_API_VERSION", "2024-07-01")
+        self.endpoint = os.environ.get('AZURE_SEARCH_ENDPOINT', '')
+        self.api_key = os.environ.get('AZURE_SEARCH_ADMIN_KEY', '')
+        self.api_version = os.environ.get('AZURE_SEARCH_API_VERSION', '2024-07-01')
 
         if not self.endpoint:
-            raise ValueError("AZURE_SEARCH_ENDPOINT is required")
+            raise ValueError('AZURE_SEARCH_ENDPOINT is required')
         if not self.api_key:
-            raise ValueError("AZURE_SEARCH_ADMIN_KEY is required")
+            raise ValueError('AZURE_SEARCH_ADMIN_KEY is required')
 
         # ── search type ────────────────────────────────────────
-        _raw = os.environ.get("AZURE_SEARCH_TYPE", "hybrid").strip().lower()
+        _raw = os.environ.get('AZURE_SEARCH_TYPE', 'hybrid').strip().lower()
         if _raw not in VALID_SEARCH_TYPES:
-            raise ValueError(
-                f"AZURE_SEARCH_TYPE must be one of {sorted(VALID_SEARCH_TYPES)}, got '{_raw}'"
-            )
+            raise ValueError(f"AZURE_SEARCH_TYPE must be one of {sorted(VALID_SEARCH_TYPES)}, got '{_raw}'")
         self.search_type: str = _raw
 
-        _sem = os.environ.get("AZURE_ENABLE_SEMANTIC_SEARCH", "false").strip().lower()
-        self.enable_semantic_search: bool = _sem in ("true", "1", "yes")
+        _sem = os.environ.get('AZURE_ENABLE_SEMANTIC_SEARCH', 'false').strip().lower()
+        self.enable_semantic_search: bool = _sem in ('true', '1', 'yes')
 
         # ── namespace mode (shared-index consolidation) ──────────
-        _ns = os.environ.get("AZURE_SEARCH_NAMESPACE_MODE", "false").strip().lower()
-        self.namespace_mode: bool = _ns in ("true", "1", "yes")
+        _ns = os.environ.get('AZURE_SEARCH_NAMESPACE_MODE', 'false').strip().lower()
+        self.namespace_mode: bool = _ns in ('true', '1', 'yes')
 
         log.info(
-            "[AzureAISearch] init — type=%s semantic=%s namespace=%s",
+            '[AzureAISearch] init — type=%s semantic=%s namespace=%s',
             self.search_type,
             self.enable_semantic_search,
             self.namespace_mode,
         )
 
-        self.credential    = AzureKeyCredential(self.api_key)
+        self.credential = AzureKeyCredential(self.api_key)
         self._index_client = SearchIndexClient(
             endpoint=self.endpoint,
             credential=self.credential,
@@ -131,17 +127,20 @@ class AzureAISearchClient(VectorDBBase):
             api_version=self.api_version,
         )
 
-    def _dimension_from_items(self, items: List[Any]) -> int:
+    def _dimension_from_items(self, items: list[Any]) -> int:
         if not items:
             return 384
         first = items[0]
-        vec = first.get("vector") if isinstance(first, dict) else getattr(first, "vector", None)
+        vec = first.get('vector') if isinstance(first, dict) else getattr(first, 'vector', None)
         return len(vec) if vec else 384
 
     # ── namespace resolution ────────────────────────────────────
-    def _resolve_collection(
-        self, collection_name: str
-    ) -> Tuple[str, Optional[str]]:
+    def _index_name(self, collection_name: str) -> str:
+        """Map an Open WebUI collection to a valid, owned Azure index name."""
+        normalized = re.sub(r'[^a-z0-9-]+', '-', collection_name.lower()).strip('-')
+        return f'{INDEX_PREFIX}{normalized[:120]}'
+
+    def _resolve_collection(self, collection_name: str) -> tuple[str, str | None]:
         """Map OWUI collection name → (index_name, odata_filter).
 
         When ``namespace_mode=True``, KB / file / memory collections are
@@ -151,24 +150,45 @@ class AzureAISearchClient(VectorDBBase):
             (index_name, odata_filter_or_None)
         """
         if not self.namespace_mode:
-            return collection_name, None
+            return self._index_name(collection_name), None
 
         if UUID_RE.match(collection_name):
             # Knowledge Base UUID
             return SHARED_KB_INDEX, f"collection_key eq 'kb:{collection_name}'"
 
-        if collection_name.startswith("file-"):
+        if collection_name.startswith('file-'):
             return SHARED_FILE_INDEX, f"collection_key eq '{collection_name}'"
 
-        if collection_name.startswith("user-memory-"):
+        if collection_name.startswith('user-memory-'):
             return SHARED_MEMORY_INDEX, f"collection_key eq '{collection_name}'"
 
-        # legacy / unknown — keep as dedicated index
-        return collection_name, None
+        # legacy / unknown — keep a dedicated index under our prefix
+        return self._index_name(collection_name), None
 
-    def _build_documents(
-        self, items: List[Any], collection_name: str
-    ) -> List[Dict[str, Any]]:
+    def _storage_id(self, collection_name: str, item_id: str) -> str:
+        """Keep document keys unique when multiple collections share an index."""
+        _, namespace_filter = self._resolve_collection(collection_name)
+        if namespace_filter:
+            return f'{collection_name}:{item_id}'
+        return item_id
+
+    def _original_id(self, collection_name: str, stored_id: str) -> str:
+        prefix = f'{collection_name}:'
+        return stored_id[len(prefix) :] if stored_id.startswith(prefix) else stored_id
+
+    @staticmethod
+    def _decode_metadata(metadata_value: Any) -> dict[str, Any]:
+        if isinstance(metadata_value, dict):
+            return metadata_value
+        if not metadata_value:
+            return {}
+        try:
+            decoded = json.loads(metadata_value) if isinstance(metadata_value, str) else metadata_value
+        except (TypeError, json.JSONDecodeError):
+            return {}
+        return decoded if isinstance(decoded, dict) else {}
+
+    def _build_documents(self, items: list[Any], collection_name: str) -> list[dict[str, Any]]:
         """Convert items (dict or VectorItem) → Azure AI Search documents.
 
         OWUI may pass plain dicts with keys ``id``, ``text``, ``vector``,
@@ -180,35 +200,30 @@ class AzureAISearchClient(VectorDBBase):
         docs = []
         for item in items:
             # Support both dict and VectorItem access patterns
-            _get = lambda k: item.get(k) if isinstance(item, dict) else getattr(item, k, None)
-            meta = _get("metadata") or {}
+            def _get(key):
+                return item.get(key) if isinstance(item, dict) else getattr(item, key, None)
+
+            meta = _get('metadata') or {}
             doc = {
-                "id": _get("id") or "",
-                "text": _get("text") or "",
-                "vector": _get("vector") or [],
-                "metadata": json.dumps(meta) if isinstance(meta, dict) else str(meta),
+                'id': self._storage_id(collection_name, _get('id') or ''),
+                'text': _get('text') or '',
+                'vector': _get('vector') or [],
+                'metadata': json.dumps(meta if isinstance(meta, dict) else {}),
             }
             if is_namespaced:
                 if UUID_RE.match(collection_name):
-                    doc["collection_key"] = f"kb:{collection_name}"
+                    doc['collection_key'] = f'kb:{collection_name}'
                 else:
-                    doc["collection_key"] = collection_name
+                    doc['collection_key'] = collection_name
             docs.append(doc)
         return docs
 
-    def _match_metadata(self, metadata_str: str, filter_dict: Dict) -> bool:
+    def _match_metadata(self, metadata_str: str, filter_dict: dict) -> bool:
         if not filter_dict:
             return True
-        try:
-            meta = json.loads(metadata_str) if metadata_str else {}
-        except (json.JSONDecodeError, TypeError):
-            return False
+        meta = self._decode_metadata(metadata_str)
         for key, value in filter_dict.items():
-            if key == "*":
-                continue
-            if key not in meta:
-                return False
-            if meta[key] != value:
+            if key != '*' and meta.get(key) != value:
                 return False
         return True
 
@@ -232,25 +247,25 @@ class AzureAISearchClient(VectorDBBase):
         except Exception:
             return 0
 
-    def _make_fields(
-        self, vector_dimension: int, include_collection_key: bool = False
-    ) -> List[SearchField]:
+    def _make_fields(self, vector_dimension: int, include_collection_key: bool = False) -> list[SearchField]:
         """Build field list; optionally includes ``collection_key``."""
-        fields: List[SearchField] = [
+        fields: list[SearchField] = [
             SimpleField(
-                name="id", type=SearchFieldDataType.String,
-                key=True, filterable=True,
+                name='id',
+                type=SearchFieldDataType.String,
+                key=True,
+                filterable=True,
             ),
-            SearchableField(name="text", type=SearchFieldDataType.String),
+            SearchableField(name='text', type=SearchFieldDataType.String),
             SearchField(
-                name="vector",
+                name='vector',
                 type=SearchFieldDataType.Collection(SearchFieldDataType.Single),
                 searchable=True,
                 vector_search_dimensions=vector_dimension,
-                vector_search_profile_name="default-profile",
+                vector_search_profile_name='default-profile',
             ),
             SimpleField(
-                name="metadata",
+                name='metadata',
                 type=SearchFieldDataType.String,
                 filterable=True,
             ),
@@ -258,7 +273,7 @@ class AzureAISearchClient(VectorDBBase):
         if include_collection_key:
             fields.append(
                 SimpleField(
-                    name="collection_key",
+                    name='collection_key',
                     type=SearchFieldDataType.String,
                     filterable=True,
                 )
@@ -266,22 +281,23 @@ class AzureAISearchClient(VectorDBBase):
         return fields
 
     def _create_index_if_not_exists(
-        self, index_name: str, vector_dimension: int = 384,
+        self,
+        index_name: str,
+        vector_dimension: int = 384,
         include_collection_key: bool = False,
     ) -> None:
         """Create index if missing, or recreate if dimensions or schema mismatch."""
         if self._index_exists(index_name):
             mismatch = False
-            if include_collection_key and not self._index_has_field(index_name, "collection_key"):
+            if include_collection_key and not self._index_has_field(index_name, 'collection_key'):
                 mismatch = True
             if not mismatch and self._index_dimension(index_name) != vector_dimension:
                 mismatch = True
             if mismatch:
-                log.info(
-                    "[AzureAISearch] Index %s mismatch (dim or schema) — recreating",
-                    index_name,
+                raise ValueError(
+                    f'Azure AI Search index {index_name} has an incompatible schema or vector dimension; '
+                    'refusing to delete existing data'
                 )
-                self._index_client.delete_index(index_name)
             else:
                 return
 
@@ -290,14 +306,14 @@ class AzureAISearchClient(VectorDBBase):
         vector_search = VectorSearch(
             algorithms=[
                 HnswAlgorithmConfiguration(
-                    name="default-algorithm",
+                    name='default-algorithm',
                     kind=VectorSearchAlgorithmKind.HNSW,
                 )
             ],
             profiles=[
                 VectorSearchProfile(
-                    name="default-profile",
-                    algorithm_configuration_name="default-algorithm",
+                    name='default-profile',
+                    algorithm_configuration_name='default-algorithm',
                 )
             ],
         )
@@ -309,7 +325,7 @@ class AzureAISearchClient(VectorDBBase):
                     SemanticConfiguration(
                         name=SEMANTIC_CONFIG_NAME,
                         prioritized_fields=SemanticPrioritizedFields(
-                            content_fields=[SemanticField(field_name="text")],
+                            content_fields=[SemanticField(field_name='text')],
                         ),
                     )
                 ],
@@ -324,85 +340,95 @@ class AzureAISearchClient(VectorDBBase):
         )
         self._index_client.create_index(idx)
         log.info(
-            "[AzureAISearch] Created index: %s (dim=%d, namespace=%s)",
-            index_name, vector_dimension, include_collection_key,
+            '[AzureAISearch] Created index: %s (dim=%d, namespace=%s)',
+            index_name,
+            vector_dimension,
+            include_collection_key,
         )
 
     # ── search kwargs builder ────────────────────────────────────
-    def _build_search_kwargs(
+    def _build_search_kwargs(  # noqa: C901
         self,
-        search_text: str = "*",
-        vectors: Optional[List[List[Union[float, int]]]] = None,
+        search_text: str = '*',
+        vectors: list[list[float | int]] | None = None,
         limit: int = 10,
-        odata_filter: Optional[str] = None,
-    ) -> Dict[str, Any]:
+        odata_filter: str | None = None,
+    ) -> dict[str, Any]:
         """Compose ``SearchClient.search(**kwargs)`` dict."""
         effective_type = self.search_type
         # No text for vector-only search? Fall back to vector.
         # (hybrid_search passes real text, search() passes "*")
-        if effective_type == "fulltext" and search_text == "*":
-            effective_type = "vector"
+        if effective_type == 'fulltext' and search_text == '*':
+            effective_type = 'vector'
 
-        kwargs: Dict[str, Any] = {"top": limit}
+        kwargs: dict[str, Any] = {'top': limit}
         if odata_filter:
-            kwargs["filter"] = odata_filter
+            kwargs['filter'] = odata_filter
 
         match effective_type:
-            case "fulltext":
-                kwargs["search_text"] = search_text
-                kwargs["query_type"] = QueryType.SIMPLE
-            case "vector":
-                kwargs["search_text"] = "*"
+            case 'fulltext':
+                kwargs['search_text'] = search_text
+                kwargs['query_type'] = QueryType.SIMPLE
+            case 'vector':
+                kwargs['search_text'] = '*'
                 if vectors:
-                    kwargs["vector_queries"] = [
-                        VectorizedQuery(vector=v, k_nearest_neighbors=limit, fields="vector")
-                        for v in vectors
+                    kwargs['vector_queries'] = [
+                        VectorizedQuery(vector=v, k_nearest_neighbors=limit, fields='vector') for v in vectors
                     ]
-            case "hybrid":
-                kwargs["search_text"] = search_text if search_text else "*"
-                kwargs["query_type"] = QueryType.SIMPLE
+            case 'hybrid':
+                kwargs['search_text'] = search_text if search_text else '*'
+                kwargs['query_type'] = QueryType.SIMPLE
                 if vectors:
-                    kwargs["vector_queries"] = [
-                        VectorizedQuery(vector=v, k_nearest_neighbors=limit, fields="vector")
-                        for v in vectors
+                    kwargs['vector_queries'] = [
+                        VectorizedQuery(vector=v, k_nearest_neighbors=limit, fields='vector') for v in vectors
                     ]
-            case "semantic":
-                kwargs["search_text"] = search_text if search_text else "*"
+            case 'semantic':
+                kwargs['search_text'] = search_text if search_text else '*'
                 if self.enable_semantic_search:
-                    kwargs["query_type"] = QueryType.SEMANTIC
-                    kwargs["semantic_configuration_name"] = SEMANTIC_CONFIG_NAME
+                    kwargs['query_type'] = QueryType.SEMANTIC
+                    kwargs['semantic_configuration_name'] = SEMANTIC_CONFIG_NAME
                 else:
-                    kwargs["query_type"] = QueryType.SIMPLE
+                    kwargs['query_type'] = QueryType.SIMPLE
                 if vectors:
-                    kwargs["vector_queries"] = [
-                        VectorizedQuery(vector=v, k_nearest_neighbors=limit, fields="vector")
-                        for v in vectors
+                    kwargs['vector_queries'] = [
+                        VectorizedQuery(vector=v, k_nearest_neighbors=limit, fields='vector') for v in vectors
                     ]
             case _:
-                kwargs["search_text"] = search_text if search_text else "*"
+                kwargs['search_text'] = search_text if search_text else '*'
                 if vectors:
-                    kwargs["vector_queries"] = [
-                        VectorizedQuery(vector=v, k_nearest_neighbors=limit, fields="vector")
-                        for v in vectors
+                    kwargs['vector_queries'] = [
+                        VectorizedQuery(vector=v, k_nearest_neighbors=limit, fields='vector') for v in vectors
                     ]
         return kwargs
 
-    # ── result extraction ────────────────────────────────────────
+    def _iter_documents(self, client: SearchClient, **kwargs):
+        """Yield all matching documents while following Azure continuation pages."""
+        results = client.search(**kwargs)
+        while True:
+            yield from results
+            continuation = results.get_continuation_token()
+            if not continuation:
+                return
+            kwargs['continuation_token'] = continuation
+            results = client.search(**kwargs)
+
     def _extract_search(
-        self, results, metadata_filter: Optional[Dict] = None,
+        self,
+        results,
+        metadata_filter: dict | None = None,
     ) -> SearchResult:
-        ids: List[List[str]]   = [[]]
-        docs: List[List[str]]  = [[]]
-        meta: List[List[Any]]  = [[]]
-        dist: List[List[float]] = [[]]
+        ids: list[list[str]] = [[]]
+        docs: list[list[str]] = [[]]
+        meta: list[list[Any]] = [[]]
+        dist: list[list[float]] = [[]]
         for doc in results:
-            meta_str = doc.get("metadata", "{}")
+            meta_str = doc.get('metadata', '{}')
             if metadata_filter and not self._match_metadata(meta_str, metadata_filter):
                 continue
-            ids[0].append(doc.get("id", ""))
-            docs[0].append(doc.get("text", ""))
-            meta[0].append(json.loads(meta_str) if meta_str else {})
-            dist[0].append(doc.get("@search.score", 0.0))
+            ids[0].append(doc.get('id', ''))
+            docs[0].append(doc.get('text', ''))
+            meta[0].append(self._decode_metadata(meta_str))
+            dist[0].append(doc.get('@search.score', 0.0))
         return SearchResult(
             ids=ids,
             documents=docs,
@@ -411,14 +437,14 @@ class AzureAISearchClient(VectorDBBase):
         )
 
     def _extract_get(self, results) -> GetResult:
-        ids: List[List[str]]  = [[]]
-        docs: List[List[str]] = [[]]
-        meta: List[List[Any]] = [[]]
+        ids: list[list[str]] = [[]]
+        docs: list[list[str]] = [[]]
+        meta: list[list[Any]] = [[]]
         for doc in results:
-            meta_str = doc.get("metadata", "{}")
-            ids[0].append(doc.get("id", ""))
-            docs[0].append(doc.get("text", ""))
-            meta[0].append(json.loads(meta_str) if meta_str else {})
+            meta_str = doc.get('metadata', '{}')
+            ids[0].append(doc.get('id', ''))
+            docs[0].append(doc.get('text', ''))
+            meta[0].append(self._decode_metadata(meta_str))
         return GetResult(
             ids=ids,
             documents=docs,
@@ -439,9 +465,13 @@ class AzureAISearchClient(VectorDBBase):
                 return False
             client = self._get_search_client(index_name)
             try:
-                results = list(client.search(
-                    search_text="*", filter=ns_filter, top=1,
-                ))
+                results = list(
+                    client.search(
+                        search_text='*',
+                        filter=ns_filter,
+                        top=1,
+                    )
+                )
                 return len(results) > 0
             except Exception:
                 return False
@@ -469,22 +499,31 @@ class AzureAISearchClient(VectorDBBase):
             except Exception:
                 pass
 
+    def _delete_batches(self, client: SearchClient, ids: list[dict[str, str]]) -> None:
+        for offset in range(0, len(ids), MAX_BATCH_SIZE):
+            results = client.delete_documents(ids[offset : offset + MAX_BATCH_SIZE])
+            failures = [item for item in results if not item.succeeded]
+            if failures:
+                raise RuntimeError(f'Azure AI Search delete failed for {len(failures)} documents')
+
     def _delete_by_filter(self, index_name: str, odata_filter: str) -> None:
         """Delete documents matching an OData filter (used in namespace mode)."""
         client = self._get_search_client(index_name)
         try:
             # Azure doesn't have "delete by filter" — we query then delete
-            results = list(client.search(
-                search_text="*", filter=odata_filter, top=MAX_SEARCH_SIZE,
-                select=["id"],
-            ))
-            if results:
-                ids = [{"id": d["id"]} for d in results]
-                client.delete_documents(ids)
+            results = self._iter_documents(
+                client,
+                search_text='*',
+                filter=odata_filter,
+                top=MAX_SEARCH_SIZE,
+                select=['id'],
+            )
+            ids = [{'id': d['id']} for d in results]
+            self._delete_batches(client, ids)
         except Exception as e:
-            log.warning("[AzureAISearch] _delete_by_filter error: %s", e)
+            log.warning('[AzureAISearch] _delete_by_filter error: %s', e)
 
-    def insert(self, collection_name: str, items: List[VectorItem]) -> None:
+    def insert(self, collection_name: str, items: list[VectorItem]) -> None:
         if not items:
             return
 
@@ -499,23 +538,28 @@ class AzureAISearchClient(VectorDBBase):
             # Azure AI Search needs time for the new index schema to propagate
             # before documents with new fields can be uploaded.
             import time as _time
+
             _time.sleep(3.0)
 
         docs = self._build_documents(items, collection_name)
         client = self._get_search_client(index_name)
         for i in range(0, len(docs), MAX_BATCH_SIZE):
-            client.merge_or_upload_documents(docs[i:i + MAX_BATCH_SIZE])
+            results = client.merge_or_upload_documents(docs[i : i + MAX_BATCH_SIZE])
+            failures = [item for item in results if not item.succeeded]
+            if failures:
+                raise RuntimeError(f'Azure AI Search upload failed for {len(failures)} documents')
 
-    def upsert(self, collection_name: str, items: List[VectorItem]) -> None:
+    def upsert(self, collection_name: str, items: list[VectorItem]) -> None:
         self.insert(collection_name, items)
 
     # ── search ──────────────────────────────────────────────────
     def search(
-        self, collection_name: str,
-        vectors: List[List[Union[float, int]]],
-        filter: Optional[Dict] = None,
+        self,
+        collection_name: str,
+        vectors: list[list[float | int]],
+        filter: dict | None = None,
         limit: int = 10,
-    ) -> Optional[SearchResult]:
+    ) -> SearchResult | None:
         index_name, ns_filter = self._resolve_collection(collection_name)
         if ns_filter and not self._index_exists(index_name):
             return SearchResult(ids=[[]], documents=[[]], metadatas=[[]], distances=[[]])
@@ -524,29 +568,41 @@ class AzureAISearchClient(VectorDBBase):
 
         client = self._get_search_client(index_name)
 
-        all_ids = []; all_docs = []; all_meta = []; all_dist = []
+        all_ids = []
+        all_docs = []
+        all_meta = []
+        all_dist = []
         for v in vectors:
             try:
                 kwargs = self._build_search_kwargs(
-                    search_text="*", vectors=[v], limit=limit,
+                    search_text='*',
+                    vectors=[v],
+                    limit=limit,
                     odata_filter=ns_filter,
                 )
-                results = client.search(**kwargs)
-                q_ids = []; q_docs = []; q_meta = []; q_dist = []
+                results = self._iter_documents(client, **kwargs)
+                q_ids = []
+                q_docs = []
+                q_meta = []
+                q_dist = []
                 for doc in results:
-                    meta_str = doc.get("metadata", "{}")
+                    meta_str = doc.get('metadata', '{}')
                     if filter and not self._match_metadata(meta_str, filter):
                         continue
-                    q_ids.append(doc.get("id", ""))
-                    q_docs.append(doc.get("text", ""))
-                    q_meta.append(json.loads(meta_str) if meta_str else {})
-                    q_dist.append(doc.get("@search.score", 0.0))
-                all_ids.append(q_ids); all_docs.append(q_docs)
-                all_meta.append(q_meta); all_dist.append(q_dist)
+                    q_ids.append(self._original_id(collection_name, doc.get('id', '')))
+                    q_docs.append(doc.get('text', ''))
+                    q_meta.append(self._decode_metadata(meta_str))
+                    q_dist.append(doc.get('@search.score', 0.0))
+                all_ids.append(q_ids)
+                all_docs.append(q_docs)
+                all_meta.append(q_meta)
+                all_dist.append(q_dist)
             except Exception as e:
-                log.error("[AzureAISearch] search error: %s", e)
-                all_ids.append([]); all_docs.append([])
-                all_meta.append([]); all_dist.append([])
+                log.error('[AzureAISearch] search error: %s', e)
+                all_ids.append([])
+                all_docs.append([])
+                all_meta.append([])
+                all_dist.append([])
 
         return SearchResult(
             ids=all_ids,
@@ -556,11 +612,14 @@ class AzureAISearchClient(VectorDBBase):
         )
 
     def hybrid_search(
-        self, collection_name: str, query: str,
-        vectors: List[List[Union[float, int]]],
-        filter: Optional[Dict] = None, limit: int = 10,
+        self,
+        collection_name: str,
+        query: str,
+        vectors: list[list[float | int]],
+        filter: dict | None = None,
+        limit: int = 10,
         hybrid_bm25_weight: float = 0.5,
-    ) -> Optional[SearchResult]:
+    ) -> SearchResult | None:
         """Azure-native hybrid: combines keyword (full-text) + vector."""
         index_name, ns_filter = self._resolve_collection(collection_name)
         if ns_filter and not self._index_exists(index_name):
@@ -570,29 +629,41 @@ class AzureAISearchClient(VectorDBBase):
 
         client = self._get_search_client(index_name)
 
-        all_ids = []; all_docs = []; all_meta = []; all_dist = []
+        all_ids = []
+        all_docs = []
+        all_meta = []
+        all_dist = []
         for v in vectors:
             try:
                 kwargs = self._build_search_kwargs(
-                    search_text=query, vectors=[v], limit=limit,
+                    search_text=query,
+                    vectors=[v],
+                    limit=limit,
                     odata_filter=ns_filter,
                 )
-                results = client.search(**kwargs)
-                q_ids = []; q_docs = []; q_meta = []; q_dist = []
+                results = self._iter_documents(client, **kwargs)
+                q_ids = []
+                q_docs = []
+                q_meta = []
+                q_dist = []
                 for doc in results:
-                    meta_str = doc.get("metadata", "{}")
+                    meta_str = doc.get('metadata', '{}')
                     if filter and not self._match_metadata(meta_str, filter):
                         continue
-                    q_ids.append(doc.get("id", ""))
-                    q_docs.append(doc.get("text", ""))
-                    q_meta.append(json.loads(meta_str) if meta_str else {})
-                    q_dist.append(doc.get("@search.score", 0.0))
-                all_ids.append(q_ids); all_docs.append(q_docs)
-                all_meta.append(q_meta); all_dist.append(q_dist)
+                    q_ids.append(self._original_id(collection_name, doc.get('id', '')))
+                    q_docs.append(doc.get('text', ''))
+                    q_meta.append(self._decode_metadata(meta_str))
+                    q_dist.append(doc.get('@search.score', 0.0))
+                all_ids.append(q_ids)
+                all_docs.append(q_docs)
+                all_meta.append(q_meta)
+                all_dist.append(q_dist)
             except Exception as e:
-                log.error("[AzureAISearch] hybrid_search error: %s", e)
-                all_ids.append([]); all_docs.append([])
-                all_meta.append([]); all_dist.append([])
+                log.error('[AzureAISearch] hybrid_search error: %s', e)
+                all_ids.append([])
+                all_docs.append([])
+                all_meta.append([])
+                all_dist.append([])
 
         return SearchResult(
             ids=all_ids,
@@ -602,9 +673,11 @@ class AzureAISearchClient(VectorDBBase):
         )
 
     def query(
-        self, collection_name: str, filter: Dict,
-        limit: Optional[int] = None,
-    ) -> Optional[GetResult]:
+        self,
+        collection_name: str,
+        filter: dict,
+        limit: int | None = None,
+    ) -> GetResult | None:
         index_name, ns_filter = self._resolve_collection(collection_name)
         # OWUI expects result.ids[0] to work; return empty shell, not None
         if ns_filter and not self._index_exists(index_name):
@@ -616,31 +689,35 @@ class AzureAISearchClient(VectorDBBase):
         effective_limit = limit or MAX_SEARCH_SIZE
 
         try:
-            results = client.search(
-                search_text="*", top=effective_limit,
+            results = self._iter_documents(
+                client,
+                search_text='*',
+                top=effective_limit,
                 filter=ns_filter,
-            ) if ns_filter else client.search(search_text="*", top=effective_limit)
+            )
 
-            ids = [[]]; docs = [[]]; meta = [[]]
+            ids = [[]]
+            docs = [[]]
+            meta = [[]]
             for doc in results:
-                meta_str = doc.get("metadata", "{}")
+                meta_str = doc.get('metadata', '{}')
                 if not self._match_metadata(meta_str, filter):
                     continue
                 if len(ids[0]) >= effective_limit:
                     break
-                ids[0].append(doc.get("id", ""))
-                docs[0].append(doc.get("text", ""))
-                meta[0].append(json.loads(meta_str) if meta_str else {})
+                ids[0].append(self._original_id(collection_name, doc.get('id', '')))
+                docs[0].append(doc.get('text', ''))
+                meta[0].append(self._decode_metadata(meta_str))
             return GetResult(
                 ids=ids,
                 documents=docs,
                 metadatas=meta,
             )
         except Exception as e:
-            log.error("[AzureAISearch] query error: %s", e)
+            log.error('[AzureAISearch] query error: %s', e)
             return GetResult(ids=[[]], documents=[[]], metadatas=[[]])
 
-    def get(self, collection_name: str) -> Optional[GetResult]:
+    def get(self, collection_name: str) -> GetResult | None:
         index_name, ns_filter = self._resolve_collection(collection_name)
         if ns_filter and not self._index_exists(index_name):
             return GetResult(ids=[[]], documents=[[]], metadatas=[[]])
@@ -649,19 +726,20 @@ class AzureAISearchClient(VectorDBBase):
 
         client = self._get_search_client(index_name)
         try:
-            kwargs = {"search_text": "*", "top": MAX_SEARCH_SIZE}
+            kwargs = {'search_text': '*', 'top': MAX_SEARCH_SIZE}
             if ns_filter:
-                kwargs["filter"] = ns_filter
-            results = client.search(**kwargs)
+                kwargs['filter'] = ns_filter
+            results = self._iter_documents(client, **kwargs)
             return self._extract_get(results)
         except Exception as e:
-            log.error("[AzureAISearch] get error: %s", e)
+            log.error('[AzureAISearch] get error: %s', e)
             return GetResult(ids=[[]], documents=[[]], metadatas=[[]])
 
     def delete(
-        self, collection_name: str,
-        ids: Optional[List[str]] = None,
-        filter: Optional[Dict] = None,
+        self,
+        collection_name: str,
+        ids: list[str] | None = None,
+        filter: dict | None = None,
     ) -> None:
         index_name, ns_filter = self._resolve_collection(collection_name)
         if ns_filter and not self._index_exists(index_name):
@@ -672,16 +750,22 @@ class AzureAISearchClient(VectorDBBase):
         client = self._get_search_client(index_name)
 
         if ids:
-            client.delete_documents([{"id": id_} for id_ in ids])
+            delete_ids = [{'id': self._storage_id(collection_name, id_)} for id_ in ids]
+            self._delete_batches(client, delete_ids)
         elif filter:
             result = self.query(collection_name, filter, limit=MAX_SEARCH_SIZE)
             if result and result.ids and result.ids[0]:
-                client.delete_documents([{"id": id_} for id_ in result.ids[0]])
+                self._delete_batches(
+                    client,
+                    [{'id': self._storage_id(collection_name, id_)} for id_ in result.ids[0]],
+                )
 
     def reset(self) -> None:
         try:
             for index in self._index_client.list_indexes():
-                log.info("[AzureAISearch] Deleting index: %s", index.name)
+                if not index.name.startswith(INDEX_PREFIX):
+                    continue
+                log.info('[AzureAISearch] Deleting index: %s', index.name)
                 self._index_client.delete_index(index.name)
         except Exception as e:
-            log.error("[AzureAISearch] reset error: %s", e)
+            log.error('[AzureAISearch] reset error: %s', e)
