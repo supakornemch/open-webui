@@ -95,3 +95,8 @@ class Vector:
 
 
 VECTOR_DB_CLIENT = Vector.get_vector(VECTOR_DB)
+
+
+def get_vector_db_client() -> VectorDBBase:
+    """Return the initialized client required by Open WebUI 0.11.4."""
+    return VECTOR_DB_CLIENT
